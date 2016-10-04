@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cstj.MvvmToolkit
+namespace MvvmToolkit
 {
     public abstract class BaseViewModel : INotifyPropertyChanged, INotifyPropertyChanging
     {
