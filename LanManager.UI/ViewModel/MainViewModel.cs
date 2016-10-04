@@ -1,5 +1,5 @@
-﻿using Cstj.MvvmToolkit;
-using Cstj.MvvmToolkit.Services.Definitions;
+﻿using MvvmToolkit;
+using MvvmToolkit.Services.Definitions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace Immobilus.UI.ViewModel
+namespace LanManager.UI.ViewModel
 {
     public class MainViewModel : BaseViewModel, IApplicationService
     {
