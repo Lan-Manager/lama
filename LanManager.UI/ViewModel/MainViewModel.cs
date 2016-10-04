@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace Immobilus.UI.ViewModel
+namespace LanManager.UI.ViewModel
 {
     public class MainViewModel : BaseViewModel, IApplicationService
     {
