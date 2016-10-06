@@ -1,0 +1,3 @@
+[submodule "LamaBD"]
+	path = LamaBD
+	url = https://github.com/Lan-Manager/LamaBD.git
