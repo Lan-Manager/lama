@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LanManager.UI
+namespace Lama
 {
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml

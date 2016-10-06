@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace LanManager.UI.Properties
+namespace Lama.Properties
 {
 
 
