@@ -63,8 +63,37 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Logic\Model\Test\Equipe.cs" />
+    <Compile Include="Logic\Model\Test\Joueur.cs" />
+    <Compile Include="Logic\Model\Test\Partie.cs" />
+    <Compile Include="Logic\Model\Test\Tour.cs" />
+    <Compile Include="Logic\Model\Test\Tournoi.cs" />
     <Compile Include="UI\UC\Locaux.xaml.cs">
       <DependentUpon>Locaux.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\GrilleControls\EquipesUC.xaml.cs">
+      <DependentUpon>EquipesUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\GrilleControls\GrilleUC.xaml.cs">
+      <DependentUpon>GrilleUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\GrilleControls\PartiesUC.xaml.cs">
+      <DependentUpon>PartiesUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\GrilleControls\ToursUC.xaml.cs">
+      <DependentUpon>ToursUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\PrixControls\PrixUC.xaml.cs">
+      <DependentUpon>PrixUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\MenuAccordeonUC.xaml.cs">
+      <DependentUpon>MenuAccordeonUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesUC.xaml.cs">
+      <DependentUpon>StatistiquesUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\TournoiUC.xaml.cs">
+      <DependentUpon>TournoiUC.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -79,6 +108,38 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UI\UC\Locaux.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\GrilleControls\EquipesUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\GrilleControls\GrilleUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\GrilleControls\PartiesUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\GrilleControls\ToursUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\PrixControls\PrixUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\StatistiquesControls\MenuAccordeonUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\TournoiUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -112,7 +173,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Logic\Model\" />
     <Folder Include="UI\Win\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

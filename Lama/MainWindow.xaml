@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lama"
         xmlns:controls="clr-namespace:Lama.UI.UC"
+        xmlns:tournoiControls="clr-namespace:Lama.UI.UC.TournoiControls"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
         Title="MainWindow" 
@@ -12,22 +13,28 @@
         Width="{Binding SystemParameters.PrimaryScreenWidth}"
         ShowTitleBar="False" ShowDialogsOverTitleBar="True" ShowMaxRestoreButton="False"
         ResizeMode="CanMinimize"
-        BorderBrush="{DynamicResource AccentColorBrush}"
+        BorderBrush="{DynamicResource HighlightBrush}"
         BorderThickness="2">
+    
+    
+    <Window.Resources>
+        <Style x:Key="control" TargetType="{x:Type UserControl}">
+            <Setter Property="Margin" Value="20" />
+        </Style>
+    </Window.Resources>
 
     <Grid Margin="30">
         <Controls:MetroAnimatedTabControl Margin="10" Grid.Row="1" Grid.Column="1">
             <Controls:MetroTabItem Header="Tournoi">
-                
+                <tournoiControls:TournoiUC Style="{StaticResource control}" />
             </Controls:MetroTabItem>
             <Controls:MetroTabItem Header="Locaux">
-                <controls:Locaux />
-                
+                <controls:Locaux Style="{StaticResource control}" />
             </Controls:MetroTabItem>
         </Controls:MetroAnimatedTabControl>
-        
+
         <TextBlock Grid.Row="0" HorizontalAlignment="Right" Margin="0,10,20,0">
-            <Hyperlink>S'authentifier</Hyperlink>
+            <Hyperlink Foreground="{DynamicResource HighlightBrush}">S'authentifier</Hyperlink>
         </TextBlock>
     </Grid>
 </Controls:MetroWindow>
