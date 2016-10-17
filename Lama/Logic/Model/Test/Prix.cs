@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 
 namespace Lama.Logic.Model.Test
 {
-    public class Equipe
+    public class Prix
     {
-        static int nbEquipe = 0;
         public string Nom { get; set; }
 
-        public Equipe()
+        public Prix()
         {
-            nbEquipe++;
-            Nom = "Équipe " + nbEquipe;
+            Nom = "...Prix test...";
+        }
+
+        public Prix(string n)
+        {
+            Nom = n;
         }
     }
 }

@@ -12,12 +12,13 @@ namespace Lama.Logic.Model.Test
         private static int nbTour = 0;
 
         public string Nom { get; set; }
-        public ObservableCollection<Partie> Parties { get { return new ObservableCollection<Partie>() { new Partie(1), new Partie(2), new Partie(3) }; } }
+        public ObservableCollection<Partie> Parties { get; set; }
 
         public Tour()
         {
             nbTour++;
             Nom = "Tour " + nbTour;
+            Parties = new ObservableCollection<Partie>() { new Partie(), new Partie(), new Partie() };
         }
     }
 }

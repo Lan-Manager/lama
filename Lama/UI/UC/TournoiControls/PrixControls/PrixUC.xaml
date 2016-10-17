@@ -6,7 +6,53 @@
              xmlns:local="clr-namespace:Lama.UI.UC.TournoiControls.PrixControls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
+
+    <UserControl.Resources>
+
+        <Style TargetType="Label" x:Key="prix">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="BorderBrush" Value="LightGray" />
+            <Setter Property="BorderThickness" Value="0 0 0 1" />
+            <Setter Property="Margin" Value="10" />
+        </Style>
+
+    </UserControl.Resources>
+
+    <StackPanel>
+
+        <Label Style="{StaticResource prix}" Content="Liste des prix remis à l'équipe gagnante" />
+
+        <ItemsControl ItemsSource="{Binding lstPrix}" Margin="10">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+
+                    <Label Content="{Binding Nom}" />
+
+                </DataTemplate>
+
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!--<Label Style="{StaticResource prix}" Content="Liste des prix de participation" />
+
+        <ItemsControl ItemsSource="{Binding lstPrix}" Margin="10">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+
+                    <Label Content="{Binding Nom}" />
+
+                </DataTemplate>
+
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ComboBox>
+            <ComboBoxItem Content="Équipe 1" />
+            <ComboBoxItem Content="Équipe 2" />
+            <ComboBoxItem Content="Équipe 3" />
+        </ComboBox>-->
+
+    </StackPanel>
 </UserControl>

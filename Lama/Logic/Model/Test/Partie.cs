@@ -9,12 +9,16 @@ namespace Lama.Logic.Model.Test
 {
     public class Partie
     {
-        public string Nom { get; set; }
-        public ObservableCollection<Equipe> Equipes { get { return new ObservableCollection<Equipe> { new Equipe(1), new Equipe(2) }; } }
+        private static int nbPartie = 0;
 
-        public Partie(int i)
+        public string Nom { get; set; }
+        public ObservableCollection<Equipe> Equipes { get; set; }
+
+        public Partie()
         {
-            Nom = "Partie " + i;
+            nbPartie++;
+            Nom = "Partie " + nbPartie;
+            Equipes = new ObservableCollection<Equipe> { new Equipe(), new Equipe() };
         }
     }
 }

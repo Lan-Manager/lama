@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using Lama.Logic.Model.Test;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Lama.UI.UC.TournoiControls.StatistiquesControls
 {
@@ -20,9 +8,23 @@ namespace Lama.UI.UC.TournoiControls.StatistiquesControls
     /// </summary>
     public partial class StatistiquesUC : UserControl
     {
+        public Tour SelectedTour { get; set; }
+        public Partie SelectedPartie { get; set; }
+
         public StatistiquesUC()
         {
             InitializeComponent();
+        }
+
+        private void lvTours_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            lvParties.ItemsSource = ((Tour)lvTours.SelectedItem).Parties;
+        }
+
+        private void lvParties_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            lvEquipes.SelectedIndex = 0;
+            lvEquipes.ItemsSource = ((Partie)lvParties.SelectedItem).Equipes;
         }
     }
 }
