@@ -66,6 +66,7 @@
     <Compile Include="Logic\Model\Test\Equipe.cs" />
     <Compile Include="Logic\Model\Test\Joueur.cs" />
     <Compile Include="Logic\Model\Test\Partie.cs" />
+    <Compile Include="Logic\Model\Test\Prix.cs" />
     <Compile Include="Logic\Model\Test\Tour.cs" />
     <Compile Include="Logic\Model\Test\Tournoi.cs" />
     <Compile Include="UI\UC\Locaux.xaml.cs">

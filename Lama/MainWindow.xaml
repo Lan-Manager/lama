@@ -18,9 +18,11 @@
     
     
     <Window.Resources>
+
         <Style x:Key="control" TargetType="{x:Type UserControl}">
             <Setter Property="Margin" Value="20" />
         </Style>
+                
     </Window.Resources>
 
     <Grid Margin="30">

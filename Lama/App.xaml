@@ -15,6 +15,19 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Lime.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="{x:Type ScrollViewer}">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            </Style>
+
+            <Style TargetType="{x:Type ItemsControl}">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            </Style>
+
+            <Style TargetType="{x:Type UserControl}">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            </Style>
+
         </ResourceDictionary>
 
     </Application.Resources>
