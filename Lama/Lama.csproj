@@ -87,9 +87,6 @@
     <Compile Include="UI\UC\TournoiControls\PrixControls\PrixUC.xaml.cs">
       <DependentUpon>PrixUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\MenuAccordeonUC.xaml.cs">
-      <DependentUpon>MenuAccordeonUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesUC.xaml.cs">
       <DependentUpon>StatistiquesUC.xaml</DependentUpon>
     </Compile>
@@ -129,10 +126,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\PrixControls\PrixUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\UC\TournoiControls\StatistiquesControls\MenuAccordeonUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

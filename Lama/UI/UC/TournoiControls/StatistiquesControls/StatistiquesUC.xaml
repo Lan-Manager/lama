@@ -6,7 +6,56 @@
              xmlns:local="clr-namespace:Lama.UI.UC.TournoiControls.StatistiquesControls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <Style TargetType="Label" x:Key="menu">
+            <Setter Property="Margin" Value="0 20 0 0" />
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.2*" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel>
+
+            <Label Style="{StaticResource menu}" Content="Tours" />
+            <ListView Name="lvTours" ItemsSource="{Binding Tours}" SelectionChanged="lvTours_SelectionChanged">
+                <ItemsControl.ItemTemplate>
+
+                    <DataTemplate>
+                        <Label Content="{Binding Nom}" />
+                    </DataTemplate>
+
+                </ItemsControl.ItemTemplate>
+            </ListView>
+
+            <Label Style="{StaticResource menu}" Content="Parties" />
+            <ListView Name="lvParties" DataContext="{Binding RelativeSource={RelativeSource Self}}" SelectionChanged="lvParties_SelectionChanged" >
+                <ItemsControl.ItemTemplate>
+
+                    <DataTemplate>
+                        <Label Content="{Binding Nom}" />
+                    </DataTemplate>
+
+                </ItemsControl.ItemTemplate>
+            </ListView>
+
+            <Label Style="{StaticResource menu}" Content="Équipes" />
+            <ListView Name="lvEquipes" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+                <ItemsControl.ItemTemplate>
+
+                    <DataTemplate>
+                        <Label Content="{Binding Nom}" />
+                    </DataTemplate>
+
+                </ItemsControl.ItemTemplate>
+            </ListView>
+        </StackPanel>
+
+        <Label Content="Here's the content..." Grid.Column="1" Margin="30" />
+
     </Grid>
 </UserControl>

@@ -8,11 +8,13 @@ namespace Lama.Logic.Model.Test
 {
     public class Equipe
     {
+        static int nbEquipe = 0;
         public string Nom { get; set; }
 
-        public Equipe(int i)
+        public Equipe()
         {
-            Nom = "Équipe " + i;
+            nbEquipe++;
+            Nom = "Équipe " + nbEquipe;
         }
     }
 }
