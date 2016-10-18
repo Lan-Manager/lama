@@ -10,21 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MahApps.Metro.Controls;
+using LamaBD;
+using System.Collections.ObjectModel;
 
-namespace Lama
+namespace Lama.example
 {
     /// <summary>
-    /// Logique d'interaction pour MainWindow.xaml
+    /// Logique d'interaction pour UtilisationEntity.xaml
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class UtilisationEntity : Window
     {
-        public MainWindow()
+        public UtilisationEntity()
         {
             InitializeComponent();
-            //new example.UtilisationEntity().Show();
+            var task = LamaBD.helper.CompteHelper.SelectAllAsync();
+            task.Wait();
+            List<comptes> data = task.Result;
+            dgComptes.ItemsSource = data;
         }
     }
 }
