@@ -121,7 +121,6 @@ namespace Lama.Logic.Model
         static void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
         {
             MessageBox.Show(e.PropertyName);
-            Console.WriteLine("Propriété changé mon boi");
         }
         /// <summary>
         /// Constructeur avec paramètre.
