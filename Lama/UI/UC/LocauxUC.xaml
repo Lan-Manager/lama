@@ -13,33 +13,64 @@
             <Setter Property="FontSize" Value="12"></Setter>
         </Style>
     </UserControl.Resources>
+
     <Grid>
         <Label Name="lblTitre" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,20,0">Local</Label>
-        <ComboBox Name="cboLocal" Width="80" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="65,35,20,0" ItemsSource="{Binding LstLocal}" DisplayMemberPath="Nom" SelectedValuePath="Nom" SelectedValue="{Binding Local}"></ComboBox>
+        <ComboBox Name="cboLocal" Width="80" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="65,35,20,0" ItemsSource="{Binding LstLocal}" DisplayMemberPath="Nom" SelectedValuePath="Nom" SelectedItem="{Binding LocalSelectionne}"></ComboBox>
         <Label Name="lblSommaireGlobal" FontWeight="DemiBold" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,30,0,0">Sommaire global</Label>
         <Label Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="-50,60,0,0">Prêts</Label>
+        <Label Name="lblPret_Global" Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="-50,80,0,0"></Label>
         <Label Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="100,60,0,0">Requis</Label>
+        <Label Name="lblRequis_Global" Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="100,80,0,0"></Label>
         <Label Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="300,60,0,0">Problématiques</Label>
+        <Label Name="lblProblematique_Global" Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="300,80,0,0"></Label>
         <Label Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="520,60,0,0">En attente</Label>
+        <Label Name="lblAttente_Global" Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="520,80,0,0"></Label>
 
         <Separator Margin="0,-275,0,0"></Separator>
-        <Label Name="lblSommaireLocal" FontWeight="DemiBold" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,-200,0,0">Sommaire</Label>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,100,0,0">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Label}" BasedOn="{StaticResource lblSommaire}" x:Key="lblPresentation">
+                    <Setter Property="Margin" Value="0,10,0,0"></Setter>
+                </Style>
+            </StackPanel.Resources>
+            <Label Name="lblSommaireLocal" FontWeight="DemiBold" FontSize="14" >Sommaire</Label>
+            <!---->
+            <Label Style="{StaticResource lblPresentation}">Prêts</Label>
+            <Label Name="lblPret" Style="{StaticResource lblSommaire}" Content="{Binding LocalSelectionne.NbPoste_Pret}"></Label>
+            <Label Style="{StaticResource lblPresentation}">Requis</Label>
+            <Label Name="lblRequis" Style="{StaticResource lblSommaire}" Content="{Binding LocalSelectionne.NbPoste_Requis, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></Label>
+            <Label Style="{StaticResource lblPresentation}">Problématiques</Label>
+            <Label Name="lblProblematique" Style="{StaticResource lblSommaire}" Content="{Binding LocalSelectionne.NbPoste_Probleme}"></Label>
+            <Label Style="{StaticResource lblPresentation}">En attente</Label>
+            <Label Name="lblAttente" Style="{StaticResource lblSommaire}" Content="{Binding LocalSelectionne.NbPoste_Attente}"></Label>
+            <!---->
+            <Label  FontWeight="DemiBold" FontSize="14">Nombre de poste</Label>
+            <TextBox Name="txtNbPoste" Width="110" Height="25" Text="{Binding LocalSelectionne.NbPoste, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"></TextBox>
 
-        <Label Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15,175,0,0">Prêts</Label>
-        <Label Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15,225,0,0">Requis</Label>
-        <Label Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15,275,0,0">Problématiques</Label>
-        <Label Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15,325,0,0">En attente</Label>
+            <Label  FontWeight="DemiBold" FontSize="14">Volontaire assigné</Label>
+            <ComboBox Name="cboVonlontaire" Width="110" Height="25" ItemsSource="{Binding LstVolontaires}" DisplayMemberPath="Nom" SelectedValuePath="Matricule" SelectedItem="{Binding VolontaireAssigne, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+        </StackPanel>
 
-        <Label  FontWeight="DemiBold" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,270,0,0">Nombre de poste</Label>
-        <Label  FontWeight="DemiBold" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,370,0,0">Volontaire assigné</Label>
 
-        <ComboBox Name="cboNbPoste" Width="110" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,-325"></ComboBox>
-        <ComboBox Name="cboVonlontaire" Width="110" Height="25" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,-425"></ComboBox>
-        <DataGrid Name="dgLocaux" Width="500" Height="350" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,30,20" AutoGenerateColumns="False">
+
+        <DataGrid Name="dgLocaux" Width="500" Height="350" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,30,20" AutoGenerateColumns="False" ItemsSource="{Binding LocalSelectionne.LstPoste}" ColumnWidth="*">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Poste" Binding="{Binding Numero}" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridComboBoxColumn Header="État" SelectedValueBinding="{Binding LstEtat}" ItemsSource="{Binding LstEtat}"></DataGridComboBoxColumn>
-                <DataGridComboBoxColumn Header="État" SelectedValueBinding="{Binding LstEtat}" ItemsSource="{Binding LstEtat}"></DataGridComboBoxColumn>
+                <DataGridTemplateColumn Header="État">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox ItemsSource="{Binding LstEtatPossible}" SelectedValue="{Binding Etat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Dernière modification par">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox ItemsSource="{Binding LstVolontaires, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedValue="{Binding DerniereModificationPar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Nom"></ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

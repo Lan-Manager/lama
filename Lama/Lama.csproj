@@ -94,6 +94,7 @@
     <Compile Include="UI\UC\Locaux.xaml.cs">
       <DependentUpon>Locaux.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Model\Volontaire.cs" />
     <Compile Include="UI\UC\TournoiControls\GrilleControls\EquipesUC.xaml.cs">
       <DependentUpon>EquipesUC.xaml</DependentUpon>
     </Compile>
