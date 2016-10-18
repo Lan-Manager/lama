@@ -25,7 +25,102 @@ namespace Lama.UI.UC
     {
         public ObservableCollection<Local> LstLocal { get; set; }
         public ObservableCollection<Volontaire> LstVolontaires { get; set; }
-        
+
+        private int _nbPostePret;
+        public int NbPoste_Pret
+        {
+            get
+            {
+                foreach (Local unLocal in LstLocal)
+                {
+                    foreach (Poste unPoste in unLocal.LstPoste)
+                    {
+                        if (unPoste.Etat == "Prêt")
+                        {
+                            _nbPostePret++;
+                        }
+                    }
+                }
+                return _nbPostePret;
+            }
+            set
+            {
+                if (value != _nbPostePret)
+                {
+                    _nbPostePret = value;
+                }
+            }
+
+        }
+        private int _nbPosteEnAttente;
+        public int NbPoste_EnAttente
+        {
+            get
+            {
+                foreach (Local unLocal in LstLocal)
+                {
+                    foreach (Poste unPoste in unLocal.LstPoste)
+                    {
+                        if (unPoste.Etat == "En attente")
+                        {
+                            _nbPosteEnAttente++;
+                        }
+                    }
+                }
+                return _nbPosteEnAttente;
+            }
+            set
+            {
+                if (value != _nbPosteEnAttente)
+                {
+                    _nbPosteEnAttente = value;
+                }
+            }
+        }
+        private int _nbPosteProbleme;
+        public int NbPoste_Probleme
+        {
+            get
+            {
+                foreach (Local unLocal in LstLocal)
+                {
+                    foreach (Poste unPoste in unLocal.LstPoste)
+                    {
+                        if (unPoste.Etat == "Problème")
+                        {
+                            _nbPosteProbleme++;
+                        }
+                    }
+                }
+                return _nbPosteProbleme;
+            }
+            set
+            {
+                if (value != _nbPosteProbleme)
+                {
+                    _nbPosteProbleme = value;
+                }
+            }
+        }
+        private int _nbPosteRequis;
+        public int NbPoste_Requis
+        {
+            get
+            {
+                foreach (Local unLocal in LstLocal)
+                {
+                    _nbPosteRequis += unLocal.NbPoste_Requis;
+                }
+                return _nbPosteRequis;
+            }
+            set
+            {
+                if (value != _nbPosteRequis)
+                {
+                    _nbPosteRequis = value;
+                }
+            }
+        }
         private Local _localSelectionne;
         public Local LocalSelectionne
         {
@@ -116,12 +211,7 @@ namespace Lama.UI.UC
         }
         protected void NotifyPropertyChanged(string nomProp)
         {
-
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(nomProp));
-            }
-
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
         }
         /// <summary>
         /// Fonction qui affiche le sommaire global de l'état des postes pour le tournoi.

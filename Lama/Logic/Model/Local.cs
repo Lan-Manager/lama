@@ -16,8 +16,10 @@ namespace Lama.Logic.Model
         public string Nom { get; set; }
 
         public ObservableCollection<Poste> LstPoste { get; set; }
-        private int _nbPoste;
+
+
         #region Propriétés concernant le nombre de postes.
+        private int _nbPoste;
         public int NbPoste
         {
             get
@@ -103,26 +105,36 @@ namespace Lama.Logic.Model
             }
         }
         #endregion
+
+        /// <summary>
+        /// Constructeur sans paramètre.
+        /// </summary>
         public Local()
         {
             LstPoste = new ObservableCollection<Poste>();
         }
-
-        protected void NotifyPropertyChanged(string nomProp)
-        {
-
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(nomProp));
-            }
-
-        }
+        
+        /// <summary>
+        /// Constructeur avec paramètre.
+        /// </summary>
+        /// <param name="nom">Nom du local Ex: "D125"</param>
+        /// <param name="nbPoste">Nombre de postes dans le local</param>
         public Local(string nom, int nbPoste)
         {
             NbPoste = nbPoste;
             Nom = nom;
             LstPoste = new ObservableCollection<Poste>();
         }
+        protected void NotifyPropertyChanged(string nomProp)
+        {
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
+            if (nomProp == "NbPoste")
+            {
+                NbPoste_Requis = _nbPoste - _nbPostePret;
+            }
+        }
+
     }
 }
 

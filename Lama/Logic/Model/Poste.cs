@@ -32,13 +32,10 @@ namespace Lama.Logic.Model
                 NotifyPropertyChanged("Etat");
             }
         }
-        protected void NotifyPropertyChanged(string nomProp)
+        public void NotifyPropertyChanged(string nomProp)
         {
 
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(nomProp));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
 
         }
 

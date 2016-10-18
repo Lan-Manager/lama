@@ -15,24 +15,23 @@
         ResizeMode="CanMinimize"
         BorderBrush="{DynamicResource HighlightBrush}"
         BorderThickness="2">
-    
-    
+
+
     <Window.Resources>
 
         <Style x:Key="control" TargetType="{x:Type UserControl}">
             <Setter Property="Margin" Value="20" />
         </Style>
-                
-    </Window.Resources>
 
+    </Window.Resources>
     <Grid Margin="30">
         <Controls:MetroAnimatedTabControl Margin="10" Grid.Row="1" Grid.Column="1">
             <Controls:MetroTabItem Header="Tournoi">
                 <tournoiControls:TournoiUC Style="{StaticResource control}" />
             </Controls:MetroTabItem>
             <Controls:MetroTabItem Header="Locaux">
-                <controls:LocauxUC />
-                <controls:Locaux Style="{StaticResource control}" />            </Controls:MetroTabItem>
+                <controls:LocauxUC Style="{StaticResource control}" />
+            </Controls:MetroTabItem>
         </Controls:MetroAnimatedTabControl>
 
         <TextBlock Grid.Row="0" HorizontalAlignment="Right" Margin="0,10,20,0">
