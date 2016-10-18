@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using LamaBD;
+using LamaBD.helper;
 using System.Collections.ObjectModel;
 
 namespace Lama.example
@@ -24,10 +25,16 @@ namespace Lama.example
         public UtilisationEntity()
         {
             InitializeComponent();
-            var task = LamaBD.helper.CompteHelper.SelectAllAsync();
+            var task = ParticipantHelper.SelectLoLPlayersAsync();
             task.Wait();
-            List<comptes> data = task.Result;
-            dgComptes.ItemsSource = data;
+            List<Participant_NomCompte> data = task.Result;
+            var tupleList = new List<Tuple<string, string>>();
+            foreach (var p in data)
+            {
+                tupleList.Add(Tuple.Create(p.Participant.matricule, p.NomCompte));
+            }
+            
+            dgComptes.ItemsSource = tupleList;
         }
     }
 }
