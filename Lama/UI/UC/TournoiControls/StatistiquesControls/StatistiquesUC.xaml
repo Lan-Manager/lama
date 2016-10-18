@@ -8,9 +8,74 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>
+
         <Style TargetType="Label" x:Key="menu">
             <Setter Property="Margin" Value="0 20 0 0" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
         </Style>
+
+        <Style TargetType="Label" x:Key="stats">
+            <Setter Property="Margin" Value="0 35 0 35" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+
+        <Style TargetType="local:ViewStatistiques">
+            <Setter Property="Grid.Column" Value="1" />
+        </Style>
+
+        <Style TargetType="WrapPanel">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="parties" TargetType="ListView" BasedOn="{StaticResource MetroListView}">
+            <Style.Triggers>
+                <Trigger Property="HasItems"
+                         Value="False">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListView">
+                                <TextBlock Text=" Aucun tour sélectionné..."/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="equipes" TargetType="ListView" BasedOn="{StaticResource MetroListView}">
+            <Style.Triggers>
+                <Trigger Property="HasItems"
+                         Value="False">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListView">
+                                <TextBlock Text=" Aucune partie sélectionnée..."/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="joueurs" TargetType="ListView" BasedOn="{StaticResource MetroListView}">
+            <Style.Triggers>
+                <Trigger Property="HasItems"
+                         Value="False">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListView">
+                                <TextBlock Text=" Aucune équipe sélectionnée..."/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
     </UserControl.Resources>
 
     <Grid>
@@ -18,11 +83,11 @@
             <ColumnDefinition Width="0.2*" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        
+
         <StackPanel>
 
             <Label Style="{StaticResource menu}" Content="Tours" />
-            <ListView Name="lvTours" ItemsSource="{Binding Tours}" SelectionChanged="lvTours_SelectionChanged">
+            <ListView Name="lvTours" ItemsSource="{Binding Tours}">
                 <ItemsControl.ItemTemplate>
 
                     <DataTemplate>
@@ -33,7 +98,7 @@
             </ListView>
 
             <Label Style="{StaticResource menu}" Content="Parties" />
-            <ListView Name="lvParties" DataContext="{Binding RelativeSource={RelativeSource Self}}" SelectionChanged="lvParties_SelectionChanged" >
+            <ListView Style="{StaticResource parties}" Name="lvParties" ItemsSource="{Binding ElementName=lvTours, Path=SelectedItem.Parties}">
                 <ItemsControl.ItemTemplate>
 
                     <DataTemplate>
@@ -44,7 +109,18 @@
             </ListView>
 
             <Label Style="{StaticResource menu}" Content="Équipes" />
-            <ListView Name="lvEquipes" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+            <ListView Style="{StaticResource equipes}" Name="lvEquipes" ItemsSource="{Binding ElementName=lvParties, Path=SelectedItem.Equipes}">
+                <ItemsControl.ItemTemplate>
+
+                    <DataTemplate>
+                        <Label Content="{Binding Nom}" />
+                    </DataTemplate>
+
+                </ItemsControl.ItemTemplate>
+            </ListView>
+
+            <Label Style="{StaticResource menu}" Content="Joueurs" />
+            <ListView Style="{StaticResource joueurs}" Name="lvJoueurs" ItemsSource="{Binding ElementName=lvEquipes, Path=SelectedItem.Joueurs}">
                 <ItemsControl.ItemTemplate>
 
                     <DataTemplate>
@@ -55,7 +131,29 @@
             </ListView>
         </StackPanel>
 
-        <Label Content="Here's the content..." Grid.Column="1" Margin="30" />
+        <StackPanel Grid.Column="1" Margin="20 0 0 0">
+
+            <Grid  Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <WrapPanel Grid.Column="1" Orientation="Horizontal" Width="auto">
+                    <Label Style="{StaticResource stats}" Content="Élimination(s)" />
+                    <Label Style="{StaticResource stats}" Content="Mort(s)" />
+                    <Label Style="{StaticResource stats}" Content="Assistance(s)" />
+                    <Label Style="{StaticResource stats}" Content="Batiment(s) détruit(s)" />
+                </WrapPanel>
+            </Grid>
+
+            <local:ViewStatistiques />
+            <local:ViewStatistiques DataContext="{Binding ElementName=lvTours, Path=SelectedItem}" />
+            <local:ViewStatistiques DataContext="{Binding ElementName=lvParties, Path=SelectedItem}" />
+            <local:ViewStatistiques DataContext="{Binding ElementName=lvEquipes, Path=SelectedItem}" />
+            <local:ViewStatistiques DataContext="{Binding ElementName=lvJoueurs, Path=SelectedItem}" />
+
+        </StackPanel>
 
     </Grid>
 </UserControl>

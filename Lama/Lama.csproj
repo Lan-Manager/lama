@@ -67,6 +67,7 @@
     <Compile Include="Logic\Model\Test\Joueur.cs" />
     <Compile Include="Logic\Model\Test\Partie.cs" />
     <Compile Include="Logic\Model\Test\Prix.cs" />
+    <Compile Include="Logic\Model\Test\Statistiques.cs" />
     <Compile Include="Logic\Model\Test\Tour.cs" />
     <Compile Include="Logic\Model\Test\Tournoi.cs" />
     <Compile Include="UI\UC\Locaux.xaml.cs">
@@ -89,6 +90,9 @@
     </Compile>
     <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesUC.xaml.cs">
       <DependentUpon>StatistiquesUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\ViewStatistiques.xaml.cs">
+      <DependentUpon>ViewStatistiques.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\UC\TournoiControls\TournoiUC.xaml.cs">
       <DependentUpon>TournoiUC.xaml</DependentUpon>
@@ -130,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\StatistiquesControls\ViewStatistiques.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

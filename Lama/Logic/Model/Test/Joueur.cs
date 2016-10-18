@@ -9,10 +9,12 @@ namespace Lama.Logic.Model.Test
     public class Joueur
     {
         public string Nom { get; set; }
-
+        public Statistiques lstStatistiques { get; set; }
+        
         public Joueur(string n)
         {
             Nom = n;
+            lstStatistiques = new Statistiques();
         }
     }
 }
