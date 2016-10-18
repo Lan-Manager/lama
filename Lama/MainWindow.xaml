@@ -30,12 +30,12 @@
                 <tournoiControls:TournoiUC Style="{StaticResource control}" />
             </Controls:MetroTabItem>
             <Controls:MetroTabItem Header="Locaux">
-                <controls:LocauxUC Style="{StaticResource control}" />
+                <controls:LocauxUC Style="{StaticResource control}"/>
             </Controls:MetroTabItem>
         </Controls:MetroAnimatedTabControl>
 
         <TextBlock Grid.Row="0" HorizontalAlignment="Right" Margin="0,10,20,0">
-            <Hyperlink Foreground="{DynamicResource HighlightBrush}">S'authentifier</Hyperlink>
+            <Hyperlink Name="Authentification" Foreground="{DynamicResource HighlightBrush}" Click="Authentification_Click">S'authentifier</Hyperlink>
         </TextBlock>
     </Grid>
 </Controls:MetroWindow>

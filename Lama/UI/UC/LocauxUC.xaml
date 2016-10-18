@@ -54,7 +54,7 @@
 
 
 
-        <DataGrid Name="dgLocaux" Width="500" Height="350" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,10,30,20" AutoGenerateColumns="False" ItemsSource="{Binding LocalSelectionne.LstPoste}" ColumnWidth="*">
+        <DataGrid Name="dgLocaux" Width="500" Height="350" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,10,30,20" AutoGenerateColumns="False" ItemsSource="{Binding LocalSelectionne.LstPoste}" ColumnWidth="*" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Poste" Binding="{Binding Numero}" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTemplateColumn Header="État">

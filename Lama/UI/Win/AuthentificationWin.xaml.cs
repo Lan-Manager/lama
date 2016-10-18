@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,17 +12,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Lama.Logic.Model;
 
-namespace Lama.UI.UC
+namespace Lama.UI.Win
 {
     /// <summary>
     /// Logique d'interaction pour Authentification.xaml
     /// </summary>
-    public partial class Authentification : UserControl
+    public partial class AuthentificationWin : MetroWindow
     {
 
-        public Authentification()
+        public AuthentificationWin()
         {
             InitializeComponent();
         }

@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using Lama.UI.UC;
+using Lama.UI.Win;
 
 namespace Lama
 {
@@ -25,6 +27,12 @@ namespace Lama
         {
             InitializeComponent();
             //new example.UtilisationEntity().Show();
+        }
+
+        private void Authentification_Click(object sender, RoutedEventArgs e)
+        {
+            MetroWindow FenetreAuthentification = new AuthentificationWin();
+            FenetreAuthentification.ShowDialog();
         }
     }
 }

@@ -69,9 +69,7 @@
     <Compile Include="Logic\Model\Test\Prix.cs" />
     <Compile Include="Logic\Model\Test\Tour.cs" />
     <Compile Include="Logic\Model\Test\Tournoi.cs" />
-    <Compile Include="UI\UC\AuthentificationUC.xaml.cs">
-      <DependentUpon>AuthentificationUC.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Logic\Model\TrulyObservableCollection.cs" />
     <Compile Include="UI\UC\TournoiControls\GrilleControls\EquipesUC.xaml.cs">
       <DependentUpon>EquipesUC.xaml</DependentUpon>
     </Compile>
@@ -99,6 +97,9 @@
       <DependentUpon>LocauxUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Logic\Model\Volontaire.cs" />
+    <Compile Include="UI\Win\AuthentificationWin.xaml.cs">
+      <DependentUpon>AuthentificationWin.xaml</DependentUpon>
+    </Compile>
     <Page Include="example\UtilisationEntity.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -115,10 +116,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UI\UC\AuthentificationUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UI\UC\LocauxUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -151,6 +148,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Win\AuthentificationWin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -182,9 +183,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UI\Win\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Lama.UI.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Specialized;
+using System.Windows;
 
 namespace Lama.Logic.Model
 {
@@ -15,7 +18,7 @@ namespace Lama.Logic.Model
 
         public string Nom { get; set; }
 
-        public ObservableCollection<Poste> LstPoste { get; set; }
+        public TrulyObservableCollection<Poste> LstPoste { get; set; }
 
 
         #region Propriétés concernant le nombre de postes.
@@ -111,9 +114,15 @@ namespace Lama.Logic.Model
         /// </summary>
         public Local()
         {
-            LstPoste = new ObservableCollection<Poste>();
+            LstPoste = new TrulyObservableCollection<Poste>();
+            LstPoste.ItemPropertyChanged += PropertyChangedHandler;
         }
-        
+
+        static void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
+        {
+            MessageBox.Show(e.PropertyName);
+            Console.WriteLine("Propriété changé mon boi");
+        }
         /// <summary>
         /// Constructeur avec paramètre.
         /// </summary>
@@ -123,7 +132,9 @@ namespace Lama.Logic.Model
         {
             NbPoste = nbPoste;
             Nom = nom;
-            LstPoste = new ObservableCollection<Poste>();
+            LstPoste = new TrulyObservableCollection<Poste>();
+            LstPoste.ItemPropertyChanged += PropertyChangedHandler;
+
         }
         protected void NotifyPropertyChanged(string nomProp)
         {
