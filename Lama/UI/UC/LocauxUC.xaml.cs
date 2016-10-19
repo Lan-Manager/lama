@@ -143,7 +143,6 @@ namespace Lama.UI.UC
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
-        //public ObservableCollection<string> LstEtatPossible { get; set; }
 
         #region Helpers
         /// <summary>
