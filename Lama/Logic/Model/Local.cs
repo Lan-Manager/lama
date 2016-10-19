@@ -35,8 +35,10 @@ namespace Lama.Logic.Model
                 {
                     return;
                 }
+
                 _nbPoste = value;
                 NotifyPropertyChanged("NbPoste");
+
             }
         }
         int _nbPostePret;
@@ -44,17 +46,17 @@ namespace Lama.Logic.Model
         {
             get
             {
-                _nbPostePret = 0;
-                foreach (Poste unPoste in LstPoste)
-                {
-                    if (unPoste.Etat == "Prêt")
-                        _nbPostePret++;
-                }
                 return _nbPostePret;
             }
             set
             {
-                _nbPostePret = value;
+                if (value != _nbPostePret)
+                {
+                    _nbPostePret = value;
+                    NotifyPropertyChanged("NbPoste_Pret");
+
+                }
+
             }
         }
         int _nbPosteAttente;
@@ -62,35 +64,33 @@ namespace Lama.Logic.Model
         {
             get
             {
-                _nbPosteAttente = 0;
-                foreach (Poste unPoste in LstPoste)
-                {
-                    if (unPoste.Etat == "En attente")
-                        _nbPosteAttente++;
-                }
                 return _nbPosteAttente;
             }
             set
             {
-                _nbPosteAttente = value;
+                if (value != _nbPosteAttente)
+                {
+                    _nbPosteAttente = value;
+                    NotifyPropertyChanged("NbPoste_Attente");
+
+                }
             }
         }
         int _nbPosteProbleme;
         public int NbPoste_Probleme
         {
             get
-            {
-                _nbPosteProbleme = 0;
-                foreach (Poste unPoste in LstPoste)
-                {
-                    if (unPoste.Etat == "Problème")
-                        _nbPosteProbleme++;
-                }
+            { 
                 return _nbPosteProbleme;
             }
             set
             {
-                _nbPosteProbleme = value;
+                if (value != _nbPosteProbleme)
+                {
+                    _nbPosteProbleme = value;
+                    NotifyPropertyChanged("NbPoste_Probleme");
+
+                }
             }
         }
         int _nbPosteRequis;
@@ -103,8 +103,11 @@ namespace Lama.Logic.Model
             }
             set
             {
-                NotifyPropertyChanged("NbPoste_Requis");
-                _nbPosteRequis = value;
+                if (value != _nbPosteRequis)
+                {
+                    _nbPosteRequis = value;
+                    NotifyPropertyChanged("NbPoste_Requis");
+                }
             }
         }
         #endregion
@@ -116,11 +119,12 @@ namespace Lama.Logic.Model
         {
             LstPoste = new TrulyObservableCollection<Poste>();
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
+            CalculerEtat();
         }
 
-        static void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
+        private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
         {
-            MessageBox.Show(e.PropertyName);
+            NotifyPropertyChanged("Etat");
         }
         /// <summary>
         /// Constructeur avec paramètre.
@@ -133,18 +137,50 @@ namespace Lama.Logic.Model
             Nom = nom;
             LstPoste = new TrulyObservableCollection<Poste>();
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
+            CalculerEtat();
+        }
+        /// <summary>
+        /// Méthode qui calcule l'état actuel des postes selon le local.
+        /// </summary>
+        public void CalculerEtat()
+        {
+            int nbPoste_Pret = 0;
+            int nbPoste_Probleme = 0;
+            int nbPoste_Attente = 0;
+
+            foreach (Poste unPoste in LstPoste)
+            {
+                if (unPoste.Etat == "Prêt")
+                {
+                    nbPoste_Pret++;
+                }
+                if (unPoste.Etat == "Problème")
+                {
+                    nbPoste_Probleme++;
+                }
+                if (unPoste.Etat == "En attente")
+                {
+                    nbPoste_Attente++;
+                }
+            }
+            NbPoste_Pret = nbPoste_Pret;
+            NbPoste_Probleme = nbPoste_Probleme;
+            NbPoste_Attente = nbPoste_Attente;
+            NbPoste_Requis = NbPoste - NbPoste_Pret;
 
         }
         protected void NotifyPropertyChanged(string nomProp)
         {
-
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
             if (nomProp == "NbPoste")
             {
                 NbPoste_Requis = _nbPoste - _nbPostePret;
             }
+            if (nomProp == "Etat")
+            {
+                CalculerEtat();
+            }
         }
-
     }
 }
 

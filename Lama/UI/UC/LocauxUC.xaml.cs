@@ -48,6 +48,7 @@ namespace Lama.UI.UC
                 if (value != _nbPostePret)
                 {
                     _nbPostePret = value;
+                    NotifyPropertyChanged("NbPoste_Pret");
                 }
             }
 
@@ -74,6 +75,7 @@ namespace Lama.UI.UC
                 if (value != _nbPosteEnAttente)
                 {
                     _nbPosteEnAttente = value;
+                    NotifyPropertyChanged("NbPoste_EnAttente");
                 }
             }
         }
@@ -99,6 +101,7 @@ namespace Lama.UI.UC
                 if (value != _nbPosteProbleme)
                 {
                     _nbPosteProbleme = value;
+                    NotifyPropertyChanged("NbPoste_Probleme");
                 }
             }
         }
@@ -118,6 +121,7 @@ namespace Lama.UI.UC
                 if (value != _nbPosteRequis)
                 {
                     _nbPosteRequis = value;
+                    NotifyPropertyChanged("NbPoste_Requis");
                 }
             }
         }
@@ -131,12 +135,11 @@ namespace Lama.UI.UC
             set
             {
                 // Si il n'y a pas de changement on ne fait pas d'assignation et on ne lance pas le PropertyChanged.
-                if (value == _localSelectionne)
+                if (value != _localSelectionne)
                 {
-                    return;
+                    _localSelectionne = value;
+                    NotifyPropertyChanged("LocalSelectionne");
                 }
-                _localSelectionne = value;
-                NotifyPropertyChanged("LocalSelectionne");
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -195,6 +198,11 @@ namespace Lama.UI.UC
             LstLocal[1].LstPoste.Add(P8);
             LstLocal[1].LstPoste.Add(P9);
             LstLocal[2].LstPoste.Add(P10);
+
+            foreach(Local l in LstLocal)
+            {
+                l.CalculerEtat();
+            }
         }
         #endregion
         public LocauxUC()
@@ -204,7 +212,7 @@ namespace Lama.UI.UC
             GetLocaux();
             GetPoste();
             InitializeComponent();
-
+            // LocalSelectionne.CalculerEtat();
             // On met l'index de l'item que l'on veut afficher par défaut.
             cboLocal.SelectedIndex = 0;
             
@@ -212,43 +220,6 @@ namespace Lama.UI.UC
         protected void NotifyPropertyChanged(string nomProp)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
-        }
-        /// <summary>
-        /// Fonction qui affiche le sommaire global de l'état des postes pour le tournoi.
-        /// </summary>
-        private void AfficherSommaireGlobal()
-        {
-            int nbPret = 0;
-            int nbAttente = 0;
-            int nbRequis = 0;
-            int nbProbleme = 0;
-            int nbPoste_Total = 0;
-            foreach (Local unLocal in LstLocal)
-            {
-                foreach (Poste unPoste in unLocal.LstPoste)
-                {
-                    nbPoste_Total++;
-                    if (unPoste.Etat.Equals("Prêt"))
-                    {
-                        nbPret++;
-                    }
-                    else if (unPoste.Etat.Equals("En attente"))
-                    {
-                        nbAttente++;
-                    }
-                    else if (unPoste.Etat.Equals("Problème"))
-                    {
-                        nbProbleme++;
-                    }
-                }
-            }
-            // Le nombre de local requi est égal au nombre de poste du local moins le nombre de poste prêt a être utilisé.
-            nbRequis = nbPoste_Total - nbPret;
-            // On change le contenu de l'affichage.
-            lblAttente_Global.Content = nbAttente;
-            lblPret_Global.Content = nbPret;
-            lblProblematique_Global.Content = nbProbleme;
-            lblRequis_Global.Content = nbRequis;
-        }
+        } 
     }
 }

@@ -24,12 +24,11 @@ namespace Lama.Logic.Model
             }
             set
             {
-                if (value == _etat)
+                if (value != _etat)
                 {
-                    return;
+                    _etat = value;
+                    NotifyPropertyChanged("Etat");
                 }
-                _etat = value;
-                NotifyPropertyChanged("Etat");
             }
         }
         public void NotifyPropertyChanged(string nomProp)
