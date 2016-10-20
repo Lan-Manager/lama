@@ -119,7 +119,6 @@ namespace Lama.Logic.Model
         {
             LstPoste = new TrulyObservableCollection<Poste>();
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
-            CalculerEtat();
         }
 
         private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
@@ -137,7 +136,6 @@ namespace Lama.Logic.Model
             Nom = nom;
             LstPoste = new TrulyObservableCollection<Poste>();
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
-            CalculerEtat();
         }
         /// <summary>
         /// Méthode qui calcule l'état actuel des postes selon le local.

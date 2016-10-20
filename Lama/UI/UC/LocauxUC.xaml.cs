@@ -1,20 +1,7 @@
 ﻿using Lama.Logic.Model;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Lama.UI.UC
 {
@@ -26,6 +13,7 @@ namespace Lama.UI.UC
         public ObservableCollection<Local> LstLocal { get; set; }
         public ObservableCollection<Volontaire> LstVolontaires { get; set; }
 
+        #region Propriétés de LocauxUC
         private int _nbPostePret;
         public int NbPoste_Pret
         {
@@ -125,6 +113,8 @@ namespace Lama.UI.UC
                 }
             }
         }
+        #endregion
+
         private Local _localSelectionne;
         public Local LocalSelectionne
         {
@@ -214,7 +204,6 @@ namespace Lama.UI.UC
             // LocalSelectionne.CalculerEtat();
             // On met l'index de l'item que l'on veut afficher par défaut.
             cboLocal.SelectedIndex = 0;
-            
         }
         protected void NotifyPropertyChanged(string nomProp)
         {
