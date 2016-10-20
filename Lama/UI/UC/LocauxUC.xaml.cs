@@ -187,11 +187,6 @@ namespace Lama.UI.UC
             LstLocal[1].LstPoste.Add(P8);
             LstLocal[1].LstPoste.Add(P9);
             LstLocal[2].LstPoste.Add(P10);
-
-            foreach(Local l in LstLocal)
-            {
-                l.CalculerEtat();
-            }
         }
         #endregion
         public LocauxUC()
@@ -201,7 +196,8 @@ namespace Lama.UI.UC
             GetLocaux();
             GetPoste();
             InitializeComponent();
-            // LocalSelectionne.CalculerEtat();
+            
+
             // On met l'index de l'item que l'on veut afficher par défaut.
             cboLocal.SelectedIndex = 0;
         }
