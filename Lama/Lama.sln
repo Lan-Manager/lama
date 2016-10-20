@@ -1,9 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lama", "Lama.csproj", "{87AD4ACD-A5AF-4DE3-8D64-D6B3A797C1E6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{43DBDBC1-CFD1-4C37-9A8A-FECE59935552} = {43DBDBC1-CFD1-4C37-9A8A-FECE59935552}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LamaBD", "..\LamaBD\LamaBD.csproj", "{43DBDBC1-CFD1-4C37-9A8A-FECE59935552}"
 EndProject
