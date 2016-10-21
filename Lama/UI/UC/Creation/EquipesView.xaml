@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Lama.UI.UC.Creation.EquipesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:local="clr-namespace:Lama.UI.UC.Creation"
+             mc:Ignorable="d" 
+             d:DesignHeight="625" d:DesignWidth="550">
+    <Grid>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Équipes" />
+
+        <DataGrid Name="dgEquipes" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="350" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding}" Width="*" Header="Équipe" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBox Name="txtNewEquipe" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,475,0,0" Width="100"/>
+        <Button Name="btnAddEquipe" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,475,0,0" Content="+" Click="btnAddEquipe_Click"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Lama.UI.UC.Creation.LocauxView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lama.UI.UC.Creation"
+             mc:Ignorable="d" 
+             d:DesignHeight="625" d:DesignWidth="550">
+    <Grid>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Sélection des locaux" />
+
+        <DataGrid Name="dgLocaux" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="425" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Binding="{Binding Numero}" Header="Local" IsReadOnly="True"/>
+                <DataGridCheckBoxColumn Width="*" Header="Actif" IsReadOnly="False"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

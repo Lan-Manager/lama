@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="Lama.UI.UC.Creation.ParticipantsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lama.UI.UC.Creation"
+             mc:Ignorable="d" 
+             d:DesignHeight="625" d:DesignWidth="550">
+    <Grid>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Participants" />
+
+        <DataGrid Name="dgJoueurs" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="275" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="Matricule"/>
+                <DataGridTextColumn Width="*" Header="Prénom"/>
+                <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Nom"/>
+                <DataGridTextColumn Width="*" Header="Rang"/>
+                <DataGridTextColumn Width="*" Header="Compte"/>
+                <DataGridCheckBoxColumn Width="*" Header="Actif"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Name="btnImport" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,375,0,0" Content="Importer une liste de joueurs..." Click="btnImport_Click"/>
+    </Grid>
+</UserControl>

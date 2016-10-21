@@ -120,6 +120,9 @@
     <Compile Include="UI\Win\AuthentificationWin.xaml.cs">
       <DependentUpon>AuthentificationWin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Win\CreerTournoiWindow.xaml.cs">
+      <DependentUpon>CreerTournoiWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="example\UtilisationEntity.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -169,6 +172,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Win\AuthentificationWin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Win\CreerTournoiWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
