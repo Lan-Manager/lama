@@ -12,15 +12,9 @@ namespace Lama.UI.UC.Creation
     /// </summary>
     public partial class ParticipantsView : UserControl
     {
-        public ObservableCollection<Tournoi> Tournois { get; set; }
-
         public ParticipantsView()
         {
             InitializeComponent();
-
-            Tournois = new ObservableCollection<Tournoi>();
-
-            dgJoueurs.ItemsSource = Tournois;
         }
 
         private void btnImport_Click(object sender, System.Windows.RoutedEventArgs e)

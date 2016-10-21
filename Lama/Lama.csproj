@@ -90,6 +90,21 @@
     <Compile Include="Logic\Model\Test\Tour.cs" />
     <Compile Include="Logic\Model\Test\Tournoi.cs" />
     <Compile Include="Logic\Model\TrulyObservableCollection.cs" />
+    <Compile Include="UI\UC\Creation\EquipesView.xaml.cs">
+      <DependentUpon>EquipesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\Creation\InformationsGeneralesView.xaml.cs">
+      <DependentUpon>InformationsGeneralesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\Creation\LocauxView.xaml.cs">
+      <DependentUpon>LocauxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\Creation\ParticipantsView.xaml.cs">
+      <DependentUpon>ParticipantsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\Creation\VolontairesView.xaml.cs">
+      <DependentUpon>VolontairesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\UC\TournoiControls\GrilleControls\EquipesUC.xaml.cs">
       <DependentUpon>EquipesUC.xaml</DependentUpon>
     </Compile>
@@ -139,6 +154,26 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UI\UC\Creation\EquipesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\UC\Creation\InformationsGeneralesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\UC\Creation\LocauxView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\UC\Creation\ParticipantsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\UC\Creation\VolontairesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\UC\LocauxUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

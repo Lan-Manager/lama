@@ -21,15 +21,9 @@ namespace Lama.UI.UC.Creation
     /// </summary>
     public partial class LocauxView : UserControl
     {
-        private List<Tournoi> lstTournois;
-
         public LocauxView()
         {
             InitializeComponent();
-
-            lstTournois = new List<Tournoi>();
-
-            dgLocaux.ItemsSource = lstTournois;
         }
     }
 }
