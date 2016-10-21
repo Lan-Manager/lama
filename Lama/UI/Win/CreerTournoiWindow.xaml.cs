@@ -49,25 +49,52 @@ namespace Lama.UI.Win
 
             // Afficher la première page
             content.Content = Views.First();
+
+            // Disable le bouton précédent
+            btnPrecedent.IsEnabled = false;
         }
         #endregion
 
         #region Events
         private void btnPrecedent_Click(object sender, RoutedEventArgs e)
         {
-            if (Index > 0)
+            // Changer de page
+            Index--;
+            content.Content = Views[Index];
+
+            // Si on retourne à la première page, on disable le bouton précédent
+            if (Index == 0)
             {
-                Index--;
-                content.Content = Views[Index];
+                btnPrecedent.IsEnabled = false;
+            }
+
+            // 
+            if (Index == Views.Count - 2)
+            {
+                btnSuivant.Content = "Suivant";
             }
         }
 
         private void btnSuivant_Click(object sender, RoutedEventArgs e)
         {
+            // TODO: enlever une fois la confirmation fini
             if (Index < Views.Count - 1)
             {
+                // Changer de page
                 Index++;
                 content.Content = Views[Index];
+
+                // Si on n'est plus à la première page
+                if (Index == 1)
+                {
+                    btnPrecedent.IsEnabled = true;
+                }
+
+                // S'occuper du bouton suivant
+                if (Index == Views.Count -1)
+                {
+                    btnSuivant.Content = "Enregistrer";
+                }
             }
         }
         #endregion
