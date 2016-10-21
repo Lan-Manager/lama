@@ -9,7 +9,7 @@
     <Grid>
         <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Participants" />
 
-        <DataGrid Name="dgJoueurs" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="275" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" IsReadOnly="True">
+        <DataGrid Name="dgJoueurs" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="475" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Matricule"/>
                 <DataGridTextColumn Width="*" Header="Prénom"/>
@@ -19,7 +19,5 @@
                 <DataGridCheckBoxColumn Width="*" Header="Actif"/>
             </DataGrid.Columns>
         </DataGrid>
-
-        <Button Name="btnImport" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,375,0,0" Content="Importer une liste de joueurs..." Click="btnImport_Click"/>
     </Grid>
 </UserControl>

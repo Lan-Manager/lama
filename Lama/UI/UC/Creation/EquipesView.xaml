@@ -10,13 +10,10 @@
     <Grid>
         <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Équipes" />
 
-        <DataGrid Name="dgEquipes" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="350" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <DataGrid Name="dgEquipes" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="475" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding}" Width="*" Header="Équipe" />
             </DataGrid.Columns>
         </DataGrid>
-
-        <TextBox Name="txtNewEquipe" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,475,0,0" Width="100"/>
-        <Button Name="btnAddEquipe" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,475,0,0" Content="+" Click="btnAddEquipe_Click"/>
     </Grid>
 </UserControl>
