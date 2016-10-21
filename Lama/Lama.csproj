@@ -41,6 +41,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\MahApps.Metro.1.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -88,11 +90,14 @@
     <Compile Include="UI\UC\TournoiControls\PrixControls\PrixUC.xaml.cs">
       <DependentUpon>PrixUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\MenuUC.xaml.cs">
+      <DependentUpon>MenuUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesTour.xaml.cs">
+      <DependentUpon>StatistiquesTour.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesUC.xaml.cs">
       <DependentUpon>StatistiquesUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\ViewStatistiques.xaml.cs">
-      <DependentUpon>ViewStatistiques.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\UC\TournoiControls\TournoiUC.xaml.cs">
       <DependentUpon>TournoiUC.xaml</DependentUpon>
@@ -133,11 +138,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesUC.xaml">
+    <Page Include="UI\UC\TournoiControls\StatistiquesControls\MenuUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesTour.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\UC\TournoiControls\StatistiquesControls\ViewStatistiques.xaml">
+    <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

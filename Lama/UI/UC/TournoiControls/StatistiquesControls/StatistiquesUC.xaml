@@ -10,10 +10,9 @@
     <UserControl.Resources>
 
         <Style TargetType="Label" x:Key="menu">
-            <Setter Property="Margin" Value="0 20 0 0" />
-            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Margin" Value="0 8 0 0" />
+            <Setter Property="FontSize" Value="10" />
             <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
         </Style>
 
         <Style TargetType="Label" x:Key="stats">
@@ -21,10 +20,6 @@
             <Setter Property="FontSize" Value="18" />
             <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}" />
             <Setter Property="HorizontalAlignment" Value="Center" />
-        </Style>
-
-        <Style TargetType="local:ViewStatistiques">
-            <Setter Property="Grid.Column" Value="1" />
         </Style>
 
         <Style TargetType="WrapPanel">
@@ -80,79 +75,52 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.2*" />
+            <ColumnDefinition Width="0.3*" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <StackPanel>
+        <ScrollViewer>
+            <StackPanel>
 
-            <Label Style="{StaticResource menu}" Content="Tours" />
-            <ListView Name="lvTours" ItemsSource="{Binding Tours}">
-                <ItemsControl.ItemTemplate>
+                <Label Style="{StaticResource menu}" Content="Tours" />
+                <ListView Name="lvTours" ItemsSource="{Binding Tours}">
+                    <ItemsControl.ItemTemplate>
 
-                    <DataTemplate>
-                        <Label Content="{Binding Nom}" />
-                    </DataTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Nom}" />
+                        </DataTemplate>
 
-                </ItemsControl.ItemTemplate>
-            </ListView>
+                    </ItemsControl.ItemTemplate>
+                </ListView>
 
-            <Label Style="{StaticResource menu}" Content="Parties" />
-            <ListView Style="{StaticResource parties}" Name="lvParties" ItemsSource="{Binding ElementName=lvTours, Path=SelectedItem.Parties}">
-                <ItemsControl.ItemTemplate>
+                <Label Style="{StaticResource menu}" Content="Parties" />
+                <ListView Style="{StaticResource parties}" Name="lvParties" ItemsSource="{Binding ElementName=lvTours, Path=SelectedItem.Parties}">
+                    <ItemsControl.ItemTemplate>
 
-                    <DataTemplate>
-                        <Label Content="{Binding Nom}" />
-                    </DataTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Nom}" />
+                        </DataTemplate>
 
-                </ItemsControl.ItemTemplate>
-            </ListView>
+                    </ItemsControl.ItemTemplate>
+                </ListView>
 
-            <Label Style="{StaticResource menu}" Content="Équipes" />
-            <ListView Style="{StaticResource equipes}" Name="lvEquipes" ItemsSource="{Binding ElementName=lvParties, Path=SelectedItem.Equipes}">
-                <ItemsControl.ItemTemplate>
+                <Label Style="{StaticResource menu}" Content="Équipes" />
+                <ListView Style="{StaticResource equipes}" Name="lvEquipes" ItemsSource="{Binding ElementName=lvParties, Path=SelectedItem.Equipes}">
+                    <ItemsControl.ItemTemplate>
 
-                    <DataTemplate>
-                        <Label Content="{Binding Nom}" />
-                    </DataTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Nom}" />
+                        </DataTemplate>
 
-                </ItemsControl.ItemTemplate>
-            </ListView>
-
-            <Label Style="{StaticResource menu}" Content="Joueurs" />
-            <ListView Style="{StaticResource joueurs}" Name="lvJoueurs" ItemsSource="{Binding ElementName=lvEquipes, Path=SelectedItem.Joueurs}">
-                <ItemsControl.ItemTemplate>
-
-                    <DataTemplate>
-                        <Label Content="{Binding Nom}" />
-                    </DataTemplate>
-
-                </ItemsControl.ItemTemplate>
-            </ListView>
-        </StackPanel>
-
+                    </ItemsControl.ItemTemplate>
+                </ListView>
+                
+            </StackPanel>
+        </ScrollViewer>
         <StackPanel Grid.Column="1" Margin="20 0 0 0">
 
-            <Grid  Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.3*"/>
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <WrapPanel Grid.Column="1" Orientation="Horizontal" Width="auto">
-                    <Label Style="{StaticResource stats}" Content="Élimination(s)" />
-                    <Label Style="{StaticResource stats}" Content="Mort(s)" />
-                    <Label Style="{StaticResource stats}" Content="Assistance(s)" />
-                    <Label Style="{StaticResource stats}" Content="Batiment(s) détruit(s)" />
-                </WrapPanel>
-            </Grid>
-
-            <local:ViewStatistiques />
-            <local:ViewStatistiques DataContext="{Binding ElementName=lvTours, Path=SelectedItem}" />
-            <local:ViewStatistiques DataContext="{Binding ElementName=lvParties, Path=SelectedItem}" />
-            <local:ViewStatistiques DataContext="{Binding ElementName=lvEquipes, Path=SelectedItem}" />
-            <local:ViewStatistiques DataContext="{Binding ElementName=lvJoueurs, Path=SelectedItem}" />
-
+            <local:StatistiquesTour Grid.Column="1" DataContext="{Binding ElementName=lvTours, Path=SelectedItem}" />
+            
         </StackPanel>
 
     </Grid>
