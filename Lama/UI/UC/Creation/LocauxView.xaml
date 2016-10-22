@@ -9,7 +9,7 @@
     <Grid>
         <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Sélection des locaux" />
 
-        <DataGrid Name="dgLocaux" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="425" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <DataGrid Name="dgLocaux" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="475" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Binding="{Binding Numero}" Header="Local" IsReadOnly="True"/>
                 <DataGridCheckBoxColumn Width="*" Header="Actif" IsReadOnly="False"/>
