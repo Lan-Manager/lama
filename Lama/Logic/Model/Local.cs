@@ -22,8 +22,11 @@ namespace Lama.Logic.Model
 
 
         #region Propriétés concernant le nombre de postes.
+
+        public int NbPoste_Depart { get; set; } // Le nombre de poste ayant été prévu lors de la création du tournoi.
+
         private int _nbPoste;
-        public int NbPoste
+        public int NbPoste // Le nombre de poste présentement utilisé pour le tournoi.
         {
             get
             {
@@ -42,7 +45,7 @@ namespace Lama.Logic.Model
             }
         }
         int _nbPostePret;
-        public int NbPoste_Pret
+        public int NbPoste_Pret // Le nombre de poste présentement prêt à être utilisé pour le tournoi.
         {
             get
             {
@@ -60,7 +63,7 @@ namespace Lama.Logic.Model
             }
         }
         int _nbPosteAttente;
-        public int NbPoste_Attente
+        public int NbPoste_Attente // Le nombre de poste qui n'ont pas été visité par un volontaire.
         {
             get
             {
@@ -77,10 +80,10 @@ namespace Lama.Logic.Model
             }
         }
         int _nbPosteProbleme;
-        public int NbPoste_Probleme
+        public int NbPoste_Probleme // Le nombre de poste ayant rencontré un problème lors de la tournée des volontaires.
         {
             get
-            { 
+            {
                 return _nbPosteProbleme;
             }
             set
@@ -93,12 +96,27 @@ namespace Lama.Logic.Model
                 }
             }
         }
-        int _nbPosteRequis;
-        public int NbPoste_Requis
+        int _nbPosteNonRequis;
+        public int NbPoste_NonRequis // Le nombre de poste qui ne sont plus requis pour le tournoi.
         {
             get
             {
-                _nbPosteRequis = NbPoste - NbPoste_Pret;
+                return _nbPosteNonRequis;
+            }
+            set
+            {
+                if (value != _nbPosteNonRequis)
+                {
+                    _nbPosteNonRequis = value;
+                    NotifyPropertyChanged("NbPoste_NonRequis");
+                }
+            }
+        }
+        int _nbPosteRequis;
+        public int NbPoste_Requis // Le nombre de poste dont l'état n'est pas encore prêt.
+        {
+            get
+            {
                 return _nbPosteRequis;
             }
             set
@@ -133,6 +151,7 @@ namespace Lama.Logic.Model
         public Local(string nom, int nbPoste)
         {
             NbPoste = nbPoste;
+            NbPoste_Depart = nbPoste;
             Nom = nom;
             LstPoste = new TrulyObservableCollection<Poste>();
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
@@ -153,7 +172,7 @@ namespace Lama.Logic.Model
             int nbPoste_Pret = 0;
             int nbPoste_Probleme = 0;
             int nbPoste_Attente = 0;
-
+            int nbPoste_NonRequis = 0;
             foreach (Poste unPoste in LstPoste)
             {
                 if (unPoste.Etat == "Prêt")
@@ -168,8 +187,14 @@ namespace Lama.Logic.Model
                 {
                     nbPoste_Attente++;
                 }
+                if (unPoste.Etat == "Non requis")
+                {
+                    nbPoste_NonRequis++;
+                }
             }
+            NbPoste_NonRequis = nbPoste_NonRequis;
             NbPoste_Pret = nbPoste_Pret;
+            NbPoste = NbPoste_Depart - NbPoste_NonRequis; // Le nombre de poste est maintenant égal au nombre de poste du départ moins ceux non requis.
             NbPoste_Probleme = nbPoste_Probleme;
             NbPoste_Attente = nbPoste_Attente;
             NbPoste_Requis = NbPoste - NbPoste_Pret;
@@ -179,10 +204,6 @@ namespace Lama.Logic.Model
         protected void NotifyPropertyChanged(string nomProp)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
-            if (nomProp == "NbPoste")
-            {
-                NbPoste_Requis = _nbPoste - _nbPostePret;
-            }
             // Si l'état d'un poste change, on effectu le calcul des états pour le local.
             if (nomProp == "Etat")
             {
