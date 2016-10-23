@@ -10,12 +10,12 @@
     <UserControl.Resources>
 
         <Style TargetType="Label" x:Key="partie">
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="BorderBrush" Value="LightGray" />
-            <Setter Property="BorderThickness" Value="0 0 0 1" />
-            <Setter Property="Margin" Value="10" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="FontSize" Value="12" />
-            <Setter Property="Foreground" Value="{StaticResource AccentColorBrush3}" />
+            <Setter Property="Margin" Value="0 10 0 10" />
+            <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource IdealForegroundColorBrush}" />
+            <Setter Property="BorderThickness" Value="0 0 0 1" />
         </Style>
 
     </UserControl.Resources>
@@ -25,7 +25,7 @@
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" />
+                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" />
 
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
@@ -33,7 +33,7 @@
         <ItemsControl.ItemTemplate>
             <DataTemplate>
 
-                <StackPanel>
+                <StackPanel Margin="35 0 35 0">
                     <Label Style="{StaticResource partie}" Content="{Binding Nom}" />
                     <local:EquipesUC DataContext="{Binding Equipes}" />
                 </StackPanel>

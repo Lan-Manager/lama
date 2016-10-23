@@ -10,7 +10,7 @@ namespace Lama.Logic.Model.Test
     public class Statistiques
     {
         public Dictionary<string, int> Stats { get; set; }
-        public ObservableCollection<int> test { get; set; }
+        public string showStats { get; set; }
 
         public Statistiques()
         {
@@ -21,6 +21,18 @@ namespace Lama.Logic.Model.Test
             stats.Add("Batiment(s) détruit(s)", 4);
 
             Stats = stats;
+
+            StringBuilder s = new StringBuilder();
+
+            foreach (var stat in Stats)
+            {
+                s.Append(stat.Value);
+
+                if (stat.Key != Stats.Keys.Last())
+                    s.Append(" / ");
+            }
+
+            showStats = s.ToString();
         }
     }
 }

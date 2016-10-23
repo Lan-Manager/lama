@@ -10,13 +10,12 @@
     <UserControl.Resources>
 
         <Style TargetType="Label" x:Key="tour">
-            <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="FontSize" Value="14" />
-            <Setter Property="BorderBrush" Value="LightGray" />
-            <Setter Property="BorderThickness" Value="0 0 0 1" />
             <Setter Property="Margin" Value="10" />
-            <Setter Property="Foreground" Value="{StaticResource AccentColorBrush2}" />
+            <Setter Property="Foreground" Value="{StaticResource AccentBaseColorBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource IdealForegroundColorBrush}" />
+            <Setter Property="BorderThickness" Value="0 0 0 1" />
         </Style>
 
     </UserControl.Resources>

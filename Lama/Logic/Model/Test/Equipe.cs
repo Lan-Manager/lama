@@ -13,6 +13,7 @@ namespace Lama.Logic.Model.Test
         public string Nom { get; set; }
         public Statistiques lstStatistiques { get; set; }
         public ObservableCollection<Joueur> Joueurs { get; set; }
+        public bool EstGagnant { get; set; }
 
         public Equipe()
         {
@@ -22,6 +23,8 @@ namespace Lama.Logic.Model.Test
             lstStatistiques = new Statistiques();
 
             Joueurs = new ObservableCollection<Joueur>() { new Joueur("Max"), new Joueur("Francis"), new Joueur("Tristan"), new Joueur("Antoine") };
+
+            EstGagnant = (nbEquipe % 2 == 0) ? true : false;
         }
     }
 }

@@ -93,6 +93,15 @@
     <Compile Include="UI\UC\TournoiControls\StatistiquesControls\MenuUC.xaml.cs">
       <DependentUpon>MenuUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesEquipe.xaml.cs">
+      <DependentUpon>StatistiquesEquipe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesModelesUC.xaml.cs">
+      <DependentUpon>StatistiquesModelesUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesPartie.xaml.cs">
+      <DependentUpon>StatistiquesPartie.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesTour.xaml.cs">
       <DependentUpon>StatistiquesTour.xaml</DependentUpon>
     </Compile>
@@ -141,6 +150,18 @@
     <Page Include="UI\UC\TournoiControls\StatistiquesControls\MenuUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesEquipe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesModelesUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesPartie.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesTour.xaml">
       <SubType>Designer</SubType>

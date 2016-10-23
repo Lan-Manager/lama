@@ -28,8 +28,7 @@
 
         <Style x:Key="parties" TargetType="ListView" BasedOn="{StaticResource MetroListView}">
             <Style.Triggers>
-                <Trigger Property="HasItems"
-                         Value="False">
+                <Trigger Property="HasItems" Value="False">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListView">
@@ -43,8 +42,7 @@
 
         <Style x:Key="equipes" TargetType="ListView" BasedOn="{StaticResource MetroListView}">
             <Style.Triggers>
-                <Trigger Property="HasItems"
-                         Value="False">
+                <Trigger Property="HasItems" Value="False">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListView">
@@ -58,8 +56,7 @@
 
         <Style x:Key="joueurs" TargetType="ListView" BasedOn="{StaticResource MetroListView}">
             <Style.Triggers>
-                <Trigger Property="HasItems"
-                         Value="False">
+                <Trigger Property="HasItems" Value="False">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListView">
@@ -114,14 +111,22 @@
 
                     </ItemsControl.ItemTemplate>
                 </ListView>
-                
+
+                <Label Margin="0 30 0 0" Style="{StaticResource menu}" Content="** Modèle statistiques **" />
+                <local:StatistiquesModelesUC />
+
             </StackPanel>
         </ScrollViewer>
-        <StackPanel Grid.Column="1" Margin="20 0 0 0">
 
-            <local:StatistiquesTour Grid.Column="1" DataContext="{Binding ElementName=lvTours, Path=SelectedItem}" />
-            
-        </StackPanel>
+        <ScrollViewer Grid.Column="1">
+            <StackPanel Margin="20 0 0 0">
+
+                <local:StatistiquesTour DataContext="{Binding ElementName=lvTours, Path=SelectedItem}" />
+                <local:StatistiquesPartie DataContext="{Binding ElementName=lvParties, Path=SelectedItem}" />
+                <local:StatistiquesTour DataContext="{Binding ElementName=lvEquipes, Path=SelectedItem}" />
+
+            </StackPanel>
+        </ScrollViewer>
 
     </Grid>
 </UserControl>
