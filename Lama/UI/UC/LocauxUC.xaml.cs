@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Controls;
+using System;
+using System.Windows;
 
 namespace Lama.UI.UC
 {
@@ -19,16 +21,6 @@ namespace Lama.UI.UC
         {
             get
             {
-                foreach (Local unLocal in LstLocal)
-                {
-                    foreach (Poste unPoste in unLocal.LstPoste)
-                    {
-                        if (unPoste.Etat == "Prêt")
-                        {
-                            _nbPostePret++;
-                        }
-                    }
-                }
                 return _nbPostePret;
             }
             set
@@ -46,16 +38,6 @@ namespace Lama.UI.UC
         {
             get
             {
-                foreach (Local unLocal in LstLocal)
-                {
-                    foreach (Poste unPoste in unLocal.LstPoste)
-                    {
-                        if (unPoste.Etat == "En attente")
-                        {
-                            _nbPosteEnAttente++;
-                        }
-                    }
-                }
                 return _nbPosteEnAttente;
             }
             set
@@ -72,16 +54,6 @@ namespace Lama.UI.UC
         {
             get
             {
-                foreach (Local unLocal in LstLocal)
-                {
-                    foreach (Poste unPoste in unLocal.LstPoste)
-                    {
-                        if (unPoste.Etat == "Problème")
-                        {
-                            _nbPosteProbleme++;
-                        }
-                    }
-                }
                 return _nbPosteProbleme;
             }
             set
@@ -93,22 +65,34 @@ namespace Lama.UI.UC
                 }
             }
         }
-        private int _nbPosteRequis;
+        private int _nbPosteRestant;
+        public int NbPoste_Restant
+        {
+            get
+            {
+                return _nbPosteRestant;
+            }
+            set
+            {
+                if (value != _nbPosteRestant)
+                {
+                    _nbPosteRestant = value;
+                    NotifyPropertyChanged("NbPoste_Restant");
+                }
+            }
+        }
+        private int _nbRequis;
         public int NbPoste_Requis
         {
             get
             {
-                foreach (Local unLocal in LstLocal)
-                {
-                    _nbPosteRequis += unLocal.NbPoste_Requis;
-                }
-                return _nbPosteRequis;
+                return _nbRequis;
             }
             set
             {
-                if (value != _nbPosteRequis)
+                if (value != _nbRequis)
                 {
-                    _nbPosteRequis = value;
+                    _nbRequis = value;
                     NotifyPropertyChanged("NbPoste_Requis");
                 }
             }
@@ -196,14 +180,55 @@ namespace Lama.UI.UC
             GetLocaux();
             GetPoste();
             InitializeComponent();
-            
 
+            foreach (Local l in LstLocal)
+            {
+                l.PropertyChanged += Local_PropertyChanged;
+            }
+            
             // On met l'index de l'item que l'on veut afficher par défaut.
             cboLocal.SelectedIndex = 0;
+            CalculerEtat();
         }
+
+
+        private void Local_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "NbPoste_Pret" || e.PropertyName == "NbPoste_Attente" || e.PropertyName == "NbPoste_Probleme" || e.PropertyName == "NbPoste_NonRequis" || e.PropertyName == "NbPoste_Restant" || e.PropertyName == "NbPoste")
+            {
+                CalculerEtat();
+            }
+        }
+
         protected void NotifyPropertyChanged(string nomProp)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
-        } 
+        }
+        
+        /// <summary>
+        /// Fonction qui calcule les états et met a jour les propriétés pour l'affichage du sommaire global.
+        /// </summary>
+        private void CalculerEtat()
+        {
+            int nbPoste_Pret = 0;
+            int nbPoste_Probleme = 0;
+            int nbPoste_Attente = 0;
+            int nbPoste_Restant = 0;
+            int nbPoste_Requis = 0;
+
+            foreach (Local l in LstLocal)
+            {
+                nbPoste_Pret += l.NbPoste_Pret;
+                nbPoste_Probleme += l.NbPoste_Probleme;
+                nbPoste_Attente += l.NbPoste_Attente;
+                nbPoste_Restant += l.NbPoste_Restant;
+                nbPoste_Requis += l.NbPoste;
+            }
+            NbPoste_Pret = nbPoste_Pret;
+            NbPoste_Probleme = nbPoste_Probleme;
+            NbPoste_EnAttente = nbPoste_Attente;
+            NbPoste_Restant = nbPoste_Restant;
+            NbPoste_Requis = nbPoste_Requis;
+        }
     }
 }

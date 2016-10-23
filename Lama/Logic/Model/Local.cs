@@ -20,6 +20,7 @@ namespace Lama.Logic.Model
 
         public TrulyObservableCollection<Poste> LstPoste { get; set; }
 
+        public Volontaire VolontaireAssigne { get; set; } // Le volontaire assigné à ce local.
 
         #region Propriétés concernant le nombre de postes.
 
@@ -112,19 +113,19 @@ namespace Lama.Logic.Model
                 }
             }
         }
-        int _nbPosteRequis;
-        public int NbPoste_Requis // Le nombre de poste dont l'état n'est pas encore prêt.
+        int _nbPosteRestant;
+        public int NbPoste_Restant // Le nombre de poste dont l'état n'est pas encore prêt.
         {
             get
             {
-                return _nbPosteRequis;
+                return _nbPosteRestant;
             }
             set
             {
-                if (value != _nbPosteRequis)
+                if (value != _nbPosteRestant)
                 {
-                    _nbPosteRequis = value;
-                    NotifyPropertyChanged("NbPoste_Requis");
+                    _nbPosteRestant = value;
+                    NotifyPropertyChanged("NbPoste_Restant");
                 }
             }
         }
@@ -137,6 +138,7 @@ namespace Lama.Logic.Model
         {
             LstPoste = new TrulyObservableCollection<Poste>();
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
+            LstPoste.CollectionChanged += LstPoste_CollectionChanged;
         }
 
         private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
@@ -197,7 +199,7 @@ namespace Lama.Logic.Model
             NbPoste = NbPoste_Depart - NbPoste_NonRequis; // Le nombre de poste est maintenant égal au nombre de poste du départ moins ceux non requis.
             NbPoste_Probleme = nbPoste_Probleme;
             NbPoste_Attente = nbPoste_Attente;
-            NbPoste_Requis = NbPoste - NbPoste_Pret;
+            NbPoste_Restant = NbPoste - NbPoste_Pret;
 
         }
 

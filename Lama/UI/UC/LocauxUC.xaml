@@ -20,13 +20,15 @@
         <Label Name="lblSommaireGlobal" FontWeight="DemiBold" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,30,0,0" Foreground="{StaticResource AccentColorBrush}">Sommaire global</Label>
         <Label Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="-50,60,0,0" Foreground="{StaticResource AccentColorBrush}">Prêts</Label>
         <Label Name="lblPret_Global" Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="-50,80,0,0" Content="{Binding NbPoste_Pret, UpdateSourceTrigger=PropertyChanged}"></Label>
-        <Label Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="100,60,0,0" Foreground="{StaticResource AccentColorBrush}">Requis</Label>
-        <Label Name="lblRequis_Global" Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="100,80,0,0" Content="{Binding NbPoste_Requis, UpdateSourceTrigger=PropertyChanged}"></Label>
+        <Label Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="100,60,0,0" Foreground="{StaticResource AccentColorBrush}">Restants</Label>
+        <Label Name="lblRestant_Global" Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="100,80,0,0" Content="{Binding NbPoste_Restant, UpdateSourceTrigger=PropertyChanged}"></Label>
         <Label Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="300,60,0,0" Foreground="{StaticResource AccentColorBrush}">Problématiques</Label>
         <Label Name="lblProblematique_Global" Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="300,80,0,0" Content="{Binding NbPoste_Probleme, UpdateSourceTrigger=PropertyChanged}"></Label>
         <Label Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="520,60,0,0" Foreground="{StaticResource AccentColorBrush}">En attente</Label>
         <Label Name="lblAttente_Global" Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="520,80,0,0" Content="{Binding NbPoste_EnAttente, UpdateSourceTrigger=PropertyChanged}"></Label>
-
+        <Label Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="720,60,0,0" Foreground="{StaticResource AccentColorBrush}">Requis</Label>
+        <Label Name="lblRequis_Global" Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="720,80,0,0" Content="{Binding NbPoste_Requis, UpdateSourceTrigger=PropertyChanged}"></Label>
+        
         <Separator Margin="0,-275,0,0"></Separator>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,100,0,0">
             <StackPanel.Resources>
@@ -38,18 +40,18 @@
             <!---->
             <Label Style="{StaticResource lblPresentation}" Foreground="{StaticResource AccentColorBrush}">Prêts</Label>
             <Label Name="lblPret" Style="{StaticResource lblSommaire}" Content="{Binding LocalSelectionne.NbPoste_Pret, UpdateSourceTrigger=PropertyChanged}"></Label>
-            <Label Style="{StaticResource lblPresentation}" Foreground="{StaticResource AccentColorBrush}">Requis</Label>
-            <Label Name="lblRequis" Style="{StaticResource lblSommaire}" Content="{Binding LocalSelectionne.NbPoste_Requis, UpdateSourceTrigger=PropertyChanged}"></Label>
+            <Label Style="{StaticResource lblPresentation}" Foreground="{StaticResource AccentColorBrush}">Restants</Label>
+            <Label Name="lblRequis" Style="{StaticResource lblSommaire}" Content="{Binding LocalSelectionne.NbPoste_Restant, UpdateSourceTrigger=PropertyChanged}"></Label>
             <Label Style="{StaticResource lblPresentation}" Foreground="{StaticResource AccentColorBrush}">Problématiques</Label>
             <Label Name="lblProblematique" Style="{StaticResource lblSommaire}" Content="{Binding LocalSelectionne.NbPoste_Probleme, UpdateSourceTrigger=PropertyChanged}"></Label>
             <Label Style="{StaticResource lblPresentation}" Foreground="{StaticResource AccentColorBrush}">En attente</Label>
             <Label Name="lblAttente" Style="{StaticResource lblSommaire}" Content="{Binding LocalSelectionne.NbPoste_Attente, UpdateSourceTrigger=PropertyChanged}"></Label>
             <!---->
-            <Label  FontWeight="DemiBold" FontSize="14" Foreground="{StaticResource AccentColorBrush}">Nombre de poste</Label>
-            <TextBox Name="txtNbPoste" Width="110" Height="25" Text="{Binding LocalSelectionne.NbPoste, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"></TextBox>
+            <Label  FontWeight="DemiBold" FontSize="14" Foreground="{StaticResource AccentColorBrush}">Requis</Label>
+            <Label Name="txtNbPoste" Content="{Binding LocalSelectionne.NbPoste, UpdateSourceTrigger=PropertyChanged}"></Label>
 
             <Label  FontWeight="DemiBold" FontSize="14" Foreground="{StaticResource AccentColorBrush}">Volontaire assigné</Label>
-            <ComboBox Name="cboVonlontaire" Width="110" Height="25" ItemsSource="{Binding LstVolontaires}" DisplayMemberPath="Nom" SelectedValuePath="Matricule" SelectedItem="{Binding VolontaireAssigne, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+            <ComboBox HorizontalAlignment="Left" Name="cboVonlontaire" Width="110" Height="25" ItemsSource="{Binding LstVolontaires}" DisplayMemberPath="Nom" SelectedValuePath="Matricule" SelectedItem="{Binding LocalSelectionne.VolontaireAssigne, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
         </StackPanel>
 
 
