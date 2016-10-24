@@ -13,12 +13,14 @@ namespace Lama.Logic.Model.Test
 
         public string Nom { get; set; }
         public ObservableCollection<Partie> Parties { get; set; }
-
+        public Statistiques lstStatistiques { get; set; }
+        
         public Tour()
         {
             nbTour++;
             Nom = "Tour " + nbTour;
             Parties = new ObservableCollection<Partie>() { new Partie(), new Partie(), new Partie() };
+            lstStatistiques = new Statistiques();
         }
     }
 }

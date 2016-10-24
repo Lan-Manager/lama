@@ -58,6 +58,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\MahApps.Metro.1.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -87,9 +89,14 @@
     <Compile Include="Logic\Model\Test\Joueur.cs" />
     <Compile Include="Logic\Model\Test\Partie.cs" />
     <Compile Include="Logic\Model\Test\Prix.cs" />
+    <Compile Include="Logic\Model\Test\Statistique.cs" />
+    <Compile Include="Logic\Model\Test\Statistiques.cs" />
     <Compile Include="Logic\Model\Test\Tour.cs" />
     <Compile Include="Logic\Model\Test\Tournoi.cs" />
     <Compile Include="Logic\Model\TrulyObservableCollection.cs" />
+    <Compile Include="UI\UC\TournoiControls\ClassementControls\ClassementUC.xaml.cs">
+      <DependentUpon>ClassementUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\UC\TournoiControls\GrilleControls\EquipesUC.xaml.cs">
       <DependentUpon>EquipesUC.xaml</DependentUpon>
     </Compile>
@@ -104,6 +111,21 @@
     </Compile>
     <Compile Include="UI\UC\TournoiControls\PrixControls\PrixUC.xaml.cs">
       <DependentUpon>PrixUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\MenuUC.xaml.cs">
+      <DependentUpon>MenuUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesEquipeUC.xaml.cs">
+      <DependentUpon>StatistiquesEquipeUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesModelesUC.xaml.cs">
+      <DependentUpon>StatistiquesModelesUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesPartieUC.xaml.cs">
+      <DependentUpon>StatistiquesPartieUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesTourUC.xaml.cs">
+      <DependentUpon>StatistiquesTourUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesUC.xaml.cs">
       <DependentUpon>StatistiquesUC.xaml</DependentUpon>
@@ -140,6 +162,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\UC\TournoiControls\ClassementControls\ClassementUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\UC\TournoiControls\GrilleControls\EquipesUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -157,6 +183,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\PrixControls\PrixUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\MenuUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesEquipeUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesModelesUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesPartieUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesTourUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -209,8 +255,11 @@
       <Name>LamaBD</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\bgtexture.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

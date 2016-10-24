@@ -10,29 +10,19 @@
     <UserControl.Resources>
         <Style TargetType="Label" x:Key="emphase">
             <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="18" />
+            <Setter Property="Margin" Value="50" />
             <Setter Property="FontSize" Value="20" />
+            <Setter Property="Foreground" Value="{StaticResource AccentBaseColorBrush}" />
         </Style>
     </UserControl.Resources>
 
     <ScrollViewer>
-        <Grid>
+        <StackPanel>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="8*" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+            <Label Style="{StaticResource emphase}" Content="{Binding Nom}" />
+            <local:ToursUC />
+            <Label Style="{StaticResource emphase}" Content="{Binding Vainqueur.Nom}" Foreground="Lime" />
 
-            <Label Grid.Column="1" Style="{StaticResource emphase}" Content="{Binding Nom}" />
-            <local:ToursUC Grid.Row="1" Grid.Column="1" />
-            <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource emphase}" Content="{Binding Vainqueur.Nom}" Foreground="Green"/>
-
-        </Grid>
+        </StackPanel>
     </ScrollViewer>
 </UserControl>
