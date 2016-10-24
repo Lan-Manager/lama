@@ -9,9 +9,6 @@
     <Grid>
         <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Prix (Optionnel)" />
 
-        <!--
-        <DataGrid Name="dgPrix" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="475" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False">
-        -->
         <DataGrid Name="dgPrix" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="475" AutoGenerateColumns="False" CanUserAddRows="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Prix">

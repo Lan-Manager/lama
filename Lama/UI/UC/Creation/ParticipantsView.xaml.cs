@@ -5,6 +5,9 @@ using System.Windows;
 using Microsoft.Win32;
 using System.IO;
 using Lama.Logic.Model.Francis;
+using LamaBD.helper;
+using LamaBD;
+using System.Collections.Generic;
 
 namespace Lama.UI.UC.Creation
 {
@@ -19,17 +22,27 @@ namespace Lama.UI.UC.Creation
         {
             InitializeComponent();
 
-            LstParticipants = new ObservableCollection<Participant>();
-
-            // Test
-            LstParticipants.Add(new Participant("1111111", "test", "test", "Diamond", "123"));
-            LstParticipants.Add(new Participant("1111111", "test", "test", "Diamond", "123"));
-            LstParticipants.Add(new Participant("1111111", "test", "test", "Diamond", "123"));
-            LstParticipants.Add(new Participant("1111111", "test", "test", "Diamond", "123"));
-            LstParticipants.Add(new Participant("1111111", "test", "test", "Diamond", "123"));
+            LstParticipants = ChargerParticipants();
 
             // Lier la liste à la datagrid
             dgJoueurs.ItemsSource = LstParticipants;
+        }
+
+        private ObservableCollection<Participant> ChargerParticipants()
+        {
+            var task = ParticipantHelper.SelectAllAsync();
+            task.Wait();
+
+            List<participants> data = task.Result;
+
+            ObservableCollection<Participant> lstTemp = new ObservableCollection<Participant>();
+
+            foreach (var participant in data)
+            {
+                lstTemp.Add(new Participant(participant.matricule, participant.prenom, participant.nom, "rang", "usager"));
+            }
+
+            return lstTemp;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Lama.Logic.Model;
+using LamaBD;
 using LamaBD.helper;
 using System;
 using System.Collections.Generic;
@@ -31,18 +32,27 @@ namespace Lama.UI.UC.Creation
             InitializeComponent();
 
             // Initialiser la liste de locaux
-            LstLocaux = new ObservableCollection<Local>();
-
-            // TEST
-            LstLocaux.Add(new Local("D125", 10));
-            LstLocaux.Add(new Local("D105", 10));
-            LstLocaux.Add(new Local("C246", 10));
+            LstLocaux = ChargerLocaux();
 
             // Associer la liste à la datagrid
             dgLocaux.ItemsSource = LstLocaux;
+        }
 
-            // TODO: enlever l'item vide de la datagrid
-            // TODO: aller chercher les locaux dans la BD
+        private ObservableCollection<Local> ChargerLocaux ()
+        {
+            var task = LocalHelper.SelectAllAsync();
+            task.Wait();
+
+            List<locaux> data = task.Result;
+
+            ObservableCollection<Local> lstTemp = new ObservableCollection<Local>();
+            
+            foreach (var local in data)
+            {
+                lstTemp.Add(new Local(local.numero, 10));
+            }
+
+            return lstTemp;
         }
     }
 }

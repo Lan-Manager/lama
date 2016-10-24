@@ -1,4 +1,6 @@
 ﻿using Lama.Logic.Model.Francis;
+using LamaBD;
+using LamaBD.helper;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,20 +31,27 @@ namespace Lama.UI.UC.Creation
             InitializeComponent();
 
             // Initialiser l'observable collection
-            LstVolontaires = new ObservableCollection<Volontaire>();
-
-            // Test
-            LstVolontaires.Add(new Volontaire("1348151", "Francis", "Hamel", "Francishamel96@gmail.com"));
-            LstVolontaires.Add(new Volontaire("1348151", "Francis", "Hamel", "Francishamel96@gmail.com"));
-            LstVolontaires.Add(new Volontaire("1348151", "Francis", "Hamel", "Francishamel96@gmail.com"));
-            LstVolontaires.Add(new Volontaire("1348151", "Francis", "Hamel", "Francishamel96@gmail.com"));
-            LstVolontaires.Add(new Volontaire("1348151", "Francis", "Hamel", "Francishamel96@gmail.com"));
+            LstVolontaires = ChargerVolontaires();
 
             // Associer la datagrid et avec la liste
             dgVolontaires.ItemsSource = LstVolontaires;
+        }
 
-            // TODO: enlever les données Test
-            // TODO: utiliser les données de la BD
+        private ObservableCollection<Volontaire> ChargerVolontaires()
+        {
+            var task = CompteHelper.SelectAllAdminAsync(false);
+            task.Wait();
+
+            List<comptes> data = task.Result;
+
+            ObservableCollection<Volontaire> lstTemp = new ObservableCollection<Volontaire>();
+
+            foreach (var volontaire in data)
+            {
+                lstTemp.Add(new Volontaire(volontaire.matricule, volontaire.prenom, volontaire.nom, volontaire.courriel));
+            }
+
+            return lstTemp;
         }
     }
 }

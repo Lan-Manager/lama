@@ -31,17 +31,8 @@ namespace Lama.UI.UC.Creation
             // Initialiser l'observable collection
             LstPrix = new ObservableCollection<Prix>();
 
-            // Test
-            /*LstPrix.Add(new Prix("50 $ chez pizza maximum"));
-            LstPrix.Add(new Prix("40 $ chez pizza maximum"));
-            LstPrix.Add(new Prix("30 $ chez pizza maximum"));
-            LstPrix.Add(new Prix("20 $ chez pizza maximum"));
-            LstPrix.Add(new Prix("10 $ chez pizza maximum"));*/
-
             // Lier la datagrid avec la liste
             dgPrix.ItemsSource = LstPrix;
-
-            //TODO: trouver comment rendre la datagrid editable (pouvoir ajouter des champs à partir de la datagrid)
         }
     }
 }
