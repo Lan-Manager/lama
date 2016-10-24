@@ -22,11 +22,11 @@ namespace Lama.UI.Win
     /// </summary>
     public partial class AuthentificationWin : MetroWindow
     {
-        public Utilisateur Utilisateur{ get; set; }
-        public AuthentificationWin()
+        public Utilisateur Utilisateur { get; set; }
+        public AuthentificationWin(Utilisateur u)
         {
             InitializeComponent();
-            
+            Utilisateur = u;
         }
         private void VerifierInformation()
         {
@@ -46,15 +46,11 @@ namespace Lama.UI.Win
                 {
                     Utilisateur = new Volontaire(task.Result.nom, task.Result.prenom, task.Result.matricule, task.Result.courriel);
                     Utilisateur.EstConnecte = true;
-                    RetournerUtilisateur();
                 }
                 this.Close();
             }
         }
-        public Utilisateur RetournerUtilisateur()
-        {
-            return Utilisateur;
-        }
+ 
         private void Authentifier_Click(object sender, RoutedEventArgs e)
         {
             VerifierInformation();

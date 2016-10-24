@@ -29,18 +29,16 @@ namespace Lama
         {
             Utilisateur = new Utilisateur();
             InitializeComponent();
-            
+
         }
 
         private void Authentification_Click(object sender, RoutedEventArgs e)
         {
-            MetroWindow FenetreAuthentification = new AuthentificationWin();
+            AuthentificationWin FenetreAuthentification = new AuthentificationWin(Utilisateur);
             FenetreAuthentification.ShowDialog();
-            if (FenetreAuthentification.ShowDialog().Value)
-            {
-                // TODO : Fixer ça icitte
-                // Utilisateur = FenetreAuthentification.Utilisateur;
-            }
+
+            Utilisateur = FenetreAuthentification.Utilisateur;
+
         }
     }
 }
