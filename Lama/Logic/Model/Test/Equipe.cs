@@ -22,7 +22,7 @@ namespace Lama.Logic.Model.Test
             Nom = "Équipe " + nbEquipe;
             lstStatistiques = new Statistiques();
 
-            Joueurs = new ObservableCollection<Joueur>() { new Joueur("Max"), new Joueur("Francis"), new Joueur("Tristan"), new Joueur("Antoine") };
+            Joueurs = new ObservableCollection<Joueur>() { new Joueur("Max"), new Joueur("Francis"), new Joueur("Tristan"), new Joueur("Antoine"), new Joueur("l'autre dude") };
 
             EstGagnant = (nbEquipe % 2 == 0) ? true : false;
         }

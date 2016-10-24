@@ -9,26 +9,27 @@ namespace Lama.Logic.Model.Test
 {
     public class Statistiques
     {
-        public Dictionary<string, int> Stats { get; set; }
+        public ObservableCollection<Statistique> Stats { get; set; }
+
         public string showStats { get; set; }
 
         public Statistiques()
         {
-            Dictionary<string, int> stats = new Dictionary<string, int>();
-            stats.Add("Élimination(s)", 3);
-            stats.Add("Mort(s)", 5);
-            stats.Add("Assistance(s)", 9);
-            stats.Add("Batiment(s) détruit(s)", 4);
+            ObservableCollection<Statistique> stats = new ObservableCollection<Statistique>();
+            stats.Add(new Statistique("Élimination(s)", 3));
+            stats.Add(new Statistique("Mort(s)", 5));
+            stats.Add(new Statistique("Assistance(s)", 9));
+            stats.Add(new Statistique("Batiment(s) détruit(s)", 4));
 
             Stats = stats;
 
             StringBuilder s = new StringBuilder();
 
-            foreach (var stat in Stats)
+            foreach (Statistique stat in Stats)
             {
                 s.Append(stat.Value);
 
-                if (stat.Key != Stats.Keys.Last())
+                if (stat.Key != Stats.Last().Key)
                     s.Append(" / ");
             }
 

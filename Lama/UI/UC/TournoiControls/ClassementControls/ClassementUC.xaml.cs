@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Lama.UI.UC.TournoiControls.StatistiquesControls
+namespace Lama.UI.UC.TournoiControls.ClassementControls
 {
     /// <summary>
-    /// Interaction logic for StatistiquesEquipe.xaml
+    /// Interaction logic for ClassementUC.xaml
     /// </summary>
-    public partial class StatistiquesEquipe : UserControl
+    public partial class ClassementUC : UserControl
     {
-        public StatistiquesEquipe()
+        public ClassementUC()
         {
             InitializeComponent();
         }

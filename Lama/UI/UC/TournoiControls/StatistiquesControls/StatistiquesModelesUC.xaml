@@ -10,7 +10,7 @@
     <StackPanel>
         <TextBlock Margin="8" FontSize="10" Foreground="{StaticResource IdealForegroundDisabledBrush}" Text="Élimination(s) / Mort(s) / Assistance(s) / Batiment(s) détruit(s)." />
         <WrapPanel>
-            <Label Foreground="{StaticResource AccentBaseColorBrush}" Content="Gagnant" />
+            <Label Foreground="Lime" Content="Gagnant" />
             <Label Foreground="Red" Content="Perdant" />
         </WrapPanel>
     </StackPanel>

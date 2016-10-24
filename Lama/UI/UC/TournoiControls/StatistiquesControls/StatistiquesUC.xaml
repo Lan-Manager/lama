@@ -32,7 +32,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListView">
-                                <TextBlock Text=" Aucun tour sélectionné..."/>
+                                <TextBlock Text=" Aucun tour sélectionné..." />
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -46,7 +46,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListView">
-                                <TextBlock Text=" Aucune partie sélectionnée..."/>
+                                <TextBlock Text=" Aucune partie sélectionnée..." />
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -60,7 +60,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListView">
-                                <TextBlock Text=" Aucune équipe sélectionnée..."/>
+                                <TextBlock Text=" Aucune équipe sélectionnée..." />
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -80,7 +80,7 @@
             <StackPanel>
 
                 <Label Style="{StaticResource menu}" Content="Tours" />
-                <ListView Name="lvTours" ItemsSource="{Binding Tours}">
+                <ListView Name="lvTours" ItemsSource="{Binding Tours}" SelectedIndex="0">
                     <ItemsControl.ItemTemplate>
 
                         <DataTemplate>
@@ -121,9 +121,9 @@
         <ScrollViewer Grid.Column="1">
             <StackPanel Margin="20 0 0 0">
 
-                <local:StatistiquesTour DataContext="{Binding ElementName=lvTours, Path=SelectedItem}" />
-                <local:StatistiquesPartie DataContext="{Binding ElementName=lvParties, Path=SelectedItem}" />
-                <local:StatistiquesTour DataContext="{Binding ElementName=lvEquipes, Path=SelectedItem}" />
+                <local:StatistiquesTourUC DataContext="{Binding ElementName=lvTours, Path=SelectedItem}" />
+                <local:StatistiquesPartieUC DataContext="{Binding ElementName=lvParties, Path=SelectedItem}" />
+                <local:StatistiquesEquipeUC DataContext="{Binding ElementName=lvEquipes, Path=SelectedItem}" />
 
             </StackPanel>
         </ScrollViewer>

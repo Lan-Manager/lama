@@ -14,8 +14,13 @@
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Margin" Value="10" />
             <Setter Property="Foreground" Value="{StaticResource AccentBaseColorBrush}" />
-            <Setter Property="BorderBrush" Value="{StaticResource IdealForegroundColorBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource IdealForegroundDisabledBrush}" />
             <Setter Property="BorderThickness" Value="0 0 0 1" />
+        </Style>
+
+        <Style TargetType="StackPanel" x:Key="sp">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="35 0 35 0" />
         </Style>
 
     </UserControl.Resources>

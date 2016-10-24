@@ -12,31 +12,39 @@
         Height="{Binding SystemParameters.PrimaryScreenHeight}" 
         Width="{Binding SystemParameters.PrimaryScreenWidth}"
         ShowTitleBar="False" ShowDialogsOverTitleBar="True" ShowMaxRestoreButton="False"
-        ResizeMode="CanMinimize"
+        ResizeMode="CanResizeWithGrip"
         BorderBrush="{DynamicResource HighlightBrush}"
         BorderThickness="2">
-    
-    
+
+
     <Window.Resources>
 
         <Style x:Key="control" TargetType="{x:Type UserControl}">
             <Setter Property="Margin" Value="20" />
         </Style>
-                
+
     </Window.Resources>
 
-    <Grid Margin="30">
-        <Controls:MetroAnimatedTabControl Margin="10" Grid.Row="1" Grid.Column="1">
-            <Controls:MetroTabItem Header="Tournoi">
-                <tournoiControls:TournoiUC Style="{StaticResource control}" />
-            </Controls:MetroTabItem>
-            <Controls:MetroTabItem Header="Locaux">
-                <controls:Locaux Style="{StaticResource control}" />
-            </Controls:MetroTabItem>
-        </Controls:MetroAnimatedTabControl>
+    <Grid>
+        
+        <Grid Margin="30">
 
-        <TextBlock Grid.Row="0" HorizontalAlignment="Right" Margin="0,10,20,0">
+            <Controls:MetroAnimatedTabControl Margin="10" Grid.Row="1" Grid.Column="1">
+                <Controls:MetroTabItem Header="Tournoi">
+                    <tournoiControls:TournoiUC Style="{StaticResource control}" />
+                </Controls:MetroTabItem>
+                <Controls:MetroTabItem Header="Locaux">
+                    <controls:Locaux Style="{StaticResource control}" />
+                </Controls:MetroTabItem>
+            </Controls:MetroAnimatedTabControl>
+
+            <TextBlock Grid.Row="0" HorizontalAlignment="Right" Margin="0,10,20,0">
             <Hyperlink Foreground="{DynamicResource HighlightBrush}">S'authentifier</Hyperlink>
-        </TextBlock>
+            </TextBlock>
+
+        </Grid>
+
+        <Image IsHitTestVisible="False" Opacity="0.05" Stretch="Fill" Width="{Binding SystemParameters.PrimaryScreenWidth}" Height="{Binding SystemParameters.PrimaryScreenHeight}" Source="Resources/bgtexture.jpg" />
+    
     </Grid>
 </Controls:MetroWindow>

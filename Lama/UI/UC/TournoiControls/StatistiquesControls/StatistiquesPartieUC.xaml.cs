@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Lama.UI.UC.TournoiControls.StatistiquesControls
 {
     /// <summary>
-    /// Logique d'interaction pour StatistiquesTour.xaml
+    /// Interaction logic for StatistiquesPartieUC.xaml
     /// </summary>
-    public partial class StatistiquesTour : UserControl
+    public partial class StatistiquesPartieUC : UserControl
     {
-        public StatistiquesTour()
+        public StatistiquesPartieUC()
         {
             InitializeComponent();
         }
