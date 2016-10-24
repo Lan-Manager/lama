@@ -16,18 +16,35 @@ namespace Lama.Logic.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public string Nom { get; set; }
+        public string Numero { get; set; }
 
         public TrulyObservableCollection<Poste> LstPoste { get; set; }
 
         public Volontaire VolontaireAssigne { get; set; } // Le volontaire assigné à ce local.
 
-        #region Propriétés concernant le nombre de postes.
+        #region Propriétés concernant le numerobre de postes.
+        private int _nbPosteDepart;
+        public int NbPoste_Depart
+        {
+            get
+            {
+                return _nbPosteDepart;
+            }
+            set
+            {
+                if (value == _nbPosteDepart)
+                {
+                    return;
+                }
 
-        public int NbPoste_Depart { get; set; } // Le nombre de poste ayant été prévu lors de la création du tournoi.
+                _nbPosteDepart = value;
+                NotifyPropertyChanged("NbPoste_Depart");
+
+            }
+        } // Le numerobre de poste ayant été prévu lors de la création du tournoi.
 
         private int _nbPoste;
-        public int NbPoste // Le nombre de poste présentement utilisé pour le tournoi.
+        public int NbPoste // Le numerobre de poste présentement utilisé pour le tournoi.
         {
             get
             {
@@ -46,7 +63,7 @@ namespace Lama.Logic.Model
             }
         }
         int _nbPostePret;
-        public int NbPoste_Pret // Le nombre de poste présentement prêt à être utilisé pour le tournoi.
+        public int NbPoste_Pret // Le numerobre de poste présentement prêt à être utilisé pour le tournoi.
         {
             get
             {
@@ -64,7 +81,7 @@ namespace Lama.Logic.Model
             }
         }
         int _nbPosteAttente;
-        public int NbPoste_Attente // Le nombre de poste qui n'ont pas été visité par un volontaire.
+        public int NbPoste_Attente // Le numerobre de poste qui n'ont pas été visité par un volontaire.
         {
             get
             {
@@ -81,7 +98,7 @@ namespace Lama.Logic.Model
             }
         }
         int _nbPosteProbleme;
-        public int NbPoste_Probleme // Le nombre de poste ayant rencontré un problème lors de la tournée des volontaires.
+        public int NbPoste_Probleme // Le numerobre de poste ayant rencontré un problème lors de la tournée des volontaires.
         {
             get
             {
@@ -98,7 +115,7 @@ namespace Lama.Logic.Model
             }
         }
         int _nbPosteNonRequis;
-        public int NbPoste_NonRequis // Le nombre de poste qui ne sont plus requis pour le tournoi.
+        public int NbPoste_NonRequis // Le numerobre de poste qui ne sont plus requis pour le tournoi.
         {
             get
             {
@@ -114,7 +131,7 @@ namespace Lama.Logic.Model
             }
         }
         int _nbPosteRestant;
-        public int NbPoste_Restant // Le nombre de poste dont l'état n'est pas encore prêt.
+        public int NbPoste_Restant // Le numerobre de poste dont l'état n'est pas encore prêt.
         {
             get
             {
@@ -140,7 +157,13 @@ namespace Lama.Logic.Model
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
             LstPoste.CollectionChanged += LstPoste_CollectionChanged;
         }
-
+        public Local(string numero)
+        {
+            Numero = numero;
+            LstPoste = new TrulyObservableCollection<Poste>();
+            LstPoste.ItemPropertyChanged += PropertyChangedHandler;
+            LstPoste.CollectionChanged += LstPoste_CollectionChanged;
+        }
         private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
         {
             NotifyPropertyChanged("Etat");
@@ -148,13 +171,13 @@ namespace Lama.Logic.Model
         /// <summary>
         /// Constructeur avec paramètre.
         /// </summary>
-        /// <param name="nom">Nom du local Ex: "D125"</param>
-        /// <param name="nbPoste">Nombre de postes dans le local</param>
-        public Local(string nom, int nbPoste)
+        /// <param name="numero">Numero du local Ex: "D125"</param>
+        /// <param name="nbPoste">Numerobre de postes dans le local</param>
+        public Local(string numero, int nbPoste)
         {
             NbPoste = nbPoste;
             NbPoste_Depart = nbPoste;
-            Nom = nom;
+            Numero = numero;
             LstPoste = new TrulyObservableCollection<Poste>();
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
             LstPoste.CollectionChanged += LstPoste_CollectionChanged;
@@ -196,7 +219,7 @@ namespace Lama.Logic.Model
             }
             NbPoste_NonRequis = nbPoste_NonRequis;
             NbPoste_Pret = nbPoste_Pret;
-            NbPoste = NbPoste_Depart - NbPoste_NonRequis; // Le nombre de poste est maintenant égal au nombre de poste du départ moins ceux non requis.
+            NbPoste = NbPoste_Depart - NbPoste_NonRequis; // Le numerobre de poste est maintenant égal au numerobre de poste du départ moins ceux non requis.
             NbPoste_Probleme = nbPoste_Probleme;
             NbPoste_Attente = nbPoste_Attente;
             NbPoste_Restant = NbPoste - NbPoste_Pret;

@@ -4,6 +4,10 @@ using System.ComponentModel;
 using System.Windows.Controls;
 using System;
 using System.Windows;
+using LamaBD.helper;
+using LamaBD;
+using System.Collections.Generic;
+using Lama.UI.Model;
 
 namespace Lama.UI.UC
 {
@@ -70,6 +74,10 @@ namespace Lama.UI.UC
         {
             get
             {
+                if (_nbPosteRestant < 1)
+                {
+                    return 0;
+                }
                 return _nbPosteRestant;
             }
             set
@@ -175,10 +183,14 @@ namespace Lama.UI.UC
         #endregion
         public LocauxUC()
         {
+            LstLocal = new ObservableCollection<Local>();
+            LstVolontaires = new ObservableCollection<Volontaire>();
             LocalSelectionne = new Local();
-            GetVolontaires();
-            GetLocaux();
-            GetPoste();
+            //GetVolontaires();
+            ChargerVolontaires();
+            ChargerLocaux();
+            ChargerPostes();
+            //GetPoste();
             InitializeComponent();
 
             foreach (Local l in LstLocal)
@@ -194,7 +206,7 @@ namespace Lama.UI.UC
 
         private void Local_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "NbPoste_Pret" || e.PropertyName == "NbPoste_Attente" || e.PropertyName == "NbPoste_Probleme" || e.PropertyName == "NbPoste_NonRequis" || e.PropertyName == "NbPoste_Restant" || e.PropertyName == "NbPoste")
+            if (e.PropertyName == "NbPoste_Depart" || e.PropertyName == "NbPoste_Pret" || e.PropertyName == "NbPoste_Attente" || e.PropertyName == "NbPoste_Probleme" || e.PropertyName == "NbPoste_NonRequis" || e.PropertyName == "NbPoste_Restant" || e.PropertyName == "NbPoste")
             {
                 CalculerEtat();
             }
@@ -229,6 +241,51 @@ namespace Lama.UI.UC
             NbPoste_EnAttente = nbPoste_Attente;
             NbPoste_Restant = nbPoste_Restant;
             NbPoste_Requis = nbPoste_Requis;
+        }
+
+        // Fonction qui charge les postes lié à la liste de locaux lié au tournoi.
+        private void ChargerPostes()
+        {
+            foreach(Local l in LstLocal)
+            {
+                var task = PosteHelper.SelectAllByNumeroLocalAsync(l.Numero);
+                task.Wait();
+                List<postes> lPostes = task.Result;
+
+                foreach (postes p in lPostes)
+                {
+                    // On va chercher l'état du poste courant.
+                    var taskEtat = PosteHelper.SelectEtatAsync(p.idPoste);
+                    taskEtat.Wait();
+                    string nomEtat = taskEtat.Result.nom;
+                    l.LstPoste.Add(new Poste(p.numeroPoste, nomEtat)); // On ajoute le poste à la liste de poste.
+                }
+                l.NbPoste_Depart = lPostes.Count;
+                l.CalculerEtat();
+            }
+        }
+        // Fonction qui charge les locaux lié au tournoi.
+        private void ChargerLocaux()
+        {
+            var taskLocaux = LocalHelper.SelectLocauxTournoiAsync(); // On va chercher la liste des locaux associer à ce tournoi.
+            taskLocaux.Wait();
+            List<locaux> lLocaux = taskLocaux.Result;
+            foreach (locaux l in lLocaux)
+            {
+                LstLocal.Add(new Local(l.numero)); // On ajoute les locaux chercher en BD au tournoi.
+            }
+        }
+        // Fonction qui charge les volontaires liés au tournois.
+        private void ChargerVolontaires()
+        {
+            var taskVolontaire = CompteHelper.SelectAllAdminAsync(false); // On veut la liste des volontaires donc on doit indiquer false pour estAdmin.
+            taskVolontaire.Wait();
+            List<comptes> lComptes = taskVolontaire.Result;
+
+            foreach (comptes c in lComptes)
+            {
+                LstVolontaires.Add(new Volontaire(c.nom, c.prenom, c.matricule, c.courriel)); // Ajout des volontaires à la liste.
+            }
         }
     }
 }

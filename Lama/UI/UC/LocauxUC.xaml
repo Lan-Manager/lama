@@ -16,7 +16,7 @@
 
     <Grid>
         <Label Name="lblTitre" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,20,0" Foreground="{StaticResource AccentColorBrush}">Local</Label>
-        <ComboBox Name="cboLocal" Width="80" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="65,35,20,0" ItemsSource="{Binding LstLocal}" DisplayMemberPath="Nom" SelectedValuePath="Nom" SelectedItem="{Binding LocalSelectionne}"></ComboBox>
+        <ComboBox Name="cboLocal" Width="80" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="65,35,20,0" ItemsSource="{Binding LstLocal}" DisplayMemberPath="Numero" SelectedValuePath="Numero" SelectedItem="{Binding LocalSelectionne}"></ComboBox>
         <Label Name="lblSommaireGlobal" FontWeight="DemiBold" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="200,30,0,0" Foreground="{StaticResource AccentColorBrush}">Sommaire global</Label>
         <Label Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="-50,60,0,0" Foreground="{StaticResource AccentColorBrush}">Prêts</Label>
         <Label Name="lblPret_Global" Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="-50,80,0,0" Content="{Binding NbPoste_Pret, UpdateSourceTrigger=PropertyChanged}"></Label>
@@ -51,7 +51,7 @@
             <Label Name="txtNbPoste" Content="{Binding LocalSelectionne.NbPoste, UpdateSourceTrigger=PropertyChanged}"></Label>
 
             <Label  FontWeight="DemiBold" FontSize="14" Foreground="{StaticResource AccentColorBrush}">Volontaire assigné</Label>
-            <ComboBox HorizontalAlignment="Left" Name="cboVonlontaire" Width="110" Height="25" ItemsSource="{Binding LstVolontaires}" DisplayMemberPath="Nom" SelectedValuePath="Matricule" SelectedItem="{Binding LocalSelectionne.VolontaireAssigne, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+            <ComboBox HorizontalAlignment="Left" Name="cboVonlontaire" Width="110" Height="25" ItemsSource="{Binding LstVolontaires}" DisplayMemberPath="NomComplet" SelectedValuePath="Matricule" SelectedItem="{Binding LocalSelectionne.VolontaireAssigne, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
         </StackPanel>
 
 
@@ -69,7 +69,7 @@
                 <DataGridTemplateColumn Header="Dernière modification par">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox ItemsSource="{Binding LstVolontaires, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedValue="{Binding DerniereModificationPar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="Nom"></ComboBox>
+                            <ComboBox ItemsSource="{Binding LstVolontaires, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedValue="{Binding DerniereModificationPar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="NomComplet"></ComboBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
