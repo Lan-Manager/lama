@@ -9,10 +9,12 @@
     <Grid>
         <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Volontaires" />
 
-        <DataGrid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="475" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" IsReadOnly="True">
+        <DataGrid Name="dgVolontaires" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="475" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Prénom"/>
-                <DataGridTextColumn Width="*" Header="Nom"/>
+                <DataGridTextColumn Binding="{Binding Matricule}" Width="*" Header="Matricule" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Prenom}" Width="*" Header="Prénom" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Nom" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Courriel}" Width="*" Header="Courriel" IsReadOnly="True"/>
                 <DataGridCheckBoxColumn Width="*" Header="Actif"/>
             </DataGrid.Columns>
         </DataGrid>

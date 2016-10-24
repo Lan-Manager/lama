@@ -23,7 +23,6 @@ namespace Lama.UI.Win
     {
         #region Propriétés
         public int Index { get; set; }
-
         public List<UserControl> Views { get; set; }
         #endregion
 
@@ -41,7 +40,8 @@ namespace Lama.UI.Win
                                                 new LocauxView(),
                                                 new VolontairesView(),
                                                 new ParticipantsView(),
-                                                new EquipesView()
+                                                new EquipesView(),
+                                                new PrixView()
                                             };
 
             // Initialiser l'index

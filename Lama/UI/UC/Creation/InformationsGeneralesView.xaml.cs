@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Lama.UI.UC.Creation
 {
@@ -10,6 +12,9 @@ namespace Lama.UI.UC.Creation
         public InformationsGeneralesView()
         {
             InitializeComponent();
+
+            // Mettre le temps courant
+            dtpDateTournoi.SelectedTime = DateTime.Now.TimeOfDay;
         }
     }
 }

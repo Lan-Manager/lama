@@ -83,6 +83,10 @@
     <Compile Include="example\UtilisationEntity.xaml.cs">
       <DependentUpon>UtilisationEntity.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Model\Francis\Equipe.cs" />
+    <Compile Include="Logic\Model\Francis\Participant.cs" />
+    <Compile Include="Logic\Model\Francis\Prix.cs" />
+    <Compile Include="Logic\Model\Francis\Volontaire.cs" />
     <Compile Include="Logic\Model\Test\Equipe.cs" />
     <Compile Include="Logic\Model\Test\Joueur.cs" />
     <Compile Include="Logic\Model\Test\Partie.cs" />
@@ -101,6 +105,9 @@
     </Compile>
     <Compile Include="UI\UC\Creation\ParticipantsView.xaml.cs">
       <DependentUpon>ParticipantsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\Creation\PrixView.xaml.cs">
+      <DependentUpon>PrixView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\UC\Creation\VolontairesView.xaml.cs">
       <DependentUpon>VolontairesView.xaml</DependentUpon>
@@ -169,6 +176,10 @@
     <Page Include="UI\UC\Creation\ParticipantsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\UC\Creation\PrixView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\Creation\VolontairesView.xaml">
       <Generator>MSBuild:Compile</Generator>

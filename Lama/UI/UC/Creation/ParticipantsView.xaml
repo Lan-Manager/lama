@@ -9,13 +9,13 @@
     <Grid>
         <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Participants" />
 
-        <DataGrid Name="dgJoueurs" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="475" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" IsReadOnly="True">
+        <DataGrid Name="dgJoueurs" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="475" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Matricule"/>
-                <DataGridTextColumn Width="*" Header="Prénom"/>
-                <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Nom"/>
-                <DataGridTextColumn Width="*" Header="Rang"/>
-                <DataGridTextColumn Width="*" Header="Compte"/>
+                <DataGridTextColumn Binding="{Binding Matricule}" Width="*" Header="Matricule" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Prenom}" Width="*" Header="Prénom" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Nom" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Rang}" Width="*" Header="Rang" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Usager}" Width="*" Header="Usager" IsReadOnly="True"/>
                 <DataGridCheckBoxColumn Width="*" Header="Actif"/>
             </DataGrid.Columns>
         </DataGrid>
