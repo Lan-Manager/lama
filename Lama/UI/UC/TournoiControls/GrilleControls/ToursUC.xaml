@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Lama.UI.UC.TournoiControls.GrilleControls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    
+
     <UserControl.Resources>
 
         <Style TargetType="Label" x:Key="tour">
@@ -25,18 +25,23 @@
 
     </UserControl.Resources>
 
-    <ItemsControl ItemsSource="{Binding Tours}">
 
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
+    <Grid Height="480">
+        <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding Tours}">
 
-                <StackPanel>
-                    <Label Style="{StaticResource tour}" Content="{Binding Nom}" />
-                    <local:PartiesUC DataContext="{Binding}" Grid.Row="1" />
-                </StackPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
 
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
+                        <StackPanel>
+                            <Label Style="{StaticResource tour}" Content="{Binding Nom}" />
+                            <local:PartiesUC DataContext="{Binding}" Grid.Row="1" />
+                        </StackPanel>
 
-    </ItemsControl>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

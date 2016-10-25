@@ -22,5 +22,12 @@ namespace Lama.Logic.Model.Test
             Equipes = new ObservableCollection<Equipe> { new Equipe(), new Equipe() };
             lstStatistiques = new Statistiques();
         }
+
+        public Partie(Equipe e1, Equipe e2)
+        {
+            nbPartie++;
+            Nom = "Partie " + nbPartie;
+            Equipes = new ObservableCollection<Equipe>() { e1, e2 };
+        }
     }
 }

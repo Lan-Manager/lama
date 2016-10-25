@@ -15,7 +15,10 @@
     <Controls:MetroAnimatedTabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
         <Controls:MetroTabItem Header="Grille">
-            <grille:GrilleUC />
+            <StackPanel>                
+                <grille:GrilleUC />
+            </StackPanel>
+
         </Controls:MetroTabItem>
 
         <Controls:MetroTabItem Header="Statistiques">

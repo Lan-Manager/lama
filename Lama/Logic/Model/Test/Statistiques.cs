@@ -16,10 +16,10 @@ namespace Lama.Logic.Model.Test
         public Statistiques()
         {
             ObservableCollection<Statistique> stats = new ObservableCollection<Statistique>();
-            stats.Add(new Statistique("Élimination(s)", 3));
-            stats.Add(new Statistique("Mort(s)", 5));
-            stats.Add(new Statistique("Assistance(s)", 9));
-            stats.Add(new Statistique("Batiment(s) détruit(s)", 4));
+            stats.Add(new Statistique("Élimination(s)", 0));
+            stats.Add(new Statistique("Mort(s)", 0));
+            stats.Add(new Statistique("Assistance(s)", 0));
+            stats.Add(new Statistique("Batiment(s) détruit(s)", 0));
 
             Stats = stats;
 

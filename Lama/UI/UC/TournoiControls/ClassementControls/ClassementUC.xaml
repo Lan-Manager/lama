@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Lama.UI.UC.TournoiControls.ClassementControls"
-             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
@@ -13,10 +13,10 @@
         <Style TargetType="Label" x:Key="stats">
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="FontSize" Value="14" />
-            <Setter Property="BorderBrush" Value="{StaticResource IdealForegroundDisabledBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource IdealForegroundDisabledBrush}" />
             <Setter Property="BorderThickness" Value="0 0 0 1" />
             <Setter Property="Margin" Value="0 20 0 20" />
-            <Setter Property="Foreground" Value="{StaticResource AccentBaseColorBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource AccentBaseColorBrush}" />
             <Style.Triggers>
                 <Trigger Property="Content" Value="{x:Null}">
                     <Setter Property="Visibility" Value="Collapsed" />
@@ -27,7 +27,7 @@
         <Style TargetType="Label" x:Key="menu">
             <Setter Property="Margin" Value="0 8 0 0" />
             <Setter Property="FontSize" Value="10" />
-            <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
         </Style>
 
         <Style TargetType="DataGridCell">
@@ -43,15 +43,14 @@
 
     </UserControl.Resources>
 
-    <Grid>
-
         <Controls:MetroAnimatedTabControl x:Name="tabControl" TabStripPlacement="Left" Margin="0 50 0 0">
 
             <Controls:MetroTabItem Header="Équipes">
                 <ScrollViewer>
                     <StackPanel>
-                        <Label Style="{StaticResource stats}" Content="Statistiques par équipe" />
-                        <DataGrid ItemsSource="{Binding Equipes}" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True">
+                        <Label Style="{DynamicResource stats}" Content="Statistiques par équipe" />
+
+                        <DataGrid ItemsSource="{Binding Equipes, IsAsync=True}" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" LoadingRow="DataGrid_LoadingRow">
                             
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding Nom}" Header="Nom" />
@@ -69,8 +68,8 @@
             <Controls:MetroTabItem Header="Joueurs">
                 <ScrollViewer>
                     <StackPanel>
-                        <Label Style="{StaticResource stats}" Content="Statistiques par joueurs" />
-                        <DataGrid ItemsSource="{Binding Joueurs}" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True">
+                        <Label Style="{DynamicResource stats}" Content="Statistiques par joueurs" />
+                        <DataGrid ItemsSource="{Binding Joueurs, IsAsync=True}" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding Nom}" Header="Nom" />
                                 <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[0].Value}" Header="Élimination(s)" />
@@ -85,6 +84,4 @@
 
         </Controls:MetroAnimatedTabControl>
 
-
-    </Grid>
 </UserControl>

@@ -13,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Lama.UI.UC.TournoiControls.ClassementControls
+namespace Lama.UI.UC.TournoiControls.StatistiquesControls.ToursParties
 {
     /// <summary>
-    /// Interaction logic for ClassementUC.xaml
+    /// Logique d'interaction pour StatistiquesTourUC.xaml
     /// </summary>
-    public partial class ClassementUC : UserControl
+    public partial class StatistiquesTourUC : UserControl
     {
-        public ClassementUC()
+        public StatistiquesTourUC()
         {
             InitializeComponent();
-        }
-
-        private void DataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
-        {
-            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
         }
     }
 }

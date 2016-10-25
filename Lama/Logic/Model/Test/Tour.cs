@@ -19,7 +19,7 @@ namespace Lama.Logic.Model.Test
         {
             nbTour++;
             Nom = "Tour " + nbTour;
-            Parties = new ObservableCollection<Partie>() { new Partie(), new Partie(), new Partie() };
+            Parties = new ObservableCollection<Partie>();
             lstStatistiques = new Statistiques();
         }
     }
