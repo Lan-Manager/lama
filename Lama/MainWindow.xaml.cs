@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using Lama.UI.UC;
 using Lama.UI.Win;
+using Lama.Logic.Model;
 
 namespace Lama
 {
@@ -23,16 +24,21 @@ namespace Lama
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        public Utilisateur Utilisateur { get; set; }
         public MainWindow()
         {
+            Utilisateur = new Utilisateur();
             InitializeComponent();
-            //new example.UtilisationEntity().Show();
+
         }
 
         private void Authentification_Click(object sender, RoutedEventArgs e)
         {
-            MetroWindow FenetreAuthentification = new AuthentificationWin();
+            AuthentificationWin FenetreAuthentification = new AuthentificationWin(Utilisateur);
             FenetreAuthentification.ShowDialog();
+
+            Utilisateur = FenetreAuthentification.Utilisateur;
+
         }
     }
 }

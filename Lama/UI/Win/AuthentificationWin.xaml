@@ -3,13 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Lama.UI.Win"
+        xmlns:local="clr-namespace:Lama"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         BorderThickness="1" 
         BorderBrush="{DynamicResource AccentColorBrush}"
-        ResizeMode="NoResize"
         Title="Authentification" Height="300" Width="300">
     <Window.Resources>
         <Style x:Key="lblInformations" TargetType="Label">
@@ -30,6 +29,6 @@
         <TextBox Name="txbCompte" Width="200" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 110, 0, 0"></TextBox>
         <Label Style="{StaticResource lblInformations}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,150,0,0">Mot de passe :</Label>
         <PasswordBox  Name="pwbPassword" Width="200" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 180, 0, 0"></PasswordBox>
-        <Button Content="S'authentifier" Width="100" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10"></Button>
+        <Button Content="S'authentifier" Width="100" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" Click="Authentifier_Click"></Button>
     </Grid>
 </Controls:MetroWindow>

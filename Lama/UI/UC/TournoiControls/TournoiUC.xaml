@@ -6,23 +6,29 @@
              xmlns:local="clr-namespace:Lama.UI.UC.TournoiControls"
              xmlns:grille="clr-namespace:Lama.UI.UC.TournoiControls.GrilleControls"
              xmlns:statistiques="clr-namespace:Lama.UI.UC.TournoiControls.StatistiquesControls"
+             xmlns:classement="clr-namespace:Lama.UI.UC.TournoiControls.ClassementControls"
              xmlns:prix="clr-namespace:Lama.UI.UC.TournoiControls.PrixControls"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <TabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Controls:MetroAnimatedTabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-        <TabItem Header="Grille">
+        <Controls:MetroTabItem Header="Grille">
             <grille:GrilleUC />
-        </TabItem>
+        </Controls:MetroTabItem>
 
-        <TabItem Header="Statistiques">
+        <Controls:MetroTabItem Header="Statistiques">
             <statistiques:StatistiquesUC />
-        </TabItem>
+        </Controls:MetroTabItem>
 
-        <TabItem Header="Prix">
+        <Controls:MetroTabItem Header="Classement">
+            <classement:ClassementUC />
+        </Controls:MetroTabItem>
+
+        <Controls:MetroTabItem Header="Prix">
             <prix:PrixUC />
-        </TabItem>
+        </Controls:MetroTabItem>
 
-    </TabControl>
+    </Controls:MetroAnimatedTabControl>
 </UserControl>

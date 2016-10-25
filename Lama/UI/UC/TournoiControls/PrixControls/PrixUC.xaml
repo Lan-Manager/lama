@@ -13,9 +13,10 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="FontSize" Value="14" />
-            <Setter Property="BorderBrush" Value="LightGray" />
+            <Setter Property="BorderBrush" Value="{DynamicResource IdealForegroundDisabledBrush}" />
             <Setter Property="BorderThickness" Value="0 0 0 1" />
             <Setter Property="Margin" Value="10" />
+            <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}" />
         </Style>
 
     </UserControl.Resources>

@@ -45,6 +45,7 @@ namespace Lama.Logic.Model
             LstEtatPossible.Add("En attente");
             LstEtatPossible.Add("Problème");
             LstEtatPossible.Add("Prêt");
+            LstEtatPossible.Add("Non requis");
             Numero = numero;
             Etat = etat;
         }

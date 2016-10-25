@@ -10,36 +10,44 @@
     <UserControl.Resources>
 
         <Style TargetType="Label" x:Key="partie">
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="BorderBrush" Value="LightGray" />
-            <Setter Property="BorderThickness" Value="0 0 0 1" />
-            <Setter Property="Margin" Value="10" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="FontSize" Value="12" />
+            <Setter Property="Margin" Value="0 10 0 10" />
+            <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource IdealForegroundDisabledBrush}" />
+            <Setter Property="BorderThickness" Value="0 0 0 1" />
         </Style>
+
+        <Style TargetType="StackPanel" x:Key="sp">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="10 0 10 0" />
+        </Style>
+
+        <ItemsPanelTemplate x:Key="wp">
+            <WrapPanel>
+                <WrapPanel.Style>
+                    <Style TargetType="WrapPanel">
+                        <Setter Property="Orientation" Value="Horizontal" />
+                        <Setter Property="Width" Value="auto" />
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                    </Style>
+                </WrapPanel.Style>
+            </WrapPanel>
+        </ItemsPanelTemplate>
 
     </UserControl.Resources>
 
-    <ItemsControl ItemsSource="{Binding Parties}">
-
-        <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" />
-
-            </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
-
+    <ItemsControl ItemsSource="{Binding Parties}" ItemsPanel="{StaticResource wp}">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
 
-                <StackPanel>
+                <StackPanel Style="{StaticResource sp}">
                     <Label Style="{StaticResource partie}" Content="{Binding Nom}" />
                     <local:EquipesUC DataContext="{Binding Equipes}" />
                 </StackPanel>
 
             </DataTemplate>
         </ItemsControl.ItemTemplate>
-
     </ItemsControl>
 </UserControl>
 
