@@ -24,6 +24,7 @@
 
             <Button Name="btnPrecedent" Grid.Column="0" Content="Précédent" Click="btnPrecedent_Click" />
             <Button Name="btnSuivant" Grid.Column="1" Content="Suivant" Click="btnSuivant_Click" />
+            <Button Name="btnEnregistrer" Grid.Column="1" Content="Enregistrer" Click="btnEnregistrer_Click" Visibility="Hidden" />
         </Grid>
     </Grid>
 </Controls:MetroWindow>

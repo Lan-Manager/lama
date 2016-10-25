@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lama.UI.Win;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -13,7 +14,6 @@ namespace Lama.UI.UC.Creation
         {
             InitializeComponent();
 
-            // Mettre le temps courant
             dtpDateTournoi.SelectedTime = DateTime.Now.TimeOfDay;
         }
     }

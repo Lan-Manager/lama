@@ -31,13 +31,6 @@ namespace Lama.UI.UC.Creation
             // Initialiser l'observable collection
             LstPrix = new ObservableCollection<Prix>();
 
-            LstPrix.Add(new Prix("test"));
-            LstPrix.Add(new Prix("test"));
-            LstPrix.Add(new Prix("test"));
-            LstPrix.Add(new Prix("test"));
-            LstPrix.Add(new Prix("test"));
-
-
             // Lier la datagrid avec la liste
             dgPrix.ItemsSource = LstPrix;
         }

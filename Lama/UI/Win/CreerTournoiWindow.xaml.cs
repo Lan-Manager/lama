@@ -1,4 +1,5 @@
-﻿using Lama.UI.UC.Creation;
+﻿using Lama.Logic.Model.Francis;
+using Lama.UI.UC.Creation;
 using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
@@ -22,8 +23,9 @@ namespace Lama.UI.Win
     public partial class CreerTournoiWindow : MetroWindow
     {
         #region Propriétés
-        public int Index { get; set; }
-        public List<UserControl> Views { get; set; }
+        private int Index { get; set; }
+        private List<UserControl> Views { get; set; }
+        public Tournoi LeTournoi { get; set; }
         #endregion
 
         #region Constructeur
@@ -43,6 +45,9 @@ namespace Lama.UI.Win
                                                 new EquipesView(),
                                                 new PrixView()
                                             };
+
+            // Initialiser le tournoi
+            LeTournoi = new Tournoi();
 
             // Initialiser l'index
             Index = 0;
@@ -68,35 +73,39 @@ namespace Lama.UI.Win
                 btnPrecedent.IsEnabled = false;
             }
 
-            // 
+            // Mettre le bouton suivant
             if (Index == Views.Count - 2)
             {
-                btnSuivant.Content = "Suivant";
+                btnEnregistrer.Visibility = Visibility.Hidden;
+                btnSuivant.Visibility = Visibility.Visible;
             }
         }
 
         private void btnSuivant_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: enlever une fois la confirmation fini
-            if (Index < Views.Count - 1)
+            
+            // Changer de page
+            Index++;
+            content.Content = Views[Index];
+
+            // Si on n'est plus à la première page
+            if (Index == 1)
             {
-                // Changer de page
-                Index++;
-                content.Content = Views[Index];
+                btnPrecedent.IsEnabled = true;
+            }
 
-                // Si on n'est plus à la première page
-                if (Index == 1)
-                {
-                    btnPrecedent.IsEnabled = true;
-                }
-
-                // S'occuper du bouton suivant
-                if (Index == Views.Count -1)
-                {
-                    btnSuivant.Content = "Enregistrer";
-                }
+            // Mettre le bouton Enregistrer
+            if (Index == Views.Count -1)
+            {
+                btnSuivant.Visibility = Visibility.Hidden;
+                btnEnregistrer.Visibility = Visibility.Visible;
             }
         }
         #endregion
+
+        private void btnEnregistrer_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("TODO!!!!!");
+        }
     }
 }

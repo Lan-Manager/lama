@@ -86,6 +86,7 @@
     <Compile Include="Logic\Model\Francis\Equipe.cs" />
     <Compile Include="Logic\Model\Francis\Participant.cs" />
     <Compile Include="Logic\Model\Francis\Prix.cs" />
+    <Compile Include="Logic\Model\Francis\Tournoi.cs" />
     <Compile Include="Logic\Model\Francis\Volontaire.cs" />
     <Compile Include="Logic\Model\Test\Equipe.cs" />
     <Compile Include="Logic\Model\Test\Joueur.cs" />
