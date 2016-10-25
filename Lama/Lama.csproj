@@ -85,6 +85,7 @@
     <Compile Include="example\UtilisationEntity.xaml.cs">
       <DependentUpon>UtilisationEntity.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Model\Administrateur.cs" />
     <Compile Include="Logic\Model\Test\Equipe.cs" />
     <Compile Include="Logic\Model\Test\Joueur.cs" />
     <Compile Include="Logic\Model\Test\Partie.cs" />

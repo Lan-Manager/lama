@@ -46,9 +46,10 @@ namespace Lama.Logic.Model
         public Utilisateur()
         {
             NomComplet = "Invité";
+            EstConnecte = false;
         }
 
-        protected void NotifyPropertyChanged(string nomProp)
+        public void NotifyPropertyChanged(string nomProp)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
         }

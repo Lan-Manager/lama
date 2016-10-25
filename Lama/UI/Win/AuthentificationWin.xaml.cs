@@ -31,7 +31,8 @@ namespace Lama.UI.Win
         private void VerifierInformation()
         {
             var task = CompteHelper.SelectCompte(txbCompte.Text);
-            if (string.IsNullOrEmpty(txbCompte.Text)  || string.IsNullOrEmpty(pwbPassword.Password)|| task.Result.motDePasse != pwbPassword.Password)
+            task.Wait();
+            if (task.Result == null || string.IsNullOrEmpty(txbCompte.Text)  || string.IsNullOrEmpty(pwbPassword.Password)|| task.Result.motDePasse != pwbPassword.Password)
             {
                 MessageBox.Show("Le nom d'utilisateur et/ou le mot de passe saisis sont incorrects.");
             }
@@ -40,17 +41,17 @@ namespace Lama.UI.Win
             {
                 if (task.Result.estAdmin == true) // Si l'utilisateur est admin.
                 {
-                    // TODO : Logique s'il est admin.
+                    Utilisateur = new Administrateur(task.Result.nom, task.Result.prenom, task.Result.courriel, task.Result.nomUtilisateur);
+                    Utilisateur.EstConnecte = true;
                 }
                 else
                 {
-                    Utilisateur = new Volontaire(task.Result.nom, task.Result.prenom, task.Result.matricule, task.Result.courriel);
+                    Utilisateur = new Volontaire(task.Result.nom, task.Result.prenom, task.Result.matricule, task.Result.courriel, task.Result.nomUtilisateur);
                     Utilisateur.EstConnecte = true;
                 }
                 this.Close();
             }
         }
- 
         private void Authentifier_Click(object sender, RoutedEventArgs e)
         {
             VerifierInformation();
