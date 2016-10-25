@@ -305,8 +305,7 @@ namespace Lama.UI.UC
         // Fonction qui charge les volontaires liés au tournois.
         private void ChargerVolontaires()
         {
-            // TODO : CHARGER SEULEMENT LES VOLONTAIRES LIÉS AU TOURNOI.
-            var taskVolontaire = CompteHelper.SelectAllAdminAsync(false); // On veut la liste des volontaires donc on doit indiquer false pour estAdmin.
+            var taskVolontaire = CompteHelper.SelectAllComptesTournoi(false); // On veut la liste des volontaires donc on doit indiquer false pour estAdmin.
             taskVolontaire.Wait();
             List<comptes> lComptes = taskVolontaire.Result;
 

@@ -76,7 +76,6 @@ namespace Lama
             InitializeComponent();
             Utilisateur = new Utilisateur();
             Utilisateur.PropertyChanged += PropertyChanged;
-
         }
 
         private void Authentification_Click(object sender, RoutedEventArgs e)
@@ -93,8 +92,6 @@ namespace Lama
             {
                 Utilisateur = new Utilisateur();
             }
-
         }
-
     }
 }
