@@ -23,6 +23,7 @@ namespace Lama.UI.UC.Creation
             dgEquipes.ItemsSource = LstEquipes;
 
             //TODO: fetch les équipes en BD
+            
         }
 
         private ObservableCollection<Equipe> ChargerEquipes()

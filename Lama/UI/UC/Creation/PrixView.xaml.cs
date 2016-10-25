@@ -22,17 +22,9 @@ namespace Lama.UI.UC.Creation
     /// </summary>
     public partial class PrixView : UserControl
     {
-        public ObservableCollection<Prix> LstPrix { get; set; }
-
         public PrixView()
         {
             InitializeComponent();
-
-            // Initialiser l'observable collection
-            LstPrix = new ObservableCollection<Prix>();
-
-            // Lier la datagrid avec la liste
-            dgPrix.ItemsSource = LstPrix;
         }
 
         private void btnAddPrix_Click(object sender, RoutedEventArgs e)
@@ -47,7 +39,7 @@ namespace Lama.UI.UC.Creation
             // Contenu OK
             else
             {
-                LstPrix.Add(new Prix(txtNewPrix.Text));
+                ((Tournoi)DataContext).LstPrix.Add(new Prix(txtNewPrix.Text));
                 txtNewPrix.Clear();
             }
         }

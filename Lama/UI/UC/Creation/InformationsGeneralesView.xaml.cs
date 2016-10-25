@@ -13,8 +13,6 @@ namespace Lama.UI.UC.Creation
         public InformationsGeneralesView()
         {
             InitializeComponent();
-
-            dtpDateTournoi.SelectedTime = DateTime.Now.TimeOfDay;
         }
     }
 }

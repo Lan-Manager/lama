@@ -1,4 +1,5 @@
 ﻿using Lama.Logic.Model;
+using Lama.Logic.Model.Francis;
 using LamaBD;
 using LamaBD.helper;
 using System;
@@ -31,14 +32,28 @@ namespace Lama.UI.UC.Creation
         {
             InitializeComponent();
 
-            // Initialiser la liste de locaux
             LstLocaux = ChargerLocaux();
 
-            // Associer la liste à la datagrid
             dgLocaux.ItemsSource = LstLocaux;
         }
 
-        private ObservableCollection<Local> ChargerLocaux ()
+        // ajouter le local
+        void OnChecked(object sender, RoutedEventArgs e)
+        {
+            DataGridCell dgc = sender as DataGridCell;
+
+            ((Tournoi)DataContext).LstLocaux.Add(dgc.DataContext as Local);
+        }
+
+        // enlever le local
+        void OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            DataGridCell dgc = sender as DataGridCell;
+
+            ((Tournoi)DataContext).LstLocaux.Remove(dgc.DataContext as Local);
+        }
+
+        private ObservableCollection<Local> ChargerLocaux()
         {
             var task = LocalHelper.SelectAllAsync();
             task.Wait();
@@ -46,7 +61,7 @@ namespace Lama.UI.UC.Creation
             List<locaux> data = task.Result;
 
             ObservableCollection<Local> lstTemp = new ObservableCollection<Local>();
-            
+
             foreach (var local in data)
             {
                 lstTemp.Add(new Local(local.numero, 10));

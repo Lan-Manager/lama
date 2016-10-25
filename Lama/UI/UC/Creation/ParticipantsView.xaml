@@ -16,7 +16,14 @@
                 <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Nom" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Rang}" Width="*" Header="Rang" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Usager}" Width="*" Header="Usager" IsReadOnly="True"/>
-                <DataGridCheckBoxColumn Width="*" Header="Actif"/>
+                <DataGridCheckBoxColumn Width="*" Header="Actif">
+                    <DataGridCheckBoxColumn.CellStyle>
+                        <Style>
+                            <EventSetter Event="CheckBox.Checked" Handler="OnChecked"/>
+                            <EventSetter Event="CheckBox.Unchecked" Handler="OnUnchecked"/>
+                        </Style>
+                    </DataGridCheckBoxColumn.CellStyle>
+                </DataGridCheckBoxColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

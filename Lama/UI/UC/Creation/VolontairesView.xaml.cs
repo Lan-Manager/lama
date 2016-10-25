@@ -30,25 +30,39 @@ namespace Lama.UI.UC.Creation
         {
             InitializeComponent();
 
-            // Initialiser l'observable collection
             LstVolontaires = ChargerVolontaires();
 
-            // Associer la datagrid et avec la liste
             dgVolontaires.ItemsSource = LstVolontaires;
         }
 
-        private ObservableCollection<Volontaire> ChargerVolontaires()
+        // ajouter le volontaire
+        void OnChecked(object sender, RoutedEventArgs e)
+        {
+            DataGridCell dgc = sender as DataGridCell;
+
+            ((Tournoi)DataContext).LstVolontaires.Add(dgc.DataContext as Volontaire);
+        }
+
+        // enlever le volontaire
+        void OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            DataGridCell dgc = sender as DataGridCell;
+
+            ((Tournoi)DataContext).LstVolontaires.Remove(dgc.DataContext as Volontaire);
+        }
+
+        private ObservableCollection<Logic.Model.Francis.Volontaire> ChargerVolontaires()
         {
             var task = CompteHelper.SelectAllAdminAsync(false);
             task.Wait();
 
             List<comptes> data = task.Result;
 
-            ObservableCollection<Volontaire> lstTemp = new ObservableCollection<Volontaire>();
+            ObservableCollection<Logic.Model.Francis.Volontaire> lstTemp = new ObservableCollection<Logic.Model.Francis.Volontaire>();
 
             foreach (var volontaire in data)
             {
-                lstTemp.Add(new Volontaire(volontaire.matricule, volontaire.prenom, volontaire.nom, volontaire.courriel));
+                lstTemp.Add(new Logic.Model.Francis.Volontaire(volontaire.matricule, volontaire.prenom, volontaire.nom, volontaire.courriel));
             }
 
             return lstTemp;

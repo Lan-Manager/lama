@@ -24,8 +24,23 @@ namespace Lama.UI.UC.Creation
 
             LstParticipants = ChargerParticipants();
 
-            // Lier la liste à la datagrid
             dgJoueurs.ItemsSource = LstParticipants;
+        }
+
+        // ajouter le participant
+        void OnChecked(object sender, RoutedEventArgs e)
+        {
+            DataGridCell dgc = sender as DataGridCell;
+
+            ((Tournoi)DataContext).LstParticipants.Add(dgc.DataContext as Participant);
+        }
+
+        // enlever le participant
+        void OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            DataGridCell dgc = sender as DataGridCell;
+
+            ((Tournoi)DataContext).LstParticipants.Remove(dgc.DataContext as Participant);
         }
 
         private ObservableCollection<Participant> ChargerParticipants()

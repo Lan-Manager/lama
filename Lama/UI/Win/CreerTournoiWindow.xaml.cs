@@ -1,8 +1,13 @@
-﻿using Lama.Logic.Model.Francis;
+﻿using Lama.Logic.Model;
+using Lama.Logic.Model.Francis;
 using Lama.UI.UC.Creation;
+using LamaBD;
+using LamaBD.helper;
 using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,6 +62,9 @@ namespace Lama.UI.Win
 
             // Disable le bouton précédent
             btnPrecedent.IsEnabled = false;
+
+            // Mettre le datacontext au tournoi
+            DataContext = LeTournoi;
         }
         #endregion
 
@@ -101,11 +109,21 @@ namespace Lama.UI.Win
                 btnEnregistrer.Visibility = Visibility.Visible;
             }
         }
-        #endregion
 
         private void btnEnregistrer_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("TODO!!!!!");
+            MessageBoxResult mbr = MessageBox.Show("Êtes-vous certain de vouloir enregistrer ce tournoi?", 
+                                                   "Enregistrer", 
+                                                   MessageBoxButton.YesNoCancel, 
+                                                   MessageBoxImage.Question, 
+                                                   MessageBoxResult.No);
+
+            // Si on veut enregistrer le tournoi
+            if (mbr == MessageBoxResult.Yes)
+            {
+                
+            }
         }
+        #endregion
     }
 }
