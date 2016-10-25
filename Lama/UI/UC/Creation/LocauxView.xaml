@@ -11,7 +11,7 @@
 
         <DataGrid Name="dgLocaux" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="475" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserAddRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Local" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Numero}" Width="*" Header="Local" IsReadOnly="True"/>
                 <DataGridCheckBoxColumn Width="*" Header="Actif" IsReadOnly="False"/>
             </DataGrid.Columns>
         </DataGrid>
