@@ -60,6 +60,7 @@ namespace Lama
             {
                 tabLocaux.Visibility = Visibility.Hidden;
                 tabTournoi.Content = new TournoiUC();
+                tabContenant.SelectedItem = tabTournoi;
                 hplAuthentification.Content = "S'authentifier";
             }
             else

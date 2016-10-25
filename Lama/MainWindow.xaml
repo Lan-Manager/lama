@@ -25,7 +25,7 @@
 
     </Window.Resources>
     <Grid Name="gTournoi" Margin="30">
-        <Controls:MetroAnimatedTabControl Margin="10" Grid.Row="1" Grid.Column="1">
+        <Controls:MetroAnimatedTabControl Margin="10" Grid.Row="1" Grid.Column="1" Name="tabContenant">
             <Controls:MetroTabItem Header="Tournoi" Name="tabTournoi">
                 <!--<tournoiControls:TournoiUC Style="{StaticResource control}" />-->
             </Controls:MetroTabItem>
