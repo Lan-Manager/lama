@@ -29,14 +29,15 @@
         <Label Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="720,60,0,0" Foreground="{StaticResource AccentColorBrush}">Requis</Label>
         <Label Name="lblRequis_Global" Style="{StaticResource lblSommaire}" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="720,80,0,0" Content="{Binding NbPoste_Requis, UpdateSourceTrigger=PropertyChanged}"></Label>
         
-        <Separator Margin="0,-275,0,0"></Separator>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,100,0,0">
+        <Separator Margin="0,-275,0,0" ></Separator>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,135,0,0">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type Label}" BasedOn="{StaticResource lblSommaire}" x:Key="lblPresentation">
                     <Setter Property="Margin" Value="0,10,0,0"></Setter>
                 </Style>
             </StackPanel.Resources>
-            <Label Name="lblSommaireLocal" FontWeight="DemiBold" FontSize="14" Foreground="{StaticResource AccentColorBrush}">Sommaire</Label>
+            <Label Name="lblSommaireLocal" FontWeight="DemiBold" FontSize="14" Foreground="{StaticResource AccentColorBrush}">Sommaire du local :</Label>
+            <Label Name="lblNomLocal" FontWeight="Bold" FontSize="12" Foreground="{StaticResource AccentColorBrush}" Content="{Binding LocalSelectionne.Numero}"></Label>
             <!---->
             <Label Style="{StaticResource lblPresentation}" Foreground="{StaticResource AccentColorBrush}">Prêts</Label>
             <Label Name="lblPret" Style="{StaticResource lblSommaire}" Content="{Binding LocalSelectionne.NbPoste_Pret, UpdateSourceTrigger=PropertyChanged}"></Label>

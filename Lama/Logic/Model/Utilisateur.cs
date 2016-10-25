@@ -28,6 +28,7 @@ namespace Lama.Logic.Model
                 }
             }
         }
+        // Propriété du nom complet de l'utilisateur.
         private string _nomComplet;
         public string NomComplet
         {
@@ -58,9 +59,6 @@ namespace Lama.Logic.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
         }
-        public void Connexion()
-        {
-
-        }
+        
     }
 }

@@ -15,11 +15,14 @@ namespace Lama.Logic.Model
     public class Local : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        // Le poste sur lequel une modificateur fut apporté.
         public Poste PosteCourant { get; set; }
+        // Le numéro du poste.
         public string Numero { get; set; }
 
         public TrulyObservableCollection<Poste> LstPoste { get; set; }
 
+        // Le volontaire assigné au local.
         private Volontaire _volontaireAssigne;
         public Volontaire VolontaireAssigne
         {
@@ -171,6 +174,10 @@ namespace Lama.Logic.Model
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
             LstPoste.CollectionChanged += LstPoste_CollectionChanged;
         }
+        /// <summary>
+        /// Constructeur de local contenant le numéro du local.
+        /// </summary>
+        /// <param name="numero"></param>
         public Local(string numero)
         {
             Numero = numero;
