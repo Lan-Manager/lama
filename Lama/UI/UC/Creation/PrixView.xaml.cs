@@ -31,8 +31,32 @@ namespace Lama.UI.UC.Creation
             // Initialiser l'observable collection
             LstPrix = new ObservableCollection<Prix>();
 
+            LstPrix.Add(new Prix("test"));
+            LstPrix.Add(new Prix("test"));
+            LstPrix.Add(new Prix("test"));
+            LstPrix.Add(new Prix("test"));
+            LstPrix.Add(new Prix("test"));
+
+
             // Lier la datagrid avec la liste
             dgPrix.ItemsSource = LstPrix;
+        }
+
+        private void btnAddPrix_Click(object sender, RoutedEventArgs e)
+        {
+            // Aucun contenu
+            if (String.IsNullOrWhiteSpace(txtNewPrix.Text))
+            {
+                MessageBox.Show("Veuillez entrer un prix!", "Attention!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                txtNewPrix.Clear();
+            }
+
+            // Contenu OK
+            else
+            {
+                LstPrix.Add(new Prix(txtNewPrix.Text));
+                txtNewPrix.Clear();
+            }
         }
     }
 }

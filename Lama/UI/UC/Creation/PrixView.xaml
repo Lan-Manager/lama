@@ -9,16 +9,20 @@
     <Grid>
         <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Prix (Optionnel)" />
 
-        <DataGrid Name="dgPrix" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="475" AutoGenerateColumns="False" CanUserAddRows="True">
+        <DataGrid Name="dgPrix" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="375" AutoGenerateColumns="False" CanUserAddRows="True" CanUserSortColumns="False" CanUserReorderColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Prix">
                     <DataGridTextColumn.EditingElementStyle>
                         <Style TargetType="TextBox">
-                            <Setter Property="MaxLength" Value="50" />
+                            <Setter Property="MaxLength" Value="60" />
                         </Style>
                     </DataGridTextColumn.EditingElementStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,475,0,0" Content="Ajouter un nouveau prix :"/>
+        <TextBox Name="txtNewPrix" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,475,0,0" Width="200" MaxLength="60"/>
+        <Button Name="btnAddPrix" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,475,0,0" Content="Ajouter" Click="btnAddPrix_Click"/>
     </Grid>
 </UserControl>

@@ -17,18 +17,17 @@ namespace Lama.UI.UC.Creation
             InitializeComponent();
 
             // Initialiser l'observable collection
-            LstEquipes = new ObservableCollection<Equipe>();
-
-            // Test
-            LstEquipes.Add(new Equipe("Team test"));
-            LstEquipes.Add(new Equipe("Team test"));
-            LstEquipes.Add(new Equipe("Team test"));
-            LstEquipes.Add(new Equipe("Team test"));
-            LstEquipes.Add(new Equipe("Team test"));
-            LstEquipes.Add(new Equipe("Team test"));
+            LstEquipes = ChargerEquipes();
 
             // Lier la liste et la datagrid
             dgEquipes.ItemsSource = LstEquipes;
+
+            //TODO: fetch les équipes en BD
+        }
+
+        private ObservableCollection<Equipe> ChargerEquipes()
+        {
+            return new ObservableCollection<Equipe>();
         }
     }
 }
