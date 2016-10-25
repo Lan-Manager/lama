@@ -16,14 +16,35 @@ namespace Lama.Logic.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public string Nom { get; set; }
+        public string Numero { get; set; }
 
         public TrulyObservableCollection<Poste> LstPoste { get; set; }
 
+        public Volontaire VolontaireAssigne { get; set; } // Le volontaire assigné à ce local.
 
-        #region Propriétés concernant le nombre de postes.
+        #region Propriétés concernant le numerobre de postes.
+        private int _nbPosteDepart;
+        public int NbPoste_Depart
+        {
+            get
+            {
+                return _nbPosteDepart;
+            }
+            set
+            {
+                if (value == _nbPosteDepart)
+                {
+                    return;
+                }
+
+                _nbPosteDepart = value;
+                NotifyPropertyChanged("NbPoste_Depart");
+
+            }
+        } // Le numerobre de poste ayant été prévu lors de la création du tournoi.
+
         private int _nbPoste;
-        public int NbPoste
+        public int NbPoste // Le numerobre de poste présentement utilisé pour le tournoi.
         {
             get
             {
@@ -42,7 +63,7 @@ namespace Lama.Logic.Model
             }
         }
         int _nbPostePret;
-        public int NbPoste_Pret
+        public int NbPoste_Pret // Le numerobre de poste présentement prêt à être utilisé pour le tournoi.
         {
             get
             {
@@ -60,7 +81,7 @@ namespace Lama.Logic.Model
             }
         }
         int _nbPosteAttente;
-        public int NbPoste_Attente
+        public int NbPoste_Attente // Le numerobre de poste qui n'ont pas été visité par un volontaire.
         {
             get
             {
@@ -77,10 +98,10 @@ namespace Lama.Logic.Model
             }
         }
         int _nbPosteProbleme;
-        public int NbPoste_Probleme
+        public int NbPoste_Probleme // Le numerobre de poste ayant rencontré un problème lors de la tournée des volontaires.
         {
             get
-            { 
+            {
                 return _nbPosteProbleme;
             }
             set
@@ -93,20 +114,35 @@ namespace Lama.Logic.Model
                 }
             }
         }
-        int _nbPosteRequis;
-        public int NbPoste_Requis
+        int _nbPosteNonRequis;
+        public int NbPoste_NonRequis // Le numerobre de poste qui ne sont plus requis pour le tournoi.
         {
             get
             {
-                _nbPosteRequis = NbPoste - NbPoste_Pret;
-                return _nbPosteRequis;
+                return _nbPosteNonRequis;
             }
             set
             {
-                if (value != _nbPosteRequis)
+                if (value != _nbPosteNonRequis)
                 {
-                    _nbPosteRequis = value;
-                    NotifyPropertyChanged("NbPoste_Requis");
+                    _nbPosteNonRequis = value;
+                    NotifyPropertyChanged("NbPoste_NonRequis");
+                }
+            }
+        }
+        int _nbPosteRestant;
+        public int NbPoste_Restant // Le numerobre de poste dont l'état n'est pas encore prêt.
+        {
+            get
+            {
+                return _nbPosteRestant;
+            }
+            set
+            {
+                if (value != _nbPosteRestant)
+                {
+                    _nbPosteRestant = value;
+                    NotifyPropertyChanged("NbPoste_Restant");
                 }
             }
         }
@@ -119,8 +155,15 @@ namespace Lama.Logic.Model
         {
             LstPoste = new TrulyObservableCollection<Poste>();
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
+            LstPoste.CollectionChanged += LstPoste_CollectionChanged;
         }
-
+        public Local(string numero)
+        {
+            Numero = numero;
+            LstPoste = new TrulyObservableCollection<Poste>();
+            LstPoste.ItemPropertyChanged += PropertyChangedHandler;
+            LstPoste.CollectionChanged += LstPoste_CollectionChanged;
+        }
         private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
         {
             NotifyPropertyChanged("Etat");
@@ -128,12 +171,13 @@ namespace Lama.Logic.Model
         /// <summary>
         /// Constructeur avec paramètre.
         /// </summary>
-        /// <param name="nom">Nom du local Ex: "D125"</param>
-        /// <param name="nbPoste">Nombre de postes dans le local</param>
-        public Local(string nom, int nbPoste)
+        /// <param name="numero">Numero du local Ex: "D125"</param>
+        /// <param name="nbPoste">Numerobre de postes dans le local</param>
+        public Local(string numero, int nbPoste)
         {
             NbPoste = nbPoste;
-            Nom = nom;
+            NbPoste_Depart = nbPoste;
+            Numero = numero;
             LstPoste = new TrulyObservableCollection<Poste>();
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
             LstPoste.CollectionChanged += LstPoste_CollectionChanged;
@@ -153,7 +197,7 @@ namespace Lama.Logic.Model
             int nbPoste_Pret = 0;
             int nbPoste_Probleme = 0;
             int nbPoste_Attente = 0;
-
+            int nbPoste_NonRequis = 0;
             foreach (Poste unPoste in LstPoste)
             {
                 if (unPoste.Etat == "Prêt")
@@ -168,21 +212,23 @@ namespace Lama.Logic.Model
                 {
                     nbPoste_Attente++;
                 }
+                if (unPoste.Etat == "Non requis")
+                {
+                    nbPoste_NonRequis++;
+                }
             }
+            NbPoste_NonRequis = nbPoste_NonRequis;
             NbPoste_Pret = nbPoste_Pret;
+            NbPoste = NbPoste_Depart - NbPoste_NonRequis; // Le numerobre de poste est maintenant égal au numerobre de poste du départ moins ceux non requis.
             NbPoste_Probleme = nbPoste_Probleme;
             NbPoste_Attente = nbPoste_Attente;
-            NbPoste_Requis = NbPoste - NbPoste_Pret;
+            NbPoste_Restant = NbPoste - NbPoste_Pret;
 
         }
 
         protected void NotifyPropertyChanged(string nomProp)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
-            if (nomProp == "NbPoste")
-            {
-                NbPoste_Requis = _nbPoste - _nbPostePret;
-            }
             // Si l'état d'un poste change, on effectu le calcul des états pour le local.
             if (nomProp == "Etat")
             {

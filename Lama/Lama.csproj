@@ -96,8 +96,7 @@
     <Compile Include="Logic\Model\TrulyObservableCollection.cs" />
     <Compile Include="UI\UC\TournoiControls\ClassementControls\ClassementUC.xaml.cs">
       <DependentUpon>ClassementUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\UC\TournoiControls\GrilleControls\EquipesUC.xaml.cs">
+    </Compile>    <Compile Include="Logic\Model\Utilisateur.cs" />    <Compile Include="UI\UC\TournoiControls\GrilleControls\EquipesUC.xaml.cs">
       <DependentUpon>EquipesUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\UC\TournoiControls\GrilleControls\GrilleUC.xaml.cs">
