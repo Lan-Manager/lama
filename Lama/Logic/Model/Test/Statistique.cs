@@ -9,18 +9,14 @@ namespace Lama.Logic.Model.Test
     public class Statistique
     {
         public string Key { get; set; }
-        public int Value { get; set; }
+        public int? Value { get; set; }
 
-        public Statistique()
-        {
-            Key = "n/a";
-            Value = -1;
-        }
+        public Statistique() { }
 
-        public Statistique(string key, int value)
+        public Statistique(string key)
         {
             Key = key;
-            Value = value;
+            Value = null;
         }
 
     }

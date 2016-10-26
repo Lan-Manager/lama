@@ -65,7 +65,7 @@
                 </ScrollViewer>
             </Controls:MetroTabItem>
 
-            <Controls:MetroTabItem Header="Joueurs">
+            <Controls:MetroTabItem Header="Joueurs" IsEnabled="False">
                 <ScrollViewer>
                     <StackPanel>
                         <Label Style="{DynamicResource stats}" Content="Statistiques par joueurs" />

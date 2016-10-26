@@ -22,8 +22,6 @@ namespace Lama.Logic.Model.Test
 
             Nom = "Équipe " + nbEquipe;
             lstStatistiques = new Statistiques();
-
-            EstElimine = (nbEquipe % 2 == 0) ? true : false;
         }
         public Equipe(ObservableCollection<Joueur> e1)
         {
@@ -32,6 +30,11 @@ namespace Lama.Logic.Model.Test
             Nom = "Équipe " + nbEquipe;
             lstStatistiques = new Statistiques();
             Joueurs = e1;
+        }
+
+        public bool Equals(Equipe other)
+        {
+            return other.Nom == this.Nom; 
         }
     }
 }

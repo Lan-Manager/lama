@@ -16,9 +16,9 @@
                 <DataTrigger Binding="{Binding EstGagnant}" Value="True">
                     <Setter Property="Foreground" Value="Lime" />
                 </DataTrigger>
-                <DataTrigger Binding="{Binding EstGagnant}" Value="False">
+                <!--<DataTrigger Binding="{Binding EstGagnant}" Value="False">
                     <Setter Property="Foreground" Value="Red" />
-                </DataTrigger>
+                </DataTrigger>-->
                 <DataTrigger Binding="{Binding EstGagnant}" Value="{x:Null}">
                     <Setter Property="Foreground" Value="{StaticResource IdealForegroundColorBrush}" />
                 </DataTrigger>

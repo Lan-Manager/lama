@@ -15,6 +15,8 @@ namespace Lama.Logic.Model.Test
         public ObservableCollection<Equipe> Equipes { get; set; }
         public Statistiques lstStatistiques { get; set; }
 
+        public Equipe Gagnant { get; set; }
+
         public Partie()
         {
             nbPartie++;
