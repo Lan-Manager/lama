@@ -207,7 +207,7 @@ namespace Lama.UI.UC
             // Si le nombre de poste restant est a 0 tout les locaux sont prêts a recevoir les joueurs.
             if (NbPoste_Pret == NbPoste_Requis)
             {
-                MessageBox.Show("Le tournoi peut maintenant démarrer");
+                // TODO : Modifier l'état du tournoi pour indiquer que les postes sont prêts. [Si Merge Conflict, cette ligne est la plus a jour]
             }
         }
 
