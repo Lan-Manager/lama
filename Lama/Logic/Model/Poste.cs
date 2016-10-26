@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LamaBD.helper;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -33,12 +34,25 @@ namespace Lama.Logic.Model
         }
         public void NotifyPropertyChanged(string nomProp)
         {
-
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
-
         }
 
-        public Volontaire DerniereModificationPar { get; set; }
+        private Volontaire _dernierModificateur;
+        public Volontaire DernierModificateur
+        {
+            get
+            {
+                return _dernierModificateur;
+            }
+            set
+            {
+                if (value != _dernierModificateur)
+                {
+                    _dernierModificateur = value;
+                    NotifyPropertyChanged("DernierModificateur");
+                }
+            }
+        }
         public Poste(int numero, string etat)
         {
             LstEtatPossible = new ObservableCollection<string>();
@@ -49,8 +63,5 @@ namespace Lama.Logic.Model
             Numero = numero;
             Etat = etat;
         }
-
-
-
     }
 }

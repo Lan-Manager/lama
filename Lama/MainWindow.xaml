@@ -12,7 +12,7 @@
         Height="800" 
         Width="1400"
         ShowTitleBar="False" ShowDialogsOverTitleBar="True" ShowMaxRestoreButton="False"
-        ResizeMode="CanResizeWithGrip"
+        ResizeMode="CanMinimize"
         BorderBrush="{DynamicResource HighlightBrush}"
         BorderThickness="2">
 
@@ -24,26 +24,18 @@
         </Style>
 
     </Window.Resources>
-
-    <Grid>
-            <Grid Margin="30">
-
-            <Controls:MetroAnimatedTabControl Margin="10" Grid.Row="1" Grid.Column="1">
-                <Controls:MetroTabItem Header="Tournoi">
-                    <tournoiControls:TournoiUC Style="{StaticResource control}" />
-                </Controls:MetroTabItem>
-                <Controls:MetroTabItem Header="Locaux">
-                    <controls:LocauxUC Style="{StaticResource control}" />
-                </Controls:MetroTabItem>
-            </Controls:MetroAnimatedTabControl>
-
-            <TextBlock Grid.Row="0" HorizontalAlignment="Right" Margin="0,10,20,0">
-            <Hyperlink Foreground="{DynamicResource HighlightBrush}" Click="Authentification_Click">S'authentifier</Hyperlink>
-            </TextBlock>
-
-        </Grid>
-
+    <Grid Name="gTournoi" Margin="30">
+        <Controls:MetroAnimatedTabControl Margin="10" Grid.Row="1" Grid.Column="1" Name="tabContenant">
+            <Controls:MetroTabItem Header="Tournoi" Name="tabTournoi">
+                <!--<tournoiControls:TournoiUC Style="{StaticResource control}" />-->
+            </Controls:MetroTabItem>
+            <Controls:MetroTabItem Header="Locaux" Name="tabLocaux">
+                <controls:LocauxUC Style="{StaticResource control}"/>
+            </Controls:MetroTabItem>
+        </Controls:MetroAnimatedTabControl>
+        <TextBlock Grid.Row="0" Height="25" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,30,20,0">
+            <Hyperlink Foreground="{DynamicResource HighlightBrush}" Click="Authentification_Click"><Label Height="30" Name="hplAuthentification">S'authentifier</Label></Hyperlink>
+        </TextBlock>
         <Image IsHitTestVisible="False" Opacity="0.05" Stretch="Fill" Width="{Binding SystemParameters.PrimaryScreenWidth}" Height="{Binding SystemParameters.PrimaryScreenHeight}" Source="Resources/bgtexture.jpg" />
-    
     </Grid>
 </Controls:MetroWindow>

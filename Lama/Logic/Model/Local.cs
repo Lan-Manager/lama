@@ -15,13 +15,30 @@ namespace Lama.Logic.Model
     public class Local : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
+        // Le poste sur lequel une modificateur fut apporté.
+        public Poste PosteCourant { get; set; }
+        // Le numéro du poste.
         public string Numero { get; set; }
 
         public TrulyObservableCollection<Poste> LstPoste { get; set; }
 
-        public Volontaire VolontaireAssigne { get; set; } // Le volontaire assigné à ce local.
-
+        // Le volontaire assigné au local.
+        private Volontaire _volontaireAssigne;
+        public Volontaire VolontaireAssigne
+        {
+            get
+            {
+                return _volontaireAssigne;
+            }
+            set
+            {
+                if (value != _volontaireAssigne)
+                {
+                    _volontaireAssigne = value;
+                    NotifyPropertyChanged("VolontaireAssigne");
+                }
+            }
+        }
         #region Propriétés concernant le numerobre de postes.
         private int _nbPosteDepart;
         public int NbPoste_Depart
@@ -157,6 +174,10 @@ namespace Lama.Logic.Model
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
             LstPoste.CollectionChanged += LstPoste_CollectionChanged;
         }
+        /// <summary>
+        /// Constructeur de local contenant le numéro du local.
+        /// </summary>
+        /// <param name="numero"></param>
         public Local(string numero)
         {
             Numero = numero;
@@ -166,7 +187,15 @@ namespace Lama.Logic.Model
         }
         private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
         {
-            NotifyPropertyChanged("Etat");
+            PosteCourant = (Poste)sender;
+            if (e.PropertyName == "Etat")
+            {
+                NotifyPropertyChanged("Etat");
+            }
+            if (e.PropertyName == "DernierModificateur")
+            {
+                NotifyPropertyChanged("DernierModificateur");
+            }
         }
         /// <summary>
         /// Constructeur avec paramètre.
