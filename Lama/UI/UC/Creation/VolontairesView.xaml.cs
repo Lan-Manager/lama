@@ -1,4 +1,4 @@
-﻿using Lama.Logic.Model.Francis;
+﻿using Lama.Logic.Model;
 using LamaBD;
 using LamaBD.helper;
 using System;
@@ -51,18 +51,18 @@ namespace Lama.UI.UC.Creation
             ((Tournoi)DataContext).LstVolontaires.Remove(dgc.DataContext as Volontaire);
         }
 
-        private ObservableCollection<Logic.Model.Francis.Volontaire> ChargerVolontaires()
+        private ObservableCollection<Volontaire> ChargerVolontaires()
         {
             var task = CompteHelper.SelectAllAdminAsync(false);
             task.Wait();
 
             List<comptes> data = task.Result;
 
-            ObservableCollection<Logic.Model.Francis.Volontaire> lstTemp = new ObservableCollection<Logic.Model.Francis.Volontaire>();
+            ObservableCollection<Volontaire> lstTemp = new ObservableCollection<Volontaire>();
 
             foreach (var volontaire in data)
             {
-                lstTemp.Add(new Logic.Model.Francis.Volontaire(volontaire.matricule, volontaire.prenom, volontaire.nom, volontaire.courriel));
+                lstTemp.Add(new Volontaire(volontaire.nom, volontaire.prenom, volontaire.matricule, volontaire.courriel));
             }
 
             return lstTemp;

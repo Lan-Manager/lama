@@ -1,4 +1,4 @@
-﻿using Lama.Logic.Model.Francis;
+﻿using Lama.Logic.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

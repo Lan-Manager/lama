@@ -1,5 +1,4 @@
 ﻿using Lama.Logic.Model;
-using Lama.Logic.Model.Francis;
 using LamaBD;
 using LamaBD.helper;
 using System;
@@ -64,7 +63,7 @@ namespace Lama.UI.UC.Creation
 
             foreach (var local in data)
             {
-                lstTemp.Add(new Local(local.numero, 10));
+                lstTemp.Add(new Local(local.numero, local.postes.Count));
             }
 
             return lstTemp;

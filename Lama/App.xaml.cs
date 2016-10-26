@@ -14,6 +14,6 @@ namespace Lama
     /// </summary>
     public partial class App : Application
     {
-        
+
     }
 }

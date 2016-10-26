@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lama.Logic.Model.Francis
+namespace Lama.Logic.Model
 {
-    public class Equipe
+    public class Prix
     {
         #region Propriétés
         public string Nom { get; set; }
         #endregion
 
         #region Constructeurs
-        public Equipe(string nom)
+        public Prix(string nom)
         {
             Nom = nom;
         }

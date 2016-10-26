@@ -141,6 +141,9 @@
     <Compile Include="UI\UC\TournoiControls\TournoiUC.xaml.cs">
       <DependentUpon>TournoiUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Win\AssocierJoueursEquipe.xaml.cs">
+      <DependentUpon>AssocierJoueursEquipe.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Win\AuthentificationWin.xaml.cs">
       <DependentUpon>AuthentificationWin.xaml</DependentUpon>
     </Compile>
@@ -162,21 +165,16 @@
     <Compile Include="example\UtilisationEntity.xaml.cs">
       <DependentUpon>UtilisationEntity.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Logic\Model\Francis\Equipe.cs" />
-    <Compile Include="Logic\Model\Francis\Participant.cs" />
-    <Compile Include="Logic\Model\Francis\Prix.cs" />
-    <Compile Include="Logic\Model\Francis\Tournoi.cs" />
-    <Compile Include="Logic\Model\Francis\Volontaire.cs" />
+    <Compile Include="Logic\Model\Equipe.cs" />
+    <Compile Include="Logic\Model\Prix.cs" />
+    <Compile Include="Logic\Model\Tournoi.cs" />
     <Compile Include="Logic\Model\Local.cs" />
     <Compile Include="Logic\Model\Poste.cs" />
-    <Compile Include="Logic\Model\Test\Equipe.cs" />
-    <Compile Include="Logic\Model\Test\Joueur.cs" />
-    <Compile Include="Logic\Model\Test\Partie.cs" />
-    <Compile Include="Logic\Model\Test\Prix.cs" />
-    <Compile Include="Logic\Model\Test\Statistique.cs" />
-    <Compile Include="Logic\Model\Test\Statistiques.cs" />
-    <Compile Include="Logic\Model\Test\Tour.cs" />
-    <Compile Include="Logic\Model\Test\Tournoi.cs" />
+    <Compile Include="Logic\Model\Joueur.cs" />
+    <Compile Include="Logic\Model\Partie.cs" />
+    <Compile Include="Logic\Model\Statistique.cs" />
+    <Compile Include="Logic\Model\Statistiques.cs" />
+    <Compile Include="Logic\Model\Tour.cs" />
     <Compile Include="Logic\Model\TrulyObservableCollection.cs" />
     <Compile Include="Logic\Model\Utilisateur.cs" />
     <Compile Include="Logic\Model\Volontaire.cs" />
@@ -263,6 +261,10 @@
     <Page Include="UI\UC\TournoiControls\TournoiUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Win\AssocierJoueursEquipe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Win\AuthentificationWin.xaml">
       <Generator>MSBuild:Compile</Generator>

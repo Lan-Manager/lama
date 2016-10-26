@@ -4,7 +4,6 @@
              xmlns:local="clr-namespace:Lama"
              StartupUri="UI\Win\CreerTournoiWindow.xaml">
     <Application.Resources>
-
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->

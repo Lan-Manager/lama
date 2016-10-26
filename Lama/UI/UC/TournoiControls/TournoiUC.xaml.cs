@@ -1,4 +1,4 @@
-﻿using Lama.Logic.Model.Test;
+﻿using Lama.Logic.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +21,8 @@ namespace Lama.UI.UC.TournoiControls
     /// </summary>
     public partial class TournoiUC : UserControl
     {
-        public Tournoi TournoiEnCours { get { return new Tournoi("Le Super Tournoi!"); } }
+        //TODO: changer avec le tournoi GLOBAL
+        public Tournoi TournoiEnCours { get { return new Tournoi(); } }
 
         public TournoiUC()
         {

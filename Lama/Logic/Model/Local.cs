@@ -179,6 +179,12 @@ namespace Lama.Logic.Model
             NbPoste_Depart = nbPoste;
             Numero = numero;
             LstPoste = new TrulyObservableCollection<Poste>();
+
+            for (int i = 0; i < nbPoste; i++)
+            {
+                LstPoste.Add(new Poste(i + 1, "Non requis"));
+            }
+
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
             LstPoste.CollectionChanged += LstPoste_CollectionChanged;
         }

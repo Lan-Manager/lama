@@ -1,4 +1,4 @@
-﻿using Lama.Logic.Model.Test;
+﻿using Lama.Logic.Model;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;

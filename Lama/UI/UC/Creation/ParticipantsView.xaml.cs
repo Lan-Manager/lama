@@ -4,10 +4,10 @@ using Lama.Logic.Model;
 using System.Windows;
 using Microsoft.Win32;
 using System.IO;
-using Lama.Logic.Model.Francis;
 using LamaBD.helper;
 using LamaBD;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Lama.UI.UC.Creation
 {
@@ -16,15 +16,15 @@ namespace Lama.UI.UC.Creation
     /// </summary>
     public partial class ParticipantsView : UserControl
     {
-        public ObservableCollection<Participant> LstParticipants { get; set; }
+        public ObservableCollection<Joueur> LstJoueurs { get; set; }
 
         public ParticipantsView()
         {
             InitializeComponent();
 
-            LstParticipants = ChargerParticipants();
+            LstJoueurs = ChargerJoueurs();
 
-            dgJoueurs.ItemsSource = LstParticipants;
+            dgJoueurs.ItemsSource = LstJoueurs;
         }
 
         // ajouter le participant
@@ -32,7 +32,7 @@ namespace Lama.UI.UC.Creation
         {
             DataGridCell dgc = sender as DataGridCell;
 
-            ((Tournoi)DataContext).LstParticipants.Add(dgc.DataContext as Participant);
+            ((Tournoi)DataContext).LstJoueurs.Add(dgc.DataContext as Joueur);
         }
 
         // enlever le participant
@@ -40,21 +40,21 @@ namespace Lama.UI.UC.Creation
         {
             DataGridCell dgc = sender as DataGridCell;
 
-            ((Tournoi)DataContext).LstParticipants.Remove(dgc.DataContext as Participant);
+            ((Tournoi)DataContext).LstJoueurs.Remove(dgc.DataContext as Joueur);
         }
 
-        private ObservableCollection<Participant> ChargerParticipants()
+        private ObservableCollection<Joueur> ChargerJoueurs()
         {
-            var task = ParticipantHelper.SelectAllAsync();
+            var task = ParticipantHelper.SelectAllLoLPlayersAsync();
             task.Wait();
 
             List<participants> data = task.Result;
 
-            ObservableCollection<Participant> lstTemp = new ObservableCollection<Participant>();
+            ObservableCollection<Joueur> lstTemp = new ObservableCollection<Joueur>();
 
             foreach (var participant in data)
             {
-                lstTemp.Add(new Participant(participant.matricule, participant.prenom, participant.nom, "rang", "usager"));
+                lstTemp.Add(new Joueur(participant.matricule, participant.prenom, participant.nom, "Diamond", participant.jeuxcomptes.First().nomCompte));
             }
 
             return lstTemp;

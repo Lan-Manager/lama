@@ -1,6 +1,6 @@
 ﻿using Lama.Logic.Model;
-using Lama.Logic.Model.Francis;
 using Lama.UI.UC.Creation;
+using Lama;
 using LamaBD;
 using LamaBD.helper;
 using MahApps.Metro.Controls;
@@ -31,13 +31,14 @@ namespace Lama.UI.Win
         private int Index { get; set; }
         private List<UserControl> Views { get; set; }
         public Tournoi LeTournoi { get; set; }
+        public Tournoi temp { get; set; }
         #endregion
 
         #region Constructeur
         /// <summary>
         /// Constructeur de la Window CreerTournoiWindow
         /// </summary>
-        public CreerTournoiWindow()
+        public CreerTournoiWindow(Tournoi t)
         {
             InitializeComponent();
 
@@ -52,7 +53,8 @@ namespace Lama.UI.Win
                                             };
 
             // Initialiser le tournoi
-            LeTournoi = new Tournoi();
+            LeTournoi = t;
+            temp = new Tournoi();
 
             // Initialiser l'index
             Index = 0;
@@ -64,7 +66,7 @@ namespace Lama.UI.Win
             btnPrecedent.IsEnabled = false;
 
             // Mettre le datacontext au tournoi
-            DataContext = LeTournoi;
+            DataContext = temp;
         }
         #endregion
 
@@ -121,7 +123,8 @@ namespace Lama.UI.Win
             // Si on veut enregistrer le tournoi
             if (mbr == MessageBoxResult.Yes)
             {
-                
+                LeTournoi = temp;
+                Close();
             }
         }
         #endregion

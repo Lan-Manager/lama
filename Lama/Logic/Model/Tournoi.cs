@@ -5,18 +5,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lama.Logic.Model.Francis
+namespace Lama.Logic.Model
 {
     public class Tournoi
     {
         #region Propriétés
         public string Nom { get; set; }
+        public string Etat { get; set; }
+        public Equipe Vainqueur { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Heure { get; set; }
         public string Description { get; set; }
+        public ObservableCollection<Tour> LstTours { get; set; }
         public ObservableCollection<Local> LstLocaux { get; set; }
         public ObservableCollection<Volontaire> LstVolontaires { get; set; }
-        public ObservableCollection<Participant> LstParticipants { get; set; }
+        public ObservableCollection<Joueur> LstJoueurs { get; set; }
         public ObservableCollection<Equipe> LstEquipes { get; set; }
         public ObservableCollection<Prix> LstPrix { get; set; }
         #endregion
@@ -32,7 +35,7 @@ namespace Lama.Logic.Model.Francis
 
             LstLocaux = new ObservableCollection<Local>();
             LstVolontaires = new ObservableCollection<Volontaire>();
-            LstParticipants = new ObservableCollection<Participant>();
+            LstJoueurs = new ObservableCollection<Joueur>();
             LstEquipes = new ObservableCollection<Equipe>();
             LstPrix = new ObservableCollection<Prix>();
         }
