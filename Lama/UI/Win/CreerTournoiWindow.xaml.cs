@@ -38,7 +38,7 @@ namespace Lama.UI.Win
         /// <summary>
         /// Constructeur de la Window CreerTournoiWindow
         /// </summary>
-        public CreerTournoiWindow(Tournoi t)
+        public CreerTournoiWindow(/*Tournoi t*/)
         {
             InitializeComponent();
 
@@ -53,7 +53,7 @@ namespace Lama.UI.Win
                                             };
 
             // Initialiser le tournoi
-            LeTournoi = t;
+            //LeTournoi = t;
             temp = new Tournoi();
 
             // Initialiser l'index
@@ -124,6 +124,7 @@ namespace Lama.UI.Win
             if (mbr == MessageBoxResult.Yes)
             {
                 LeTournoi = temp;
+                // TRISTAN AJOUTE LA REQUÊTE ICI et on veut enregistrer LeTournoi dans la BD
                 Close();
             }
         }
