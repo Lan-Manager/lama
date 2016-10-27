@@ -43,8 +43,8 @@
             </Style.Triggers>
         </Style>
 
-        <Style x:Key="creerTournoi" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-            <Setter Property="Visibility" Value="Visible" />
+        <!--<Style x:Key="creerTournoi" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Visibility" Value="Hidden" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Utilisateur.EstAdmin}" Value="False">
@@ -54,7 +54,7 @@
                     <Setter Property="Visibility" Value="Visible" />
                 </DataTrigger>
             </Style.Triggers>
-        </Style>
+        </Style>-->
 
     </Window.Resources>
     <Grid Name="gTournoi">
@@ -71,7 +71,7 @@
                 <StackPanel>
                     <StackPanel Style="{StaticResource aucunTournoi}">
                         <TextBlock Margin="0 30 0 30" HorizontalAlignment="Center" Text="Aucun tournoi en cours" />
-                        <Button Name="btnCreerTournoi" Style="{StaticResource creerTournoi}" Content="Créer un tournoi" Width="300" Click="btnCreerTournoi_Click"/>
+                        <!--<Button Name="btnCreerTournoi" Style="{StaticResource creerTournoi}" Content="Créer un tournoi" Width="300" Click="btnCreerTournoi_Click"/>-->
                     </StackPanel>
                     <tournoiControls:TournoiUC Style="{StaticResource grille}" />
                 </StackPanel>
@@ -83,7 +83,7 @@
             </Controls:MetroTabItem>
         </Controls:MetroAnimatedTabControl>
         
-        <!--<Button Grid.Row="0" Name="btnCreerTournoi" Content="Créer un tournoi" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,25,125,0" Click="btnCreerTournoi_Click" Visibility="Hidden"/>-->
+        <Button Grid.Row="0" Name="btnCreerTournoi" Content="Créer un tournoi" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,25,125,0" Click="btnCreerTournoi_Click" Visibility="Hidden"/>
 
 
         <Image IsHitTestVisible="False" Opacity="0.05" Stretch="Fill" Width="{Binding SystemParameters.PrimaryScreenWidth}" Height="{Binding SystemParameters.PrimaryScreenHeight}" Source="Resources/bgtexture.jpg" />

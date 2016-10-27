@@ -38,9 +38,15 @@ namespace Lama.UI.Win
         /// <summary>
         /// Constructeur de la Window CreerTournoiWindow
         /// </summary>
-        public CreerTournoiWindow(/*Tournoi t*/)
+        public CreerTournoiWindow()
         {
             InitializeComponent();
+
+            // Initialiser le tournoi
+            temp = new Tournoi();
+
+            // Mettre le datacontext au tournoi
+            DataContext = temp;
 
             // Initialiser la liste
             Views = new List<UserControl>() {
@@ -52,10 +58,6 @@ namespace Lama.UI.Win
                                                 new PrixView()
                                             };
 
-            // Initialiser le tournoi
-            //LeTournoi = t;
-            temp = new Tournoi();
-
             // Initialiser l'index
             Index = 0;
 
@@ -63,10 +65,7 @@ namespace Lama.UI.Win
             content.Content = Views.First();
 
             // Disable le bouton précédent
-            btnPrecedent.IsEnabled = false;
-
-            // Mettre le datacontext au tournoi
-            DataContext = temp;
+            btnPrecedent.IsEnabled = false;            
         }
         #endregion
 
@@ -124,7 +123,6 @@ namespace Lama.UI.Win
             if (mbr == MessageBoxResult.Yes)
             {
                 LeTournoi = temp;
-                // TRISTAN AJOUTE LA REQUÊTE ICI et on veut enregistrer LeTournoi dans la BD
                 Close();
             }
         }
