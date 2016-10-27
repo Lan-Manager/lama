@@ -126,14 +126,8 @@ namespace Lama.UI.Win
                 LeTournoi = temp;
                 LamaBD.tournois entity = Tournoi.getTournoiEntity(LeTournoi);
                 var task = LamaBD.helper.TournoiHelper.CreationTournoi(entity);
-                try
-                {
-                    task.Wait();
-                }
-                catch(Exception exc)
-                {
-                    Console.WriteLine(exc.InnerException.Message);
-                }
+                task.Wait();
+
                 Close();
             }
         }
