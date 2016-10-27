@@ -84,7 +84,9 @@ namespace Lama.Logic.Model
                 }
 
                 else
-                    Vainqueur = lstEquipesNonEliminees.ElementAt(0).Equipe;
+                {
+                   // Vainqueur = lstEquipesNonEliminees.ElementAt(0).Equipe;
+                }
             }
 
         }
