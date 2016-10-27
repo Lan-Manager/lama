@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lama.Logic.Model.Test
+namespace Lama.Logic.Model
 {
     public class Partie
     {
@@ -19,7 +19,7 @@ namespace Lama.Logic.Model.Test
         {
             nbPartie++;
             Nom = "Partie " + nbPartie;
-            Equipes = new ObservableCollection<Equipe> { new Equipe(), new Equipe() };
+            Equipes = new ObservableCollection<Equipe> { new Equipe("test"), new Equipe("test") };
             lstStatistiques = new Statistiques();
         }
     }
