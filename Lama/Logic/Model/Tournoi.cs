@@ -164,6 +164,68 @@ namespace Lama.Logic.Model
             }
 
         }
+
+        public static LamaBD.tournois getTournoiEntity(Tournoi t)
+        {
+            LamaBD.tournois entity = new LamaBD.tournois();
+
+            DateTime dateEvenement = t.Date.Add(t.Heure);
+            entity.dateEvenement = dateEvenement;
+            entity.dateCreation = DateTime.UtcNow;
+
+            entity.description = t.Description;
+            entity.nom = t.Nom;
+            entity.enCours = true;
+
+            LamaBD.etatstournois etat = new LamaBD.etatstournois();
+            etat.nom = t.Etat;
+            entity.etatstournois = etat;
+
+            LamaBD.comptes createur = new LamaBD.comptes();
+            createur.matricule = "1081849";
+            entity.comptes = createur;
+            /*
+            foreach (var volontaire in t.LstVolontaires)
+            {
+                LamaBD.comptestournois ct = new LamaBD.comptestournois();
+                ct.tournois = entity;
+                LamaBD.comptes compte = new LamaBD.comptes();
+                compte.matricule = volontaire.Matricule;
+                ct.comptes = compte;
+
+                entity.comptestournois.Add(ct);
+            }
+
+            foreach (var prix in t.LstPrix)
+            {
+                LamaBD.prixtournois prixTournois = new LamaBD.prixtournois();
+                prixTournois.tournois = entity;
+
+                LamaBD.prix pEntity = new LamaBD.prix();
+                pEntity.nom = prix.Nom;
+                prixTournois.prix = pEntity;
+
+                entity.prixtournois.Add(prixTournois);
+            }
+
+            foreach (var local in t.LstLocaux)
+            {
+                LamaBD.tournoislocaux tl = new LamaBD.tournoislocaux();
+                tl.tournois = entity;
+
+                LamaBD.locaux lEntity = new LamaBD.locaux();
+                lEntity.numero = local.Numero;
+
+                tl.locaux = lEntity;
+                entity.tournoislocaux.Add(tl);
+
+            }
+            */
+
+            return entity;
+        }
+
+
+        #endregion
     }
-    #endregion
 }

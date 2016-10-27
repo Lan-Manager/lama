@@ -124,6 +124,16 @@ namespace Lama.UI.Win
             {
                 temp.LstEquipes = ((EquipesView)Views[4]).LstEquipes;
                 LeTournoi = temp;
+                LamaBD.tournois entity = Tournoi.getTournoiEntity(LeTournoi);
+                var task = LamaBD.helper.TournoiHelper.CreationTournoi(entity);
+                try
+                {
+                    task.Wait();
+                }
+                catch(Exception exc)
+                {
+                    Console.WriteLine(exc.InnerException.Message);
+                }
                 Close();
             }
         }
