@@ -33,6 +33,7 @@
                 <controls:LocauxUC Style="{StaticResource control}"/>
             </Controls:MetroTabItem>
         </Controls:MetroAnimatedTabControl>
+        <Button Grid.Row="0" Name="btnCreerTournoi" Content="Créer un tournoi" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,25,125,0" Click="btnCreerTournoi_Click" Visibility="Hidden"/>
         <TextBlock Grid.Row="0" Height="25" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,30,20,0">
             <Hyperlink Foreground="{DynamicResource HighlightBrush}" Click="Authentification_Click"><Label Height="30" Name="hplAuthentification">S'authentifier</Label></Hyperlink>
         </TextBlock>
