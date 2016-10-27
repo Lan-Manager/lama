@@ -15,7 +15,7 @@
                 <DataGridTextColumn Binding="{Binding Prenom}" Width="*" Header="Prénom" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Nom" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Rang}" Width="*" Header="Rang" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Usager}" Width="*" Header="Usager" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Usager}" Width="*" Header="Summoner" IsReadOnly="True"/>
                 <DataGridCheckBoxColumn Width="*" Header="Actif">
                     <DataGridCheckBoxColumn.CellStyle>
                         <Style>
