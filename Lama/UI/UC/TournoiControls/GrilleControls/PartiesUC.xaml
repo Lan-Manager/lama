@@ -43,7 +43,7 @@
 
                 <StackPanel Style="{StaticResource sp}">
                     <Label Style="{StaticResource partie}" Content="{Binding Nom}" />
-                    <local:EquipesUC DataContext="{Binding Equipes}" />
+                    <local:EquipesUC />
                 </StackPanel>
 
             </DataTemplate>

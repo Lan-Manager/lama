@@ -11,6 +11,7 @@ namespace Lama.Logic.Model
     {
         
         public event PropertyChangedEventHandler PropertyChanged;
+        public bool EstAdmin { get; set; }
         private bool _estConnecte;
         public bool EstConnecte
         {
@@ -27,6 +28,7 @@ namespace Lama.Logic.Model
                 }
             }
         }
+        // Propriété du nom complet de l'utilisateur.
         private string _nomComplet;
         public string NomComplet
         {
@@ -43,18 +45,20 @@ namespace Lama.Logic.Model
                 }
             }
         }
+        /// <summary>
+        /// Constructeur d'utilisateur avec les valeurs qui doivent être chargés par défaut.
+        /// </summary>
         public Utilisateur()
         {
             NomComplet = "Invité";
+            EstConnecte = false;
+            EstAdmin = false;
         }
 
-        protected void NotifyPropertyChanged(string nomProp)
+        public void NotifyPropertyChanged(string nomProp)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
         }
-        public void Connexion()
-        {
-
-        }
+        
     }
 }

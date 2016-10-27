@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Lama.UI.UC.TournoiControls.ClassementControls"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
@@ -12,10 +13,10 @@
         <Style TargetType="Label" x:Key="stats">
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="FontSize" Value="14" />
-            <Setter Property="BorderBrush" Value="{StaticResource IdealForegroundDisabledBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource IdealForegroundDisabledBrush}" />
             <Setter Property="BorderThickness" Value="0 0 0 1" />
             <Setter Property="Margin" Value="0 20 0 20" />
-            <Setter Property="Foreground" Value="{StaticResource AccentBaseColorBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource AccentBaseColorBrush}" />
             <Style.Triggers>
                 <Trigger Property="Content" Value="{x:Null}">
                     <Setter Property="Visibility" Value="Collapsed" />
@@ -26,7 +27,7 @@
         <Style TargetType="Label" x:Key="menu">
             <Setter Property="Margin" Value="0 8 0 0" />
             <Setter Property="FontSize" Value="10" />
-            <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
         </Style>
 
         <Style TargetType="DataGridCell">
@@ -42,68 +43,45 @@
 
     </UserControl.Resources>
 
-    <Grid>
+        <Controls:MetroAnimatedTabControl x:Name="tabControl" TabStripPlacement="Left" Margin="0 50 0 0">
 
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.3*" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+            <Controls:MetroTabItem Header="Équipes">
+                <ScrollViewer>
+                    <StackPanel>
+                        <Label Style="{DynamicResource stats}" Content="Statistiques par équipe" />
 
-        <StackPanel>
-            <Label Style="{StaticResource menu}" Content="Statistique" />
-            <ListView ItemsSource="{Binding lstStatistiques.Stats}">
-                <ItemsControl.ItemTemplate>
+                        <DataGrid ItemsSource="{Binding Equipes, IsAsync=True}" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" LoadingRow="DataGrid_LoadingRow">
+                            
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Nom}" Header="Nom" />
+                                <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[0].Value}" Header="Élimination(s)" />
+                                <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[1].Value}" Header="Mort(s)" />
+                                <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[2].Value}" Header="Assistance(s)" />
+                                <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[3].Value}" Header="Batiment(s) détruit(s)" />
+                            </DataGrid.Columns>
+                            
+                        </DataGrid>
+                    </StackPanel>
+                </ScrollViewer>
+            </Controls:MetroTabItem>
 
-                    <DataTemplate>
-                        <Label Content="{Binding Key}" />
-                    </DataTemplate>
+            <Controls:MetroTabItem Header="Joueurs" IsEnabled="False">
+                <ScrollViewer>
+                    <StackPanel>
+                        <Label Style="{DynamicResource stats}" Content="Statistiques par joueurs" />
+                        <DataGrid ItemsSource="{Binding Joueurs, IsAsync=True}" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Nom}" Header="Nom" />
+                                <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[0].Value}" Header="Élimination(s)" />
+                                <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[1].Value}" Header="Mort(s)" />
+                                <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[2].Value}" Header="Assistance(s)" />
+                                <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[3].Value}" Header="Batiment(s) détruit(s)" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </ScrollViewer>
+            </Controls:MetroTabItem>
 
-                </ItemsControl.ItemTemplate>
-            </ListView>
-        </StackPanel>-->
+        </Controls:MetroAnimatedTabControl>
 
-        <WrapPanel Grid.Column="1" Margin="20 0 0 0">
-
-            <ScrollViewer>
-                <StackPanel>
-                    <Label Style="{StaticResource stats}" Content="Statistiques par équipe" />
-                    <DataGrid ItemsSource="{Binding Equipes}" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn FontSize="10" Binding="{Binding Nom}" Header="Nom" />
-                            <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[0].Value}" Header="Élimination(s)" />
-                            <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[1].Value}" Header="Mort(s)" />
-                            <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[2].Value}" Header="Assistance(s)" />
-                            <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[3].Value}" Header="Batiment(s) détruit(s)" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </StackPanel>
-            </ScrollViewer>
-
-            <ScrollViewer>
-                <StackPanel>
-                    <Label Style="{StaticResource stats}" Content="Statistiques par joueurs" />
-                    <DataGrid ItemsSource="{Binding Joueurs}" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn FontSize="10" Binding="{Binding Nom}" Header="Nom" />
-                            <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[0].Value}" Header="Élimination(s)" />
-                            <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[1].Value}" Header="Mort(s)" />
-                            <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[2].Value}" Header="Assistance(s)" />
-                            <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[3].Value}" Header="Batiment(s) détruit(s)" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </StackPanel>
-            </ScrollViewer>
-
-            <!--<DataGrid ItemsSource="{Binding Joueurs}">
-                    <ItemsControl.ItemTemplate>
-
-                        <DataTemplate>
-                            <Label Content="{Binding}" />
-                        </DataTemplate>
-
-                    </ItemsControl.ItemTemplate>
-                </DataGrid>-->
-
-        </WrapPanel>
-    </Grid>
 </UserControl>

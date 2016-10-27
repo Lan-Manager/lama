@@ -1,5 +1,4 @@
-﻿using Lama.Logic.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,24 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Lama.UI.UC.TournoiControls.GrilleControls
+namespace Lama.UI.UC.TournoiControls.StatistiquesControls.EquipesJoueurs
 {
     /// <summary>
-    /// Interaction logic for Grille.xaml
+    /// Logique d'interaction pour EquipesJoueursUC.xaml
     /// </summary>
-    public partial class GrilleUC : UserControl
+    public partial class EquipesJoueursUC : UserControl
     {
-        public GrilleUC()
+        public EquipesJoueursUC()
         {
             InitializeComponent();
-        }
-
-        private void GenererTour(object sender, RoutedEventArgs e)
-        {
-            var a = ((Button)sender).DataContext as Tournoi;
-
-            if (a != null)
-                a.GenererTour();
         }
     }
 }

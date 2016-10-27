@@ -126,71 +126,20 @@ namespace Lama.UI.UC
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
-        #region Helpers
-        /// <summary>
-        /// Fonction qui charge une liste des volontaires associés au tournoi à partir de la BD.
-        /// </summary>
-        private void GetVolontaires()
-        {
-            LstVolontaires = new ObservableCollection<Volontaire>();
-            LstVolontaires.Add(new Volontaire("Jemini", "Tom", "1353049", "abc@gmail.com"));
-            LstVolontaires.Add(new Volontaire("Sanchez", "Rick", "1033549", "popsa@msn.com"));
-            LstVolontaires.Add(new Volontaire("Jeans", "Mario", "1253334", "tonyhawkembarque@aol.com"));
-        }
-        /// <summary>
-        /// Fonction qui charge une liste de locaux associés au tournoi à partir de la BD.
-        /// </summary>
-        private void GetLocaux()
-        {
-            LstLocal = new ObservableCollection<Local>();
-            Local L1 = new Local("D125", 5);
-            Local L2 = new Local("A320", 4);
-            Local L3 = new Local("C200", 1);
-            LstLocal.Add(L1);
-            LstLocal.Add(L2);
-            LstLocal.Add(L3);
-        }
-        /// <summary>
-        /// Fonction qui charge une liste de postes pour chaque locaux.
-        /// </summary>
-        private void GetPoste()
-        {
-            Poste P1 = new Poste(1, "Problème");
-            Poste P2 = new Poste(2, "Prêt");
-            Poste P3 = new Poste(3, "Prêt");
-            Poste P4 = new Poste(4, "En attente");
-            Poste P5 = new Poste(5, "Problème");
-
-            Poste P6 = new Poste(28, "Problème");
-            Poste P7 = new Poste(10, "En attente");
-            Poste P8 = new Poste(13, "Prêt");
-            Poste P9 = new Poste(7, "En attente");
-            Poste P10 = new Poste(6, "Problème");
-
-            
-            LstLocal[0].LstPoste.Add(P1);
-            LstLocal[0].LstPoste.Add(P2);
-            LstLocal[0].LstPoste.Add(P3);
-            LstLocal[0].LstPoste.Add(P4);
-            LstLocal[0].LstPoste.Add(P5);
-
-            LstLocal[1].LstPoste.Add(P6);
-            LstLocal[1].LstPoste.Add(P7);
-            LstLocal[1].LstPoste.Add(P8);
-            LstLocal[1].LstPoste.Add(P9);
-            LstLocal[2].LstPoste.Add(P10);
-        }
-        #endregion
         public LocauxUC()
         {
             LstLocal = new ObservableCollection<Local>();
             LstVolontaires = new ObservableCollection<Volontaire>();
             LocalSelectionne = new Local();
-            //GetVolontaires();
+
+            #region Chargement des données en bd
             ChargerVolontaires();
             ChargerLocaux();
             ChargerPostes();
-            //GetPoste();
+            ChargerVolontairesAssigne();
+            ChargerDernierModificateur();
+            #endregion
+
             InitializeComponent();
 
             foreach (Local l in LstLocal)
@@ -200,7 +149,7 @@ namespace Lama.UI.UC
             
             // On met l'index de l'item que l'on veut afficher par défaut.
             cboLocal.SelectedIndex = 0;
-            CalculerEtat();
+            CalculerEtat(); // On calcule les états lors de l'initialisation de la page.
         }
 
 
@@ -210,8 +159,21 @@ namespace Lama.UI.UC
             {
                 CalculerEtat();
             }
+            if (e.PropertyName == "VolontaireAssigne")
+            {
+                SauvegarderVolontaireAssigne();
+            }
+            if (e.PropertyName == "Etat")
+            {
+                SauvegarderEtatPoste(LocalSelectionne.PosteCourant);
+            }
+            if (e.PropertyName == "DernierModificateur")
+            {
+                SauvegarderVolontaireModification(LocalSelectionne.PosteCourant);
+            }
         }
 
+        
         protected void NotifyPropertyChanged(string nomProp)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
@@ -241,6 +203,12 @@ namespace Lama.UI.UC
             NbPoste_EnAttente = nbPoste_Attente;
             NbPoste_Restant = nbPoste_Restant;
             NbPoste_Requis = nbPoste_Requis;
+
+            // Si le nombre de poste restant est a 0 tout les locaux sont prêts a recevoir les joueurs.
+            if (NbPoste_Pret == NbPoste_Requis)
+            {
+                // TODO : Modifier l'état du tournoi pour indiquer que les postes sont prêts. [Si Merge Conflict, cette ligne est la plus a jour]
+            }
         }
 
         // Fonction qui charge les postes lié à la liste de locaux lié au tournoi.
@@ -257,6 +225,7 @@ namespace Lama.UI.UC
                     // On va chercher l'état du poste courant.
                     var taskEtat = PosteHelper.SelectEtatAsync(p.idPoste);
                     taskEtat.Wait();
+                    // On va chercher le volontaire ayant fait la modification.
                     string nomEtat = taskEtat.Result.nom;
                     l.LstPoste.Add(new Poste(p.numeroPoste, nomEtat)); // On ajoute le poste à la liste de poste.
                 }
@@ -278,14 +247,80 @@ namespace Lama.UI.UC
         // Fonction qui charge les volontaires liés au tournois.
         private void ChargerVolontaires()
         {
-            var taskVolontaire = CompteHelper.SelectAllAdminAsync(false); // On veut la liste des volontaires donc on doit indiquer false pour estAdmin.
+            var taskVolontaire = CompteHelper.SelectAllComptesTournoi(false); // On veut la liste des volontaires donc on doit indiquer false pour estAdmin.
             taskVolontaire.Wait();
             List<comptes> lComptes = taskVolontaire.Result;
 
             foreach (comptes c in lComptes)
             {
-                LstVolontaires.Add(new Volontaire(c.nom, c.prenom, c.matricule, c.courriel)); // Ajout des volontaires à la liste.
+                LstVolontaires.Add(new Volontaire(c.nom, c.prenom, c.matricule, c.courriel, c.nomUtilisateur)); // Ajout des volontaires à la liste.
             }
         }
+        /// <summary>
+        /// Fonction qui assigne un volontaire au local à partir des données de la bd.
+        /// </summary>
+        private void ChargerVolontairesAssigne()
+        {
+            foreach (var l in LstLocal)
+            {
+                var taskVolAss = CompteHelper.SelectByLocalAssigne(l.Numero);
+                taskVolAss.Wait();
+                string c = taskVolAss.Result;
+                foreach (var v in LstVolontaires)
+                {
+                    if (v.NomUtilisateur == c)
+                    {
+                        l.VolontaireAssigne = v;
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Fonction qui assigne un volontaire au à la propriété représentant la dernière modification de l'état d'un poste.
+        /// </summary>
+        private void ChargerDernierModificateur()
+        {
+            foreach (var l in LstLocal)
+            {
+                foreach (var p in l.LstPoste)
+                {
+                    var taskVolMod = CompteHelper.SelectByModificationEtat(p.Numero, l.Numero);
+                    taskVolMod.Wait();
+                    string c = taskVolMod.Result;
+                    foreach (var v in LstVolontaires)
+                    {
+                        if (v.NomUtilisateur == c)
+                        {
+                            p.DernierModificateur = v;
+                        }
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Fonction appelé pour sauvegarder le nom du volontaire qui a fait la modification de l'état du poste.
+        /// </summary>
+        /// <param name="p">Le poste qui a été ciblé par la modification</param>
+        private void SauvegarderVolontaireModification(Poste p)
+        {
+            var taskSave = PosteHelper.UpdateModificateurtAsync(p.Numero, LocalSelectionne.Numero, p.DernierModificateur.NomUtilisateur);
+        }
+
+        /// <summary>
+        /// Fonction appelé pour sauvegarder l'état d'un poste en BD.
+        /// </summary>
+        /// <param name="p">Le poste qu'y doit être modifié en BD.</param>
+        private void SauvegarderEtatPoste(Poste p)
+        {
+            var taskSave = PosteHelper.UpdateEtatAsync(p.Numero, LocalSelectionne.Numero, p.Etat);
+        }
+        /// <summary>
+        /// Méthode pour sauvegarder le volontaire assigné à un  local en BD.
+        /// </summary>
+        private void SauvegarderVolontaireAssigne()
+        {
+            var task = LocalHelper.UpdateAsync(LocalSelectionne.Numero, LocalSelectionne.VolontaireAssigne.NomUtilisateur);
+        }
+
     }
 }

@@ -123,20 +123,26 @@
     <Compile Include="UI\UC\TournoiControls\PrixControls\PrixUC.xaml.cs">
       <DependentUpon>PrixUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesEquipeUC.xaml.cs">
+    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\EquipesJoueurs\EquipesJoueursUC.xaml.cs">
+      <DependentUpon>EquipesJoueursUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\EquipesJoueurs\StatistiquesEquipeUC.xaml.cs">
       <DependentUpon>StatistiquesEquipeUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesModelesUC.xaml.cs">
       <DependentUpon>StatistiquesModelesUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesPartieUC.xaml.cs">
-      <DependentUpon>StatistiquesPartieUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesTourUC.xaml.cs">
-      <DependentUpon>StatistiquesTourUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesUC.xaml.cs">
       <DependentUpon>StatistiquesUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\ToursParties\StatistiquesPartieUC.xaml.cs">
+      <DependentUpon>StatistiquesPartieUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\ToursParties\StatistiquesTourUC.xaml.cs">
+      <DependentUpon>StatistiquesTourUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\ToursParties\ToursPartiesUC.xaml.cs">
+      <DependentUpon>ToursPartiesUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\UC\TournoiControls\TournoiUC.xaml.cs">
       <DependentUpon>TournoiUC.xaml</DependentUpon>
@@ -165,16 +171,17 @@
     <Compile Include="example\UtilisationEntity.xaml.cs">
       <DependentUpon>UtilisationEntity.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logic\Model\Administrateur.cs" />
     <Compile Include="Logic\Model\Equipe.cs" />
-    <Compile Include="Logic\Model\Prix.cs" />
-    <Compile Include="Logic\Model\Tournoi.cs" />
-    <Compile Include="Logic\Model\Local.cs" />
-    <Compile Include="Logic\Model\Poste.cs" />
     <Compile Include="Logic\Model\Joueur.cs" />
+    <Compile Include="Logic\Model\Local.cs" />
     <Compile Include="Logic\Model\Partie.cs" />
+    <Compile Include="Logic\Model\Poste.cs" />
+    <Compile Include="Logic\Model\Prix.cs" />
     <Compile Include="Logic\Model\Statistique.cs" />
     <Compile Include="Logic\Model\Statistiques.cs" />
     <Compile Include="Logic\Model\Tour.cs" />
+    <Compile Include="Logic\Model\Tournoi.cs" />
     <Compile Include="Logic\Model\TrulyObservableCollection.cs" />
     <Compile Include="Logic\Model\Utilisateur.cs" />
     <Compile Include="Logic\Model\Volontaire.cs" />
@@ -238,7 +245,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesEquipeUC.xaml">
+    <Page Include="UI\UC\TournoiControls\StatistiquesControls\EquipesJoueurs\EquipesJoueursUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\StatistiquesControls\EquipesJoueurs\StatistiquesEquipeUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -246,15 +257,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesPartieUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesTourUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\StatistiquesControls\ToursParties\StatistiquesPartieUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\StatistiquesControls\ToursParties\StatistiquesTourUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\UC\TournoiControls\StatistiquesControls\ToursParties\ToursPartiesUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -263,8 +278,8 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Win\AssocierJoueursEquipe.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Win\AuthentificationWin.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -293,6 +308,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Logic\Model\Prix.cs.orig" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -311,10 +327,10 @@
       <Name>LamaBD</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\bgtexture.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -40,5 +40,12 @@ namespace Lama.Logic.Model
             LstPrix = new ObservableCollection<Prix>();
         }
         #endregion
+
+        #region Méthodes
+        public void GenererTour()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }

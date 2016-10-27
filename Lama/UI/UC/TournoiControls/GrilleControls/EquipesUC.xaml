@@ -9,7 +9,6 @@
 
     <UserControl.Resources>
 
-
         <Style TargetType="Label" x:Key="equipe">
             <Setter Property="FontSize" Value="10" />
             <Setter Property="Padding" Value="30 10 30 20" />
@@ -17,8 +16,11 @@
                 <DataTrigger Binding="{Binding EstGagnant}" Value="True">
                     <Setter Property="Foreground" Value="Lime" />
                 </DataTrigger>
-                <DataTrigger Binding="{Binding EstGagnant}" Value="False">
+                <!--<DataTrigger Binding="{Binding EstGagnant}" Value="False">
                     <Setter Property="Foreground" Value="Red" />
+                </DataTrigger>-->
+                <DataTrigger Binding="{Binding EstGagnant}" Value="{x:Null}">
+                    <Setter Property="Foreground" Value="{StaticResource IdealForegroundColorBrush}" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -31,7 +33,7 @@
         <Style TargetType="StackPanel" x:Key="mouseover">
             <Setter Property="Visibility" Value="Collapsed" />
             <Style.Triggers>
-                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}, Path=IsMouseOver}" Value="True" >
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=WrapPanel}, Path=IsMouseOver}" Value="True" >
                     <Setter Property="Visibility" Value="Visible" />
                 </DataTrigger>
             </Style.Triggers>
@@ -51,26 +53,26 @@
 
     </UserControl.Resources>
 
-    <ItemsControl ItemsSource="{Binding}" ItemsPanel="{StaticResource wp}">
+    <ItemsControl ItemsSource="{Binding Equipes}" ItemsPanel="{StaticResource wp}">
 
         <ItemsControl.ItemTemplate>
             <DataTemplate>
 
                 <StackPanel>
-                    <Label Style="{DynamicResource equipe}" Content="{Binding Nom}" />
+                    <Label Style="{StaticResource equipe}" Content="{Binding Nom}" />
 
                     <StackPanel Style="{StaticResource mouseover}">
 
                         <DataGrid ItemsSource="{Binding lstStatistiques.Stats}" HeadersVisibility="None" CanUserAddRows="False" AutoGenerateColumns="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn FontSize="10" Binding="{Binding Key}" IsReadOnly="True" />
-                                <DataGridTextColumn Binding="{Binding Value}" />
+                                <DataGridTextColumn Binding="{Binding Value}"></DataGridTextColumn>
                             </DataGrid.Columns>
                         </DataGrid>
 
-                        <CheckBox FlowDirection="RightToLeft" IsChecked="{Binding EstGagnant}" HorizontalAlignment="Center">
+                        <RadioButton FlowDirection="RightToLeft" IsChecked="{Binding EstGagnant}" HorizontalAlignment="Center" GroupName="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.Nom}">
                             <Label FlowDirection="LeftToRight" Content="Vainqueur"  Padding="20 30 20 30" />
-                        </CheckBox>
+                        </RadioButton>
 
                     </StackPanel>
                 </StackPanel>

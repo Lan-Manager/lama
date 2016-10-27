@@ -4,129 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Lama.UI.UC.TournoiControls.StatistiquesControls"
+             xmlns:ToursParties="clr-namespace:Lama.UI.UC.TournoiControls.StatistiquesControls.ToursParties"
+             xmlns:EquipesJoueurs="clr-namespace:Lama.UI.UC.TournoiControls.StatistiquesControls.EquipesJoueurs"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <UserControl.Resources>
+    <StackPanel>
 
-        <Style TargetType="Label" x:Key="menu">
-            <Setter Property="Margin" Value="0 8 0 0" />
-            <Setter Property="FontSize" Value="10" />
-            <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}" />
-        </Style>
+        <Controls:MetroAnimatedTabControl x:Name="tabControl">
 
-        <Style TargetType="Label" x:Key="stats">
-            <Setter Property="Margin" Value="0 35 0 35" />
-            <Setter Property="FontSize" Value="18" />
-            <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
-        </Style>
+            <Controls:MetroTabItem Header="Tours / Parties">
+                <ToursParties:ToursPartiesUC />
+            </Controls:MetroTabItem>
 
-        <Style TargetType="WrapPanel">
-            <Setter Property="VerticalAlignment" Value="Center" />
-        </Style>
+            <Controls:MetroTabItem Header="Équipes / Joueurs">
+                <EquipesJoueurs:EquipesJoueursUC />
+            </Controls:MetroTabItem>
 
-        <Style x:Key="parties" TargetType="ListView" BasedOn="{StaticResource MetroListView}">
-            <Style.Triggers>
-                <Trigger Property="HasItems" Value="False">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="ListView">
-                                <TextBlock Text=" Aucun tour sélectionné..." />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        </Controls:MetroAnimatedTabControl>
 
-        <Style x:Key="equipes" TargetType="ListView" BasedOn="{StaticResource MetroListView}">
-            <Style.Triggers>
-                <Trigger Property="HasItems" Value="False">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="ListView">
-                                <TextBlock Text=" Aucune partie sélectionnée..." />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <local:StatistiquesModelesUC />
 
-        <Style x:Key="joueurs" TargetType="ListView" BasedOn="{StaticResource MetroListView}">
-            <Style.Triggers>
-                <Trigger Property="HasItems" Value="False">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="ListView">
-                                <TextBlock Text=" Aucune équipe sélectionnée..." />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-    </UserControl.Resources>
-
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.3*" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-
-        <ScrollViewer>
-            <StackPanel>
-
-                <Label Style="{StaticResource menu}" Content="Tours" />
-                <ListView Name="lvTours" ItemsSource="{Binding Tours}" SelectedIndex="0">
-                    <ItemsControl.ItemTemplate>
-
-                        <DataTemplate>
-                            <Label Content="{Binding Nom}" />
-                        </DataTemplate>
-
-                    </ItemsControl.ItemTemplate>
-                </ListView>
-
-                <Label Style="{StaticResource menu}" Content="Parties" />
-                <ListView Style="{StaticResource parties}" Name="lvParties" ItemsSource="{Binding ElementName=lvTours, Path=SelectedItem.Parties}">
-                    <ItemsControl.ItemTemplate>
-
-                        <DataTemplate>
-                            <Label Content="{Binding Nom}" />
-                        </DataTemplate>
-
-                    </ItemsControl.ItemTemplate>
-                </ListView>
-
-                <Label Style="{StaticResource menu}" Content="Équipes" />
-                <ListView Style="{StaticResource equipes}" Name="lvEquipes" ItemsSource="{Binding ElementName=lvParties, Path=SelectedItem.Equipes}">
-                    <ItemsControl.ItemTemplate>
-
-                        <DataTemplate>
-                            <Label Content="{Binding Nom}" />
-                        </DataTemplate>
-
-                    </ItemsControl.ItemTemplate>
-                </ListView>
-
-                <Label Margin="0 30 0 0" Style="{StaticResource menu}" Content="** Modèle statistiques **" />
-                <local:StatistiquesModelesUC />
-
-            </StackPanel>
-        </ScrollViewer>
-
-        <ScrollViewer Grid.Column="1">
-            <StackPanel Margin="20 0 0 0">
-
-                <local:StatistiquesTourUC DataContext="{Binding ElementName=lvTours, Path=SelectedItem}" />
-                <local:StatistiquesPartieUC DataContext="{Binding ElementName=lvParties, Path=SelectedItem}" />
-                <local:StatistiquesEquipeUC DataContext="{Binding ElementName=lvEquipes, Path=SelectedItem}" />
-
-            </StackPanel>
-        </ScrollViewer>
-
-    </Grid>
+    </StackPanel>
 </UserControl>
