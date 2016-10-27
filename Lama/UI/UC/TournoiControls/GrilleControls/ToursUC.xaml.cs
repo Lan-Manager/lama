@@ -23,6 +23,14 @@ namespace Lama.UI.UC.TournoiControls.GrilleControls
         public ToursUC()
         {
             InitializeComponent();
+        }       
+
+        private void ScrollViewer_ScrollChanged(Object sender, ScrollChangedEventArgs e)
+        {
+            if (((ScrollViewer)sender).VerticalOffset == ((ScrollViewer)sender).ScrollableHeight)
+            {
+                ((ScrollViewer)sender).ScrollToEnd();
+            }
         }
     }
 }

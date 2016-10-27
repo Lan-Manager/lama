@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Lama.Logic.Model
 {
-    public class Tournoi
+    public class Tournoi : INotifyPropertyChanged
     {
         #region Propriétés
         public string Nom { get; set; }
         public string Etat { get; set; }
-        public Equipe Vainqueur { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Heure { get; set; }
         public string Description { get; set; }
@@ -23,6 +23,19 @@ namespace Lama.Logic.Model
         public ObservableCollection<Equipe> LstEquipes { get; set; }
         public ObservableCollection<Prix> LstPrix { get; set; }
         public Tour TourActif { get; set; }
+        private Equipe _vainqueur;
+        public Equipe Vainqueur
+        {
+            get { return _vainqueur; }
+            set
+            {
+                if (value != _vainqueur)
+                {
+                    _vainqueur = value;
+                    NotifyPropertyChanged("Vainqueur");
+                }
+            }
+        }
         #endregion
 
         #region Constructeurs
@@ -48,7 +61,13 @@ namespace Lama.Logic.Model
             //LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("Kasdo"), new Joueur("jo"), new Joueur("yoo"), new Joueur("arrr"), new Joueur("l'autre dude2") }));
             //LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("asdasdasdKo"), new Joueur("joasd"), new Joueur("yoo"), new Joueur("arrr"), new Joueur("l'autre dude2") }));
 
-            GenererTour();
+            //GenererTour();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string nomProp)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
         }
         #endregion
 
@@ -83,9 +102,9 @@ namespace Lama.Logic.Model
                     LstTours.Add(TourActif);
                 }
 
-                else
+                else if(lstEquipesNonEliminees.Count == 1)
                 {
-                   // Vainqueur = lstEquipesNonEliminees.ElementAt(0).Equipe;
+                    Vainqueur = lstEquipesNonEliminees.ElementAt(0).Equipe;
                 }
             }
 

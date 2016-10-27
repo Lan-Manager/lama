@@ -187,10 +187,10 @@ namespace Lama
                 FenetreAuthentification.ShowDialog();
                 Utilisateur = FenetreAuthentification.Utilisateur;
 
-                if (Utilisateur.EstAdmin)
-                {
-                    btnCreerTournoi.Visibility = Visibility.Visible;
-                }
+                //if (Utilisateur.EstAdmin)
+                //{
+                //    btnCreerTournoi.Visibility = Visibility.Visible;
+                //}
             }
             // Si l'utilisateur est déjà identifié, on le désauthentifie en remettant le statut d'utilisateur.
             else
