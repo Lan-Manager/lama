@@ -25,5 +25,13 @@ namespace Lama.UI.UC.TournoiControls.GrilleControls
         {
             InitializeComponent();
         }
+
+        private void GenererTour(object sender, RoutedEventArgs e)
+        {
+            var a = ((Button)sender).DataContext as Tournoi;
+
+            if (a != null)
+                a.GenererTour();
+        }
     }
 }
