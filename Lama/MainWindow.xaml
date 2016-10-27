@@ -74,7 +74,7 @@
 
             </Controls:MetroTabItem>
             <Controls:MetroTabItem Header="Locaux" Name="tabLocaux">
-                <!--<controls:LocauxUC Style="{StaticResource control}"/>-->
+                <controls:LocauxUC Style="{StaticResource control}"/>
             </Controls:MetroTabItem>
         </Controls:MetroAnimatedTabControl>
         <TextBlock Grid.Row="0" Height="25" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,30,20,0">

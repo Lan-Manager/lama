@@ -41,12 +41,12 @@ namespace Lama.Logic.Model
             LstPrix = new ObservableCollection<Prix>();
             LstTours = new ObservableCollection<Tour>();
 
-            LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("Max"), new Joueur("Francis"), new Joueur("Tristan"), new Joueur("Antoine"), new Joueur("l'autre dude") }));
-            LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("Ko"), new Joueur("jo"), new Joueur("yoo"), new Joueur("arrr"), new Joueur("l'autre dude2") }));
-            LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("Ko123"), new Joueur("jo"), new Joueur("yoo"), new Joueur("arrr"), new Joueur("l'autre dude2") }));
-            LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("K1daso"), new Joueur("jo"), new Joueur("yoo"), new Joueur("arrr"), new Joueur("l'autre dude2") }));
-            LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("Kasdo"), new Joueur("jo"), new Joueur("yoo"), new Joueur("arrr"), new Joueur("l'autre dude2") }));
-            LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("asdasdasdKo"), new Joueur("joasd"), new Joueur("yoo"), new Joueur("arrr"), new Joueur("l'autre dude2") }));
+            //LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("Max"), new Joueur("Francis"), new Joueur("Tristan"), new Joueur("Antoine"), new Joueur("l'autre dude") }));
+            //LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("Ko"), new Joueur("jo"), new Joueur("yoo"), new Joueur("arrr"), new Joueur("l'autre dude2") }));
+            //LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("Ko123"), new Joueur("jo"), new Joueur("yoo"), new Joueur("arrr"), new Joueur("l'autre dude2") }));
+            //LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("K1daso"), new Joueur("jo"), new Joueur("yoo"), new Joueur("arrr"), new Joueur("l'autre dude2") }));
+            //LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("Kasdo"), new Joueur("jo"), new Joueur("yoo"), new Joueur("arrr"), new Joueur("l'autre dude2") }));
+            //LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("asdasdasdKo"), new Joueur("joasd"), new Joueur("yoo"), new Joueur("arrr"), new Joueur("l'autre dude2") }));
 
             GenererTour();
         }
