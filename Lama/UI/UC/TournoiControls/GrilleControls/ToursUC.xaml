@@ -26,22 +26,20 @@
     </UserControl.Resources>
 
 
-    <Grid Height="480">
-        <ScrollViewer>
-            <ItemsControl ItemsSource="{Binding Tours}">
+    <ScrollViewer VerticalScrollBarVisibility="Visible" Height="400">
+        <ItemsControl ItemsSource="{Binding Tours}">
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
 
-                        <StackPanel>
-                            <Label Style="{StaticResource tour}" Content="{Binding Nom}" />
-                            <local:PartiesUC DataContext="{Binding}" Grid.Row="1" />
-                        </StackPanel>
+                    <StackPanel>
+                        <Label Style="{StaticResource tour}" Content="{Binding Nom}" />
+                        <local:PartiesUC DataContext="{Binding}" Grid.Row="1" />
+                    </StackPanel>
 
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
 
-            </ItemsControl>
-        </ScrollViewer>
-    </Grid>
+        </ItemsControl>
+    </ScrollViewer>
 </UserControl>
