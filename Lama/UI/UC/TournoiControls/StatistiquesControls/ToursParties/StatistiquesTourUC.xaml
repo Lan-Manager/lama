@@ -33,9 +33,6 @@
                 <DataTrigger Binding="{Binding EstGagnant}" Value="True">
                     <Setter Property="Foreground" Value="Lime" />
                 </DataTrigger>
-                <DataTrigger Binding="{Binding EstGagnant}" Value="False">
-                    <Setter Property="Foreground" Value="Red" />
-                </DataTrigger>
             </Style.Triggers>
         </Style>
 
@@ -74,18 +71,19 @@
 
                                     <StackPanel Style="{StaticResource sp}">
                                         <Label Style="{StaticResource equipe}" Content="{Binding Equipe.Nom}" HorizontalAlignment="Center" />
-                                        <ItemsControl ItemsSource="{Binding LstStats.Stats}" ItemsPanel="{StaticResource wp}">
+                                        <ItemsControl ItemsSource="{Binding LstStats.Stats}" HorizontalAlignment="Center">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
-
-                                                    <WrapPanel>
-                                                        <Label Content="{Binding Value}" />
-                                                        <Label Content="/" />
-                                                    </WrapPanel>
-
+                                                    <Label Foreground="{StaticResource IdealForegroundDisabledBrush}" Content="{Binding Value}" />
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
                                         </ItemsControl>
+                                        
                                     </StackPanel>
 
                                 </DataTemplate>

@@ -13,7 +13,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>
-        
+
         <Style x:Key="aucuntour" TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
             <Setter Property="IsEnabled" Value="True" />
             <Style.Triggers>
@@ -31,23 +31,29 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-
+        
     </UserControl.Resources>
-    
-    <Controls:MetroAnimatedTabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+    <Controls:MetroAnimatedTabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="tabControl_SelectionChanged">
 
         <Controls:MetroTabItem Header="Grille">
-            <StackPanel>                
+            <StackPanel>
                 <grille:GrilleUC />
             </StackPanel>
 
         </Controls:MetroTabItem>
 
         <Controls:MetroTabItem Header="Statistiques" Style="{StaticResource aucuntour}">
+            <!--<Controls:MetroTabItem.Header>
+                <Label DataContext="{Binding TournoiEnCours}" Content="Statistiques" MouseLeftButtonDown="Label_MouseLeftButtonDown" />
+            </Controls:MetroTabItem.Header>-->
             <statistiques:StatistiquesUC />
         </Controls:MetroTabItem>
 
         <Controls:MetroTabItem Header="Classement" Style="{StaticResource aucuntour}">
+            <!--<Controls:MetroTabItem.Header>
+                <Label DataContext="{Binding TournoiEnCours}" Content="Classement"  />
+            </Controls:MetroTabItem.Header>-->
             <classement:ClassementUC />
         </Controls:MetroTabItem>
 

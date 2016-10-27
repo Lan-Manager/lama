@@ -5,13 +5,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Lama.Logic.Model
 {
     public class Tournoi : INotifyPropertyChanged
     {
         #region Propriétés
-        public string Nom { get; set; }
         public string Etat { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Heure { get; set; }
@@ -23,6 +23,21 @@ namespace Lama.Logic.Model
         public ObservableCollection<Equipe> LstEquipes { get; set; }
         public ObservableCollection<Prix> LstPrix { get; set; }
         public Tour TourActif { get; set; }
+
+        private string _nom;
+        public string Nom
+        {
+            get { return _nom; }
+            set
+            {
+                if (value != _nom)
+                {
+                    _nom = value;
+                    NotifyPropertyChanged("Nom");
+                }
+            }
+        }
+
         private Equipe _vainqueur;
         public Equipe Vainqueur
         {
@@ -93,7 +108,7 @@ namespace Lama.Logic.Model
                     LstTours.Add(TourActif);
                 }
 
-                else if(lstEquipesNonEliminees.Count == 1)
+                else if (lstEquipesNonEliminees.Count == 1)
                 {
                     Vainqueur = lstEquipesNonEliminees.ElementAt(0).Equipe;
                 }
@@ -121,8 +136,6 @@ namespace Lama.Logic.Model
                                 if (!equipe.Equals(e))
                                     e.Equipe.EstElimine = false;
                         }
-
-                        equipe.EstGagnant = null;
                     }
         }
 
@@ -133,6 +146,23 @@ namespace Lama.Logic.Model
                     if (partie.Gagnant == null)
                         return false;
             return true;
+        }
+
+        public void MiseAJourStatistiques()
+        {
+
+            foreach (var equipe in LstEquipes)
+            {
+                foreach (var stat in equipe.LstStats.Stats)
+                    stat.Value = 0;
+
+                foreach (var tour in LstTours)
+                    foreach (var partie in tour.LstParties)
+                        foreach (var equipe2 in partie.LstEquipes)
+                            if (equipe.Equals(equipe2.Equipe))
+                                equipe.LstStats = equipe.LstStats + equipe2.LstStats;                
+            }
+
         }
     }
     #endregion

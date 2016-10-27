@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lama.UI.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,11 +12,8 @@ namespace Lama.Logic.Model
     {
         #region Propriétés
         public string Nom { get; set; }
-        public ObservableCollection<Joueur> Joueurs { get; set; }
+        public TrulyObservableCollection<Joueur> LstJoueurs { get; set; }
         public bool EstElimine { get; set; }
-
-        // TEST
-        static int nbEquipe = 0;
         public Statistiques LstStats { get; set; }
         #endregion
 
@@ -24,19 +22,17 @@ namespace Lama.Logic.Model
         {
             Nom = nom;
 
-            Joueurs = new ObservableCollection<Joueur>();
+            LstJoueurs = new TrulyObservableCollection<Joueur>();
 
-            EstElimine = false;
-        }
-
-        public Equipe(ObservableCollection<Joueur> e1)
-        {
-            nbEquipe++;
-
-            Nom = "Équipe " + nbEquipe;
-            Joueurs = e1;
             EstElimine = false;
             LstStats = new Statistiques();
+
+            // TODO: SELEUMENT POUR MONTRER EN DÉMO
+            LstJoueurs.Add(new Joueur("123123", "12312", "123123", "123", "maxeber"));
+            LstJoueurs.Add(new Joueur("123123", "12312", "123123", "123", "savariiia"));
+            LstJoueurs.Add(new Joueur("123123", "12312", "123123", "123", "antonee"));
+            LstJoueurs.Add(new Joueur("123123", "12312", "123123", "123", "franciska"));
+            LstJoueurs.Add(new Joueur("123123", "12312", "123123", "123", "l'autre dude3"));
         }
         #endregion
 

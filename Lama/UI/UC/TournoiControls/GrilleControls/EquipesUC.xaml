@@ -24,7 +24,6 @@
 
         <Style TargetType="StackPanel" x:Key="sp">
             <Setter Property="HorizontalAlignment" Value="Center" />
-            <!--<Setter Property="Margin" Value="35 0 35 0" />-->
         </Style>
 
         <Style TargetType="StackPanel" x:Key="mouseover">
@@ -63,7 +62,7 @@
                         <DataGrid ItemsSource="{Binding LstStats.Stats}" HeadersVisibility="None" CanUserAddRows="False" AutoGenerateColumns="False" Width="130">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Foreground="{StaticResource IdealForegroundDisabledBrush}" FontSize="10" Binding="{Binding Key}" IsReadOnly="True" Width="*" />
-                                <DataGridTextColumn Binding="{Binding Value}" Width="*">
+                                <DataGridTextColumn Binding="{Binding Value, Mode=TwoWay}" Width="*">
                                     <DataGridTextColumn.ElementStyle>
                                         <Style TargetType="{x:Type TextBlock}">
                                             <Setter Property="HorizontalAlignment" Value="Center" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ using System.Windows.Media.Imaging;
 
 namespace Lama.Logic.Model
 {
-    public class Joueur
+    public class Joueur : INotifyPropertyChanged
     {
         public string Matricule { get; set; }
         public string Prenom { get; set; }
@@ -17,12 +18,24 @@ namespace Lama.Logic.Model
         public string Usager { get; set; }
         public Equipe EquipeJoueur { get; set; }
 
-        // Pour les testes et les stats avancées : ne pas toucher
+        private Statistiques _lstStats;
+        public Statistiques LstStats
+        {
+            get { return _lstStats; }
+            set
+            {
+                if (value != _lstStats)
+                {
+                    _lstStats = value;
+                    NotifyPropertyChanged("LstStats");
+                }
+            }
+        }
+
+        // TODO : Class association Partie-Joueur-Champion
         public BitmapImage Img { get; set; }
         public string Champion { get; set; }
-        public Statistiques LstStats { get; set; }
-        private static int nbJoueur = 0;
-        
+
         public Joueur(string matricule, string prenom, string nom, string rang, string usager)
         {
             Matricule = matricule;
@@ -32,62 +45,27 @@ namespace Lama.Logic.Model
             Usager = usager;
 
             EquipeJoueur = null;
-        }
 
-        /// <summary>
-        /// Pour les testes
-        /// </summary>
-        public Joueur(string n)
-        {
+            // TEST DONNÉES STATIQUE
+            // TODO : Class association Partie-Joueur-Champion
+
             string fullFilePath;
 
-            Nom = n;
-            LstStats = new Statistiques();
-
-            switch (nbJoueur)
-            {
-                case 0:
-                    Champion = "Annie";
-                    break;
-                case 1:
-                    Champion = "Jax";
-                    break;
-                case 2:
-                    Champion = "Blitzcrank";
-                    break;
-                case 3:
-                    Champion = "Singed";
-                    break;
-                case 4:
-                    Champion = "Alistar";
-                    break;
-                case 5:
-                    Champion = "Pantheon";
-                    break;
-                case 6:
-                    Champion = "Sivir";
-                    break;
-                case 7:
-                    Champion = "Olaf";
-                    break;
-                case 8:
-                    Champion = "Talon";
-                    break;
-                default:
-                    Champion = "Taric";
-                    break;
-            }
+            Champion = "Alistar";
 
             fullFilePath = @"http://ddragon.leagueoflegends.com/cdn/5.2.1/img/champion/" + Champion + ".png";
-
             BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.UriSource = new Uri(fullFilePath, UriKind.Absolute);
             bitmap.EndInit();
 
             Img = bitmap;
+        }
 
-            nbJoueur++;
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string nomProp)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
         }
     }
 }

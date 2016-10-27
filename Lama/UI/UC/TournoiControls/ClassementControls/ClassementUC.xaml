@@ -69,7 +69,7 @@
             <ScrollViewer>
                 <StackPanel>
                     <Label Style="{DynamicResource stats}" Content="Statistiques par joueurs" />
-                    <DataGrid ItemsSource="{Binding Joueurs, IsAsync=True}" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid ItemsSource="{Binding TournoiEnCours.LstJoueurs, IsAsync=True}" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Nom}" Header="Nom" />
                             <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[0].Value}" Header="Élimination(s)" />

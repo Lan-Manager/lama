@@ -1,15 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Lama.Logic.Model
 {
-    public class Statistique
+    public class Statistique : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        
         public string Key { get; set; }
-        public int? Value { get; set; }
+
+        private int? _value;
+        public int? Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                if (value != _value)
+                {
+                    _value = value;
+                    NotifyPropertyChanged("Value");
+                }
+            }
+        }
+
 
         public Statistique()
         {
@@ -20,8 +40,12 @@ namespace Lama.Logic.Model
         public Statistique(string key)
         {
             Key = key;
-            Value = null;
+            Value = 0;
         }
 
+        public void NotifyPropertyChanged(string nomProp)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
+        }
     }
 }
