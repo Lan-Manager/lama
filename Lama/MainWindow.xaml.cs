@@ -175,6 +175,7 @@ namespace Lama
             TournoiEnCours = new Tournoi();
             this.DataContext = this;
             LeTournoi = ChargerTournoi();
+            TournoiEnCours = LeTournoi;
         }
 
         private void Authentification_Click(object sender, RoutedEventArgs e)
