@@ -12,15 +12,13 @@ namespace Lama.Logic.Model
         private static int nbTour = 0;
 
         public string Nom { get; set; }
-        public ObservableCollection<Partie> Parties { get; set; }
-        public Statistiques lstStatistiques { get; set; }
-        
+        public ObservableCollection<Partie> LstParties { get; set; }
+
         public Tour()
         {
             nbTour++;
             Nom = "Tour " + nbTour;
-            Parties = new ObservableCollection<Partie>() { new Partie(), new Partie(), new Partie() };
-            lstStatistiques = new Statistiques();
+            LstParties = new ObservableCollection<Partie>();
         }
     }
 }

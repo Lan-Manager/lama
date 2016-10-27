@@ -43,45 +43,45 @@
 
     </UserControl.Resources>
 
-        <Controls:MetroAnimatedTabControl x:Name="tabControl" TabStripPlacement="Left" Margin="0 50 0 0">
+    <Controls:MetroAnimatedTabControl x:Name="tabControl" TabStripPlacement="Left" Margin="0 50 0 0">
 
-            <Controls:MetroTabItem Header="Équipes">
-                <ScrollViewer>
-                    <StackPanel>
-                        <Label Style="{DynamicResource stats}" Content="Statistiques par équipe" />
+        <Controls:MetroTabItem Header="Équipes">
+            <ScrollViewer>
+                <StackPanel>
+                    <Label Style="{DynamicResource stats}" Content="Statistiques par équipe" />
 
-                        <DataGrid ItemsSource="{Binding Equipes, IsAsync=True}" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" LoadingRow="DataGrid_LoadingRow">
-                            
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding Nom}" Header="Nom" />
-                                <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[0].Value}" Header="Élimination(s)" />
-                                <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[1].Value}" Header="Mort(s)" />
-                                <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[2].Value}" Header="Assistance(s)" />
-                                <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[3].Value}" Header="Batiment(s) détruit(s)" />
-                            </DataGrid.Columns>
-                            
-                        </DataGrid>
-                    </StackPanel>
-                </ScrollViewer>
-            </Controls:MetroTabItem>
+                    <DataGrid ItemsSource="{Binding TournoiEnCours.LstEquipes, IsAsync=True}" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" LoadingRow="DataGrid_LoadingRow">
 
-            <Controls:MetroTabItem Header="Joueurs" IsEnabled="False">
-                <ScrollViewer>
-                    <StackPanel>
-                        <Label Style="{DynamicResource stats}" Content="Statistiques par joueurs" />
-                        <DataGrid ItemsSource="{Binding Joueurs, IsAsync=True}" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding Nom}" Header="Nom" />
-                                <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[0].Value}" Header="Élimination(s)" />
-                                <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[1].Value}" Header="Mort(s)" />
-                                <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[2].Value}" Header="Assistance(s)" />
-                                <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[3].Value}" Header="Batiment(s) détruit(s)" />
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </StackPanel>
-                </ScrollViewer>
-            </Controls:MetroTabItem>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Nom}" Header="Nom" />
+                            <DataGridTextColumn Binding="{Binding LstStats.Stats[0].Value}" Header="Élimination(s)" />
+                            <DataGridTextColumn Binding="{Binding LstStats.Stats[1].Value}" Header="Mort(s)" />
+                            <DataGridTextColumn Binding="{Binding LstStats.Stats[2].Value}" Header="Assistance(s)" />
+                            <DataGridTextColumn Binding="{Binding LstStats.Stats[3].Value}" Header="Batiment(s) détruit(s)" />
+                        </DataGrid.Columns>
 
-        </Controls:MetroAnimatedTabControl>
+                    </DataGrid>
+                </StackPanel>
+            </ScrollViewer>
+        </Controls:MetroTabItem>
+
+        <Controls:MetroTabItem Header="Joueurs" IsEnabled="False">
+            <ScrollViewer>
+                <StackPanel>
+                    <Label Style="{DynamicResource stats}" Content="Statistiques par joueurs" />
+                    <DataGrid ItemsSource="{Binding Joueurs, IsAsync=True}" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Nom}" Header="Nom" />
+                            <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[0].Value}" Header="Élimination(s)" />
+                            <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[1].Value}" Header="Mort(s)" />
+                            <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[2].Value}" Header="Assistance(s)" />
+                            <DataGridTextColumn Binding="{Binding lstStatistiques.Stats[3].Value}" Header="Batiment(s) détruit(s)" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </ScrollViewer>
+        </Controls:MetroTabItem>
+
+    </Controls:MetroAnimatedTabControl>
 
 </UserControl>

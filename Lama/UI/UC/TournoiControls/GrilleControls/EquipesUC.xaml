@@ -53,17 +53,17 @@
 
     </UserControl.Resources>
 
-    <ItemsControl ItemsSource="{Binding Equipes}" ItemsPanel="{StaticResource wp}">
+    <ItemsControl ItemsSource="{Binding LstEquipes}" ItemsPanel="{StaticResource wp}">
 
         <ItemsControl.ItemTemplate>
             <DataTemplate>
 
                 <StackPanel>
-                    <Label Style="{StaticResource equipe}" Content="{Binding Nom}" />
+                    <Label Style="{StaticResource equipe}" Content="{Binding Equipe.Nom}" />
 
                     <StackPanel Style="{StaticResource mouseover}">
 
-                        <DataGrid ItemsSource="{Binding lstStatistiques.Stats}" HeadersVisibility="None" CanUserAddRows="False" AutoGenerateColumns="False">
+                        <DataGrid ItemsSource="{Binding LstStats.Stats}" HeadersVisibility="None" CanUserAddRows="False" AutoGenerateColumns="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn FontSize="10" Binding="{Binding Key}" IsReadOnly="True" />
                                 <DataGridTextColumn Binding="{Binding Value}"></DataGridTextColumn>

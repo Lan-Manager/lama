@@ -81,6 +81,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Logic\Model\PartieEquipe.cs" />
     <Compile Include="UI\UC\Creation\EquipesView.xaml.cs">
       <DependentUpon>EquipesView.xaml</DependentUpon>
     </Compile>
@@ -308,7 +309,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Logic\Model\Prix.cs.orig" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

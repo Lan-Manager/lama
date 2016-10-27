@@ -11,9 +11,12 @@ namespace Lama.Logic.Model
     {
         #region Propriétés
         public string Nom { get; set; }
-        public Statistiques lstStatistiques { get; set; }
         public ObservableCollection<Joueur> Joueurs { get; set; }
         public bool EstElimine { get; set; }
+
+        // TEST
+        static int nbEquipe = 0;
+        public Statistiques LstStats { get; set; }
         #endregion
 
         #region Constructeurs
@@ -24,6 +27,23 @@ namespace Lama.Logic.Model
             Joueurs = new ObservableCollection<Joueur>();
 
             EstElimine = false;
+        }
+
+        public Equipe(ObservableCollection<Joueur> e1)
+        {
+            nbEquipe++;
+
+            Nom = "Équipe " + nbEquipe;
+            Joueurs = e1;
+            EstElimine = false;
+            LstStats = new Statistiques();
+        }
+        #endregion
+
+        #region Methodes
+        public bool Equals(Equipe other)
+        {
+            return other.Nom == this.Nom;
         }
         #endregion
     }

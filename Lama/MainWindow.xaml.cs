@@ -27,6 +27,8 @@ namespace Lama
     public partial class MainWindow : MetroWindow, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public Tournoi TournoiEnCours { get; set; }
+
         private Utilisateur _utilisateur;
         public Utilisateur Utilisateur
         {
@@ -59,7 +61,6 @@ namespace Lama
             if (Utilisateur == null || Utilisateur.EstConnecte == false)
             {
                 tabLocaux.Visibility = Visibility.Hidden;
-                tabTournoi.Content = new TournoiUC();
                 tabContenant.SelectedItem = tabTournoi;
                 hplAuthentification.Content = "S'authentifier";
             }
@@ -76,6 +77,8 @@ namespace Lama
             InitializeComponent();
             Utilisateur = new Utilisateur();
             Utilisateur.PropertyChanged += PropertyChanged;
+            TournoiEnCours = new Tournoi();
+            this.DataContext = this;
         }
 
         private void Authentification_Click(object sender, RoutedEventArgs e)

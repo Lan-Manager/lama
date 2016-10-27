@@ -37,7 +37,7 @@
 
     </UserControl.Resources>
 
-    <ItemsControl ItemsSource="{Binding Parties}" ItemsPanel="{StaticResource wp}">
+    <ItemsControl ItemsSource="{Binding LstParties}" ItemsPanel="{StaticResource wp}">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
 

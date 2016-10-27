@@ -64,14 +64,14 @@
     <StackPanel>
 
         <Label Style="{StaticResource partie}" Content="{Binding Nom}" />
-        <ItemsControl ItemsSource="{Binding Equipes}" ItemsPanel="{StaticResource wp}">
+        <ItemsControl ItemsSource="{Binding LstEquipes}" ItemsPanel="{StaticResource wp}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
 
                     <StackPanel>
 
-                        <Label Style="{StaticResource equipe}" Content="{Binding Nom}" />
-                        <ItemsControl ItemsSource="{Binding lstStatistiques.Stats}" ItemsPanel="{StaticResource wp}">
+                        <Label Style="{StaticResource equipe}" Content="{Binding Equipe.Nom}" />
+                        <ItemsControl ItemsSource="{Binding LstStats.Stats}" ItemsPanel="{StaticResource wp}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
 
@@ -83,7 +83,7 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <ItemsControl ItemsSource="{Binding Joueurs}" ItemsPanel="{StaticResource wp}">
+                        <ItemsControl ItemsSource="{Binding Equipe.LstJoueurs}" ItemsPanel="{StaticResource wp}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
 

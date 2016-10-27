@@ -27,14 +27,14 @@
 
 
     <ScrollViewer VerticalScrollBarVisibility="Visible" Height="400">
-        <ItemsControl ItemsSource="{Binding Tours}">
+        <ItemsControl ItemsSource="{Binding TournoiEnCours.LstTours}">
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
 
                     <StackPanel>
                         <Label Style="{StaticResource tour}" Content="{Binding Nom}" />
-                        <local:PartiesUC DataContext="{Binding}" Grid.Row="1" />
+                        <local:PartiesUC DataContext="{Binding}" />
                     </StackPanel>
 
                 </DataTemplate>

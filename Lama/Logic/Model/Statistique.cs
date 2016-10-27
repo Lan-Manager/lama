@@ -9,7 +9,7 @@ namespace Lama.Logic.Model
     public class Statistique
     {
         public string Key { get; set; }
-        public int Value { get; set; }
+        public int? Value { get; set; }
 
         public Statistique()
         {
@@ -17,10 +17,10 @@ namespace Lama.Logic.Model
             Value = -1;
         }
 
-        public Statistique(string key, int value)
+        public Statistique(string key)
         {
             Key = key;
-            Value = value;
+            Value = null;
         }
 
     }

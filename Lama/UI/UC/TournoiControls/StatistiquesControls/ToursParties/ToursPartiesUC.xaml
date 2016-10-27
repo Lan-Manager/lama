@@ -35,7 +35,7 @@
 
             <StackPanel>
                 <Label Style="{DynamicResource menu}" Content="Tours" />
-                <ListView Name="lvTours" ItemsSource="{Binding Tours}" SelectedIndex="0" Height="auto">
+                <ListView Name="lvTours" ItemsSource="{Binding TournoiEnCours.LstTours}" SelectedIndex="0" Height="auto">
                     <ItemsControl.ItemTemplate>
 
                         <DataTemplate>
@@ -48,7 +48,7 @@
 
             <StackPanel>
                 <Label Style="{DynamicResource menu}" Content="Parties" />
-                <ListView Name="lvParties" ItemsSource="{Binding ElementName=lvTours, Path=SelectedItem.Parties}">
+                <ListView Name="lvParties" ItemsSource="{Binding ElementName=lvTours, Path=SelectedItem.LstParties}">
                     <ItemsControl.ItemTemplate>
 
                         <DataTemplate>

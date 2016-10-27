@@ -12,15 +12,15 @@ namespace Lama.Logic.Model
         private static int nbPartie = 0;
 
         public string Nom { get; set; }
-        public ObservableCollection<Equipe> Equipes { get; set; }
-        public Statistiques lstStatistiques { get; set; }
+        public ObservableCollection<PartieEquipe> LstEquipes { get; set; }
 
-        public Partie()
+        public Equipe Gagnant { get; set; }
+        
+        public Partie(PartieEquipe e1, PartieEquipe e2)
         {
             nbPartie++;
             Nom = "Partie " + nbPartie;
-            Equipes = new ObservableCollection<Equipe> { new Equipe("test"), new Equipe("test") };
-            lstStatistiques = new Statistiques();
+            LstEquipes = new ObservableCollection<PartieEquipe>() { e1, e2 };
         }
     }
 }

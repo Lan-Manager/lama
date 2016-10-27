@@ -61,20 +61,31 @@
     <StackPanel>
 
         <Label Style="{StaticResource tour}" Content="{Binding Nom}" />
-        <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding Parties}" ItemsPanel="{StaticResource wp}">
+        <ItemsControl HorizontalAlignment="Center" ItemsSource="{Binding LstParties}" ItemsPanel="{StaticResource wp}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
 
                     <StackPanel>
 
                         <Label Style="{StaticResource partie}" Content="{Binding Nom}" />
-                        <ItemsControl ItemsSource="{Binding Equipes}" ItemsPanel="{StaticResource wp}">
+                        <ItemsControl ItemsSource="{Binding LstEquipes}" ItemsPanel="{StaticResource wp}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
 
                                     <StackPanel Style="{StaticResource sp}">
-                                        <Label Style="{StaticResource equipe}" Content="{Binding Nom}" HorizontalAlignment="Center" />
-                                        <Label Content="{Binding lstStatistiques.showStats}" />
+                                        <Label Style="{StaticResource equipe}" Content="{Binding Equipe.Nom}" HorizontalAlignment="Center" />
+                                        <ItemsControl ItemsSource="{Binding LstStats.Stats}" ItemsPanel="{StaticResource wp}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+
+                                                    <WrapPanel>
+                                                        <Label Content="{Binding Value}" />
+                                                        <Label Content="/" />
+                                                    </WrapPanel>
+
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
                                     </StackPanel>
 
                                 </DataTemplate>

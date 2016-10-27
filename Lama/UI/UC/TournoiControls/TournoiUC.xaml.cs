@@ -21,14 +21,10 @@ namespace Lama.UI.UC.TournoiControls
     /// </summary>
     public partial class TournoiUC : UserControl
     {
-        //TODO: changer avec le tournoi GLOBAL
-        public Tournoi TournoiEnCours { get { return new Tournoi(); } }
 
         public TournoiUC()
         {
             InitializeComponent();
-
-            DataContext = TournoiEnCours;
         }
     }
 }
