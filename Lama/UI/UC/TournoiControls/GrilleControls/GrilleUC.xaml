@@ -39,10 +39,10 @@
             <Setter Property="Visibility" Value="Hidden" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Utilisateur.EstConnecte}" Value="False">
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Utilisateur.EstConnecte}" Value="False">
                     <Setter Property="Visibility" Value="Collapsed" />
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Utilisateur.EstConnecte}" Value="True">
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Utilisateur.EstConnecte}" Value="True">
                     <Setter Property="Visibility" Value="Visible" />
                 </DataTrigger>
             </Style.Triggers>
