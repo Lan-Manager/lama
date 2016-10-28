@@ -161,6 +161,10 @@ namespace Lama
             }
             else
             {
+                if (Utilisateur.EstAdmin)
+                {
+                    btnCreerTournoi.Visibility = Visibility.Visible;
+                }
                 tabLocaux.Content = new LocauxUC();
                 tabLocaux.Visibility = Visibility.Visible;
                 hplAuthentification.Content = "Se désauthentifier";
@@ -186,11 +190,6 @@ namespace Lama
                 AuthentificationWin FenetreAuthentification = new AuthentificationWin();
                 FenetreAuthentification.ShowDialog();
                 Utilisateur = FenetreAuthentification.Utilisateur;
-
-                if (Utilisateur.EstAdmin)
-                {
-                    btnCreerTournoi.Visibility = Visibility.Visible;
-                }
             }
             // Si l'utilisateur est déjà identifié, on le désauthentifie en remettant le statut d'utilisateur.
             else
