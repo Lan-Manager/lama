@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="Lama.UI.UC.TournoiControls.PrixControls.PrixUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lama.UI.UC.TournoiControls.PrixControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+
+        <Style TargetType="Label" x:Key="prix">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="BorderBrush" Value="{DynamicResource IdealForegroundDisabledBrush}" />
+            <Setter Property="BorderThickness" Value="0 0 0 1" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}" />
+        </Style>
+
+    </UserControl.Resources>
+
+    <StackPanel>
+
+        <Label Style="{StaticResource prix}" Content="Liste des prix remis à l'équipe gagnante" />
+
+        <ItemsControl ItemsSource="{Binding lstPrix}" Margin="10">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+
+                    <Label Content="{Binding Nom}" />
+
+                </DataTemplate>
+
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <!--<Label Style="{StaticResource prix}" Content="Liste des prix de participation" />
+
+        <ItemsControl ItemsSource="{Binding lstPrix}" Margin="10">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+
+                    <Label Content="{Binding Nom}" />
+
+                </DataTemplate>
+
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ComboBox>
+            <ComboBoxItem Content="Équipe 1" />
+            <ComboBoxItem Content="Équipe 2" />
+            <ComboBoxItem Content="Équipe 3" />
+        </ComboBox>-->
+
+    </StackPanel>
+</UserControl>

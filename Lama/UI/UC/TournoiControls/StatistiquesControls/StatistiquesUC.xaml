@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Lama.UI.UC.TournoiControls.StatistiquesControls.StatistiquesUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lama.UI.UC.TournoiControls.StatistiquesControls"
+             xmlns:ToursParties="clr-namespace:Lama.UI.UC.TournoiControls.StatistiquesControls.ToursParties"
+             xmlns:EquipesJoueurs="clr-namespace:Lama.UI.UC.TournoiControls.StatistiquesControls.EquipesJoueurs"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <StackPanel>
+
+        <Controls:MetroAnimatedTabControl x:Name="tabControl">
+
+            <Controls:MetroTabItem Header="Tours / Parties">
+                <ToursParties:ToursPartiesUC />
+            </Controls:MetroTabItem>
+
+            <Controls:MetroTabItem Header="Équipes / Joueurs">
+                <EquipesJoueurs:EquipesJoueursUC />
+            </Controls:MetroTabItem>
+
+        </Controls:MetroAnimatedTabControl>
+
+        <local:StatistiquesModelesUC />
+
+    </StackPanel>
+</UserControl>

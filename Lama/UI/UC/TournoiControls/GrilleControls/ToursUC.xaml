@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="Lama.UI.UC.TournoiControls.GrilleControls.ToursUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lama.UI.UC.TournoiControls.GrilleControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+
+        <Style TargetType="Label" x:Key="tour">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Foreground" Value="{StaticResource AccentBaseColorBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource IdealForegroundDisabledBrush}" />
+            <Setter Property="BorderThickness" Value="0 0 0 1" />
+        </Style>
+
+        <Style TargetType="StackPanel" x:Key="sp">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="35 0 35 0" />
+        </Style>
+
+    </UserControl.Resources>
+
+
+    <ScrollViewer VerticalScrollBarVisibility="Visible" ScrollChanged="ScrollViewer_ScrollChanged">
+        <ItemsControl ItemsSource="{Binding TournoiEnCours.LstTours}">
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+
+                    <StackPanel>
+                        <Label Style="{StaticResource tour}" Content="{Binding Nom}" />
+                        <local:PartiesUC DataContext="{Binding}" />
+                    </StackPanel>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+        </ItemsControl>
+    </ScrollViewer>
+</UserControl>

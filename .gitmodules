@@ -1,0 +1,6 @@
+[submodule "LamaBD"]
+	path = LamaBD
+	url = https://github.com/Lan-Manager/LamaBD.git
+[submodule "database"]
+	path = database
+	url = https://github.com/Lan-Manager/database.git
