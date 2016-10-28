@@ -32,10 +32,8 @@ namespace Lama.UI.UC.Creation
             // Initialiser l'observable collection
             LstEquipes = ChargerEquipes();
 
-            var t = DataContext;
 
-            ((Tournoi)DataContext).LstEquipes = LstEquipes;
-
+            
             // Lier la liste et la datagrid
             dgEquipes.ItemsSource = LstEquipes;            
         }

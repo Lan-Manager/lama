@@ -122,6 +122,7 @@ namespace Lama.UI.Win
             // Si on veut enregistrer le tournoi
             if (mbr == MessageBoxResult.Yes)
             {
+                temp.LstEquipes = ((EquipesView)Views[4]).LstEquipes;
                 LeTournoi = temp;
                 Close();
             }
