@@ -35,6 +35,19 @@
             </Style.Triggers>
         </Style>
 
+        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}" x:Key="generertour">
+            <Setter Property="Visibility" Value="Hidden" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Utilisateur.EstConnecte}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Utilisateur.EstConnecte}" Value="True">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
     </UserControl.Resources>
 
     <StackPanel Margin="0 20 0 20">
@@ -46,7 +59,7 @@
 
         <StackPanel>
             <Label Style="{StaticResource lblaucuntour}" Content="Aucun tour en cours." />
-            <Button DataContext="{Binding TournoiEnCours}" Name="btnGenererTour" Content="Générer un tour" Click="GenererTour" Width="250" />
+            <Button Style="{StaticResource generertour}" DataContext="{Binding TournoiEnCours}" Name="btnGenererTour" Content="Générer un tour" Click="GenererTour" Width="250" />
         </StackPanel>
 
     </StackPanel>
