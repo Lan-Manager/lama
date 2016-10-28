@@ -19,6 +19,7 @@
             <Style.Triggers>
                 <DataTrigger Binding="{Binding TournoiEnCours.LstTours.Count}" Value="0">
                     <Setter Property="IsEnabled" Value="False" />
+                    <Setter Property="Opacity" Value="0.5" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -28,6 +29,7 @@
             <Style.Triggers>
                 <DataTrigger Binding="{Binding TournoiEnCours.LstPrix}" Value="{x:Null}">
                     <Setter Property="IsEnabled" Value="False" />
+                    <Setter Property="Opacity" Value="0.5" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -37,23 +39,14 @@
     <Controls:MetroAnimatedTabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="tabControl_SelectionChanged">
 
         <Controls:MetroTabItem Header="Grille">
-            <StackPanel>
                 <grille:GrilleUC />
-            </StackPanel>
-
         </Controls:MetroTabItem>
 
         <Controls:MetroTabItem Header="Statistiques" Style="{StaticResource aucuntour}">
-            <!--<Controls:MetroTabItem.Header>
-                <Label DataContext="{Binding TournoiEnCours}" Content="Statistiques" MouseLeftButtonDown="Label_MouseLeftButtonDown" />
-            </Controls:MetroTabItem.Header>-->
             <statistiques:StatistiquesUC />
         </Controls:MetroTabItem>
 
         <Controls:MetroTabItem Header="Classement" Style="{StaticResource aucuntour}">
-            <!--<Controls:MetroTabItem.Header>
-                <Label DataContext="{Binding TournoiEnCours}" Content="Classement"  />
-            </Controls:MetroTabItem.Header>-->
             <classement:ClassementUC />
         </Controls:MetroTabItem>
 
