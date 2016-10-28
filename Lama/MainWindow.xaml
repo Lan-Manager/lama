@@ -43,44 +43,49 @@
             </Style.Triggers>
         </Style>
 
-        <Style x:Key="creerTournoi" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-            <Setter Property="Visibility" Value="Visible" />
+        <!--<Style x:Key="creerTournoi" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Visibility" Value="Hidden" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Utilisateur.EstConnecte}" Value="False">
+                <DataTrigger Binding="{Binding Utilisateur.EstAdmin}" Value="False">
                     <Setter Property="Visibility" Value="Collapsed" />
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Utilisateur.EstConnecte}" Value="True">
+                <DataTrigger Binding="{Binding Utilisateur.EstAdmin}" Value="True">
                     <Setter Property="Visibility" Value="Visible" />
                 </DataTrigger>
             </Style.Triggers>
-        </Style>
+        </Style>-->
 
     </Window.Resources>
     <Grid Name="gTournoi">
 
+        <TextBlock Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,30,20,0">
+            <Hyperlink Foreground="{DynamicResource HighlightBrush}" Click="Authentification_Click">
+                <Label Height="30" Name="hplAuthentification" Content="S'authentifier" />
+            </Hyperlink>
+        </TextBlock>
+        
         <Controls:MetroAnimatedTabControl Margin="50" Name="tabContenant">
-            <Controls:MetroTabItem Header="Tournoi" Name="tabTournoi">
+            <Controls:MetroTabItem Header="{Binding TournoiEnCours.Nom}" Name="tabTournoi">
 
-                <StackPanel VerticalAlignment="Center">
+                <StackPanel>
                     <StackPanel Style="{StaticResource aucunTournoi}">
-                        <StackPanel HorizontalAlignment="Center">
-                            <TextBlock HorizontalAlignment="Center" Text="Aucun tournoi en cours" Margin="0 30 0 30" />
-                            <!--<Button Name="btnCreerTournoi" Style="{StaticResource creerTournoi}" Content="Créer un tournoi" Width="300"/>-->
-                        </StackPanel>
+                        <TextBlock Margin="0 30 0 30" HorizontalAlignment="Center" Text="Aucun tournoi en cours" />
+                        <!--<Button Name="btnCreerTournoi" Style="{StaticResource creerTournoi}" Content="Créer un tournoi" Width="300" Click="btnCreerTournoi_Click"/>-->
                     </StackPanel>
                     <tournoiControls:TournoiUC Style="{StaticResource grille}" />
                 </StackPanel>
 
             </Controls:MetroTabItem>
+            
             <Controls:MetroTabItem Header="Locaux" Name="tabLocaux">
                 <controls:LocauxUC Style="{StaticResource control}"/>
             </Controls:MetroTabItem>
         </Controls:MetroAnimatedTabControl>
+        
         <Button Grid.Row="0" Name="btnCreerTournoi" Content="Créer un tournoi" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,25,125,0" Click="btnCreerTournoi_Click" Visibility="Hidden"/>
-        <TextBlock Grid.Row="0" Height="25" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,30,20,0">
-            <Hyperlink Foreground="{DynamicResource HighlightBrush}" Click="Authentification_Click"><Label Height="30" Name="hplAuthentification">S'authentifier</Label></Hyperlink>
-        </TextBlock>
+
+
         <Image IsHitTestVisible="False" Opacity="0.05" Stretch="Fill" Width="{Binding SystemParameters.PrimaryScreenWidth}" Height="{Binding SystemParameters.PrimaryScreenHeight}" Source="Resources/bgtexture.jpg" />
     </Grid>
 </Controls:MetroWindow>

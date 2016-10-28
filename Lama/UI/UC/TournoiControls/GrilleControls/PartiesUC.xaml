@@ -12,7 +12,7 @@
         <Style TargetType="Label" x:Key="partie">
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="FontSize" Value="12" />
-            <Setter Property="Margin" Value="0 10 0 10" />
+            <Setter Property="Padding" Value="0 10 0 10" />
             <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}" />
             <Setter Property="BorderBrush" Value="{StaticResource IdealForegroundDisabledBrush}" />
             <Setter Property="BorderThickness" Value="0 0 0 1" />

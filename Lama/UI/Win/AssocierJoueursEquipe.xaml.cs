@@ -43,9 +43,9 @@ namespace Lama.UI.Win
             DataGridCell dgc = sender as DataGridCell;
 
             // le OnChecked sera triggered a cause du DataTrigger, donc on doit vérifier si cet objet n'existe pas déjà pour pas l'ajouter une 2e fois. (se retrigger lorsque l'on réouvre la Window)
-            if (!LEquipe.Joueurs.Contains(dgc.DataContext as Joueur))
+            if (!LEquipe.LstJoueurs.Contains(dgc.DataContext as Joueur))
             {
-                LEquipe.Joueurs.Add(dgc.DataContext as Joueur);
+                LEquipe.LstJoueurs.Add(dgc.DataContext as Joueur);
                 (dgc.DataContext as Joueur).EquipeJoueur = LEquipe;
             }
         }
@@ -55,7 +55,7 @@ namespace Lama.UI.Win
         {
             DataGridCell dgc = sender as DataGridCell;
 
-            LEquipe.Joueurs.Remove(dgc.DataContext as Joueur);
+            LEquipe.LstJoueurs.Remove(dgc.DataContext as Joueur);
             (dgc.DataContext as Joueur).EquipeJoueur = null;
         }
     }

@@ -37,9 +37,6 @@
                 <DataTrigger Binding="{Binding EstGagnant}" Value="True">
                     <Setter Property="Foreground" Value="Lime" />
                 </DataTrigger>
-                <DataTrigger Binding="{Binding EstGagnant}" Value="False">
-                    <Setter Property="Foreground" Value="Red" />
-                </DataTrigger>
             </Style.Triggers>
         </Style>
 
@@ -71,13 +68,13 @@
                     <StackPanel>
 
                         <Label Style="{StaticResource equipe}" Content="{Binding Equipe.Nom}" />
-                        <ItemsControl ItemsSource="{Binding LstStats.Stats}" ItemsPanel="{StaticResource wp}">
+                        <ItemsControl ItemsSource="{Binding Equipe.LstStats.Stats}" ItemsPanel="{StaticResource wp}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
 
                                     <StackPanel Style="{StaticResource sp}">
                                         <Label Foreground="{StaticResource AccentColorBrush2}" Content="{Binding Key}" />
-                                        <Label Content="{Binding Value}" />
+                                        <Label Foreground="{StaticResource IdealForegroundDisabledBrush}" Content="{Binding Value}" />
                                     </StackPanel>
 
                                 </DataTemplate>
@@ -88,10 +85,10 @@
                                 <DataTemplate>
 
                                     <StackPanel Opacity="0.2" Style="{StaticResource sp}">
-                                        <Label Foreground="{StaticResource AccentColorBrush2}" Content="{Binding Nom}" />
+                                        <Label Foreground="{StaticResource AccentColorBrush2}" Content="{Binding Usager}" />
                                         <Image Width="50" Height="50" Source="{Binding Img}" />
                                         <Label Foreground="{StaticResource AccentColorBrush3}" Content="{Binding Champion}" />
-                                        <Label Content="{Binding lstStatistiques.showStats}" />
+                                        <Label Content="{Binding LstStats}" />
                                     </StackPanel>
 
                                 </DataTemplate>

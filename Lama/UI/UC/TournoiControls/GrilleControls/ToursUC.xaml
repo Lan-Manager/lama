@@ -26,7 +26,7 @@
     </UserControl.Resources>
 
 
-    <ScrollViewer VerticalScrollBarVisibility="Visible" Height="400">
+    <ScrollViewer VerticalScrollBarVisibility="Visible" ScrollChanged="ScrollViewer_ScrollChanged">
         <ItemsControl ItemsSource="{Binding TournoiEnCours.LstTours}">
 
             <ItemsControl.ItemTemplate>

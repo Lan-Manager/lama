@@ -12,24 +12,45 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <Controls:MetroAnimatedTabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <UserControl.Resources>
+
+        <Style x:Key="aucuntour" TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+            <Setter Property="IsEnabled" Value="True" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding TournoiEnCours.LstTours.Count}" Value="0">
+                    <Setter Property="IsEnabled" Value="False" />
+                    <Setter Property="Opacity" Value="0.5" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="aucunprix" TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+            <Setter Property="IsEnabled" Value="True" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding TournoiEnCours.LstPrix}" Value="{x:Null}">
+                    <Setter Property="IsEnabled" Value="False" />
+                    <Setter Property="Opacity" Value="0.5" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        
+    </UserControl.Resources>
+
+    <Controls:MetroAnimatedTabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="tabControl_SelectionChanged">
 
         <Controls:MetroTabItem Header="Grille">
-            <StackPanel>                
                 <grille:GrilleUC />
-            </StackPanel>
-
         </Controls:MetroTabItem>
 
-        <Controls:MetroTabItem Header="Statistiques">
+        <Controls:MetroTabItem Header="Statistiques" Style="{StaticResource aucuntour}">
             <statistiques:StatistiquesUC />
         </Controls:MetroTabItem>
 
-        <Controls:MetroTabItem Header="Classement">
+        <Controls:MetroTabItem Header="Classement" Style="{StaticResource aucuntour}">
             <classement:ClassementUC />
         </Controls:MetroTabItem>
 
-        <Controls:MetroTabItem Header="Prix">
+        <Controls:MetroTabItem Header="Prix" Style="{StaticResource aucunprix}">
             <prix:PrixUC />
         </Controls:MetroTabItem>
 

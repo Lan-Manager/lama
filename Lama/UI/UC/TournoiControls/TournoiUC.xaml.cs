@@ -26,5 +26,18 @@ namespace Lama.UI.UC.TournoiControls
         {
             InitializeComponent();
         }
+
+        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.Source is TabControl) //if this event fired from TabControl then enter
+            {
+                var a = ((TabControl)sender).DataContext;
+
+                a = ((MainWindow)a).TournoiEnCours;
+
+                if (a != null)
+                    ((Tournoi)a).MiseAJourStatistiques();
+            }
+        }
     }
 }

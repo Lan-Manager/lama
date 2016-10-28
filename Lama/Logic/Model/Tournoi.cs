@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Lama.Logic.Model
 {
-    public class Tournoi
+    public class Tournoi : INotifyPropertyChanged
     {
         #region Propriétés
-        public string Nom { get; set; }
         public string Etat { get; set; }
-        public Equipe Vainqueur { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Heure { get; set; }
         public string Description { get; set; }
@@ -23,6 +23,34 @@ namespace Lama.Logic.Model
         public ObservableCollection<Equipe> LstEquipes { get; set; }
         public ObservableCollection<Prix> LstPrix { get; set; }
         public Tour TourActif { get; set; }
+
+        private string _nom;
+        public string Nom
+        {
+            get { return _nom; }
+            set
+            {
+                if (value != _nom)
+                {
+                    _nom = value;
+                    NotifyPropertyChanged("Nom");
+                }
+            }
+        }
+
+        private Equipe _vainqueur;
+        public Equipe Vainqueur
+        {
+            get { return _vainqueur; }
+            set
+            {
+                if (value != _vainqueur)
+                {
+                    _vainqueur = value;
+                    NotifyPropertyChanged("Vainqueur");
+                }
+            }
+        }
         #endregion
 
         #region Constructeurs
@@ -40,15 +68,12 @@ namespace Lama.Logic.Model
             LstEquipes = new ObservableCollection<Equipe>();
             LstPrix = new ObservableCollection<Prix>();
             LstTours = new ObservableCollection<Tour>();
+        }
 
-            //LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("Max"), new Joueur("Francis"), new Joueur("Tristan"), new Joueur("Antoine"), new Joueur("l'autre dude") }));
-            //LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("Ko"), new Joueur("jo"), new Joueur("yoo"), new Joueur("arrr"), new Joueur("l'autre dude2") }));
-            //LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("Ko123"), new Joueur("jo"), new Joueur("yoo"), new Joueur("arrr"), new Joueur("l'autre dude2") }));
-            //LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("K1daso"), new Joueur("jo"), new Joueur("yoo"), new Joueur("arrr"), new Joueur("l'autre dude2") }));
-            //LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("Kasdo"), new Joueur("jo"), new Joueur("yoo"), new Joueur("arrr"), new Joueur("l'autre dude2") }));
-            //LstEquipes.Add(new Equipe(new ObservableCollection<Joueur>() { new Joueur("asdasdasdKo"), new Joueur("joasd"), new Joueur("yoo"), new Joueur("arrr"), new Joueur("l'autre dude2") }));
-
-            GenererTour();
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string nomProp)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
         }
         #endregion
 
@@ -83,8 +108,10 @@ namespace Lama.Logic.Model
                     LstTours.Add(TourActif);
                 }
 
-                else
+                else if (lstEquipesNonEliminees.Count == 1)
+                {
                     Vainqueur = lstEquipesNonEliminees.ElementAt(0).Equipe;
+                }
             }
 
         }
@@ -109,8 +136,6 @@ namespace Lama.Logic.Model
                                 if (!equipe.Equals(e))
                                     e.Equipe.EstElimine = false;
                         }
-
-                        equipe.EstGagnant = null;
                     }
         }
 
@@ -121,6 +146,23 @@ namespace Lama.Logic.Model
                     if (partie.Gagnant == null)
                         return false;
             return true;
+        }
+
+        public void MiseAJourStatistiques()
+        {
+
+            foreach (var equipe in LstEquipes)
+            {
+                foreach (var stat in equipe.LstStats.Stats)
+                    stat.Value = 0;
+
+                foreach (var tour in LstTours)
+                    foreach (var partie in tour.LstParties)
+                        foreach (var equipe2 in partie.LstEquipes)
+                            if (equipe.Equals(equipe2.Equipe))
+                                equipe.LstStats = equipe.LstStats + equipe2.LstStats;                
+            }
+
         }
     }
     #endregion

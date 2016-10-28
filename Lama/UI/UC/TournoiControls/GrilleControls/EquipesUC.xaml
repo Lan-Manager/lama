@@ -16,9 +16,6 @@
                 <DataTrigger Binding="{Binding EstGagnant}" Value="True">
                     <Setter Property="Foreground" Value="Lime" />
                 </DataTrigger>
-                <!--<DataTrigger Binding="{Binding EstGagnant}" Value="False">
-                    <Setter Property="Foreground" Value="Red" />
-                </DataTrigger>-->
                 <DataTrigger Binding="{Binding EstGagnant}" Value="{x:Null}">
                     <Setter Property="Foreground" Value="{StaticResource IdealForegroundColorBrush}" />
                 </DataTrigger>
@@ -27,13 +24,12 @@
 
         <Style TargetType="StackPanel" x:Key="sp">
             <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="35 0 35 0" />
         </Style>
 
         <Style TargetType="StackPanel" x:Key="mouseover">
             <Setter Property="Visibility" Value="Collapsed" />
             <Style.Triggers>
-                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=WrapPanel}, Path=IsMouseOver}" Value="True" >
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=StackPanel, AncestorLevel=2}, Path=IsMouseOver}" Value="True" >
                     <Setter Property="Visibility" Value="Visible" />
                 </DataTrigger>
             </Style.Triggers>
@@ -63,15 +59,21 @@
 
                     <StackPanel Style="{StaticResource mouseover}">
 
-                        <DataGrid ItemsSource="{Binding LstStats.Stats}" HeadersVisibility="None" CanUserAddRows="False" AutoGenerateColumns="False">
+                        <DataGrid ItemsSource="{Binding LstStats.Stats}" HeadersVisibility="None" CanUserAddRows="False" AutoGenerateColumns="False" Width="130">
                             <DataGrid.Columns>
-                                <DataGridTextColumn FontSize="10" Binding="{Binding Key}" IsReadOnly="True" />
-                                <DataGridTextColumn Binding="{Binding Value}"></DataGridTextColumn>
+                                <DataGridTextColumn Foreground="{StaticResource IdealForegroundDisabledBrush}" FontSize="10" Binding="{Binding Key}" IsReadOnly="True" Width="*" />
+                                <DataGridTextColumn Binding="{Binding Value, Mode=TwoWay}" Width="*">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="{x:Type TextBlock}">
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
                             </DataGrid.Columns>
                         </DataGrid>
 
                         <RadioButton FlowDirection="RightToLeft" IsChecked="{Binding EstGagnant}" HorizontalAlignment="Center" GroupName="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.Nom}">
-                            <Label FlowDirection="LeftToRight" Content="Vainqueur"  Padding="20 30 20 30" />
+                            <Label FlowDirection="LeftToRight" Content="Vainqueur" Padding="20 30 20 30" />
                         </RadioButton>
 
                     </StackPanel>
