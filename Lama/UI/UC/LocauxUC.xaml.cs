@@ -134,6 +134,7 @@ namespace Lama.UI.UC
             LocalSelectionne = new Local();
 
             InitializeComponent();
+            this.IsEnabled = false;
 
             #region Chargement des données en bd
             Task task = new Task(new Action(ChargementDonnes));
@@ -149,6 +150,7 @@ namespace Lama.UI.UC
         private void Completed()
         {
             //Todo
+            this.IsEnabled = true;
         }
 
         private void ChargementDonnes()
