@@ -8,6 +8,7 @@ using LamaBD.helper;
 using LamaBD;
 using System.Collections.Generic;
 using Lama.UI.Model;
+using System.Threading.Tasks;
 
 namespace Lama.UI.UC
 {
@@ -132,23 +133,42 @@ namespace Lama.UI.UC
             LstVolontaires = new ObservableCollection<Volontaire>();
             LocalSelectionne = new Local();
 
+            InitializeComponent();
+
             #region Chargement des données en bd
+            Task task = new Task(new Action(ChargementDonnes));
+            task.ContinueWith(wat =>
+            {
+                Completed();
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+            task.Start();
+            #endregion
+
+        }
+
+        private void Completed()
+        {
+            //Todo
+        }
+
+        private void ChargementDonnes()
+        {
             ChargerVolontaires();
             ChargerLocaux();
             ChargerVolontairesAssigne();
             ChargerDernierModificateur();
-            #endregion
-
-            InitializeComponent();
 
             foreach (Local l in LstLocal)
             {
                 l.PropertyChanged += Local_PropertyChanged;
             }
 
-            // On met l'index de l'item que l'on veut afficher par défaut.
-            cboLocal.SelectedIndex = 0;
-            CalculerEtat(); // On calcule les états lors de l'initialisation de la page.
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                // On met l'index de l'item que l'on veut afficher par défaut.
+                cboLocal.SelectedIndex = 0;
+                CalculerEtat(); // On calcule les états lors de l'initialisation de la page.
+            });
         }
 
 
@@ -234,7 +254,10 @@ namespace Lama.UI.UC
             {
                 Local modelLocal = new Local(l.numero);
 
-                LstLocal.Add(modelLocal); // On ajoute les locaux chercher en BD au tournoi.
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    LstLocal.Add(modelLocal); // On ajoute les locaux chercher en BD au tournoi.
+                });
                 ChargerPostes(modelLocal, l.postes);
             }
         }
@@ -248,7 +271,11 @@ namespace Lama.UI.UC
 
             foreach (comptes c in lComptes)
             {
-                LstVolontaires.Add(new Volontaire(c.nom, c.prenom, c.matricule, c.courriel, c.nomUtilisateur)); // Ajout des volontaires à la liste.
+                App.Current.Dispatcher.Invoke((Action)delegate
+                {
+                    LstVolontaires.Add(new Volontaire(c.nom, c.prenom, c.matricule, c.courriel, c.nomUtilisateur)); // Ajout des volontaires à la liste.
+                });
+
             }
         }
         /// <summary>
