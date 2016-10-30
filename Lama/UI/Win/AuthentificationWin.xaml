@@ -23,12 +23,12 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid>
+    <Grid FocusManager.FocusedElement="{Binding ElementName=txbCompte}">
         <Label Name="Titre" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,30,0,0">Authentification</Label>
         <Label Style="{StaticResource lblInformations}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,80,0,0">Nom de compte : </Label>
         <TextBox Name="txbCompte" Width="200" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 110, 0, 0"></TextBox>
         <Label Style="{StaticResource lblInformations}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,150,0,0">Mot de passe :</Label>
         <PasswordBox  Name="pwbPassword" Width="200" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 180, 0, 0"></PasswordBox>
-        <Button Content="S'authentifier" Width="100" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" Click="Authentifier_Click"></Button>
+        <Button IsDefault="True" Content="S'authentifier" Width="100" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,10" Click="Authentifier_Click"></Button>
     </Grid>
 </Controls:MetroWindow>

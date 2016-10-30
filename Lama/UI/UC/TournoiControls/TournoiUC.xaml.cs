@@ -31,6 +31,32 @@ namespace Lama.UI.UC.TournoiControls
         {
             if (e.Source is TabControl) //if this event fired from TabControl then enter
             {
+                TabControl tabControl = sender as TabControl;
+                if (tabControl != null)
+                {
+                    TabItem tab = tabControl.SelectedItem as TabItem;
+                    if (tab != null && tab.Content == null)
+                    {
+                        switch (tabControl.SelectedIndex)
+                        {
+                            case 0:
+                                tabGrille.Content = new GrilleControls.GrilleUC();
+                                break;
+                            case 1:
+                                tabStat.Content = new StatistiquesControls.StatistiquesUC();
+                                break;
+                            case 2:
+                                tabClassement.Content = new ClassementControls.ClassementUC();
+                                break;
+                            case 3:
+                                tabPrix.Content = new PrixControls.PrixUC();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    
+                }
                 var a = ((TabControl)sender).DataContext;
 
                 a = ((MainWindow)a).TournoiEnCours;

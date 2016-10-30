@@ -79,7 +79,7 @@
             </Controls:MetroTabItem>
             
             <Controls:MetroTabItem Header="Locaux" Name="tabLocaux">
-                <controls:LocauxUC Style="{StaticResource control}"/>
+                <!--<controls:LocauxUC Style="{StaticResource control}"/> -->
             </Controls:MetroTabItem>
         </Controls:MetroAnimatedTabControl>
         
