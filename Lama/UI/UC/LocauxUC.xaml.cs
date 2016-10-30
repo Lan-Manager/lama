@@ -135,7 +135,6 @@ namespace Lama.UI.UC
             #region Chargement des données en bd
             ChargerVolontaires();
             ChargerLocaux();
-            ChargerPostes();
             ChargerVolontairesAssigne();
             ChargerDernierModificateur();
             #endregion
@@ -146,7 +145,7 @@ namespace Lama.UI.UC
             {
                 l.PropertyChanged += Local_PropertyChanged;
             }
-            
+
             // On met l'index de l'item que l'on veut afficher par défaut.
             cboLocal.SelectedIndex = 0;
             CalculerEtat(); // On calcule les états lors de l'initialisation de la page.
@@ -173,12 +172,12 @@ namespace Lama.UI.UC
             }
         }
 
-        
+
         protected void NotifyPropertyChanged(string nomProp)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
         }
-        
+
         /// <summary>
         /// Fonction qui calcule les états et met a jour les propriétés pour l'affichage du sommaire global.
         /// </summary>
@@ -212,27 +211,19 @@ namespace Lama.UI.UC
         }
 
         // Fonction qui charge les postes lié à la liste de locaux lié au tournoi.
-        private void ChargerPostes()
+        private void ChargerPostes(Local local, ICollection<postes> postes)
         {
-            foreach(Local l in LstLocal)
+            foreach (postes p in postes)
             {
-                var task = PosteHelper.SelectAllByNumeroLocalAsync(l.Numero);
-                task.Wait();
-                List<postes> lPostes = task.Result;
+                // On va chercher le volontaire ayant fait la modification.
+                //TODO
 
-                foreach (postes p in lPostes)
-                {
-                    // On va chercher l'état du poste courant.
-                    var taskEtat = PosteHelper.SelectEtatAsync(p.idPoste);
-                    taskEtat.Wait();
-                    // On va chercher le volontaire ayant fait la modification.
-                    string nomEtat = taskEtat.Result.nom;
-                    l.LstPoste.Add(new Poste(p.numeroPoste, nomEtat)); // On ajoute le poste à la liste de poste.
-                }
-                l.NbPoste_Depart = lPostes.Count;
-                l.CalculerEtat();
+                local.LstPoste.Add(new Poste(p.numeroPoste, p.etatspostes.nom)); // On ajoute le poste à la liste de poste.
             }
+            local.NbPoste_Depart = postes.Count;
+            local.CalculerEtat();
         }
+
         // Fonction qui charge les locaux lié au tournoi.
         private void ChargerLocaux()
         {
@@ -241,9 +232,13 @@ namespace Lama.UI.UC
             List<locaux> lLocaux = taskLocaux.Result;
             foreach (locaux l in lLocaux)
             {
-                LstLocal.Add(new Local(l.numero)); // On ajoute les locaux chercher en BD au tournoi.
+                Local modelLocal = new Local(l.numero);
+
+                LstLocal.Add(modelLocal); // On ajoute les locaux chercher en BD au tournoi.
+                ChargerPostes(modelLocal, l.postes);
             }
         }
+
         // Fonction qui charge les volontaires liés au tournois.
         private void ChargerVolontaires()
         {
