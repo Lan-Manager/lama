@@ -161,7 +161,7 @@ namespace Lama.Logic.Model
                     foreach (var partie in tour.LstParties)
                         foreach (var equipe2 in partie.LstEquipes)
                             if (equipe.Equals(equipe2.Equipe))
-                                equipe.LstStats = equipe.LstStats + equipe2.LstStats;                
+                                equipe.LstStats = equipe.LstStats + equipe2.LstStats;
             }
 
         }
@@ -198,43 +198,24 @@ namespace Lama.Logic.Model
                 entity.idJeu = jeu.idJeu;
 
                 entity.idCompte = createur.idCompte;
-                /*
-                foreach (var volontaire in t.LstVolontaires)
+
+                if (t.LstLocaux.Count > 0)
                 {
-                    LamaBD.comptestournois ct = new LamaBD.comptestournois();
-                    ct.tournois = entity;
-                    LamaBD.comptes compte = new LamaBD.comptes();
-                    compte.matricule = volontaire.Matricule;
-                    ct.comptes = compte;
+                    var locaux = ctx.locaux
+                        .ToList();
 
-                    entity.comptestournois.Add(ct);
+                    foreach (var localModel in t.LstLocaux)
+                    {
+                        tournoislocaux tl = new tournoislocaux();
+                        tl.tournois = entity;
+
+                        var local = locaux.Where(x => x.numero == localModel.Numero).FirstOrDefault();
+
+                        tl.idLocal = local.idLocal;
+
+                        entity.tournoislocaux.Add(tl);
+                    }
                 }
-
-                foreach (var prix in t.LstPrix)
-                {
-                    LamaBD.prixtournois prixTournois = new LamaBD.prixtournois();
-                    prixTournois.tournois = entity;
-
-                    LamaBD.prix pEntity = new LamaBD.prix();
-                    pEntity.nom = prix.Nom;
-                    prixTournois.prix = pEntity;
-
-                    entity.prixtournois.Add(prixTournois);
-                }
-
-                foreach (var local in t.LstLocaux)
-                {
-                    LamaBD.tournoislocaux tl = new LamaBD.tournoislocaux();
-                    tl.tournois = entity;
-
-                    LamaBD.locaux lEntity = new LamaBD.locaux();
-                    lEntity.numero = local.Numero;
-
-                    tl.locaux = lEntity;
-                    entity.tournoislocaux.Add(tl);
-
-                }
-                */
 
                 return entity;
             }
