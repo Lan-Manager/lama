@@ -8,7 +8,7 @@
         xmlns:tournoiControls="clr-namespace:Lama.UI.UC.TournoiControls"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="Lama - Lan Manager"
         Height="800" 
         Width="1400"
         ShowTitleBar="False" ShowDialogsOverTitleBar="True" ShowMaxRestoreButton="False"
@@ -58,7 +58,9 @@
 
     </Window.Resources>
     <Grid Name="gTournoi">
-
+        <Grid.Background>
+            <ImageBrush Opacity="0.03" Stretch="None" ImageSource="Resources/lama.png"/>
+        </Grid.Background>
         <TextBlock Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,30,20,0">
             <Hyperlink Foreground="{DynamicResource HighlightBrush}" Click="Authentification_Click">
                 <Label Height="30" Name="hplAuthentification" Content="S'authentifier" />

@@ -56,12 +56,18 @@ namespace Lama.Logic.Tools
         {
             char[] delimiter = { ':' };
             var split = correctHash.Split(delimiter);
-            var iterations = Int32.Parse(split[IterationIndex]);
-            var salt = Convert.FromBase64String(split[SaltIndex]);
-            var hash = Convert.FromBase64String(split[Pbkdf2Index]);
-
-            var testHash = GetPbkdf2Bytes(password, salt, iterations, hash.Length);
-            return SlowEquals(hash, testHash);
+            try
+            {
+                var iterations = Int32.Parse(split[IterationIndex]);
+                var salt = Convert.FromBase64String(split[SaltIndex]);
+                var hash = Convert.FromBase64String(split[Pbkdf2Index]);
+                var testHash = GetPbkdf2Bytes(password, salt, iterations, hash.Length);
+                return SlowEquals(hash, testHash);
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
     }
 }
