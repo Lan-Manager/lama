@@ -9,7 +9,8 @@
         WindowStartupLocation="CenterScreen"
         BorderThickness="1" 
         BorderBrush="{DynamicResource AccentColorBrush}"
-        Title="Authentification" Height="300" Width="300">
+        Title="Authentification" Height="300" Width="300"
+        MouseDown="MetroWindow_MouseDown">
     <Window.Resources>
         <Style x:Key="lblInformations" TargetType="Label">
             <Setter Property="FontWeight">

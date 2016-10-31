@@ -63,5 +63,11 @@ namespace Lama.UI.Win
         {
             VerifierInformation();
         }
+
+        private void MetroWindow_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
     }
 }

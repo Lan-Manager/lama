@@ -14,7 +14,8 @@
         ShowTitleBar="False" ShowDialogsOverTitleBar="True" ShowMaxRestoreButton="False"
         ResizeMode="CanMinimize"
         BorderBrush="{DynamicResource HighlightBrush}"
-        BorderThickness="2">
+        BorderThickness="2"
+        MouseDown="MetroWindow_MouseDown">
 
 
     <Window.Resources>
