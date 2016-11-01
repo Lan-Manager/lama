@@ -11,6 +11,12 @@ namespace Lama.Logic.Model
         public string Matricule { get; set; }
         public string Courriel { get; set; }
 
+
+        // Constructeur vide pour volontaire
+        public Volontaire()
+        {
+
+        }
         // Constructeur sans matricule pour administrateur.
         public Volontaire(string nom, string prenom, string courriel, string nomUtilisateur)
         {

@@ -15,6 +15,7 @@
         ResizeMode="CanMinimize"
         WindowState="Normal"
         BorderBrush="{DynamicResource HighlightBrush}"
+        WindowStartupLocation="CenterScreen"
         BorderThickness="2"
         MouseDown="MetroWindow_MouseDown">
 
@@ -68,7 +69,7 @@
                 <Label Height="30" Name="hplAuthentification" Content="S'authentifier" />
             </Hyperlink>
         </TextBlock>
-        
+
         <Controls:MetroAnimatedTabControl Margin="50" Name="tabContenant">
             <Controls:MetroTabItem Header="{Binding TournoiEnCours.Nom}" Name="tabTournoi">
 
@@ -81,12 +82,12 @@
                 </StackPanel>
 
             </Controls:MetroTabItem>
-            
+
             <Controls:MetroTabItem Header="Locaux" Name="tabLocaux">
                 <!--<controls:LocauxUC Style="{StaticResource control}"/> -->
             </Controls:MetroTabItem>
         </Controls:MetroAnimatedTabControl>
-        
+
         <Button Grid.Row="0" Name="btnCreerTournoi" Content="Créer un tournoi" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,25,125,0" Click="btnCreerTournoi_Click" Visibility="Hidden"/>
 
 

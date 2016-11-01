@@ -261,6 +261,10 @@ namespace Lama.Logic.Model
 
         }
 
+        protected void NotifyPropertyChanged<T>(string propertyName, T oldvalue, T newvalue)
+        {
+            PropertyChangedHandler(this, new PropertyChangedExtendedEventArgs<T>(propertyName, oldvalue, newvalue));
+        }
         protected void NotifyPropertyChanged(string nomProp)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
@@ -270,6 +274,8 @@ namespace Lama.Logic.Model
                 CalculerEtat();
             }
         }
+
+
     }
 }
 

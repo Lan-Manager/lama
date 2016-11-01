@@ -271,6 +271,11 @@ namespace Lama.UI.UC
             taskVolontaire.Wait();
             List<comptes> lComptes = taskVolontaire.Result;
 
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                LstVolontaires.Add(new Volontaire()); // On ajoute les locaux chercher en BD au tournoi.
+            });
+
             foreach (comptes c in lComptes)
             {
                 App.Current.Dispatcher.Invoke((Action)delegate
