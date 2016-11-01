@@ -9,15 +9,14 @@ namespace Lama.Logic.Model
 {
     public class Tour
     {
-        private static int nbTour = 0;
-
         public string Nom { get; set; }
         public ObservableCollection<Partie> LstParties { get; set; }
 
-        public Tour()
+        public Tour(int numTour)
         {
-            nbTour++;
-            Nom = "Tour " + nbTour;
+            StringBuilder sb = new StringBuilder("Tour ").Append(numTour);
+
+            Nom = sb.ToString();
             LstParties = new ObservableCollection<Partie>();
         }
     }

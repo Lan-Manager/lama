@@ -9,17 +9,16 @@ namespace Lama.Logic.Model
 {
     public class Partie
     {
-        private static int nbPartie = 0;
-
         public string Nom { get; set; }
         public ObservableCollection<PartieEquipe> LstEquipes { get; set; }
 
         public Equipe Gagnant { get; set; }
         
-        public Partie(PartieEquipe e1, PartieEquipe e2)
+        public Partie(PartieEquipe e1, PartieEquipe e2, int numPartie)
         {
-            nbPartie++;
-            Nom = "Partie " + nbPartie;
+            StringBuilder sb = new StringBuilder("Partie ").Append(numPartie);
+
+            Nom = sb.ToString();
             LstEquipes = new ObservableCollection<PartieEquipe>() { e1, e2 };
         }
     }

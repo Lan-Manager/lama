@@ -12,6 +12,24 @@ namespace Lama.Logic.Model
     public class Tournoi : INotifyPropertyChanged
     {
         #region Propriétés
+        private int _nbTour;
+        private int NbTour
+        {
+            get
+            {
+                return ++_nbTour;
+            }
+        }
+
+        private int _nbPartie;
+        private int NbPartie
+        {
+            get
+            {
+                return ++_nbPartie;
+            }
+        }
+
         public string Etat { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Heure { get; set; }
@@ -62,6 +80,9 @@ namespace Lama.Logic.Model
             Heure = DateTime.Now.TimeOfDay;
             Description = null;
 
+            _nbTour = 0;
+            _nbPartie = 0;
+
             LstLocaux = new ObservableCollection<Local>();
             LstVolontaires = new ObservableCollection<Volontaire>();
             LstJoueurs = new ObservableCollection<Joueur>();
@@ -84,7 +105,7 @@ namespace Lama.Logic.Model
 
             if (GenerationTourValide())
             {
-                TourActif = new Tour();
+                TourActif = new Tour(NbTour);
 
                 List<Equipe> eq = new List<Equipe>(LstEquipes.Where(e => e.EstElimine != true));
 
@@ -100,7 +121,7 @@ namespace Lama.Logic.Model
 
                     for (int i = 0; i < lstEquipesNonEliminees.Count() / 2; i++)
                     {
-                        Partie partie = new Partie(lstEquipesNonEliminees[index], lstEquipesNonEliminees[index + 1]);
+                        Partie partie = new Partie(lstEquipesNonEliminees[index], lstEquipesNonEliminees[index + 1], NbPartie);
                         TourActif.LstParties.Add(partie);
                         index += 2;
                     }

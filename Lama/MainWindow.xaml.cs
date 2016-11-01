@@ -31,7 +31,25 @@ namespace Lama
     {
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public Tournoi TournoiEnCours { get; set; }
+
+        private Tournoi _tournoiEnCours;
+
+        public Tournoi TournoiEnCours
+        {
+            get
+            {
+                return _tournoiEnCours;
+            }
+
+            set
+            {
+                if (_tournoiEnCours != value)
+                {
+                    _tournoiEnCours = value;
+                    NotifyPropertyChanged("TournoiEnCours");
+                }
+            }
+        }
 
         private Utilisateur _utilisateur;
         public Utilisateur Utilisateur
@@ -58,8 +76,8 @@ namespace Lama
                 AfficherElement();
             }
         }
-        public Tournoi LeTournoi { get; set; }
 
+        #region code BD
         private Tournoi ChargerTournoi()
         {
             var task = TournoiHelper.SelectLast();
@@ -149,6 +167,7 @@ namespace Lama
 
             return lstTemp;
         }
+        #endregion
 
         // Fonction qui affiche/cache ou modifie le texte de certain élément selon l'état de l'utilisateur.
         private void AfficherElement()
@@ -174,12 +193,13 @@ namespace Lama
         public MainWindow()
         {
             InitializeComponent();
+
             Utilisateur = new Utilisateur();
             Utilisateur.PropertyChanged += PropertyChanged;
-            TournoiEnCours = new Tournoi();
+
             this.DataContext = this;
-            LeTournoi = ChargerTournoi();
-            TournoiEnCours = LeTournoi;
+
+            TournoiEnCours = ChargerTournoi();
         }
 
         private void Authentification_Click(object sender, RoutedEventArgs e)
@@ -204,7 +224,7 @@ namespace Lama
             CreerTournoiWindow creerTournoiWindow = new CreerTournoiWindow();
             creerTournoiWindow.ShowDialog();
 
-            LeTournoi = creerTournoiWindow.temp;
+            TournoiEnCours = creerTournoiWindow.temp;
         }
 
         private void MetroWindow_MouseDown(object sender, MouseButtonEventArgs e)
