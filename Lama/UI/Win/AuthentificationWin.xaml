@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:Lama"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
         BorderThickness="1" 
         BorderBrush="{DynamicResource AccentColorBrush}"
         Title="Authentification" Height="300" Width="300"

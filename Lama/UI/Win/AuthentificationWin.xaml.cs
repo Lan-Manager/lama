@@ -24,9 +24,11 @@ namespace Lama.UI.Win
     public partial class AuthentificationWin : MetroWindow
     {
         public Utilisateur Utilisateur { get; set; }
-        public AuthentificationWin()
+        public AuthentificationWin(MetroWindow MainWindow)
         {
             InitializeComponent();
+            Owner = MainWindow;
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
         }
 
         private void VerifierInformation()

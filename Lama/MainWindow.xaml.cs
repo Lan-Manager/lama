@@ -207,7 +207,7 @@ namespace Lama
             // Si l'utilisateur n'est pas identifié, on affiche le formulaire d'authentification.
             if (Utilisateur == null || Utilisateur.EstConnecte == false)
             {
-                AuthentificationWin FenetreAuthentification = new AuthentificationWin();
+                AuthentificationWin FenetreAuthentification = new AuthentificationWin(this);
                 FenetreAuthentification.ShowDialog();
                 Utilisateur = FenetreAuthentification.Utilisateur;
             }

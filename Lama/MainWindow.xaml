@@ -10,9 +10,10 @@
         mc:Ignorable="d"
         Title="Lama - Lan Manager"
         Height="800" 
-        Width="1400"
+        Width="1200"
         ShowTitleBar="False" ShowDialogsOverTitleBar="True" ShowMaxRestoreButton="False"
         ResizeMode="CanMinimize"
+        WindowState="Maximized"
         BorderBrush="{DynamicResource HighlightBrush}"
         BorderThickness="2"
         MouseDown="MetroWindow_MouseDown">
