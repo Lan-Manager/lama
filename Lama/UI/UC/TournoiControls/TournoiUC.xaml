@@ -25,16 +25,14 @@
         </Style>
 
         <Style x:Key="aucunprix" TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
-            <Setter Property="IsEnabled" Value="True" />
+            <Setter Property="Visibility" Value="Visible" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding TournoiEnCours.LstPrix}" Value="{x:Null}">
-                    <Setter Property="IsEnabled" Value="False" />
-                    <Setter Property="Opacity" Value="0.5" />
+                    <Setter Property="Visibility" Value="Hidden" />
                 </DataTrigger>
 
                 <DataTrigger Binding="{Binding TournoiEnCours.LstPrix.Count}" Value="0">
-                    <Setter Property="IsEnabled" Value="False" />
-                    <Setter Property="Opacity" Value="0.5" />
+                    <Setter Property="Visibility" Value="Hidden" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
