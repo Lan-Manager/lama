@@ -25,7 +25,7 @@
 
         <Label Style="{StaticResource prix}" Content="Liste des prix remis à l'équipe gagnante" />
 
-        <ItemsControl ItemsSource="{Binding lstPrix}" Margin="10">
+        <ItemsControl ItemsSource="{Binding TournoiEnCours.LstPrix}" Margin="10">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
 

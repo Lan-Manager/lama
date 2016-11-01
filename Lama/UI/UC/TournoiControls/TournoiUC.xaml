@@ -31,6 +31,11 @@
                     <Setter Property="IsEnabled" Value="False" />
                     <Setter Property="Opacity" Value="0.5" />
                 </DataTrigger>
+
+                <DataTrigger Binding="{Binding TournoiEnCours.LstPrix.Count}" Value="0">
+                    <Setter Property="IsEnabled" Value="False" />
+                    <Setter Property="Opacity" Value="0.5" />
+                </DataTrigger>
             </Style.Triggers>
         </Style>
         
