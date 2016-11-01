@@ -13,7 +13,7 @@
         Width="1200"
         ShowTitleBar="False" ShowDialogsOverTitleBar="True" ShowMaxRestoreButton="False"
         ResizeMode="CanMinimize"
-        WindowState="Maximized"
+        WindowState="Normal"
         BorderBrush="{DynamicResource HighlightBrush}"
         BorderThickness="2"
         MouseDown="MetroWindow_MouseDown">

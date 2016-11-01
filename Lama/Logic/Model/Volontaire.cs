@@ -18,7 +18,7 @@ namespace Lama.Logic.Model
             Prenom = prenom;
             Nom = nom;
             Courriel = courriel;
-            sb.Append(Nom).Append(" ").Append(Prenom);
+            sb.Append(Prenom).Append(" ").Append(Nom);
             NomComplet = sb.ToString();
             NomUtilisateur = nomUtilisateur;
 
@@ -30,7 +30,7 @@ namespace Lama.Logic.Model
             Nom = nom;
             Matricule = matricule;
             Courriel = courriel;
-            sb.Append(Nom).Append(" ").Append(Prenom);
+            sb.Append(Prenom).Append(" ").Append(Nom);
             NomComplet = sb.ToString();
             NomUtilisateur = nomUtilisateur;
         }
