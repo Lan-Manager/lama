@@ -1,4 +1,5 @@
 ﻿using Lama.Logic.Model;
+using Lama.Logic.Tools;
 using LamaBD.helper;
 using MahApps.Metro.Controls;
 using System;
@@ -27,12 +28,24 @@ namespace Lama.UI.Win
         {
             InitializeComponent();
         }
+
         private void VerifierInformation()
         {
+            string hash = PasswordHelper.HashPassword(pwbPassword.Password);
+            bool isValid;
+
             var task = CompteHelper.SelectCompte(txbCompte.Text);
             task.Wait();
+
+            if (task.Result == null)
+                isValid = false;
+            else
+            {
+                isValid = PasswordHelper.ValidatePassword(pwbPassword.Password, task.Result.motDePasse);
+            }
+
             // Les informations sont erronés.
-            if (task.Result == null || string.IsNullOrEmpty(txbCompte.Text)  || string.IsNullOrEmpty(pwbPassword.Password)|| task.Result.motDePasse != pwbPassword.Password)
+            if (task.Result == null || string.IsNullOrEmpty(txbCompte.Text) || string.IsNullOrEmpty(pwbPassword.Password) || !isValid)
             {
                 MessageBox.Show("Le nom d'utilisateur et/ou le mot de passe saisis sont incorrects.");
             }
@@ -52,9 +65,16 @@ namespace Lama.UI.Win
                 this.Close();
             }
         }
+
         private void Authentifier_Click(object sender, RoutedEventArgs e)
         {
             VerifierInformation();
+        }
+
+        private void MetroWindow_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }

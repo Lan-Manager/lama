@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Lama.Logic.Model
 {
-    public class Equipe
+    public class Equipe : IEquatable<Equipe>
     {
         #region Propriétés
         public string Nom { get; set; }
@@ -37,9 +37,28 @@ namespace Lama.Logic.Model
         #endregion
 
         #region Methodes
+        public override bool Equals(object right)
+        {
+            if (object.ReferenceEquals(right, null))
+                return false;
+
+            if (object.ReferenceEquals(this, right))
+                return true;
+
+            if (this.GetType() != right.GetType())
+                return false;
+
+            return this.Equals(right as Equipe);
+        }
+
         public bool Equals(Equipe other)
         {
             return other.Nom == this.Nom;
+        }
+
+        public override string ToString()
+        {
+            return this.Nom;
         }
         #endregion
     }

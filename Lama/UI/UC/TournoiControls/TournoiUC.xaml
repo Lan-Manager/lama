@@ -38,20 +38,20 @@
 
     <Controls:MetroAnimatedTabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="tabControl_SelectionChanged">
 
-        <Controls:MetroTabItem Header="Grille">
-                <grille:GrilleUC />
+        <Controls:MetroTabItem Name="tabGrille" Header="Grille">
+              <!-- <grille:GrilleUC /> -->
         </Controls:MetroTabItem>
 
-        <Controls:MetroTabItem Header="Statistiques" Style="{StaticResource aucuntour}">
-            <statistiques:StatistiquesUC />
+        <Controls:MetroTabItem Name="tabStat" Header="Statistiques" Style="{StaticResource aucuntour}">
+            <!-- <statistiques:StatistiquesUC /> -->
         </Controls:MetroTabItem>
 
-        <Controls:MetroTabItem Header="Classement" Style="{StaticResource aucuntour}">
-            <classement:ClassementUC />
+        <Controls:MetroTabItem Name="tabClassement" Header="Classement" Style="{StaticResource aucuntour}">
+            <!-- <classement:ClassementUC /> -->
         </Controls:MetroTabItem>
 
-        <Controls:MetroTabItem Header="Prix" Style="{StaticResource aucunprix}">
-            <prix:PrixUC />
+        <Controls:MetroTabItem Name="tabPrix" Header="Prix" Style="{StaticResource aucunprix}">
+            <!-- <prix:PrixUC /> -->
         </Controls:MetroTabItem>
 
     </Controls:MetroAnimatedTabControl>

@@ -59,13 +59,13 @@
 
                     <StackPanel Style="{StaticResource mouseover}">
 
-                        <DataGrid ItemsSource="{Binding LstStats.Stats}" HeadersVisibility="None" CanUserAddRows="False" AutoGenerateColumns="False" Width="130">
+                        <DataGrid ItemsSource="{Binding LstStats.Stats}" HeadersVisibility="None" CanUserAddRows="False" AutoGenerateColumns="False" Width="130" PreviewTextInput="DataGrid_PreviewTextInput" DataObject.Pasting="DataGrid_Pasting">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Foreground="{StaticResource IdealForegroundDisabledBrush}" FontSize="10" Binding="{Binding Key}" IsReadOnly="True" Width="*" />
                                 <DataGridTextColumn Binding="{Binding Value, Mode=TwoWay}" Width="*">
                                     <DataGridTextColumn.ElementStyle>
                                         <Style TargetType="{x:Type TextBlock}">
-                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
                                         </Style>
                                     </DataGridTextColumn.ElementStyle>
                                 </DataGridTextColumn>
