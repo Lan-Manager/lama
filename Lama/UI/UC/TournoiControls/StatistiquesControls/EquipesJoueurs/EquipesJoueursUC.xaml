@@ -34,7 +34,7 @@
         <StackPanel>
             <StackPanel>
                 <Label Style="{DynamicResource menu}" Content="Équipes" />
-                <ListView Name="lvEquipes" ItemsSource="{Binding LstEquipes}" SelectedIndex="0">
+                <ListView Name="lvEquipes" ItemsSource="{Binding TournoiEnCours.LstEquipes}" SelectedIndex="0">
                     <ItemsControl.ItemTemplate>
 
                         <DataTemplate>
@@ -47,7 +47,7 @@
 
             <StackPanel>
                 <Label Style="{DynamicResource menu}" Content="Joueurs" />
-                <ListView Name="lvJoueurs" ItemsSource="{Binding ElementName=lvEquipes, Path=SelectedItem.Joueurs}">
+                <ListView Name="lvJoueurs" ItemsSource="{Binding ElementName=lvEquipes, Path=SelectedItem.LstJoueurs}">
                     <ItemsControl.ItemTemplate>
 
                         <DataTemplate>

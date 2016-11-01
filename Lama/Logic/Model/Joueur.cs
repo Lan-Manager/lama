@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 
 namespace Lama.Logic.Model
 {
-    public class Joueur : INotifyPropertyChanged
+    public class Joueur
     {
         public string Matricule { get; set; }
         public string Prenom { get; set; }
@@ -17,20 +17,7 @@ namespace Lama.Logic.Model
         public string Rang { get; set; }
         public string Usager { get; set; }
         public Equipe EquipeJoueur { get; set; }
-
-        private Statistiques _lstStats;
-        public Statistiques LstStats
-        {
-            get { return _lstStats; }
-            set
-            {
-                if (value != _lstStats)
-                {
-                    _lstStats = value;
-                    NotifyPropertyChanged("LstStats");
-                }
-            }
-        }
+        public Statistiques LstStats { get; set; }
 
         // TODO : Class association Partie-Joueur-Champion
         public BitmapImage Img { get; set; }
@@ -46,6 +33,8 @@ namespace Lama.Logic.Model
 
             EquipeJoueur = null;
 
+            LstStats = new Statistiques();
+
             // TEST DONNÉES STATIQUE
             // TODO : Class association Partie-Joueur-Champion
 
@@ -60,12 +49,6 @@ namespace Lama.Logic.Model
             bitmap.EndInit();
 
             Img = bitmap;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void NotifyPropertyChanged(string nomProp)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
-        }
+        }        
     }
 }

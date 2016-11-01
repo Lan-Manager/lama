@@ -12,7 +12,7 @@ namespace Lama.Logic.Model
     {
         #region Propriétés
         public string Nom { get; set; }
-        public TrulyObservableCollection<Joueur> LstJoueurs { get; set; }
+        public ObservableCollection<Joueur> LstJoueurs { get; set; }
         public bool EstElimine { get; set; }
         public Statistiques LstStats { get; set; }
         #endregion
@@ -22,7 +22,7 @@ namespace Lama.Logic.Model
         {
             Nom = nom;
 
-            LstJoueurs = new TrulyObservableCollection<Joueur>();
+            LstJoueurs = new ObservableCollection<Joueur>();
 
             EstElimine = false;
             LstStats = new Statistiques();

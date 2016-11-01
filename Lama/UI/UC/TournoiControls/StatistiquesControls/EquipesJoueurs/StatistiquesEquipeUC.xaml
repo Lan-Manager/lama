@@ -74,12 +74,22 @@
 
                     <StackPanel Style="{StaticResource sp}">
                         <Label Foreground="{StaticResource AccentColorBrush2}" Content="{Binding Nom}" />
-                        <Label Content="{Binding LstStats}" />
+                        <ItemsControl ItemsSource="{Binding LstStats.Stats}" HorizontalAlignment="Center">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Foreground="{StaticResource IdealForegroundDisabledBrush}" Content="{Binding Value}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </StackPanel>
 
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-
         </ItemsControl>
 
     </StackPanel>
