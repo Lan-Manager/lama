@@ -217,6 +217,55 @@ namespace Lama.Logic.Model
                     }
                 }
 
+                if (t.LstVolontaires.Count > 0)
+                {
+                    var comptes = ctx.comptes.ToList();
+
+                    foreach (var compteModel in t.LstVolontaires)
+                    {
+                        comptestournois volontaireTournoi = new comptestournois();
+                        volontaireTournoi.tournois = entity;
+
+                        var volontaire = comptes.Where(x => x.matricule == compteModel.Matricule).FirstOrDefault();
+
+                        volontaireTournoi.idCompte = volontaire.idCompte;
+
+                        entity.comptestournois.Add(volontaireTournoi);
+                    }
+                }
+
+                if (t.LstPrix.Count > 0)
+                {
+                    foreach (var prixModel in t.LstPrix)
+                    {
+                        prix entityPrix = new prix();
+                        entityPrix.nom = prixModel.Nom;
+
+                        prixtournois pt = new prixtournois();
+                        pt.tournois = entity;
+                        pt.prix = entityPrix;
+
+                        entity.prixtournois.Add(pt);
+                    }
+                }
+
+                //TODO: Extraire
+                if (t.LstJoueurs.Count > 0)
+                {
+                    foreach (var joueur in t.LstJoueurs)
+                    {
+                        participants participant = new participants();
+
+                        participant.matricule = joueur.Matricule;
+                        participant.nom = joueur.Nom;
+                        participant.prenom = joueur.Prenom;
+                        //TODO: Trouver une solution pour prendre la date du serveur.
+                        participant.dateCreation = DateTime.Now;
+
+
+                    }
+                }
+
                 return entity;
             }
         }
