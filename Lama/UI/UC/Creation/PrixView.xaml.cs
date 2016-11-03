@@ -27,6 +27,9 @@ namespace Lama.UI.UC.Creation
             InitializeComponent();
         }
 
+        //TODO: continuer
+        //private void DataGridRow_LostFocus(object sender, )
+
         private void btnAddPrix_Click(object sender, RoutedEventArgs e)
         {
             // Aucun contenu

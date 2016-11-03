@@ -19,6 +19,11 @@
                     </DataGridTextColumn.EditingElementStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
+            <DataGrid.ItemContainerStyle>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="LostFocus" Handler="DataGridRow_LostFocus" />
+                </Style>
+            </DataGrid.ItemContainerStyle>
         </DataGrid>
 
         <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,475,0,0" Content="Ajouter un nouveau prix :"/>
