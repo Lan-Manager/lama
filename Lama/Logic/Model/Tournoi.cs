@@ -166,18 +166,18 @@ namespace Lama.Logic.Model
 
         }
 
-        public static LamaBD.tournois getTournoiEntity(Tournoi t)
+        public bool InsertTournoi()
         {
             LamaBD.tournois entity = new LamaBD.tournois();
 
             using (var ctx = new Connexion420())
             {
-                DateTime dateEvenement = t.Date.Add(t.Heure);
+                DateTime dateEvenement = this.Date.Add(this.Heure);
                 entity.dateEvenement = dateEvenement;
                 entity.dateCreation = DateTime.UtcNow;
 
-                entity.description = t.Description;
-                entity.nom = t.Nom;
+                entity.description = this.Description;
+                entity.nom = this.Nom;
                 entity.enCours = true;
 
                 var etat = ctx.etatstournois
@@ -199,12 +199,12 @@ namespace Lama.Logic.Model
 
                 entity.idCompte = createur.idCompte;
 
-                if (t.LstLocaux.Count > 0)
+                if (this.LstLocaux.Count > 0)
                 {
                     var locaux = ctx.locaux
                         .ToList();
 
-                    foreach (var localModel in t.LstLocaux)
+                    foreach (var localModel in this.LstLocaux)
                     {
                         tournoislocaux tl = new tournoislocaux();
                         tl.tournois = entity;
@@ -217,11 +217,11 @@ namespace Lama.Logic.Model
                     }
                 }
 
-                if (t.LstVolontaires.Count > 0)
+                if (this.LstVolontaires.Count > 0)
                 {
                     var comptes = ctx.comptes.ToList();
 
-                    foreach (var compteModel in t.LstVolontaires)
+                    foreach (var compteModel in this.LstVolontaires)
                     {
                         comptestournois volontaireTournoi = new comptestournois();
                         volontaireTournoi.tournois = entity;
@@ -234,9 +234,9 @@ namespace Lama.Logic.Model
                     }
                 }
 
-                if (t.LstPrix.Count > 0)
+                if (this.LstPrix.Count > 0)
                 {
-                    foreach (var prixModel in t.LstPrix)
+                    foreach (var prixModel in this.LstPrix)
                     {
                         prix entityPrix = new prix();
                         entityPrix.nom = prixModel.Nom;
@@ -250,9 +250,9 @@ namespace Lama.Logic.Model
                 }
 
                 //TODO: Extraire
-                if (t.LstJoueurs.Count > 0)
+                if (this.LstJoueurs.Count > 0)
                 {
-                    foreach (var joueur in t.LstJoueurs)
+                    foreach (var joueur in this.LstJoueurs)
                     {
                         participants participant = new participants();
 
@@ -266,7 +266,16 @@ namespace Lama.Logic.Model
                     }
                 }
 
-                return entity;
+                var task = LamaBD.helper.TournoiHelper.CreationTournoi(entity);
+                task.Wait();
+                if (task.Result)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
