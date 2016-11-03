@@ -44,11 +44,8 @@ namespace Lama.UI.Model
             NotifyCollectionChangedEventArgs a = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
             OnCollectionChanged(a);
 
-            if (ItemPropertyChanged != null)
-            {
-                ItemPropertyChanged(sender, e);
-            }
+            ItemPropertyChanged?.Invoke(sender, e);
         }
     }
-}
     #endregion
+}

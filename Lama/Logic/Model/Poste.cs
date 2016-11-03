@@ -13,10 +13,16 @@ namespace Lama.Logic.Model
     {
         public int Numero { get; set; }
         public ObservableCollection<string> LstEtatPossible { get; set; }
+        
+
+
+        public enum Etats { Prêt, EnAttente, NonRequis, Problème};
+
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+        
+        public string AncienEtat { get; set; }
         private string _etat;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public string Etat
         {
             get
@@ -27,8 +33,9 @@ namespace Lama.Logic.Model
             {
                 if (value != _etat)
                 {
+                    AncienEtat = Etat;
                     _etat = value;
-                    NotifyPropertyChanged("Etat");
+                    NotifyPropertyChangedExtended("Etat", AncienEtat, _etat);
                 }
             }
         }
@@ -62,6 +69,11 @@ namespace Lama.Logic.Model
             LstEtatPossible.Add("Non requis");
             Numero = numero;
             Etat = etat;
+        }
+
+        protected void NotifyPropertyChangedExtended<T>(string nomProp, T ancienneValeur, T nouvelleValeur)
+        {
+            PropertyChanged(this, new PropertyChangedExtendedEventArgs<T>(nomProp, ancienneValeur, nouvelleValeur));
         }
     }
 }

@@ -133,6 +133,8 @@ namespace Lama.UI.UC
             LstVolontaires = new ObservableCollection<Volontaire>();
             LocalSelectionne = new Local();
 
+            
+
             InitializeComponent();
             this.IsEnabled = false;
 
@@ -140,11 +142,16 @@ namespace Lama.UI.UC
             Task task = new Task(new Action(ChargementDonnes));
             task.ContinueWith(wat =>
             {
+                foreach (var l in LstLocal)
+                {
+                    l.CalculerEtatDepart(); // À la fin du chargement on calcule les états initiaux.
+                }
                 Completed();
+
             }, TaskScheduler.FromCurrentSynchronizationContext());
             task.Start();
             #endregion
-
+           
         }
 
         private void Completed()
@@ -238,12 +245,9 @@ namespace Lama.UI.UC
             foreach (postes p in postes)
             {
                 // On va chercher le volontaire ayant fait la modification.
-                //TODO
-
                 local.LstPoste.Add(new Poste(p.numeroPoste, p.etatspostes.nom)); // On ajoute le poste à la liste de poste.
             }
             local.NbPoste_Depart = postes.Count;
-            local.CalculerEtat();
         }
 
         // Fonction qui charge les locaux lié au tournoi.
