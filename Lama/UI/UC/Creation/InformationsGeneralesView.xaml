@@ -7,12 +7,12 @@
              xmlns:local="clr-namespace:Lama.UI.UC.Creation"
              mc:Ignorable="d" 
              d:DesignHeight="625" d:DesignWidth="550">
-    <Grid>
+    <Grid Name="grdInfos">
         <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Informations générales" />
         <Label HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,60,0,0" FontSize="18" FontWeight="DemiBold" Content="League of Legends" />
 
         <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,120,0,0" Content="Nom :" />
-        <TextBox Name="txtNomTournoi" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="55,145,0,0" Width="400" MaxLength="60" Text="{Binding Nom}" />
+        <TextBox Name="txtNomTournoi" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="55,145,0,0" Width="400" MaxLength="60" Text="{Binding Nom}" LostFocus="txtNomTournoi_LostFocus" />
 
         <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,180,0,0" Content="Date :" />
         <Controls:DateTimePicker Name="dtpDateTournoi" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="55,205,0,0" SelectedDate="{Binding Date}" SelectedTime="{Binding Heure}" />
