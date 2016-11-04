@@ -44,6 +44,7 @@ namespace Lama.UI.Win
 
             // Initialiser le tournoi
             temp = new Tournoi();
+            LeTournoi = null;
 
             // Mettre le datacontext au tournoi
             DataContext = temp;
