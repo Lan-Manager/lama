@@ -14,8 +14,6 @@ namespace Lama.Logic.Model
         public int Numero { get; set; }
         public ObservableCollection<string> LstEtatPossible { get; set; }
         
-
-
         public enum Etats { Prêt, EnAttente, NonRequis, Problème};
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
@@ -39,10 +37,7 @@ namespace Lama.Logic.Model
                 }
             }
         }
-        public void NotifyPropertyChanged(string nomProp)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
-        }
+        
 
         private Volontaire _dernierModificateur;
         public Volontaire DernierModificateur
@@ -60,6 +55,11 @@ namespace Lama.Logic.Model
                 }
             }
         }
+        /// <summary>
+        /// Constructeur d'un poste.
+        /// </summary>
+        /// <param name="numero">Le numéro du poste.</param>
+        /// <param name="etat">Son état initial au lancement de l'application.</param>
         public Poste(int numero, string etat)
         {
             LstEtatPossible = new ObservableCollection<string>();
@@ -71,9 +71,27 @@ namespace Lama.Logic.Model
             Etat = etat;
         }
 
+        #region Interface INotifyPropertyChanged
+        /// <summary>
+        /// Handler 
+        /// </summary>
+        /// <param name="nomProp">Nom de la propriété qui a changé.</param>
+        public void NotifyPropertyChanged(string nomProp)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
+        }
+        /// <summary>
+        /// Cette fonction est appelé par les setter pour l'état des postes, elle avertie qu'un changement c'est produit.
+        /// On garde une trace de l'ancienne valeur de la propriété pour optimiser certains calculs.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="nomProp">Le nom de la propriété qui a changée</param>
+        /// <param name="ancienneValeur">L'ancienne valeur de la propriété.</param>
+        /// <param name="nouvelleValeur">La nouvelle valeur de la propriété</param>
         protected void NotifyPropertyChangedExtended<T>(string nomProp, T ancienneValeur, T nouvelleValeur)
         {
             PropertyChanged(this, new PropertyChangedExtendedEventArgs<T>(nomProp, ancienneValeur, nouvelleValeur));
         }
+        #endregion
     }
 }

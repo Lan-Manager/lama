@@ -133,8 +133,6 @@ namespace Lama.UI.UC
             LstVolontaires = new ObservableCollection<Volontaire>();
             LocalSelectionne = new Local();
 
-            
-
             InitializeComponent();
             this.IsEnabled = false;
 
@@ -146,6 +144,7 @@ namespace Lama.UI.UC
                 {
                     l.CalculerEtatDepart(); // À la fin du chargement on calcule les états initiaux.
                 }
+                CalculerEtat(); // On calcule les états lors de l'initialisation de la page.
                 Completed();
 
             }, TaskScheduler.FromCurrentSynchronizationContext());
@@ -176,23 +175,19 @@ namespace Lama.UI.UC
             {
                 // On met l'index de l'item que l'on veut afficher par défaut.
                 cboLocal.SelectedIndex = 0;
-                CalculerEtat(); // On calcule les états lors de l'initialisation de la page.
             });
         }
 
 
         private void Local_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "NbPoste_Depart" || e.PropertyName == "NbPoste_Pret" || e.PropertyName == "NbPoste_Attente" || e.PropertyName == "NbPoste_Probleme" || e.PropertyName == "NbPoste_NonRequis" || e.PropertyName == "NbPoste_Restant" || e.PropertyName == "NbPoste")
-            {
-                CalculerEtat();
-            }
             if (e.PropertyName == "VolontaireAssigne")
             {
                 SauvegarderVolontaireAssigne();
             }
             if (e.PropertyName == "Etat")
             {
+                CalculerEtatChangement(LocalSelectionne.PosteCourant.AncienEtat, LocalSelectionne.PosteCourant.Etat);
                 SauvegarderEtatPoste(LocalSelectionne.PosteCourant);
             }
             if (e.PropertyName == "DernierModificateur")
@@ -208,29 +203,51 @@ namespace Lama.UI.UC
         }
 
         /// <summary>
+        /// Fonction qui calcul les nouveaux états après un changement.
+        /// </summary>
+        /// <param name="ancienEtat">L'ancien état du poste.</param>
+        /// <param name="nouvelEtat">Le nouvel état du poste.</param>
+        private void CalculerEtatChangement(string ancienEtat, string nouvelEtat)
+        {
+            switch (ancienEtat)
+            {
+                case "Prêt":
+                    NbPoste_Pret--;
+                    break;
+                case "Problème":
+                    NbPoste_Probleme--;
+                    break;
+                case "En attente":
+                    NbPoste_EnAttente--;
+                    break;
+            }
+            switch (nouvelEtat)
+            {
+                case "Prêt":
+                    NbPoste_Pret++;
+                    break;
+                case "Problème":
+                    NbPoste_Probleme++;
+                    break;
+                case "En attente":
+                    NbPoste_EnAttente++;
+                    break;
+            }
+            NbPoste_Restant = NbPoste_Requis - NbPoste_Pret;
+        }
+        /// <summary>
         /// Fonction qui calcule les états et met a jour les propriétés pour l'affichage du sommaire global.
         /// </summary>
         private void CalculerEtat()
         {
-            int nbPoste_Pret = 0;
-            int nbPoste_Probleme = 0;
-            int nbPoste_Attente = 0;
-            int nbPoste_Restant = 0;
-            int nbPoste_Requis = 0;
-
             foreach (Local l in LstLocal)
             {
-                nbPoste_Pret += l.NbPoste_Pret;
-                nbPoste_Probleme += l.NbPoste_Probleme;
-                nbPoste_Attente += l.NbPoste_Attente;
-                nbPoste_Restant += l.NbPoste_Restant;
-                nbPoste_Requis += l.NbPoste;
+                NbPoste_Pret += l.NbPoste_Pret;
+                NbPoste_Probleme += l.NbPoste_Probleme;
+                NbPoste_EnAttente += l.NbPoste_Attente;
+                NbPoste_Restant += l.NbPoste_Restant;
+                NbPoste_Requis += l.NbPoste;
             }
-            NbPoste_Pret = nbPoste_Pret;
-            NbPoste_Probleme = nbPoste_Probleme;
-            NbPoste_EnAttente = nbPoste_Attente;
-            NbPoste_Restant = nbPoste_Restant;
-            NbPoste_Requis = nbPoste_Requis;
 
             // Si le nombre de poste restant est a 0 tout les locaux sont prêts a recevoir les joueurs.
             if (NbPoste_Pret == NbPoste_Requis)
@@ -239,6 +256,8 @@ namespace Lama.UI.UC
             }
         }
 
+        #region Action lié à la base de données.
+        #region Chargement des données
         // Fonction qui charge les postes lié à la liste de locaux lié au tournoi.
         private void ChargerPostes(Local local, ICollection<postes> postes)
         {
@@ -330,6 +349,8 @@ namespace Lama.UI.UC
                 }
             }
         }
+        #endregion
+        #region Sauvegarde des données
         /// <summary>
         /// Fonction appelé pour sauvegarder le nom du volontaire qui a fait la modification de l'état du poste.
         /// </summary>
@@ -354,6 +375,7 @@ namespace Lama.UI.UC
         {
             var task = LocalHelper.UpdateAsync(LocalSelectionne.Numero, LocalSelectionne.VolontaireAssigne.NomUtilisateur);
         }
-
+        #endregion
+        #endregion
     }
 }

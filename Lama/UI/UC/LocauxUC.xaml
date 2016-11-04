@@ -97,14 +97,14 @@
         <DataGrid Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="dgLocaux" AutoGenerateColumns="False" ItemsSource="{Binding LocalSelectionne.LstPoste}" ColumnWidth="*" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" GridLinesVisibility="All">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Poste" Binding="{Binding Numero}" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTemplateColumn Header="État">
+                <DataGridTemplateColumn Header="État" SortMemberPath="Etat">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <ComboBox ItemsSource="{Binding LstEtatPossible}" SelectedValue="{Binding Etat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Dernière modification par">
+                <DataGridTemplateColumn Header="Dernière modification par" SortMemberPath="DernierModificateur.NomComplet">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <ComboBox ItemsSource="{Binding LstVolontaires, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" SelectedValue="{Binding DernierModificateur, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="NomComplet"></ComboBox>

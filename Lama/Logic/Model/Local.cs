@@ -172,18 +172,16 @@ namespace Lama.Logic.Model
         {
             LstPoste = new TrulyObservableCollection<Poste>();
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
-            LstPoste.CollectionChanged += LstPoste_CollectionChanged;
         }
         /// <summary>
         /// Constructeur de local contenant le numéro du local.
         /// </summary>
-        /// <param name="numero"></param>
+        /// <param name="numero">Numero du local Ex: "D125"</param>
         public Local(string numero)
         {
             Numero = numero;
             LstPoste = new TrulyObservableCollection<Poste>();
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
-            LstPoste.CollectionChanged += LstPoste_CollectionChanged;
         }
 
         /// <summary>
@@ -204,36 +202,14 @@ namespace Lama.Logic.Model
             }
 
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
-            LstPoste.CollectionChanged += LstPoste_CollectionChanged;
-        }
-
-        private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
-        {
-            if (sender is Poste)
-            {
-                PosteCourant = (Poste)sender;
-            }
-            if (e.PropertyName == "Etat")
-            {
-                NotifyPropertyChanged("Etat", PosteCourant.AncienEtat, PosteCourant.Etat);
-            }
-            if (e.PropertyName == "DernierModificateur")
-            {
-                NotifyPropertyChanged("DernierModificateur");
-            }
         }
         
-
-        // Si un changement est détecté dans la collection, on calcule les états.
-        private void LstPoste_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-
-        }
-
         /// <summary>
-        /// Méthode qui calcule l'état actuel des postes selon le local.
+        /// Fonction qui calcul les nouveaux états après un changement.
         /// </summary>
-        public void CalculerEtat(string ancienneValeur, string nouvelleValeur)
+        /// <param name="ancienneValeur">L'ancien état du poste.</param>
+        /// <param name="nouvelleValeur">Le nouvel état du poste.</param>
+        private void CalculerEtat(string ancienneValeur, string nouvelleValeur)
         {
             switch (ancienneValeur)
             {
@@ -268,6 +244,9 @@ namespace Lama.Logic.Model
             NbPoste_Restant = NbPoste - NbPoste_Pret;
 
         }
+        /// <summary>
+        /// Fonction qui calcul l'état de tout les postes d'un local. Elle est appelé après le chargement des données de la bd.
+        /// </summary>
         public void CalculerEtatDepart()
         {
             foreach (Poste unPoste in LstPoste)
@@ -290,6 +269,36 @@ namespace Lama.Logic.Model
                 }
             }
         }
+
+        #region Interface INotifyPropertyChanged
+        /// <summary>
+        /// Handler spécifique à la liste de poste.
+        /// </summary>
+        /// <param name="sender">L'objet qui a provoqué la notification</param>
+        /// <param name="e">La propriété qui a changée.</param>
+        private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is Poste)
+            {
+                PosteCourant = (Poste)sender;
+            }
+            if (e.PropertyName == "Etat")
+            {
+                NotifyPropertyChanged("Etat", PosteCourant.AncienEtat, PosteCourant.Etat);
+            }
+            if (e.PropertyName == "DernierModificateur")
+            {
+                NotifyPropertyChanged("DernierModificateur");
+            }
+        }
+        /// <summary>
+        /// Cette fonction est appelé par les setter pour l'état des postes, elle avertie qu'un changement c'est produit.
+        /// On garde une trace de l'ancienne valeur de la propriété pour optimiser certains calculs.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="nomProp">Le nom de la propriété qui a changée</param>
+        /// <param name="ancienneValeur">L'ancienne valeur de la propriété.</param>
+        /// <param name="nouvelleValeur">La nouvelle valeur de la propriété</param>
         protected void NotifyPropertyChanged<T>(string nomProp, T ancienneValeur, T nouvelleValeur)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedExtendedEventArgs<T>(nomProp, ancienneValeur, nouvelleValeur));
@@ -302,14 +311,8 @@ namespace Lama.Logic.Model
         protected void NotifyPropertyChanged(string nomProp)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
-            // Si l'état d'un poste change, on effectu le calcul des états pour le local.
-            if (nomProp == "Etat")
-            {
-
-            }
         }
-
-
+        #endregion
     }
 }
 
