@@ -14,7 +14,9 @@
 
     <UserControl.Resources>
 
-        <Style x:Key="aucuntour" TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+        <Style x:Key="tabitem" TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}" />
+
+        <Style x:Key="aucuntour" TargetType="TabItem" BasedOn="{StaticResource tabitem}">
             <Setter Property="IsEnabled" Value="True" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding TournoiEnCours.LstTours.Count}" Value="0">
@@ -24,7 +26,7 @@
             </Style.Triggers>
         </Style>
 
-        <Style x:Key="aucunprix" TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+        <Style x:Key="aucunprix" TargetType="TabItem" BasedOn="{StaticResource tabitem}">
             <Setter Property="Visibility" Value="Visible" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding TournoiEnCours.LstPrix}" Value="{x:Null}">
@@ -41,21 +43,10 @@
 
     <Controls:MetroAnimatedTabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="tabControl_SelectionChanged">
 
-        <Controls:MetroTabItem Name="tabGrille" Header="Grille">
-              <!-- <grille:GrilleUC /> -->
-        </Controls:MetroTabItem>
-
-        <Controls:MetroTabItem Name="tabStat" Header="Statistiques" Style="{StaticResource aucuntour}">
-            <!-- <statistiques:StatistiquesUC /> -->
-        </Controls:MetroTabItem>
-
-        <Controls:MetroTabItem Name="tabClassement" Header="Classement" Style="{StaticResource aucuntour}">
-            <!-- <classement:ClassementUC /> -->
-        </Controls:MetroTabItem>
-
-        <Controls:MetroTabItem Name="tabPrix" Header="Prix" Style="{StaticResource aucunprix}">
-            <!-- <prix:PrixUC /> -->
-        </Controls:MetroTabItem>
+        <Controls:MetroTabItem Name="tabGrille" Header="Grille"  Style="{StaticResource tabitem}"/>
+        <Controls:MetroTabItem Name="tabStat" Header="Statistiques" Style="{StaticResource aucuntour}" />
+        <Controls:MetroTabItem Name="tabClassement" Header="Classement" Style="{StaticResource aucuntour}" />
+        <Controls:MetroTabItem Name="tabPrix" Header="Prix" Style="{StaticResource aucunprix}" />
 
     </Controls:MetroAnimatedTabControl>
 </UserControl>
