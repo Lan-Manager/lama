@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Lama.UI.UC.TournoiControls.GrilleControls"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 
@@ -54,7 +55,7 @@
                 </WrapPanel.Style>
             </WrapPanel>
         </ItemsPanelTemplate>
-
+        
     </UserControl.Resources>
 
     <ItemsControl ItemsSource="{Binding LstEquipes}" ItemsPanel="{StaticResource wp}">
@@ -67,18 +68,31 @@
                         <Label Style="{StaticResource equipe}" Content="{Binding Equipe.Nom}" />
                     </RadioButton>
 
+                    <ItemsControl ItemsSource="{Binding LstStats.Stats}" HorizontalAlignment="Center">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Label Foreground="{StaticResource IdealForegroundDisabledBrush}" Content="{Binding Value}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
                     <StackPanel>
 
                         <DataGrid ItemsSource="{Binding LstStats.Stats}" HeadersVisibility="None" CanUserAddRows="False" AutoGenerateColumns="False" Width="130" PreviewTextInput="DataGrid_PreviewTextInput" DataObject.Pasting="DataGrid_Pasting">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Foreground="{StaticResource IdealForegroundDisabledBrush}" FontSize="10" Binding="{Binding Key}" IsReadOnly="True" Width="*" />
-                                <DataGridTextColumn Binding="{Binding Value, Mode=TwoWay}" Width="*">
-                                    <DataGridTextColumn.ElementStyle>
-                                        <Style TargetType="{x:Type TextBlock}">
-                                            <Setter Property="HorizontalAlignment" Value="Center"/>
-                                        </Style>
-                                    </DataGridTextColumn.ElementStyle>
-                                </DataGridTextColumn>
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Controls:NumericUpDown BorderThickness="0" Value="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
 
