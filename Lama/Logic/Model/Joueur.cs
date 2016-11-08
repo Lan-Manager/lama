@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LamaBD;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -66,6 +67,29 @@ namespace Lama.Logic.Model
         public void NotifyPropertyChanged(string nomProp)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
+        }
+
+        public static bool Insert(List<Joueur> joueurs)
+        {
+            List<participants> listEntities = new List<participants>(joueurs.Count());
+            foreach (Joueur joueur in joueurs)
+            {
+                LamaBD.participants entity = new participants();
+
+                entity.matricule = joueur.Matricule;
+                entity.nom = joueur.Nom;
+                entity.prenom = joueur.Prenom;
+                //Trouver une solution pour prendre la date du serveur.
+                entity.dateCreation = DateTime.Now;
+
+                listEntities.Add(entity);
+            }
+            var task = LamaBD.helper.ParticipantHelper.CreationParticipant(listEntities);
+            task.Wait();
+            if (task.Result)
+                return true;
+            else
+                return false;
         }
     }
 }

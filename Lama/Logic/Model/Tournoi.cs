@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -166,7 +167,7 @@ namespace Lama.Logic.Model
 
         }
 
-        public bool InsertTournoi()
+        public bool Insert()
         {
             LamaBD.tournois entity = new LamaBD.tournois();
 
@@ -175,7 +176,6 @@ namespace Lama.Logic.Model
                 DateTime dateEvenement = this.Date.Add(this.Heure);
                 entity.dateEvenement = dateEvenement;
                 entity.dateCreation = DateTime.UtcNow;
-
                 entity.description = this.Description;
                 entity.nom = this.Nom;
                 entity.enCours = true;
@@ -249,32 +249,27 @@ namespace Lama.Logic.Model
                     }
                 }
 
-                //TODO: Extraire
                 if (this.LstJoueurs.Count > 0)
                 {
-                    foreach (var joueur in this.LstJoueurs)
-                    {
-                        participants participant = new participants();
-
-                        participant.matricule = joueur.Matricule;
-                        participant.nom = joueur.Nom;
-                        participant.prenom = joueur.Prenom;
-                        //TODO: Trouver une solution pour prendre la date du serveur.
-                        participant.dateCreation = DateTime.Now;
-
-
-                    }
+                    bool success = Joueur.Insert(this.LstJoueurs.ToList());
+                    if (!success)
+                        throw new Exception("Échec Insertion joueurs.");
                 }
 
                 var task = LamaBD.helper.TournoiHelper.CreationTournoi(entity);
                 task.Wait();
-                if (task.Result)
+                if (!task.Result)
                 {
-                    return true;
+                    throw new Exception("Échec Insertion du tournois");
                 }
-                else
+                //Dois insérer les équipes après le tournoi puisqu'elles dépendent du tournois.
+                var taskTournoi = LamaBD.helper.TournoiHelper.SelectLast();
+
+                if (this.LstEquipes.Count > 0)
                 {
-                    return false;
+                    bool success = Equipe.Insert(this.LstEquipes.ToList(), taskTournoi.Result.idTournoi);
+                    if (!success)
+                        throw new Exception("Échec Insertion équipes");
                 }
             }
         }
