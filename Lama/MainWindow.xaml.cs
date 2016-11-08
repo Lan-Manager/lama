@@ -176,7 +176,7 @@ namespace Lama
             {
                 tabLocaux.Visibility = Visibility.Hidden;
                 tabContenant.SelectedItem = tabTournoi;
-                hplAuthentification.Content = "S'authentifier";
+                btnConnexion.Content = "S'authentifier";
             }
             else
             {
@@ -184,14 +184,15 @@ namespace Lama
                 {
                     btnCreerTournoi.Visibility = Visibility.Visible;
                 }
-                tabLocaux.Content = new LocauxUC();
+                tabLocaux.Content = new LocauxUC(LeTournoi.LstLocaux);
                 tabLocaux.Visibility = Visibility.Visible;
-                hplAuthentification.Content = "Se désauthentifier";
+                btnConnexion.Content = "Se désauthentifier";
             }
         }
 
         public MainWindow()
         {
+            
             InitializeComponent();
 
             Utilisateur = new Utilisateur();

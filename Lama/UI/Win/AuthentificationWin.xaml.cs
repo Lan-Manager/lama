@@ -2,6 +2,8 @@
 using Lama.Logic.Tools;
 using LamaBD.helper;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -20,6 +22,9 @@ namespace Lama.UI.Win
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
         }
 
+        /// <summary>
+        /// Fonction qui valide les informations de connexions.
+        /// </summary>
         private void VerifierInformation()
         {
             string hash = PasswordHelper.HashPassword(pwbPassword.Password);
@@ -29,6 +34,7 @@ namespace Lama.UI.Win
             task.Wait();
 
             if (task.Result == null)
+
                 isValid = false;
             else
             {
@@ -38,7 +44,8 @@ namespace Lama.UI.Win
             // Les informations sont erronés.
             if (task.Result == null || string.IsNullOrEmpty(txbCompte.Text) || string.IsNullOrEmpty(pwbPassword.Password) || !isValid)
             {
-                MessageBox.Show("Le nom d'utilisateur et/ou le mot de passe saisis sont incorrects.");
+                AfficherMessage("Le nom d'utilisateur et/ou le mot de passe saisis sont incorrects.", MessageDialogStyle.Affirmative);
+                //MessageBox.Show("Le nom d'utilisateur et/ou le mot de passe saisis sont incorrects.");
             }
             // Les informations sont correctes.
             else
@@ -66,6 +73,20 @@ namespace Lama.UI.Win
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
+        }
+
+        /// <summary>
+        /// Fonction pour afficher un message d'erreur si l'authentification n'a pas réussi.
+        /// </summary>
+        /// <param name="message">Le message a afficher s'il y a erreur.</param>
+        /// <param name="dialogStyle">Le style de la fenêtre</param>
+        /// <returns></returns>
+        public Task<MessageDialogResult> AfficherMessage(string message, MessageDialogStyle dialogStyle)
+        {
+            var metroWindow = this as MetroWindow;
+            metroWindow.MetroDialogOptions.ColorScheme = MetroDialogColorScheme.Theme;
+
+            return metroWindow.ShowMessageAsync("Erreur de login", message, dialogStyle, metroWindow.MetroDialogOptions);
         }
     }
 }

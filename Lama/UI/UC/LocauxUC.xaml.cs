@@ -127,14 +127,15 @@ namespace Lama.UI.UC
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public LocauxUC()
+        public LocauxUC(ObservableCollection<Local> lstLocal)
         {
             LstLocal = new ObservableCollection<Local>();
             LstVolontaires = new ObservableCollection<Volontaire>();
             LocalSelectionne = new Local();
-
             InitializeComponent();
             this.IsEnabled = false;
+
+            //LstLocal = lstLocal;
 
             #region Chargement des données en bd
             Task task = new Task(new Action(ChargementDonnes));
@@ -178,7 +179,11 @@ namespace Lama.UI.UC
             });
         }
 
-
+        /// <summary>
+        /// Handler spécifique au locaux.
+        /// </summary>
+        /// <param name="sender">L'objet qui a provoqué la notification</param>
+        /// <param name="e">La propriété qui a changée.</param>
         private void Local_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "VolontaireAssigne")
@@ -236,7 +241,7 @@ namespace Lama.UI.UC
             NbPoste_Restant = NbPoste_Requis - NbPoste_Pret;
         }
         /// <summary>
-        /// Fonction qui calcule les états et met a jour les propriétés pour l'affichage du sommaire global.
+        /// Fonction qui calcule les états de départ et met a jour les propriétés pour l'affichage du sommaire global.
         /// </summary>
         private void CalculerEtat()
         {

@@ -64,11 +64,8 @@
         <Grid.Background>
             <ImageBrush Opacity="0.03" Stretch="None" ImageSource="Resources/lama.png"/>
         </Grid.Background>
-        <TextBlock Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,30,20,0">
-            <Hyperlink Foreground="{DynamicResource HighlightBrush}" Click="Authentification_Click">
-                <Label Height="30" Name="hplAuthentification" Content="S'authentifier" />
-            </Hyperlink>
-        </TextBlock>
+        <Label Name="lblNom" FontFamily="Robot" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 25 30 0 " Content="{Binding Utilisateur.NomComplet, UpdateSourceTrigger=PropertyChanged}"></Label>
+        <Button Name="btnConnexion" Height="Auto" Width="Auto" VerticalAlignment="Top" Foreground="{StaticResource AccentColorBrush}" HorizontalAlignment="Right" Margin="0 50 30 0 " Click="Authentification_Click" FontSize="12"></Button>
 
         <Controls:MetroAnimatedTabControl Margin="50" Name="tabContenant">
             <Controls:MetroTabItem Header="{Binding TournoiEnCours.Nom}" Name="tabTournoi">
@@ -76,7 +73,6 @@
                 <StackPanel>
                     <StackPanel Style="{StaticResource aucunTournoi}">
                         <TextBlock Margin="0 30 0 30" HorizontalAlignment="Center" Text="Aucun tournoi en cours" />
-                        <!--<Button Name="btnCreerTournoi" Style="{StaticResource creerTournoi}" Content="Créer un tournoi" Width="300" Click="btnCreerTournoi_Click"/>-->
                     </StackPanel>
                     <tournoiControls:TournoiUC Style="{StaticResource grille}" />
                 </StackPanel>
@@ -84,7 +80,6 @@
             </Controls:MetroTabItem>
 
             <Controls:MetroTabItem Header="Locaux" Name="tabLocaux">
-                <!--<controls:LocauxUC Style="{StaticResource control}"/> -->
             </Controls:MetroTabItem>
         </Controls:MetroAnimatedTabControl>
 
