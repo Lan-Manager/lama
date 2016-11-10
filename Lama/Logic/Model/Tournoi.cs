@@ -249,13 +249,6 @@ namespace Lama.Logic.Model
                     }
                 }
 
-                if (this.LstJoueurs.Count > 0)
-                {
-                    bool success = Joueur.Insert(this.LstJoueurs.ToList());
-                    if (!success)
-                        throw new Exception("Échec Insertion joueurs.");
-                }
-
                 var task = LamaBD.helper.TournoiHelper.CreationTournoi(entity);
                 task.Wait();
                 if (!task.Result)
@@ -272,6 +265,8 @@ namespace Lama.Logic.Model
                         throw new Exception("Échec Insertion équipes");
                 }
             }
+
+            return true;
         }
 
 
