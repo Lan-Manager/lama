@@ -1,7 +1,9 @@
-﻿using System;
+﻿using LamaBD;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -181,10 +183,114 @@ namespace Lama.Logic.Model
                     foreach (var partie in tour.LstParties)
                         foreach (var equipe2 in partie.LstEquipes)
                             if (equipe.Equals(equipe2.Equipe))
-                                equipe.LstStats = equipe.LstStats + equipe2.LstStats;                
+                                equipe.LstStats = equipe.LstStats + equipe2.LstStats;
             }
 
         }
+
+        public bool Insert()
+        {
+            LamaBD.tournois entity = new LamaBD.tournois();
+
+            using (var ctx = new Connexion420())
+            {
+                DateTime dateEvenement = this.Date.Add(this.Heure);
+                entity.dateEvenement = dateEvenement;
+                entity.dateCreation = DateTime.UtcNow;
+                entity.description = this.Description;
+                entity.nom = this.Nom;
+                entity.enCours = true;
+
+                var etat = ctx.etatstournois
+                    .Where(x => x.nom == "Créé")
+                    .SingleOrDefault();
+
+                entity.idEtatTournoi = etat.idEtatTournoi;
+
+
+                var createur = ctx.comptes
+                    .Where(x => x.matricule == "1081849")
+                    .SingleOrDefault();
+
+                var jeu = ctx.jeux
+                    .Where(x => x.nom == "League of Legends")
+                    .SingleOrDefault();
+
+                entity.idJeu = jeu.idJeu;
+
+                entity.idCompte = createur.idCompte;
+
+                if (this.LstLocaux.Count > 0)
+                {
+                    var locaux = ctx.locaux
+                        .ToList();
+
+                    foreach (var localModel in this.LstLocaux)
+                    {
+                        tournoislocaux tl = new tournoislocaux();
+                        tl.tournois = entity;
+
+                        var local = locaux.Where(x => x.numero == localModel.Numero).FirstOrDefault();
+
+                        tl.idLocal = local.idLocal;
+
+                        entity.tournoislocaux.Add(tl);
+                    }
+                }
+
+                if (this.LstVolontaires.Count > 0)
+                {
+                    var comptes = ctx.comptes.ToList();
+
+                    foreach (var compteModel in this.LstVolontaires)
+                    {
+                        comptestournois volontaireTournoi = new comptestournois();
+                        volontaireTournoi.tournois = entity;
+
+                        var volontaire = comptes.Where(x => x.matricule == compteModel.Matricule).FirstOrDefault();
+
+                        volontaireTournoi.idCompte = volontaire.idCompte;
+
+                        entity.comptestournois.Add(volontaireTournoi);
+                    }
+                }
+
+                if (this.LstPrix.Count > 0)
+                {
+                    foreach (var prixModel in this.LstPrix)
+                    {
+                        prix entityPrix = new prix();
+                        entityPrix.nom = prixModel.Nom;
+
+                        prixtournois pt = new prixtournois();
+                        pt.tournois = entity;
+                        pt.prix = entityPrix;
+
+                        entity.prixtournois.Add(pt);
+                    }
+                }
+
+                var task = LamaBD.helper.TournoiHelper.CreationTournoi(entity);
+                task.Wait();
+                if (!task.Result)
+                {
+                    throw new Exception("Échec Insertion du tournois");
+                }
+                //Dois insérer les équipes après le tournoi puisqu'elles dépendent du tournois.
+                var taskTournoi = LamaBD.helper.TournoiHelper.SelectLast();
+
+                if (this.LstEquipes.Count > 0)
+                {
+                    bool success = Equipe.Insert(this.LstEquipes.ToList(), taskTournoi.Result.idTournoi);
+                    if (!success)
+                        throw new Exception("Échec Insertion équipes");
+                }
+            }
+
+            return true;
+        }
+
+
+        #endregion
     }
-    #endregion
 }

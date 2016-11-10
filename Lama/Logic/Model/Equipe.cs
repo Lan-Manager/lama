@@ -1,4 +1,5 @@
 ﻿using Lama.UI.Model;
+using LamaBD;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -59,6 +60,43 @@ namespace Lama.Logic.Model
         public override string ToString()
         {
             return this.Nom;
+        }
+
+        public static bool Insert(List<Equipe> equipes, int idTournois)
+        {
+            List<equipes> listEntities = new List<equipes>(equipes.Count());
+
+            foreach (Equipe equipe in equipes)
+            {
+                LamaBD.equipes entity = new equipes();
+                
+                entity.nom = equipe.Nom;
+                entity.estElimine = equipe.EstElimine;
+                entity.dateEnregistrement = DateTime.Now;
+                entity.idTournoi = idTournois;
+
+                foreach (Joueur joueurModel in equipe.LstJoueurs)
+                {
+                    equipesparticipants ep = new equipesparticipants();
+                    participants p = new participants();
+
+                    p.matricule = joueurModel.Matricule;
+                    p.nom = joueurModel.Nom;
+                    p.prenom = joueurModel.Prenom;
+                    p.dateCreation = DateTime.Now;
+
+                    ep.participants = p;
+                    entity.equipesparticipants.Add(ep);
+                }
+
+                listEntities.Add(entity);
+            }
+            var task = LamaBD.helper.EquipeHelper.CreationEquipe(listEntities);
+            task.Wait();
+            if (task.Result)
+                return true;
+            else
+                return false;
         }
         #endregion
     }

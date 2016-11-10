@@ -124,6 +124,8 @@ namespace Lama.UI.Win
             {
                 temp.LstEquipes = ((EquipesView)Views[4]).LstEquipes;
                 LeTournoi = temp;
+                bool success = LeTournoi.Insert();
+
                 Close();
             }
         }
