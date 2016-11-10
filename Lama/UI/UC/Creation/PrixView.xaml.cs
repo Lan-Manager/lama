@@ -43,13 +43,5 @@ namespace Lama.UI.UC.Creation
                 txtNewPrix.Clear();
             }
         }
-
-        private void dgPrix_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            if (String.IsNullOrWhiteSpace(((TextBox)e.EditingElement).Text))
-            {
-                ((Tournoi)DataContext).LstPrix.RemoveAt(e.Row.GetIndex());
-            }
-        }
     }
 }
