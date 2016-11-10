@@ -6,13 +6,31 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Lama.Logic.Model
 {
     public class Equipe : IEquatable<Equipe>
     {
         #region Propriétés
-        public string Nom { get; set; }
+        #region Nom
+        private string _nom;
+        public string Nom
+        {
+            get
+            {
+                return _nom;
+            }
+
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    _nom = value;
+                }
+            }
+        }
+        #endregion
         public ObservableCollection<Joueur> LstJoueurs { get; set; }
         public bool EstElimine { get; set; }
         public Statistiques LstStats { get; set; }

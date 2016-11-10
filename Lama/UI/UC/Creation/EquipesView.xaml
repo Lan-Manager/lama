@@ -10,10 +10,20 @@
     <Grid>
         <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Équipes" />
 
-        <DataGrid Name="dgEquipes" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="475" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" IsReadOnly="True">
+        <DataGrid Name="dgEquipes" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="375" AutoGenerateColumns="False" CanUserAddRows="True" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserDeleteRows="False" ItemsSource="{Binding LstEquipes}">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Équipe" />
+                <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Équipe">
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="MaxLength" Value="30" />
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,475,0,0" Content="Ajouter une équipe :"/>
+        <TextBox Name="txtNewEquipe" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,475,0,0" Width="200" MaxLength="30"/>
+        <Button Name="btnAddEquipe" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,475,0,0" Content="Ajouter" Click="btnAddEquipe_Click"/>
     </Grid>
 </UserControl>
