@@ -28,16 +28,23 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="3.5*"></RowDefinition>
         </Grid.RowDefinitions>
         
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
             <Label Name="lblTitre" FontWeight="DemiBold" FontSize="18" Foreground="{StaticResource AccentColorBrush}">Changer de local</Label>
             <ComboBox Margin="6 0 0 0" HorizontalAlignment="Left" Name="cboLocal" Width="140" Height="12" ItemsSource="{Binding LstLocal}" DisplayMemberPath="Numero" SelectedValuePath="Numero" SelectedItem="{Binding LocalSelectionne}"></ComboBox>
         </StackPanel>
-        <StackPanel Grid.Row="0" Grid.Column="1">
+        
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
             <Label Name="lblSommaireGlobal" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="{StaticResource AccentColorBrush}">Sommaire</Label>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel>
+                    <Label Style="{StaticResource lblSommaire}" Content=" "></Label>
+                    <Label Style="{StaticResource ValeurSommaireHorizontal}">Global</Label>
+                    <Label Content="{Binding LocalSelectionne.Numero}"  Style="{StaticResource ValeurSommaireHorizontal}"></Label>
+                </StackPanel>
                 <StackPanel>
                     <Label Style="{StaticResource lblSommaire}" Foreground="{StaticResource AccentColorBrush}">Prêts</Label>
                     <Label Style="{StaticResource ValeurSommaireHorizontal}" Name="lblPret_Global" Content="{Binding NbPoste_Pret, UpdateSourceTrigger=PropertyChanged}"></Label>
@@ -66,23 +73,36 @@
                 </StackPanel>
             </StackPanel>
         </StackPanel>
-        <Separator Grid.ColumnSpan="2" Grid.Row="1"></Separator>
+
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+            <Separator></Separator>
+            <Label Style="{StaticResource lblSommaire}" HorizontalAlignment="Center">Informations sur les postes</Label>
+            <Label Style="{StaticResource lblSommaire}" HorizontalAlignment="Center" Content="{Binding LocalSelectionne.Numero}"></Label>
+        </StackPanel>
         <StackPanel Grid.Column="0" Grid.Row="1">
             <StackPanel>
                 <Label  Style="{StaticResource lblSommaire}" Foreground="{StaticResource AccentColorBrush}">Volontaire assigné</Label>
                 <ComboBox Name="cboVonlontaire" Margin="6 0 0 0" HorizontalAlignment="Left" Width="160" Height="25" ItemsSource="{Binding LstVolontaires}" DisplayMemberPath="NomComplet" SelectedValuePath="NomUtilisateur" SelectedItem="{Binding LocalSelectionne.VolontaireAssigne, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
             </StackPanel>
         </StackPanel>
-
-
-
-        <DataGrid Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Name="dgLocaux" AutoGenerateColumns="False" ItemsSource="{Binding LocalSelectionne.LstPoste}" ColumnWidth="*" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" GridLinesVisibility="All">
+        <DataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" Name="dgLocaux" AutoGenerateColumns="False" ItemsSource="{Binding LocalSelectionne.LstPoste}" ColumnWidth="*" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" GridLinesVisibility="All">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Poste" Binding="{Binding Numero}" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTemplateColumn Header="État" SortMemberPath="Etat">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox ItemsSource="{Binding LstEtatPossible}" SelectedValue="{Binding Etat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                            <ComboBox Name="cboEtat" ItemsSource="{Binding LstEtatPossible}" SelectedValue="{Binding Etat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Etat}" Value="Prêt">
+                                    <Setter TargetName="cboEtat" Property="Foreground" Value="Green"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Etat}" Value="En attente">
+                                    <Setter TargetName="cboEtat" Property="Foreground" Value="Yellow"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Etat}" Value="Problème">
+                                    <Setter TargetName="cboEtat" Property="Foreground" Value="Red"></Setter>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
