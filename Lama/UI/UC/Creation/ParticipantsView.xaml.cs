@@ -39,8 +39,14 @@ namespace Lama.UI.UC.Creation
         void OnUnchecked(object sender, RoutedEventArgs e)
         {
             DataGridCell dgc = sender as DataGridCell;
+            Joueur j = dgc.DataContext as Joueur;
 
-            ((Tournoi)DataContext).LstJoueurs.Remove(dgc.DataContext as Joueur);
+            if (j.EquipeJoueur != null)
+            {
+                j.EquipeJoueur.LstJoueurs.Remove(j);
+            }
+
+            ((Tournoi)DataContext).LstJoueurs.Remove(j);
         }
 
         private ObservableCollection<Joueur> ChargerJoueurs()
