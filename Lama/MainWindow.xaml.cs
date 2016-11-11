@@ -172,11 +172,12 @@ namespace Lama
         // Fonction qui affiche/cache ou modifie le texte de certain élément selon l'état de l'utilisateur.
         private void AfficherElement()
         {
+
             if (Utilisateur == null || Utilisateur.EstConnecte == false)
             {
                 tabLocaux.Visibility = Visibility.Hidden;
                 tabContenant.SelectedItem = tabTournoi;
-                btnConnexion.Content = "S'authentifier";
+
             }
             else
             {
@@ -186,13 +187,13 @@ namespace Lama
                 }
                 tabLocaux.Content = new LocauxUC(LeTournoi.LstLocaux);
                 tabLocaux.Visibility = Visibility.Visible;
-                btnConnexion.Content = "Se désauthentifier";
+
             }
         }
 
         public MainWindow()
         {
-            
+
             InitializeComponent();
 
             Utilisateur = new Utilisateur();
@@ -210,7 +211,10 @@ namespace Lama
             {
                 AuthentificationWin FenetreAuthentification = new AuthentificationWin(this);
                 FenetreAuthentification.ShowDialog();
-                Utilisateur = FenetreAuthentification.Utilisateur;
+                if (FenetreAuthentification.Utilisateur != null)
+                {
+                    Utilisateur = FenetreAuthentification.Utilisateur;
+                }
             }
             // Si l'utilisateur est déjà identifié, on le désauthentifie en remettant le statut d'utilisateur.
             else

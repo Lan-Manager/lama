@@ -50,6 +50,7 @@ namespace Lama.Logic.Model
         /// </summary>
         public Utilisateur()
         {
+            NomComplet = "Invité";
             EstConnecte = false;
             EstAdmin = false;
         }
