@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Lama.Logic.TypeTournoi
+{
+    public class SimpleElimination : ITypeTournoi
+    {
+        public void GenererTour()
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
