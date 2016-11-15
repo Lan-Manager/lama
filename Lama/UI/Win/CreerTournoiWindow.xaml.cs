@@ -116,12 +116,12 @@ namespace Lama.UI.Win
         {
             MessageBoxResult mbr = MessageBox.Show("Êtes-vous certain de vouloir enregistrer ce tournoi?", 
                                                    "Enregistrer", 
-                                                   MessageBoxButton.YesNoCancel, 
+                                                   MessageBoxButton.OKCancel, 
                                                    MessageBoxImage.Question, 
-                                                   MessageBoxResult.No);
+                                                   MessageBoxResult.Cancel);
 
             // Si on veut enregistrer le tournoi
-            if (mbr == MessageBoxResult.Yes)
+            if (mbr == MessageBoxResult.OK)
             {
                 LeTournoi = temp;
                 //bool success = LeTournoi.Insert();
