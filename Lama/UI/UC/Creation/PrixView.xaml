@@ -9,7 +9,7 @@
     <Grid>
         <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Prix (Optionnel)" />
 
-        <DataGrid Name="dgPrix" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="375" AutoGenerateColumns="False" CanUserAddRows="True" CanUserSortColumns="False" CanUserReorderColumns="False" ItemsSource="{Binding LstPrix}">
+        <DataGrid Name="dgPrix" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="375" AutoGenerateColumns="False" CanUserAddRows="True" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserDeleteRows="False" ItemsSource="{Binding LstPrix}">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Prix">
                     <DataGridTextColumn.EditingElementStyle>
