@@ -24,9 +24,12 @@ namespace Lama.UI.Win
     {
         public Equipe LEquipe { get; set; }
         public ObservableCollection<Joueur> LstJoueursRestant { get; set; }
+        private ObservableCollection<Joueur> LstTemp { get; set; }
 
         public AssocierJoueursEquipe(Equipe e, ObservableCollection<Joueur> lj)
         {
+            LstTemp = new ObservableCollection<Joueur>();
+
             InitializeComponent();
 
             LEquipe = e;
@@ -37,6 +40,7 @@ namespace Lama.UI.Win
             dgEquipes.ItemsSource = LstJoueursRestant;
         }
 
+        #region Events
         // ajouter le participant à l'équipe
         void OnChecked(object sender, RoutedEventArgs e)
         {
@@ -45,7 +49,7 @@ namespace Lama.UI.Win
             // le OnChecked sera triggered a cause du DataTrigger, donc on doit vérifier si cet objet n'existe pas déjà pour pas l'ajouter une 2e fois. (se retrigger lorsque l'on réouvre la Window)
             if (!LEquipe.LstJoueurs.Contains(dgc.DataContext as Joueur))
             {
-                LEquipe.LstJoueurs.Add(dgc.DataContext as Joueur);
+                LstTemp.Add(dgc.DataContext as Joueur);
                 (dgc.DataContext as Joueur).EquipeJoueur = LEquipe;
             }
         }
@@ -55,8 +59,29 @@ namespace Lama.UI.Win
         {
             DataGridCell dgc = sender as DataGridCell;
 
-            LEquipe.LstJoueurs.Remove(dgc.DataContext as Joueur);
+            LstTemp.Remove(dgc.DataContext as Joueur);
             (dgc.DataContext as Joueur).EquipeJoueur = null;
         }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult mbr = MessageBox.Show("Êtes-vous certain de vouloir enregistrer les changements?",
+                                                   "Enregistrer",
+                                                   MessageBoxButton.YesNoCancel,
+                                                   MessageBoxImage.Question,
+                                                   MessageBoxResult.No);
+
+            if (mbr == MessageBoxResult.Yes)
+            {
+                LEquipe.LstJoueurs = LstTemp;
+                Close();
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+        #endregion
     }
 }
