@@ -9,6 +9,8 @@ using LamaBD;
 using System.Collections.Generic;
 using Lama.UI.Model;
 using System.Threading.Tasks;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace Lama.UI.UC
 {
@@ -178,7 +180,43 @@ namespace Lama.UI.UC
                 cboLocal.SelectedIndex = 0;
             });
         }
+        /// <summary>
+        /// Handler pour le click du bouton d'ajout d'un commentaire.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAjoutCommentaire_Click(object sender, RoutedEventArgs e)
+        {
+            Poste p = ((Button)sender).DataContext as Poste;
+            AjouterCommentaire(p);
+        }
+        private void AjouterCommentaire(Poste p)
+        {
+            AfficherMessage(p);
+            
+        }
+        /// <summary>
+        /// Méthode affichant le dialogue pour entrer un commentaire.
+        /// </summary>
+        /// <param name="p">Le poste auquel on doit ajouter un commentaire.</param>
+        public async void AfficherMessage(Poste p)
+        {
+            // On va chercher la fenêtre parent (MainWindow dans ce cas-ci) avec la référence du contrôle (this).
+            MetroWindow parent = Window.GetWindow(this) as MetroWindow;
+            var metroWindow = parent;
 
+            // On donne le thème général de l'application à la fenêtre de saisi
+            metroWindow.MetroDialogOptions.ColorScheme = MetroDialogColorScheme.Theme;
+
+            // On extrait le résultat.
+            string result = await metroWindow.ShowInputAsync("Commentaire", p.Commentaire, metroWindow.MetroDialogOptions);
+
+            // Si l'utilisateur n'a pas fait cancel.
+            if (result != null)
+            {
+                p.Commentaire = result;
+            }
+        }
         /// <summary>
         /// Handler spécifique au locaux.
         /// </summary>
@@ -381,6 +419,9 @@ namespace Lama.UI.UC
             var task = LocalHelper.UpdateAsync(LocalSelectionne.Numero, LocalSelectionne.VolontaireAssigne.NomUtilisateur);
         }
         #endregion
+
         #endregion
+
+        
     }
 }

@@ -45,7 +45,6 @@ namespace Lama.UI.Win
             if (task.Result == null || string.IsNullOrEmpty(txbCompte.Text) || string.IsNullOrEmpty(pwbPassword.Password) || !isValid)
             {
                 AfficherMessage("Le nom d'utilisateur et/ou le mot de passe saisis sont incorrects.", MessageDialogStyle.Affirmative);
-                //MessageBox.Show("Le nom d'utilisateur et/ou le mot de passe saisis sont incorrects.");
             }
             // Les informations sont correctes.
             else

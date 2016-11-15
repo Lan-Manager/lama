@@ -31,12 +31,12 @@
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="3.5*"></RowDefinition>
         </Grid.RowDefinitions>
-        
+
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical">
             <Label Name="lblTitre" FontWeight="DemiBold" FontSize="18" Foreground="{StaticResource AccentColorBrush}">Changer de local</Label>
             <ComboBox Margin="6 0 0 0" HorizontalAlignment="Left" Name="cboLocal" Width="140" Height="12" ItemsSource="{Binding LstLocal}" DisplayMemberPath="Numero" SelectedValuePath="Numero" SelectedItem="{Binding LocalSelectionne}"></ComboBox>
         </StackPanel>
-        
+
         <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
             <Label Name="lblSommaireGlobal" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="{StaticResource AccentColorBrush}">Sommaire</Label>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -87,7 +87,46 @@
         </StackPanel>
         <DataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" Name="dgLocaux" AutoGenerateColumns="False" ItemsSource="{Binding LocalSelectionne.LstPoste}" ColumnWidth="*" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" GridLinesVisibility="All">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Poste" Binding="{Binding Numero}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Poste" IsReadOnly="True" SortMemberPath="Numero">
+                    <DataGridTemplateColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Etat}" Value="Problème">
+                                    <Setter Property="ToolTip" Value="{Binding Commentaire, UpdateSourceTrigger=PropertyChanged}"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGridTemplateColumn.CellStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Name="spPoste">
+                                <Label Content="{Binding Numero}" HorizontalAlignment="Right"></Label>
+                                <Button Name="btnAjoutCommentaire" HorizontalAlignment="Right" Visibility="Hidden" IsEnabled="False" Click="btnAjoutCommentaire_Click">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource SquareButtonStyle}">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <Rectangle Width="10" Height="10">
+                                                        <Rectangle.Fill>
+                                                            <VisualBrush Visual="{StaticResource appbar_clipboard_edit}" />
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </StackPanel>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Etat}" Value="Problème">
+                                    <Setter TargetName="btnAjoutCommentaire" Property="IsEnabled" Value="True"></Setter>
+                                    <Setter TargetName="btnAjoutCommentaire" Property="Visibility" Value="Visible"></Setter>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="État" SortMemberPath="Etat">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

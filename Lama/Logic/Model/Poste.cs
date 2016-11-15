@@ -17,8 +17,23 @@ namespace Lama.Logic.Model
         public enum Etats { Prêt, EnAttente, NonRequis, Problème};
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+        private string _commentaire;
+        public string Commentaire
+        {
+            get
+            {
+                return _commentaire;
+            }
+            set
+            {
+                if (value != _commentaire)
+                {
+                    _commentaire = value;
+                    NotifyPropertyChanged(Commentaire);
+                }
+            }
+        }
 
-        
         public string AncienEtat { get; set; }
         private string _etat;
         public string Etat
