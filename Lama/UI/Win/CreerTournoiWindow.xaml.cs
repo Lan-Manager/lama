@@ -129,6 +129,19 @@ namespace Lama.UI.Win
                 Close();
             }
         }
+
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult mbr = MessageBox.Show("Êtes-vous certain de vouloir quitter la création de tournoi? Vous perdrez les informations concernant le nouveau tournoi!", 
+                                                   "Attention!", 
+                                                   MessageBoxButton.YesNo, 
+                                                   MessageBoxImage.Warning, 
+                                                   MessageBoxResult.No);
+            if (mbr == MessageBoxResult.No)
+            {
+                e.Cancel = true;
+            }
+        }
         #endregion
     }
 }
