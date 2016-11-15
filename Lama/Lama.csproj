@@ -88,7 +88,7 @@
     <Compile Include="Logic\Model\PropertyChangedExtendedEventArgs.cs" />
     <Compile Include="Logic\Tools\PasswordHelper.cs" />
     <Compile Include="Logic\TypeTournoi\ITypeTournoi.cs" />
-    <Compile Include="Logic\TypeTournoi\SimpleElimination.cs" />
+    <Compile Include="Logic\TypeTournoi\Elimination.cs" />
     <Compile Include="UI\UC\Creation\EquipesView.xaml.cs">
       <DependentUpon>EquipesView.xaml</DependentUpon>
     </Compile>
