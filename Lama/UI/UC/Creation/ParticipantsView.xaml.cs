@@ -16,15 +16,9 @@ namespace Lama.UI.UC.Creation
     /// </summary>
     public partial class ParticipantsView : UserControl
     {
-        public ObservableCollection<Joueur> LstJoueurs { get; set; }
-
         public ParticipantsView()
         {
             InitializeComponent();
-
-            LstJoueurs = ChargerJoueurs();
-
-            dgJoueurs.ItemsSource = LstJoueurs;
         }
 
         // ajouter le participant
@@ -48,24 +42,7 @@ namespace Lama.UI.UC.Creation
 
             ((Tournoi)DataContext).LstJoueurs.Remove(j);
         }
-
-        private ObservableCollection<Joueur> ChargerJoueurs()
-        {
-            var task = ParticipantHelper.SelectAllLoLPlayersAsync();
-            task.Wait();
-
-            List<participants> data = task.Result;
-
-            ObservableCollection<Joueur> lstTemp = new ObservableCollection<Joueur>();
-
-            foreach (var participant in data)
-            {
-                lstTemp.Add(new Joueur(participant.matricule, participant.prenom, participant.nom, "Diamond", participant.jeuxcomptes.First().nomCompte));
-            }
-
-            return lstTemp;
-        }
-
+                
         private void miModifier_Click(object sender, RoutedEventArgs e)
         {
 
