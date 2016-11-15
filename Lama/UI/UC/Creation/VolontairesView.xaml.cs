@@ -67,5 +67,15 @@ namespace Lama.UI.UC.Creation
 
             return lstTemp;
         }
+
+        private void miModifier_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void miSupprimer_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

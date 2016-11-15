@@ -19,6 +19,12 @@
                     </DataGridTextColumn.EditingElementStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Name="miModifier" Header="Modifier le volontaire" Click="miModifier_Click"/>
+                    <MenuItem Name="miSupprimer" Header="Supprimer le volontaire" Click="miSupprimer_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
 
         <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,475,0,0" Content="Ajouter un nouveau prix :"/>

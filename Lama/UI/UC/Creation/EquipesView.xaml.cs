@@ -58,5 +58,20 @@ namespace Lama.UI.UC.Creation
                 txtNewEquipe.Clear();
             }
         }
+
+        private void miAssocier_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void miModifier_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void miSupprimer_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

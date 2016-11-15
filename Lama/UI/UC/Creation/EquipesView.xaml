@@ -20,6 +20,13 @@
                     </DataGridTextColumn.EditingElementStyle>
                 </DataGridTextColumn>
             </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Name="miAssocier" Header="Associer les joueurs" Click="miAssocier_Click"/>
+                    <MenuItem Name="miModifier" Header="Modifier le nom" Click="miModifier_Click"/>
+                    <MenuItem Name="miSupprimer" Header="Supprimer l'équipe" Click="miSupprimer_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
 
         <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,475,0,0" Content="Ajouter une équipe :"/>
