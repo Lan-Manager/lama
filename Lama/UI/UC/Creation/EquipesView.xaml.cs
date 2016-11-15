@@ -17,8 +17,6 @@ namespace Lama.UI.UC.Creation
     /// </summary>
     public partial class EquipesView : UserControl
     {
-        public ObservableCollection<Equipe> LstEquipes { get; set; }
-
         public EquipesView()
         {
             InitializeComponent();
@@ -42,34 +40,6 @@ namespace Lama.UI.UC.Creation
             AssocierJoueursEquipe aje = new AssocierJoueursEquipe(equipe, new ObservableCollection<Joueur>(((Tournoi)DataContext).LstJoueurs.Where(x => x.EquipeJoueur == null || x.EquipeJoueur == equipe)));
 
             aje.ShowDialog();
-        }
-
-        /*private ObservableCollection<Equipe> ChargerEquipes()
-        {
-            var task = EquipeHelper.SelectAll();
-            task.Wait();
-
-            List<equipes> data = task.Result;
-
-            ObservableCollection<Equipe> lstTemp = new ObservableCollection<Equipe>();
-
-            foreach (var equipe in data)
-            {
-                lstTemp.Add(new Equipe(equipe.nom));
-            }
-
-            return lstTemp;
-        }*/
-
-        private void dgEquipes_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            if (String.IsNullOrWhiteSpace((e.EditingElement as TextBox).Text))
-            {
-                /*((Tournoi)DataContext).LstEquipes.RemoveAt(e.Row.GetIndex());
-                (sender as DataGrid).CancelEdit();*/
-
-                MessageBox.Show((sender as DataGrid).SelectedItem.GetType().ToString());
-            }
         }
 
         private void btnAddEquipe_Click(object sender, RoutedEventArgs e)
