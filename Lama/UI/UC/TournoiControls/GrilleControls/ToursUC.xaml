@@ -12,22 +12,14 @@
         <Style TargetType="Expander" x:Key="tour">
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="FontSize" Value="14" />
-            <Setter Property="Padding" Value="10 5 10 5" />
-            <Setter Property="Margin" Value="0 0 0 50" />
+            <Setter Property="Margin" Value="5" />
             <Setter Property="Foreground" Value="{StaticResource AccentBaseColorBrush}" />
-            <Setter Property="BorderBrush" Value="{StaticResource IdealForegroundDisabledBrush}" />
-            <Setter Property="BorderThickness" Value="0 0 0 1" />
-        </Style>
-
-        <Style TargetType="StackPanel" x:Key="sp">
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="35 0 35 0" />
         </Style>
 
     </UserControl.Resources>
 
 
-    <ScrollViewer  Name="svTours" VerticalScrollBarVisibility="Visible">
+    <ScrollViewer Name="svTours" VerticalScrollBarVisibility="Visible">
         <ItemsControl Name="icTours" ItemsSource="{Binding TournoiEnCours.LstTours}">
 
             <ItemsControl.ItemTemplate>
