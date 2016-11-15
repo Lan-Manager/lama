@@ -21,8 +21,8 @@
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Name="miModifier" Header="Modifier le volontaire" Click="miModifier_Click"/>
-                    <MenuItem Name="miSupprimer" Header="Supprimer le volontaire" Click="miSupprimer_Click"/>
+                    <MenuItem Name="miModifier" Header="Modifier le prix" Click="miModifier_Click"/>
+                    <MenuItem Name="miSupprimer" Header="Supprimer le prix" Click="miSupprimer_Click"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
