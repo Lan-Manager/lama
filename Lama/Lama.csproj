@@ -159,6 +159,9 @@
     <Compile Include="UI\UC\TournoiControls\TournoiUC.xaml.cs">
       <DependentUpon>TournoiUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Win\AjouterParticipant.xaml.cs">
+      <DependentUpon>AjouterParticipant.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Win\AjouterVolontaire.xaml.cs">
       <DependentUpon>AjouterVolontaire.xaml</DependentUpon>
     </Compile>
@@ -315,6 +318,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\TournoiUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Win\AjouterParticipant.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
