@@ -15,10 +15,13 @@
             <Setter Property="Foreground" Value="{StaticResource AccentBaseColorBrush}" />
         </Style>
 
-        <Style TargetType="Label" x:Key="lblaucuntour">
+        <Style TargetType="Label" x:Key="lblhelper">
             <Setter Property="Visibility" Value="Collapsed" />
             <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="Padding" Value="20" />
+            <Setter Property="Padding" Value="20" />            
+        </Style>
+        
+        <Style TargetType="Label" x:Key="lblaucuntour" BasedOn="{StaticResource lblhelper}">           
             <Style.Triggers>
                 <DataTrigger Binding="{Binding TournoiEnCours.LstTours.Count}" Value="0">
                     <Setter Property="Visibility" Value="Visible" />
@@ -49,6 +52,18 @@
             </Style.Triggers>
         </Style>
 
+        <Style x:Key="lblGenerationImpossible" TargetType="Label" BasedOn="{StaticResource lblhelper}">
+            <Setter Property="Visibility" Value="Hidden" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Utilisateur.EstConnecte}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Utilisateur.EstConnecte}" Value="True">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
     </UserControl.Resources>
 
     <StackPanel Margin="0 20 0 20">
@@ -61,7 +76,8 @@
         </StackPanel>
 
         <StackPanel>
-            <Label Style="{StaticResource lblaucuntour}" Content="Aucun tour en cours." />
+            <Label Style="{StaticResource lblaucuntour}" Content="En attente de génératio d'un tour." />
+            <Label Style="{StaticResource lblGenerationImpossible}" Name="lblGenerationImpossible" Foreground="Red" Content="Impossible de générer un tour, toutes les parties doivent être terminées." />
             <Button Style="{StaticResource generertour}" DataContext="{Binding TournoiEnCours}" Name="btnGenererTour" Content="Générer un tour" Click="GenererTour" />
         </StackPanel>
 
