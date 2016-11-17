@@ -18,7 +18,7 @@ namespace Lama.UI.Win
     /// <summary>
     /// Logique d'interaction pour AjouterVolontaire.xaml
     /// </summary>
-    public partial class AjouterVolontaire : MetroWindow
+    public partial class AjouterVolontaire
     {
         public AjouterVolontaire()
         {
