@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Lama.UI.UC"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="1000" d:DesignWidth="1000"
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>
         <Style TargetType="Label" x:Key="lblSommaire">
@@ -84,7 +84,25 @@
                 <Label  Style="{StaticResource lblSommaire}" Foreground="{StaticResource AccentColorBrush}">Volontaire assigné</Label>
                 <ComboBox Name="cboVonlontaire" Margin="6 0 0 0" HorizontalAlignment="Left" Width="160" Height="25" ItemsSource="{Binding LstVolontaires}" DisplayMemberPath="NomComplet" SelectedValuePath="NomUtilisateur" SelectedItem="{Binding LocalSelectionne.VolontaireAssigne, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
             </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="0">
+                <Label FontWeight="Bold">Légende</Label>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="5" Height="5" Fill="#21ef9d"></Rectangle>
+                        <Label>Prêts</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="5" Height="5" Fill="#d6223a"></Rectangle>
+                        <Label>Problématiques</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="5" Height="5" Fill="#8e8686"></Rectangle>
+                        <Label>En attente</Label>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
+       
         <DataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" Name="dgLocaux" AutoGenerateColumns="False" ItemsSource="{Binding LocalSelectionne.LstPoste}" ColumnWidth="*" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" GridLinesVisibility="All">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Poste" IsReadOnly="True" SortMemberPath="Numero">
@@ -95,13 +113,22 @@
                                 <DataTrigger Binding="{Binding Etat}" Value="Problème">
                                     <Setter Property="ToolTip" Value="{Binding Commentaire, UpdateSourceTrigger=PropertyChanged}"></Setter>
                                 </DataTrigger>
+                                <DataTrigger Binding="{Binding Etat}" Value="Prêt">
+                                    <Setter Property="Background" Value="#21ef9d"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Etat}" Value="Problème">
+                                    <Setter Property="Background" Value="#d6223a"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Etat}" Value="En attente">
+                                    <Setter Property="Background" Value="#8e8686"></Setter>
+                                </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </DataGridTemplateColumn.CellStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <WrapPanel Orientation="Horizontal" Name="spPoste" HorizontalAlignment="Stretch">
-                                <Label Content="{Binding Numero}" HorizontalAlignment="Right"></Label>
+                                <Label Name="lblNumeroPoste" FontSize="14" FontWeight="Bold" Content="{Binding Numero}" HorizontalAlignment="Right"></Label>
                                 <Button Name="btnAjoutCommentaire" HorizontalAlignment="Right" Visibility="Hidden" IsEnabled="False" Click="btnAjoutCommentaire_Click">
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource SquareButtonStyle}">
@@ -131,17 +158,6 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <ComboBox Name="cboEtat" ItemsSource="{Binding LstEtatPossible}" SelectedValue="{Binding Etat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-                            <DataTemplate.Triggers>
-                                <DataTrigger Binding="{Binding Etat}" Value="Prêt">
-                                    <Setter TargetName="cboEtat" Property="Foreground" Value="Green"></Setter>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Etat}" Value="En attente">
-                                    <Setter TargetName="cboEtat" Property="Foreground" Value="Yellow"></Setter>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Etat}" Value="Problème">
-                                    <Setter TargetName="cboEtat" Property="Foreground" Value="Red"></Setter>
-                                </DataTrigger>
-                            </DataTemplate.Triggers>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -153,6 +169,9 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
+            <DataGrid.Triggers>
+
+            </DataGrid.Triggers>
         </DataGrid>
     </Grid>
 </UserControl>
