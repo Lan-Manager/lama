@@ -6,6 +6,8 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Lama.UI.Win"
         mc:Ignorable="d"
+        BorderThickness="1"
+        BorderBrush="{DynamicResource AccentColorBrush}"
         Title="Ajouter un volontaire" Height="300" Width="300"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
