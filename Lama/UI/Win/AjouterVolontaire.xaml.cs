@@ -24,5 +24,10 @@ namespace Lama.UI.Win
         {
             InitializeComponent();
         }
+
+        private void btnEnregistrer_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
