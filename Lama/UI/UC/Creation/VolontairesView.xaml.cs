@@ -1,6 +1,8 @@
 ﻿using Lama.Logic.Model;
+using Lama.UI.Win;
 using LamaBD;
 using LamaBD.helper;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -76,6 +78,12 @@ namespace Lama.UI.UC.Creation
         private void miSupprimer_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void btnAddVolontaire_Click(object sender, RoutedEventArgs e)
+        {
+            AjouterVolontaire av = new AjouterVolontaire();
+            av.ShowDialog();
         }
     }
 }
