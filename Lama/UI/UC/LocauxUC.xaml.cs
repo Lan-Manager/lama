@@ -129,7 +129,7 @@ namespace Lama.UI.UC
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public LocauxUC(ObservableCollection<Local> lstLocal)
+        public LocauxUC()
         {
             LstLocal = new ObservableCollection<Local>();
             LstVolontaires = new ObservableCollection<Volontaire>();
@@ -137,7 +137,12 @@ namespace Lama.UI.UC
             InitializeComponent();
             this.IsEnabled = false;
 
-            //LstLocal = lstLocal;
+
+            //MainWindow parentWindow = (MainWindow)Application.Current.MainWindow;
+            //parentWindow.PropertyChanged += PropertyChanged;
+            //LstLocal = parentWindow.TournoiEnCours.LstLocaux;
+
+            ////LstLocal = lstLocal;
 
             #region Chargement des données en bd
             Task task = new Task(new Action(ChargementDonnes));
@@ -228,7 +233,7 @@ namespace Lama.UI.UC
             {
                 SauvegarderVolontaireAssigne();
             }
-            if (e.PropertyName == "Etat")
+            if (e.PropertyName == "Etat" || e.PropertyName == "Commentaire")
             {
                 CalculerEtatChangement(LocalSelectionne.PosteCourant.AncienEtat, LocalSelectionne.PosteCourant.Etat);
                 SauvegarderEtatPoste(LocalSelectionne.PosteCourant);
@@ -243,6 +248,10 @@ namespace Lama.UI.UC
         protected void NotifyPropertyChanged(string nomProp)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
+            if (nomProp == "TournoiEnCours")
+            {
+                MessageBox.Show("Allo");
+            }
         }
 
         /// <summary>
@@ -307,7 +316,7 @@ namespace Lama.UI.UC
             foreach (postes p in postes)
             {
                 // On va chercher le volontaire ayant fait la modification.
-                local.LstPoste.Add(new Poste(p.numeroPoste, p.etatspostes.nom)); // On ajoute le poste à la liste de poste.
+                local.LstPoste.Add(new Poste(p.numeroPoste, p.etatspostes.nom, p.commentaire)); // On ajoute le poste à la liste de poste.
             }
             local.NbPoste_Depart = postes.Count;
         }
@@ -409,7 +418,7 @@ namespace Lama.UI.UC
         /// <param name="p">Le poste qu'y doit être modifié en BD.</param>
         private void SauvegarderEtatPoste(Poste p)
         {
-            var taskSave = PosteHelper.UpdateEtatAsync(p.Numero, LocalSelectionne.Numero, p.Etat);
+            var taskSave = PosteHelper.UpdateEtatAsync(p.Numero, LocalSelectionne.Numero, p.Etat, p.Commentaire);
         }
         /// <summary>
         /// Méthode pour sauvegarder le volontaire assigné à un  local en BD.

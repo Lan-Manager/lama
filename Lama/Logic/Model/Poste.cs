@@ -29,7 +29,7 @@ namespace Lama.Logic.Model
                 if (value != _commentaire)
                 {
                     _commentaire = value;
-                    NotifyPropertyChanged(Commentaire);
+                    NotifyPropertyChanged("Commentaire");
                 }
             }
         }
@@ -84,6 +84,23 @@ namespace Lama.Logic.Model
             LstEtatPossible.Add("Non requis");
             Numero = numero;
             Etat = etat;
+        }
+
+        /// <summary>
+        /// Constructeur d'un poste.
+        /// </summary>
+        /// <param name="numero">Le numéro du poste.</param>
+        /// <param name="etat">Son état initial au lancement de l'application.</param>
+        public Poste(int numero, string etat, string commentaire)
+        {
+            LstEtatPossible = new ObservableCollection<string>();
+            LstEtatPossible.Add("En attente");
+            LstEtatPossible.Add("Problème");
+            LstEtatPossible.Add("Prêt");
+            LstEtatPossible.Add("Non requis");
+            Numero = numero;
+            Etat = etat;
+            Commentaire = commentaire;
         }
 
         #region Interface INotifyPropertyChanged

@@ -43,7 +43,7 @@ namespace LamaBD.helper
         /// <param name="numeroLocal">Numéro du local auqel le poste appartient</param>
         /// <param name="etat">Le nouvel état à sauvegarder.</param>
         /// <returns></returns>
-        public static async Task<bool> UpdateEtatAsync(int numeroPoste, string numeroLocal, string etat)
+        public static async Task<bool> UpdateEtatAsync(int numeroPoste, string numeroLocal, string etat, string commentaire)
         {
             using (var ctx = new Connexion420())
             {
@@ -61,7 +61,7 @@ namespace LamaBD.helper
                 var idEtat = await queryE.SingleOrDefaultAsync();
 
                 poste.idEtatPoste = idEtat;
-
+                poste.commentaire = commentaire;
                 await ctx.SaveChangesAsync();
                 return true;
             }

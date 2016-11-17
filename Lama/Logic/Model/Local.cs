@@ -290,6 +290,10 @@ namespace Lama.Logic.Model
             {
                 NotifyPropertyChanged("DernierModificateur");
             }
+            if (e.PropertyName == "Commentaire")
+            {
+                NotifyPropertyChanged("Commentaire");
+            }
         }
         /// <summary>
         /// Cette fonction est appelé par les setter pour l'état des postes, elle avertie qu'un changement c'est produit.

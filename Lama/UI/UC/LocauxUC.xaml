@@ -100,14 +100,14 @@
                     </DataGridTemplateColumn.CellStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Name="spPoste">
+                            <WrapPanel Orientation="Horizontal" Name="spPoste" HorizontalAlignment="Stretch">
                                 <Label Content="{Binding Numero}" HorizontalAlignment="Right"></Label>
                                 <Button Name="btnAjoutCommentaire" HorizontalAlignment="Right" Visibility="Hidden" IsEnabled="False" Click="btnAjoutCommentaire_Click">
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource SquareButtonStyle}">
                                             <Setter Property="Content">
                                                 <Setter.Value>
-                                                    <Rectangle Width="10" Height="10">
+                                                    <Rectangle Width="15" Height="15">
                                                         <Rectangle.Fill>
                                                             <VisualBrush Visual="{StaticResource appbar_clipboard_edit}" />
                                                         </Rectangle.Fill>
@@ -117,7 +117,7 @@
                                         </Style>
                                     </Button.Style>
                                 </Button>
-                            </StackPanel>
+                            </WrapPanel>
                             <DataTemplate.Triggers>
                                 <DataTrigger Binding="{Binding Etat}" Value="Problème">
                                     <Setter TargetName="btnAjoutCommentaire" Property="IsEnabled" Value="True"></Setter>

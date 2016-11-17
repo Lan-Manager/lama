@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using Lama.UI.UC;
 using Lama.UI.Win;
 using Lama.Logic.Model;
 using System.ComponentModel;
-using Lama.UI.UC.TournoiControls;
 using LamaBD.helper;
 using LamaBD;
 using System.Collections.ObjectModel;
@@ -71,10 +60,11 @@ namespace Lama
         protected void NotifyPropertyChanged(string nomProp)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
-            if (nomProp == "EstConnecte" || nomProp == "Utilisateur")
+            if (nomProp == "EstConnecte" || nomProp == "Utilisateur" || nomProp == "TournoiEnCours")
             {
                 AfficherElement();
             }
+            
         }
 
         #region code BD
@@ -177,7 +167,6 @@ namespace Lama
             {
                 tabLocaux.Visibility = Visibility.Hidden;
                 tabContenant.SelectedItem = tabTournoi;
-
             }
             else
             {
@@ -185,9 +174,15 @@ namespace Lama
                 {
                     btnCreerTournoi.Visibility = Visibility.Visible;
                 }
-                tabLocaux.Content = new LocauxUC(LeTournoi.LstLocaux);
-                tabLocaux.Visibility = Visibility.Visible;
-
+                if (TournoiEnCours.LstLocaux.Count() > 0)
+                {
+                    tabLocaux.Content = new LocauxUC();
+                    tabLocaux.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    tabLocaux.Visibility = Visibility.Hidden;
+                }
             }
         }
 
