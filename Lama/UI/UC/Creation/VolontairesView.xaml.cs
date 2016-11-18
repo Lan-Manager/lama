@@ -84,6 +84,12 @@ namespace Lama.UI.UC.Creation
         {
             AjouterVolontaire av = new AjouterVolontaire();
             av.ShowDialog();
+
+            if (av.LeVolontaire != null)
+            {
+                LstVolontaires.Add(av.LeVolontaire);
+                //TODO: ajout dans la BD
+            }
         }
     }
 }

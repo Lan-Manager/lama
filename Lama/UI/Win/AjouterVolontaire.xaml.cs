@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using Lama.Logic.Model;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +21,34 @@ namespace Lama.UI.Win
     /// </summary>
     public partial class AjouterVolontaire
     {
+        public Volontaire LeVolontaire { get; set; }
+        private Volontaire VolontaireTemp { get; set; }
+
         public AjouterVolontaire()
         {
             InitializeComponent();
+
+            VolontaireTemp = new Volontaire();
+
+            DataContext = VolontaireTemp;
         }
 
         private void btnEnregistrer_Click(object sender, RoutedEventArgs e)
         {
+            MessageBoxResult mbr = MessageBox.Show("Êtes-vous certain de vouloir enregistrer? Ceci entraînera des changements irréversibles dans la base de données.",
+                                                   "Enregistrer",
+                                                   MessageBoxButton.YesNoCancel,
+                                                   MessageBoxImage.Question,
+                                                   MessageBoxResult.Cancel);
+            if (mbr != MessageBoxResult.Cancel)
+            {
+                if (mbr == MessageBoxResult.Yes)
+                {
+                    LeVolontaire = VolontaireTemp;
+                }
 
+                Close();
+            }
         }
     }
 }
