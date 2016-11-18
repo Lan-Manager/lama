@@ -13,7 +13,7 @@
         ResizeMode="NoResize">
     <Grid FocusManager.FocusedElement="{Binding ElementName=txtMatricule}">
         <Grid FocusManager.FocusedElement="{Binding ElementName=txtMatricule}">
-            <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Nouveau participant"/>
+            <Label Name="lblTitre" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold"/>
 
             <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22.5,75,0,0" Content="Matricule:"/>
             <TextBox Name="txtMatricule" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,75,0,0" Width="250" MaxLength="7" Text="{Binding Matricule}"/>
@@ -25,7 +25,7 @@
             <TextBox Name="txtNom" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,175,0,0" Width="250" MaxLength="60" Text="{Binding Nom}"/>
 
             <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22.5,225,0,0" Content="Rang:"/>
-            <ComboBox Name="cboRang" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,225,0,0" Width="250">
+            <ComboBox Name="cboRang" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,225,0,0" Width="250" SelectedValue="{Binding Rang}" SelectedValuePath="Content">
                 <ComboBoxItem>Bronze</ComboBoxItem>
                 <ComboBoxItem>Silver</ComboBoxItem>
                 <ComboBoxItem>Gold</ComboBoxItem>

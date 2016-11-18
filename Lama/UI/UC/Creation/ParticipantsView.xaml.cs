@@ -22,31 +22,59 @@ namespace Lama.UI.UC.Creation
             InitializeComponent();
         }
 
-        // ajouter le participant
-        /*void OnChecked(object sender, RoutedEventArgs e)
+        private void dgJoueurs_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
-            DataGridCell dgc = sender as DataGridCell;
+            DataGrid dg = sender as DataGrid;
 
-            ((Tournoi)DataContext).LstJoueurs.Add(dgc.DataContext as Joueur);
-        }
-
-        // enlever le participant
-        void OnUnchecked(object sender, RoutedEventArgs e)
-        {
-            DataGridCell dgc = sender as DataGridCell;
-            Joueur j = dgc.DataContext as Joueur;
-
-            if (j.EquipeJoueur != null)
+            if (dg.SelectedIndex == -1)
             {
-                j.EquipeJoueur.LstJoueurs.Remove(j);
+                e.Handled = true;
             }
 
-            ((Tournoi)DataContext).LstJoueurs.Remove(j);
-        }*/
-                
+            else
+            {
+                // 1 item -> modifier,supprimer
+                if (dg.SelectedItems.Count == 1)
+                {
+                    miModifier.Visibility = Visibility.Visible;
+                    miSupprimer.Header = "Supprimer le participant";
+                }
+
+                // plusieurs items -> supprimer
+                else
+                {
+                    miModifier.Visibility = Visibility.Collapsed;
+                    miSupprimer.Header = "Supprimer les participants";
+                }
+            }
+        }
+
         private void miModifier_Click(object sender, RoutedEventArgs e)
         {
+            // Le sender est le menu item
+            MenuItem mi = sender as MenuItem;
 
+            // On va chercher le parent du menu item (c'est donc un ContextMenu)
+            ContextMenu cm = mi.Parent as ContextMenu;
+
+            // Avec le context menu, on peut trouver la datagrid qui a "fabriqué" le context menu
+            DataGrid dg = cm.PlacementTarget as DataGrid;
+
+            // On peut ainsi aller chercher le joueur à modifier à partir de la datagrid (le SelectedItem)
+            Joueur j = dg.SelectedItem as Joueur;
+
+            AjouterParticipant ap = new AjouterParticipant(j);
+
+            ap.ShowDialog();
+
+            if (ap.LeJoueur != null)
+            {
+                // Trouver l'index de j
+                int index = ((Tournoi)DataContext).LstJoueurs.IndexOf(j);
+
+                // Modifier le joueur à cet index
+                ((Tournoi)DataContext).LstJoueurs[index] = ap.LeJoueur;
+            }
         }
 
         private void miSupprimer_Click(object sender, RoutedEventArgs e)
@@ -61,10 +89,13 @@ namespace Lama.UI.UC.Creation
             DataGrid dg = cm.PlacementTarget as DataGrid;
 
             // On peut ainsi aller chercher le joueur à supprimer à partir de la datagrid (le SelectedItem)
-            Joueur j = dg.SelectedItem as Joueur;
+            List<Joueur> LstJ = dg.SelectedItems.Cast<Joueur>().ToList();
 
             // Supprimer l'objet Joueur
-            ((Tournoi)DataContext).LstJoueurs.Remove(j);
+            foreach (Joueur j in LstJ)
+            {
+                ((Tournoi)DataContext).LstJoueurs.Remove(j);
+            }
         }
 
         private void btnAddParticipant_Click(object sender, RoutedEventArgs e)
