@@ -20,7 +20,8 @@ namespace Lama.UI.UC
     public partial class LocauxUC : UserControl, INotifyPropertyChanged
     {
         public ObservableCollection<Local> LstLocal { get; set; }
-        public ObservableCollection<Volontaire> LstVolontaires { get; set; }
+        public ObservableCollection<Volontaire> LstVolontaires_Assignable { get; set; }
+        public ObservableCollection<Volontaire> LstVolontaires_DernierModificateur { get; set; }
 
         #region Propriétés de LocauxUC
         private int _nbPostePret;
@@ -132,7 +133,9 @@ namespace Lama.UI.UC
         public LocauxUC()
         {
             LstLocal = new ObservableCollection<Local>();
-            LstVolontaires = new ObservableCollection<Volontaire>();
+            LstVolontaires_Assignable = new ObservableCollection<Volontaire>();
+            LstVolontaires_DernierModificateur = new ObservableCollection<Volontaire>();
+
             LocalSelectionne = new Local();
             InitializeComponent();
             this.IsEnabled = false;
@@ -348,14 +351,15 @@ namespace Lama.UI.UC
 
             App.Current.Dispatcher.Invoke((Action)delegate
             {
-                LstVolontaires.Add(new Volontaire()); // On ajoute les locaux chercher en BD au tournoi.
+                LstVolontaires_Assignable.Add(new Volontaire()); // On ajoute les locaux chercher en BD au tournoi.
             });
 
             foreach (comptes c in lComptes)
             {
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    LstVolontaires.Add(new Volontaire(c.nom, c.prenom, c.matricule, c.courriel, c.nomUtilisateur)); // Ajout des volontaires à la liste.
+                    LstVolontaires_Assignable.Add(new Volontaire(c.nom, c.prenom, c.matricule, c.courriel, c.nomUtilisateur)); // Ajout des volontaires à la liste.
+                    LstVolontaires_DernierModificateur.Add(new Volontaire(c.nom, c.prenom, c.matricule, c.courriel, c.nomUtilisateur)); // Ajout des volontaires à la liste.
                 });
 
             }
@@ -370,7 +374,7 @@ namespace Lama.UI.UC
                 var taskVolAss = CompteHelper.SelectByLocalAssigne(l.Numero);
                 taskVolAss.Wait();
                 string c = taskVolAss.Result;
-                foreach (var v in LstVolontaires)
+                foreach (var v in LstVolontaires_Assignable)
                 {
                     if (v.NomUtilisateur == c)
                     {
@@ -391,7 +395,7 @@ namespace Lama.UI.UC
                     var taskVolMod = CompteHelper.SelectByModificationEtat(p.Numero, l.Numero);
                     taskVolMod.Wait();
                     string c = taskVolMod.Result;
-                    foreach (var v in LstVolontaires)
+                    foreach (var v in LstVolontaires_DernierModificateur)
                     {
                         if (v.NomUtilisateur == c)
                         {

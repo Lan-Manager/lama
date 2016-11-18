@@ -66,15 +66,23 @@ namespace LamaBD.helper
         {
             using (var ctx = new Connexion420())
             {
+                int? compt;
                 var tournoi = from tl in ctx.tournoislocaux
                               join l in ctx.locaux on tl.idLocal equals l.idLocal
                               where l.numero == numero
                               select tl;
                 tournoislocaux toulo = await tournoi.SingleOrDefaultAsync();
-                var nouvVol = from c in ctx.comptes
-                              where c.nomUtilisateur == nomUtilisateur
-                              select c.idCompte;
-                int compt = await nouvVol.SingleOrDefaultAsync();
+                if (nomUtilisateur != null)
+                {
+                    var nouvVol = from c in ctx.comptes
+                                  where c.nomUtilisateur == nomUtilisateur
+                                  select c.idCompte;
+                    compt = await nouvVol.SingleOrDefaultAsync();
+                }
+                else
+                {
+                    compt = null;
+                }
 
                 toulo.idCompte = compt;
 
