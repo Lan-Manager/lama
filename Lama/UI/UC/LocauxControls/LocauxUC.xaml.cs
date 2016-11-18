@@ -12,14 +12,14 @@ using System.Threading.Tasks;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 
-namespace Lama.UI.UC
+namespace Lama.UI.UC.LocauxControls
 {
     /// <summary>
     /// Logique d'interaction pour Locaux.xaml
     /// </summary>
     public partial class LocauxUC : UserControl, INotifyPropertyChanged
     {
-        public ObservableCollection<Local> LstLocal { get; set; }
+        public ObservableCollection<Local> LstLocaux { get; set; }
         public ObservableCollection<Volontaire> LstVolontaires_Assignable { get; set; }
         public ObservableCollection<Volontaire> LstVolontaires_DernierModificateur { get; set; }
 
@@ -129,29 +129,40 @@ namespace Lama.UI.UC
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
-
+        public MainWindow ParentWindow { get; set; }
         public LocauxUC()
         {
-            LstLocal = new ObservableCollection<Local>();
+            LstLocaux = new ObservableCollection<Local>();
             LstVolontaires_Assignable = new ObservableCollection<Volontaire>();
             LstVolontaires_DernierModificateur = new ObservableCollection<Volontaire>();
+
+            MainWindow ParentWindow = (MainWindow)Application.Current.MainWindow;
+            LstLocaux = ParentWindow.TournoiEnCours.LstLocaux;
+            LstVolontaires_DernierModificateur = ParentWindow.TournoiEnCours.LstVolontaires;
+            LstVolontaires_Assignable = ParentWindow.TournoiEnCours.LstVolontaires;
+
+            CalculerEtat();
+
+            // On subscribe les events de propriétés changeantes et on calcul les états de départ.
+            foreach (Local l in LstLocaux)
+            {
+                l.PropertyChanged += Local_PropertyChanged;
+            }
 
             LocalSelectionne = new Local();
             InitializeComponent();
             this.IsEnabled = false;
 
+            // On met l'index de l'item que l'on veut afficher par défaut.
+            cboLocal.SelectedIndex = 0;
 
-            //MainWindow parentWindow = (MainWindow)Application.Current.MainWindow;
-            //parentWindow.PropertyChanged += PropertyChanged;
-            //LstLocal = parentWindow.TournoiEnCours.LstLocaux;
-
-            ////LstLocal = lstLocal;
+            LstLocaux = new ObservableCollection<Local>();
 
             #region Chargement des données en bd
             Task task = new Task(new Action(ChargementDonnes));
             task.ContinueWith(wat =>
             {
-                foreach (var l in LstLocal)
+                foreach (var l in LstLocaux)
                 {
                     l.CalculerEtatDepart(); // À la fin du chargement on calcule les états initiaux.
                 }
@@ -161,7 +172,8 @@ namespace Lama.UI.UC
             }, TaskScheduler.FromCurrentSynchronizationContext());
             task.Start();
             #endregion
-           
+
+
         }
 
         private void Completed()
@@ -172,21 +184,10 @@ namespace Lama.UI.UC
 
         private void ChargementDonnes()
         {
-            ChargerVolontaires();
-            ChargerLocaux();
+            ////ChargerVolontaires();
+
             ChargerVolontairesAssigne();
             ChargerDernierModificateur();
-
-            foreach (Local l in LstLocal)
-            {
-                l.PropertyChanged += Local_PropertyChanged;
-            }
-
-            App.Current.Dispatcher.Invoke((Action)delegate
-            {
-                // On met l'index de l'item que l'on veut afficher par défaut.
-                cboLocal.SelectedIndex = 0;
-            });
         }
         /// <summary>
         /// Handler pour le click du bouton d'ajout d'un commentaire.
@@ -198,16 +199,12 @@ namespace Lama.UI.UC
             Poste p = ((Button)sender).DataContext as Poste;
             AjouterCommentaire(p);
         }
-        private void AjouterCommentaire(Poste p)
-        {
-            AfficherMessage(p);
-            
-        }
+
         /// <summary>
         /// Méthode affichant le dialogue pour entrer un commentaire.
         /// </summary>
         /// <param name="p">Le poste auquel on doit ajouter un commentaire.</param>
-        public async void AfficherMessage(Poste p)
+        public async void AjouterCommentaire(Poste p)
         {
             // On va chercher la fenêtre parent (MainWindow dans ce cas-ci) avec la référence du contrôle (this).
             MetroWindow parent = Window.GetWindow(this) as MetroWindow;
@@ -251,10 +248,6 @@ namespace Lama.UI.UC
         protected void NotifyPropertyChanged(string nomProp)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
-            if (nomProp == "TournoiEnCours")
-            {
-                MessageBox.Show("Allo");
-            }
         }
 
         /// <summary>
@@ -295,7 +288,7 @@ namespace Lama.UI.UC
         /// </summary>
         private void CalculerEtat()
         {
-            foreach (Local l in LstLocal)
+            foreach (Local l in LstLocaux)
             {
                 NbPoste_Pret += l.NbPoste_Pret;
                 NbPoste_Probleme += l.NbPoste_Probleme;
@@ -327,19 +320,16 @@ namespace Lama.UI.UC
         // Fonction qui charge les locaux lié au tournoi.
         private void ChargerLocaux()
         {
-            var taskLocaux = LocalHelper.SelectLocauxTournoiAsync(); // On va chercher la liste des locaux associer à ce tournoi.
-            taskLocaux.Wait();
-            List<locaux> lLocaux = taskLocaux.Result;
-            foreach (locaux l in lLocaux)
+            foreach (Local l in LstLocaux)
             {
-                Local modelLocal = new Local(l.numero);
-
-                App.Current.Dispatcher.Invoke((Action)delegate
-                {
-                    LstLocal.Add(modelLocal); // On ajoute les locaux chercher en BD au tournoi.
-                });
-                ChargerPostes(modelLocal, l.postes);
+                l.PropertyChanged += Local_PropertyChanged;
             }
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                // On met l'index de l'item que l'on veut afficher par défaut.
+                cboLocal.SelectedIndex = 0;
+            });
+
         }
 
         // Fonction qui charge les volontaires liés au tournois.
@@ -369,7 +359,7 @@ namespace Lama.UI.UC
         /// </summary>
         private void ChargerVolontairesAssigne()
         {
-            foreach (var l in LstLocal)
+            foreach (var l in LstLocaux)
             {
                 var taskVolAss = CompteHelper.SelectByLocalAssigne(l.Numero);
                 taskVolAss.Wait();
@@ -388,7 +378,7 @@ namespace Lama.UI.UC
         /// </summary>
         private void ChargerDernierModificateur()
         {
-            foreach (var l in LstLocal)
+            foreach (var l in LstLocaux)
             {
                 foreach (var p in l.LstPoste)
                 {
@@ -435,6 +425,6 @@ namespace Lama.UI.UC
 
         #endregion
 
-        
+
     }
 }

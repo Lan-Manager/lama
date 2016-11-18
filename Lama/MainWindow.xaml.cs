@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using MahApps.Metro.Controls;
-using Lama.UI.UC;
+using Lama.UI.UC.LocauxControls;
 using Lama.UI.Win;
 using Lama.Logic.Model;
 using System.ComponentModel;
@@ -176,7 +176,7 @@ namespace Lama
                 }
                 if (TournoiEnCours.LstLocaux.Count() > 0)
                 {
-                    tabLocaux.Content = new LocauxUC();
+                    tabLocaux.Content = new ContenantLocauxUC();
                     tabLocaux.Visibility = Visibility.Visible;
                 }
                 else

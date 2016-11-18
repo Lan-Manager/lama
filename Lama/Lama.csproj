@@ -105,7 +105,10 @@
     <Compile Include="UI\UC\Creation\VolontairesView.xaml.cs">
       <DependentUpon>VolontairesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\UC\LocauxUC.xaml.cs">
+    <Compile Include="UI\UC\LocauxControls\ContenantLocauxUC.xaml.cs">
+      <DependentUpon>ContenantLocauxUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\LocauxControls\LocauxUC.xaml.cs">
       <DependentUpon>LocauxUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\UC\TournoiControls\ClassementControls\ClassementUC.xaml.cs">
@@ -227,7 +230,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\UC\LocauxUC.xaml">
+    <Page Include="UI\UC\LocauxControls\ContenantLocauxUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\LocauxControls\LocauxUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
