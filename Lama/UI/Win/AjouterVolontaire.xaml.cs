@@ -28,7 +28,20 @@ namespace Lama.UI.Win
         {
             InitializeComponent();
 
-            VolontaireTemp = new Volontaire();
+            lblTitre.Content = "Nouveau volontaire";
+
+            VolontaireTemp = new Volontaire(null, null, null, null, null);
+
+            DataContext = VolontaireTemp;
+        }
+
+        public AjouterVolontaire(Volontaire v)
+        {
+            InitializeComponent();
+
+            lblTitre.Content = "Modifier un volontaire";
+
+            VolontaireTemp = new Volontaire(v.Nom, v.Prenom, v.Matricule, v.Courriel, v.NomUtilisateur);
 
             DataContext = VolontaireTemp;
         }

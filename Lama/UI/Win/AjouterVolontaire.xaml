@@ -12,7 +12,7 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
     <Grid FocusManager.FocusedElement="{Binding ElementName=txtMatricule}">
-        <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Nouveau volontaire"/>
+        <Label Name="lblTitre" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold"/>
 
         <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22.5,75,0,0" Content="Matricule:"/>
         <TextBox Name="txtMatricule" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,75,0,0" Width="250" MaxLength="7" Text="{Binding Matricule}"/>

@@ -70,14 +70,75 @@ namespace Lama.UI.UC.Creation
             return lstTemp;
         }
 
+        private void dgVolontaires_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            DataGrid dg = sender as DataGrid;
+
+            if (dg.SelectedIndex == -1)
+            {
+                e.Handled = true;
+            }
+        }
+
         private void miModifier_Click(object sender, RoutedEventArgs e)
         {
+            // Le sender est le menu item
+            MenuItem mi = sender as MenuItem;
 
+            // On va chercher le parent du menu item (c'est donc le ContextMenu)
+            ContextMenu cm = mi.Parent as ContextMenu;
+
+            // Avec le ContextMenu, on peut aller chercher la datagrid
+            DataGrid dg = cm.PlacementTarget as DataGrid;
+
+            // On va chercher le volontaire
+            Volontaire v = dg.SelectedItem as Volontaire;
+
+            AjouterVolontaire av = new AjouterVolontaire(v);
+
+            av.ShowDialog();
+
+            if (av.LeVolontaire != null)
+            {
+                // Trouver l'index de v
+                int index = LstVolontaires.IndexOf(v);
+
+                // Modifier le volontaire à cet index
+                LstVolontaires[index] = av.LeVolontaire;
+
+                //TODO: modifier dans la BD
+            }
         }
 
         private void miSupprimer_Click(object sender, RoutedEventArgs e)
         {
+            // Le sender est le menu item
+            MenuItem mi = sender as MenuItem;
 
+            // On va chercher le parent du menu item (c'est donc le ContextMenu)
+            ContextMenu cm = mi.Parent as ContextMenu;
+
+            // Avec le ContextMenu, on peut aller chercher la datagrid
+            DataGrid dg = cm.PlacementTarget as DataGrid;
+
+            // On va chercher le volontaire
+            Volontaire v = dg.SelectedItem as Volontaire;
+
+            MessageBoxResult mbr = MessageBox.Show("Êtes-vous certain de vouloir supprimer le volontaire? Ceci entraînera des changements irréversibles dans la base de données.",
+                                                   "Supprimer",
+                                                   MessageBoxButton.YesNo,
+                                                   MessageBoxImage.Question,
+                                                   MessageBoxResult.No);
+
+            if (mbr == MessageBoxResult.Yes)
+            {
+                ((Tournoi)DataContext).LstVolontaires.Remove(v);
+
+                // Supprimer le volontaire
+                LstVolontaires.Remove(v);
+
+                //TODO: supprimer dans la BD
+            }
         }
 
         private void btnAddVolontaire_Click(object sender, RoutedEventArgs e)
