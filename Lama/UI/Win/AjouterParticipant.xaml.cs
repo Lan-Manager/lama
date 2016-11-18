@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using Lama.Logic.Model;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +21,35 @@ namespace Lama.UI.Win
     /// </summary>
     public partial class AjouterParticipant
     {
+        public Joueur LeJoueur { get; set; }
+        private Joueur JoueurTemp { get; set; }
+        
         public AjouterParticipant()
         {
             InitializeComponent();
+
+            JoueurTemp = new Joueur();
+
+            DataContext = JoueurTemp;
         }
 
         private void btnEnregistrer_Click(object sender, RoutedEventArgs e)
         {
+            MessageBoxResult mbr = MessageBox.Show("Voulez-vous enregistrer?",
+                                                   "Enregistrer",
+                                                   MessageBoxButton.YesNoCancel,
+                                                   MessageBoxImage.Question,
+                                                   MessageBoxResult.Cancel);
 
+            if (mbr != MessageBoxResult.Cancel)
+            {
+                if (mbr == MessageBoxResult.Yes)
+                {
+                    LeJoueur = JoueurTemp;
+                }
+
+                Close();
+            }
         }
     }
 }

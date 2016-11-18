@@ -9,26 +9,13 @@
     <Grid>
         <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Participants" />
 
-        <DataGrid Name="dgJoueurs" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="475" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserDeleteRows="False" EnableRowVirtualization="False" ItemsSource="{Binding LstJoueurs}">
+        <DataGrid Name="dgJoueurs" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="400" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="False" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserDeleteRows="False" EnableRowVirtualization="False" ItemsSource="{Binding LstJoueurs}" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Matricule}" Width="*" Header="Matricule" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Prenom}" Width="*" Header="Prénom" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Nom" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Rang}" Width="*" Header="Rang" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Usager}" Width="*" Header="Summoner" IsReadOnly="True"/>
-                <DataGridTemplateColumn Width="*" Header="Actif" IsReadOnly="False">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <CheckBox/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellStyle>
-                        <Style>
-                            <EventSetter Event="CheckBox.Checked" Handler="OnChecked"/>
-                            <EventSetter Event="CheckBox.Unchecked" Handler="OnUnchecked"/>
-                        </Style>
-                    </DataGridTemplateColumn.CellStyle>
-                </DataGridTemplateColumn>
+                <DataGridTextColumn Binding="{Binding Matricule}" Width="*" Header="Matricule"/>
+                <DataGridTextColumn Binding="{Binding Prenom}" Width="*" Header="Prénom"/>
+                <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Nom"/>
+                <DataGridTextColumn Binding="{Binding Rang}" Width="*" Header="Rang"/>
+                <DataGridTextColumn Binding="{Binding Usager}" Width="*" Header="Summoner"/>
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
@@ -37,5 +24,7 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>
+
+        <Button Name="btnAddParticipant" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,500,22.5,0" Content="Ajouter un participant" Click="btnAddParticipant_Click"/>
     </Grid>
 </UserControl>

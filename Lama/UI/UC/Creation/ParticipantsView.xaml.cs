@@ -8,6 +8,7 @@ using LamaBD.helper;
 using LamaBD;
 using System.Collections.Generic;
 using System.Linq;
+using Lama.UI.Win;
 
 namespace Lama.UI.UC.Creation
 {
@@ -22,7 +23,7 @@ namespace Lama.UI.UC.Creation
         }
 
         // ajouter le participant
-        void OnChecked(object sender, RoutedEventArgs e)
+        /*void OnChecked(object sender, RoutedEventArgs e)
         {
             DataGridCell dgc = sender as DataGridCell;
 
@@ -41,7 +42,7 @@ namespace Lama.UI.UC.Creation
             }
 
             ((Tournoi)DataContext).LstJoueurs.Remove(j);
-        }
+        }*/
                 
         private void miModifier_Click(object sender, RoutedEventArgs e)
         {
@@ -64,6 +65,17 @@ namespace Lama.UI.UC.Creation
 
             // Supprimer l'objet Joueur
             ((Tournoi)DataContext).LstJoueurs.Remove(j);
+        }
+
+        private void btnAddParticipant_Click(object sender, RoutedEventArgs e)
+        {
+            AjouterParticipant ap = new AjouterParticipant();
+            ap.ShowDialog();
+
+            if (ap.LeJoueur != null)
+            {
+                ((Tournoi)DataContext).LstJoueurs.Add(ap.LeJoueur);
+            }
         }
     }
 }

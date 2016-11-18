@@ -24,6 +24,12 @@ namespace Lama.Logic.Model
         public BitmapImage Img { get; set; }
         public string Champion { get; set; }
 
+        // Constructeur vide
+        public Joueur()
+        {
+
+        }
+
         public Joueur(string matricule, string prenom, string nom, string rang, string usager)
         {
             Matricule = matricule;
