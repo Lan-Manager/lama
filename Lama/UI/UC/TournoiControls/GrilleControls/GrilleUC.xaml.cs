@@ -27,16 +27,37 @@ namespace Lama.UI.UC.TournoiControls.GrilleControls
         }
 
         public void GenererTour(object sender, RoutedEventArgs e)
-        {           
-            var tournoi = ((Button)sender).DataContext as Tournoi;
+        {
+            var tournoi = ((Button)sender).DataContext as MainWindow;
 
-            if (tournoi != null && tournoi.GenererTour())
+            tournoi.TournoiEnCours.GenererTour();
+
+            foreach (var child in ucTours.icTours.Items)
             {
-                lblGenerationImpossible.Visibility = Visibility.Collapsed;
+                ContentPresenter presenter = (ContentPresenter)ucTours.icTours.ItemContainerGenerator.ContainerFromItem(child);
+                Expander expander = FindVisualChild<Expander>(presenter);
+                if (expander != null)
+                    expander.IsExpanded = false;
             }
-            else
-                lblGenerationImpossible.Visibility = Visibility.Visible;
+        }
 
+        public static T FindVisualChild<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child != null && child is T)
+                    {
+                        return (T)child;
+                    }
+
+                    T childItem = FindVisualChild<T>(child);
+                    if (childItem != null) return childItem;
+                }
+            }
+            return null;
         }
     }
 }
