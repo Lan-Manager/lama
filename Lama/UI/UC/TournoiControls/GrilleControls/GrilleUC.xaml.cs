@@ -27,11 +27,17 @@ namespace Lama.UI.UC.TournoiControls.GrilleControls
         }
 
         private void GenererTour(object sender, RoutedEventArgs e)
-        {
+        {            
+
             var a = ((Button)sender).DataContext as Tournoi;
 
-            if (a != null)
-                a.GenererTour();
+            if (a != null && a.GenererTour())
+            {
+                lblGenerationImpossible.Visibility = Visibility.Collapsed;
+            }
+            else
+                lblGenerationImpossible.Visibility = Visibility.Visible;
+
         }
     }
 }

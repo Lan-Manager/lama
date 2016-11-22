@@ -101,7 +101,7 @@ namespace Lama.Logic.Model
         #endregion
 
         #region Méthodes
-        public void GenererTour()
+        public bool GenererTour()
         {
             EliminerLesPerdants();
 
@@ -135,8 +135,11 @@ namespace Lama.Logic.Model
                 {
                     Vainqueur = lstEquipesNonEliminees.ElementAt(0).Equipe;
                 }
+
+                return true;
             }
 
+            return false;
         }
 
         private void EliminerLesPerdants()

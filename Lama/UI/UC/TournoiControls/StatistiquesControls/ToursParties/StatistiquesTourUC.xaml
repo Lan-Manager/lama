@@ -82,8 +82,7 @@
                                                     <Label Foreground="{StaticResource IdealForegroundDisabledBrush}" Content="{Binding Value}" />
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                        
+                                        </ItemsControl>                                        
                                     </StackPanel>
 
                                 </DataTemplate>

@@ -9,33 +9,25 @@
 
     <UserControl.Resources>
 
-        <Style TargetType="Label" x:Key="tour">
+        <Style TargetType="Expander" x:Key="tour">
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="FontSize" Value="14" />
-            <Setter Property="Margin" Value="10" />
+            <Setter Property="Margin" Value="5" />
             <Setter Property="Foreground" Value="{StaticResource AccentBaseColorBrush}" />
-            <Setter Property="BorderBrush" Value="{StaticResource IdealForegroundDisabledBrush}" />
-            <Setter Property="BorderThickness" Value="0 0 0 1" />
-        </Style>
-
-        <Style TargetType="StackPanel" x:Key="sp">
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="35 0 35 0" />
         </Style>
 
     </UserControl.Resources>
 
 
-    <ScrollViewer VerticalScrollBarVisibility="Visible" ScrollChanged="ScrollViewer_ScrollChanged">
-        <ItemsControl ItemsSource="{Binding TournoiEnCours.LstTours}">
+    <ScrollViewer Name="svTours" VerticalScrollBarVisibility="Visible">
+        <ItemsControl Name="icTours" ItemsSource="{Binding TournoiEnCours.LstTours}">
 
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
 
-                    <StackPanel>
-                        <Label Style="{StaticResource tour}" Content="{Binding Nom}" />
+                    <Expander Style="{StaticResource tour}" Header="{Binding Nom}" IsExpanded="True">
                         <local:PartiesUC DataContext="{Binding}" />
-                    </StackPanel>
+                    </Expander>
 
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
