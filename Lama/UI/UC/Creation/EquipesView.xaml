@@ -23,7 +23,6 @@
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Name="miAssocier" Header="Associer les joueurs" Click="miAssocier_Click"/>
-                    <MenuItem Name="miModifier" Header="Modifier le nom" Click="miModifier_Click"/>
                     <MenuItem Name="miSupprimer" Header="Supprimer l'équipe" Click="miSupprimer_Click"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
