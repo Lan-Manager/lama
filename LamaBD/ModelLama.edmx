@@ -570,6 +570,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="FIN_TOURNOI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="420.5a5.a16_lanman" />
         <EntityContainer Name="bd_lamaStoreContainer">
           <EntitySet Name="comptes" EntityType="Self.comptes" Schema="420.5a5.a16_lanman" store:Type="Tables" />
           <EntitySet Name="comptestournois" EntityType="Self.comptestournois" Schema="420.5a5.a16_lanman" store:Type="Tables" />
@@ -853,6 +854,7 @@
             <End Role="locaux" EntitySet="locaux" />
             <End Role="postes" EntitySet="postes" />
           </AssociationSet>
+          <FunctionImport Name="FIN_TOURNOI" />
         </EntityContainer>
         <EntityType Name="comptes">
           <Key>
@@ -1722,6 +1724,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="FIN_TOURNOI" FunctionName="bd_lama.Store.FIN_TOURNOI" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

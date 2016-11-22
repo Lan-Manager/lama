@@ -12,6 +12,8 @@ namespace LamaBD
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class Connexion420 : DbContext
     {
@@ -47,5 +49,10 @@ namespace LamaBD
         public virtual DbSet<tournois> tournois { get; set; }
         public virtual DbSet<tournoislocaux> tournoislocaux { get; set; }
         public virtual DbSet<postes> postes { get; set; }
+    
+        public virtual int FIN_TOURNOI()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("FIN_TOURNOI");
+        }
     }
 }
