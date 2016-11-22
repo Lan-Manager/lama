@@ -31,7 +31,7 @@ namespace Lama.UI.Win
 
             lblTitre.Content = "Nouveau participant";
 
-            JoueurTemp = new Joueur(null, null, null, null, null);
+            JoueurTemp = new Joueur(null, null, null, null);
 
             DataContext = JoueurTemp;
         }
@@ -43,7 +43,7 @@ namespace Lama.UI.Win
 
             lblTitre.Content = "Modifier un participant";
 
-            JoueurTemp = new Joueur(j.Matricule, j.Prenom, j.Nom, j.Rang, j.Usager);
+            JoueurTemp = new Joueur(j.Matricule, j.Prenom, j.Nom, j.Usager);
 
             DataContext = JoueurTemp;
         }

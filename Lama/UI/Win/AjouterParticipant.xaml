@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         BorderThickness="1"
         BorderBrush="{DynamicResource AccentColorBrush}"
-        Title="Ajouter un volontaire" Height="425" Width="475"
+        Title="Ajouter un volontaire" Height="375" Width="475"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
     <Grid FocusManager.FocusedElement="{Binding ElementName=txtMatricule}">
@@ -24,20 +24,10 @@
             <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22.5,175,0,0" Content="Nom:"/>
             <TextBox Name="txtNom" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,175,0,0" Width="250" MaxLength="60" Text="{Binding Nom}"/>
 
-            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22.5,225,0,0" Content="Rang:"/>
-            <ComboBox Name="cboRang" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,225,0,0" Width="250" SelectedValue="{Binding Rang}" SelectedValuePath="Content">
-                <ComboBoxItem>Bronze</ComboBoxItem>
-                <ComboBoxItem>Silver</ComboBoxItem>
-                <ComboBoxItem>Gold</ComboBoxItem>
-                <ComboBoxItem>Platinum</ComboBoxItem>
-                <ComboBoxItem>Diamond</ComboBoxItem>
-                <ComboBoxItem>Challenger</ComboBoxItem>
-            </ComboBox>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22.5,225,0,0" Width="250" Content="Summoner:"/>
+            <TextBox Name="txtSummoner" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,225,0,0" Width="250" MaxLength="20" Text="{Binding Usager}"/>
 
-            <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22.5,275,0,0" Width="250" Content="Summoner:"/>
-            <TextBox Name="txtSummoner" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,275,0,0" Width="250" MaxLength="20" Text="{Binding Usager}"/>
-
-            <Button Name="btnEnregistrer" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,325,0,0" Content="Enregistrer" FontSize="18" Click="btnEnregistrer_Click"/>
+            <Button Name="btnEnregistrer" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,275,0,0" Content="Enregistrer" FontSize="18" Click="btnEnregistrer_Click"/>
         </Grid>
     </Grid>
 </Controls:MetroWindow>
