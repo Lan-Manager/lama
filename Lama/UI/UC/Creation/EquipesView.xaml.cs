@@ -75,5 +75,13 @@ namespace Lama.UI.UC.Creation
             // Supprimer l'objet Equipe
             ((Tournoi)DataContext).LstEquipes.Remove(eq);
         }
+
+        private void dgEquipes_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            if ((sender as DataGrid).SelectedIndex == -1)
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

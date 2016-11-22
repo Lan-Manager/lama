@@ -9,6 +9,7 @@ using LamaBD;
 using System.Collections.Generic;
 using System.Linq;
 using Lama.UI.Win;
+using System.Text;
 
 namespace Lama.UI.UC.Creation
 {
@@ -106,6 +107,62 @@ namespace Lama.UI.UC.Creation
             if (ap.LeJoueur != null)
             {
                 ((Tournoi)DataContext).LstJoueurs.Add(ap.LeJoueur);
+            }
+        }
+
+        private void btnImportParticipants_Click(object sender, RoutedEventArgs e)
+        {
+            List<int> numerosLignesErronnes = new List<int>();
+
+            // Paramètres pour le OpenFileDialog
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "Importer une liste de joueurs";
+            ofd.Filter = "csv files (*.csv)|*.csv";
+
+            // On regarde si l'utilisateur a choisi un fichier
+            bool? result = ofd.ShowDialog();
+
+            if (result == true)
+            {
+                // Aller chercher les lignes du fichier
+                string[] lignes = File.ReadAllLines(ofd.FileName);
+
+                int numeroLigne = 0;
+
+                // Parcourir les lignes
+                foreach (string ligne in lignes)
+                {
+                    // Incrémenter le numéro de ligne
+                    numeroLigne++;
+
+                    // Manipuler la ligne courrante
+                    string[] champs = ligne.Split(';');
+                    champs = champs.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+
+                    // Si la ligne est valide
+                    if (champs.Length == 4 && !((Tournoi)DataContext).LstJoueurs.Any(item => item.Matricule == champs[0]) && !((Tournoi)DataContext).LstJoueurs.Any(item => item.Usager == champs[3]))
+                    {
+                        ((Tournoi)DataContext).LstJoueurs.Add(new Joueur(champs));
+                    }
+
+                    // Sinon, on log la ligne en erreur
+                    else
+                    {
+                        numerosLignesErronnes.Add(numeroLigne);
+                    }
+                }
+
+                // On vérifier s'il y a des erreurs
+                if (numerosLignesErronnes.Count > 0)
+                {
+                    StringBuilder messageErreurs = new StringBuilder("La ou les lignes suivantes sont erronées: ");
+                    foreach (int numLigne in numerosLignesErronnes)
+                    {
+                        messageErreurs.Append(numLigne).Append(",");
+                    }
+                    messageErreurs.Replace(',', '.', messageErreurs.Length - 1, 1);
+                    MessageBox.Show(messageErreurs.ToString());
+                }
             }
         }
     }

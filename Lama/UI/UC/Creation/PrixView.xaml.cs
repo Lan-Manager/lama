@@ -44,6 +44,14 @@ namespace Lama.UI.UC.Creation
             }
         }
 
+        private void dgPrix_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            if ((sender as DataGrid).SelectedIndex == -1)
+            {
+                e.Handled = true;
+            }
+        }
+
         private void miSupprimer_Click(object sender, RoutedEventArgs e)
         {
             // Le sender est le menu item

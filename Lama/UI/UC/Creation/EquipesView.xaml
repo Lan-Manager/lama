@@ -10,7 +10,7 @@
     <Grid>
         <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Équipes" />
 
-        <DataGrid Name="dgEquipes" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="375" AutoGenerateColumns="False" CanUserAddRows="True" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserDeleteRows="False" ItemsSource="{Binding LstEquipes}">
+        <DataGrid Name="dgEquipes" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="375" AutoGenerateColumns="False" CanUserAddRows="True" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserDeleteRows="False" ItemsSource="{Binding LstEquipes}" SelectionMode="Single" ContextMenuOpening="dgEquipes_ContextMenuOpening">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Équipe">
                     <DataGridTextColumn.EditingElementStyle>
