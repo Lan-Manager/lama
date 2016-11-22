@@ -10,7 +10,11 @@
 
     <UserControl.Resources>
 
-        <Style TargetType="Label" x:Key="equipe">
+        <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="FontSize" Value="11" />
+        </Style>        
+
+        <Style TargetType="Label" x:Key="equipe" BasedOn="{StaticResource {x:Type Label}}">
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding EstGagnant}" Value="True">
@@ -28,6 +32,7 @@
         </Style>
 
         <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
+            <Setter Property="Margin" Value="5" />
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="Background" Value="Transparent" />
             <Style.Triggers>
@@ -69,7 +74,7 @@
         <ItemsControl.ItemTemplate>
             <DataTemplate>
 
-                <StackPanel Style="{StaticResource sp}">
+                <StackPanel Style="{StaticResource sp}" Width="160">
                     <RadioButton IsChecked="{Binding EstGagnant}" GroupName="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.Nom}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">
                         <Label Style="{StaticResource equipe}" Content="{Binding Equipe.Nom}" />
                     </RadioButton>
@@ -81,12 +86,14 @@
                             <ItemsControl ItemsSource="{Binding LstStats.Stats}" HorizontalAlignment="Center">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <WrapPanel />
+                                        <WrapPanel Margin="5"/>
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Label FontSize="11" Foreground="{StaticResource IdealForegroundDisabledBrush}" Content="{Binding Value}" />
+                                        
+                                        <Label Foreground="{StaticResource IdealForegroundDisabledBrush}" Content="{Binding Value}" ToolTip="{Binding Key}" />
+                                        
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -95,13 +102,15 @@
 
                         <StackPanel>
 
-                            <ItemsControl ItemsSource="{Binding LstStats.Stats}" Width="180" PreviewTextInput="DataGrid_PreviewTextInput" DataObject.Pasting="DataGrid_Pasting">
+                            <ItemsControl ItemsSource="{Binding LstStats.Stats}" PreviewTextInput="DataGrid_PreviewTextInput" DataObject.Pasting="DataGrid_Pasting">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <WrapPanel Orientation="Horizontal" Width="180" HorizontalAlignment="Stretch">
-                                            <Label Foreground="{StaticResource IdealForegroundDisabledBrush}" FontSize="10" Content="{Binding Key}" />
-                                            <Controls:NumericUpDown BorderThickness="0" Value="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Right" />
-                                        </WrapPanel>
+                                        
+                                        <UniformGrid Columns="2" HorizontalAlignment="Center" Width="160">
+                                            <Label Foreground="{StaticResource IdealForegroundDisabledBrush}" FontSize="9" Content="{Binding Key}" />
+                                            <Controls:NumericUpDown BorderThickness="0" Value="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" HorizontalAlignment="Right" FontSize="9" />
+                                        </UniformGrid>
+
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
