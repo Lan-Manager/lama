@@ -18,10 +18,10 @@
         <Style TargetType="Label" x:Key="lblhelper">
             <Setter Property="Visibility" Value="Collapsed" />
             <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="Padding" Value="20" />            
+            <Setter Property="Padding" Value="20" />
         </Style>
-        
-        <Style TargetType="Label" x:Key="lblaucuntour" BasedOn="{StaticResource lblhelper}">           
+
+        <Style TargetType="Label" x:Key="lblaucuntour" BasedOn="{StaticResource lblhelper}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding TournoiEnCours.LstTours.Count}" Value="0">
                     <Setter Property="Visibility" Value="Visible" />
@@ -38,27 +38,45 @@
             </Style.Triggers>
         </Style>
 
-        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}" x:Key="generertour">
+        <Style x:Key="generertour" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
             <Setter Property="Width" Value="250" />
-            <Setter Property="Visibility" Value="Hidden" />
             <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Visibility" Value="Collapsed" />
             <Style.Triggers>
-                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Utilisateur.EstConnecte}" Value="False">
-                    <Setter Property="Visibility" Value="Collapsed" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Utilisateur.EstConnecte}" Value="True">
+                
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding TournoiEnCours.Vainqueur}" Value="{x:Null}" />
+                        <Condition Binding="{Binding Utilisateur.EstAdmin}" Value="True" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Visibility" Value="Visible" />
+                </MultiDataTrigger>
+
+                <!--<DataTrigger Binding="{Binding TournoiEnCours.Vainqueur}" Value="{x:Null}">
                     <Setter Property="Visibility" Value="Visible" />
                 </DataTrigger>
+
+                <DataTrigger Binding="{Binding Utilisateur.EstConnecte}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>-->
+                
+                <DataTrigger Binding="{Binding TournoiEnCours.GenerationTourPossible}" Value="True">
+                    <Setter Property="IsEnabled" Value="True" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding TournoiEnCours.GenerationTourPossible}" Value="False">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
+                
             </Style.Triggers>
         </Style>
 
         <Style x:Key="lblGenerationImpossible" TargetType="Label" BasedOn="{StaticResource lblhelper}">
-            <Setter Property="Visibility" Value="Hidden" />
+            <Setter Property="Visibility" Value="Collapsed" />
             <Style.Triggers>
-                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Utilisateur.EstConnecte}" Value="False">
+                <DataTrigger Binding="{Binding Utilisateur.EstConnecte}" Value="False">
                     <Setter Property="Visibility" Value="Collapsed" />
                 </DataTrigger>
-                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Utilisateur.EstConnecte}" Value="True">
+                <DataTrigger Binding="{Binding Utilisateur.EstConnecte}" Value="True">
                     <Setter Property="Visibility" Value="Visible" />
                 </DataTrigger>
             </Style.Triggers>
@@ -69,16 +87,16 @@
     <StackPanel Margin="0 20 0 20">
 
         <StackPanel Style="{StaticResource spgrille}">
-            <local:ToursUC Height="430" />
+            <local:ToursUC x:Name="ucTours" Height="430" />
             <WrapPanel Orientation="Horizontal">
+                <!--TODO Emphase sur le gagnant (icones de trophy)-->
                 <Label Style="{StaticResource vainqueur}" Content="{Binding TournoiEnCours.Vainqueur.Nom}" />
             </WrapPanel>
         </StackPanel>
 
         <StackPanel>
             <Label Style="{StaticResource lblaucuntour}" Content="En attente de génératio d'un tour." />
-            <Label Style="{StaticResource lblGenerationImpossible}" Name="lblGenerationImpossible" Foreground="Red" Content="Impossible de générer un tour, toutes les parties doivent être terminées." />
-            <Button Style="{StaticResource generertour}" DataContext="{Binding TournoiEnCours}" Name="btnGenererTour" Content="Générer un tour" Click="GenererTour" />
+            <Button Style="{StaticResource generertour}" Name="btnGenererTour" Content="Générer un tour" Click="GenererTour" />
         </StackPanel>
 
     </StackPanel>

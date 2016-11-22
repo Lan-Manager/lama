@@ -43,7 +43,7 @@
 
     <Controls:MetroAnimatedTabControl x:Name="tabControl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="tabControl_SelectionChanged">
 
-        <Controls:MetroTabItem Name="tabGrille" Header="Grille"  Style="{StaticResource tabitem}"/>
+        <Controls:MetroTabItem Name="tabGrille" Header="Grille" Style="{StaticResource tabitem}"/>
         <Controls:MetroTabItem Name="tabStat" Header="Statistiques" Style="{StaticResource aucuntour}" />
         <Controls:MetroTabItem Name="tabClassement" Header="Classement" Style="{StaticResource aucuntour}" />
         <Controls:MetroTabItem Name="tabPrix" Header="Prix" Style="{StaticResource aucunprix}" />

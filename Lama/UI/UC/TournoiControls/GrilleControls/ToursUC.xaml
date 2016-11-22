@@ -25,7 +25,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
 
-                    <Expander Style="{StaticResource tour}" Header="{Binding Nom}" IsExpanded="True">
+                    <Expander Name="expander" Style="{StaticResource tour}" Header="{Binding Nom}" IsExpanded="True">
                         <local:PartiesUC DataContext="{Binding}" />
                     </Expander>
 

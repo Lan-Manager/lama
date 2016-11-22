@@ -75,7 +75,9 @@
             <DataTemplate>
 
                 <StackPanel Style="{StaticResource sp}" Width="160">
-                    <RadioButton IsChecked="{Binding EstGagnant}" GroupName="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.Nom}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center">
+                    <RadioButton IsChecked="{Binding EstGagnant}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                                 GroupName="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.Nom}"                                 
+                                 Click="RadioButton_Click">
                         <Label Style="{StaticResource equipe}" Content="{Binding Equipe.Nom}" />
                     </RadioButton>
 
