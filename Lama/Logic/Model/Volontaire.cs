@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Lama.Logic.Model
@@ -33,6 +34,47 @@ namespace Lama.Logic.Model
             sb.Append(Nom).Append(" ").Append(Prenom);
             NomComplet = sb.ToString();
             NomUtilisateur = nomUtilisateur;
+        }
+
+        public bool Insert()
+        {
+            LamaBD.comptes entity = new LamaBD.comptes();
+
+            entity.courriel = this.Courriel;
+            entity.dateCreation = DateTime.UtcNow;
+            entity.estAdmin = false;
+            entity.matricule = this.Matricule;
+            entity.nom = this.Nom;
+            entity.prenom = this.Prenom;
+            entity.nomUtilisateur = this.NomUtilisateur;
+            //TODO mot de passe
+
+            var task = LamaBD.helper.CompteHelper.InsertAsync(entity);
+            task.Wait();
+            if (!task.Result)
+            {
+                throw new Exception("Échec insertion du volontaire.");
+            }
+
+            return true;
+        }
+
+        public bool Update()
+        {
+            var task = LamaBD.helper.CompteHelper.SelectByIDAsync(this.NomUtilisateur);
+            task.Wait();
+
+            if (task.Result != null)
+            {
+                var taskUpdate = LamaBD.helper.CompteHelper.UpdateAsync(task.Result);
+                if (!taskUpdate.Result)
+                {
+                    throw new Exception("Échec mise à jour du volontaire.");
+                }
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

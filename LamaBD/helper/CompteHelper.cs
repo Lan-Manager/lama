@@ -126,30 +126,44 @@ namespace LamaBD.helper
             using (var ctx = new Connexion420())
             {
                 ctx.comptes.Add(obj);
-                await ctx.SaveChangesAsync();
+
+                try
+                {
+                    await ctx.SaveChangesAsync();
+                }
+                catch (Exception exct)
+                {
+                    Console.WriteLine(exct.Message);
+                    return false;
+                }
+
                 return true;
             }
-            //Erreur possible
-            return false;
         }
 
         public static async Task<bool> UpdateAsync(comptes obj)
         {
             using (var ctx = new Connexion420())
             {
-                comptes courant = await ctx.comptes.FindAsync(obj.idCompte);
-                courant.courriel = obj.courriel;
-                courant.estAdmin = obj.estAdmin;
-                courant.matricule = obj.matricule;
-                courant.motDePasse = obj.motDePasse;
-                courant.nom = obj.nom;
-                //courant.nomUtilisateur = courant.nomUtilisateur;
-                courant.prenom = obj.prenom;
-                await ctx.SaveChangesAsync();
+                ctx.comptes.Attach(obj);
+                ctx.Entry(obj).State = EntityState.Modified;
+                try
+                {
+                    await ctx.SaveChangesAsync();
+                }
+                catch (Exception exct)
+                {
+                    Console.WriteLine(exct.Message);
+                    return false;
+                }
+
                 return true;
             }
-            //Erreur possible
-            return false;
+        }
+
+        public static async Task<bool> DeleteAsync(string nomUtilisateur)
+        {
+
         }
     }
 }
