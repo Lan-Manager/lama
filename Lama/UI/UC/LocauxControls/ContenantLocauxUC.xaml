@@ -14,7 +14,7 @@
             
         </Controls:MetroTabItem>
 
-        <Controls:MetroTabItem Name="LocauxTous" Header="Tout les sommaires">
+        <Controls:MetroTabItem Name="LocauxTous" Header="Tous les sommaires">
             
         </Controls:MetroTabItem>
 

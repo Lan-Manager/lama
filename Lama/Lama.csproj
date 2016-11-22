@@ -111,6 +111,9 @@
     <Compile Include="UI\UC\LocauxControls\LocauxUC.xaml.cs">
       <DependentUpon>LocauxUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\UC\LocauxControls\SommairesLocauxUC.xaml.cs">
+      <DependentUpon>SommairesLocauxUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\UC\TournoiControls\ClassementControls\ClassementUC.xaml.cs">
       <DependentUpon>ClassementUC.xaml</DependentUpon>
     </Compile>
@@ -237,6 +240,10 @@
     <Page Include="UI\UC\LocauxControls\LocauxUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\UC\LocauxControls\SommairesLocauxUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\ClassementControls\ClassementUC.xaml">
       <Generator>MSBuild:Compile</Generator>
