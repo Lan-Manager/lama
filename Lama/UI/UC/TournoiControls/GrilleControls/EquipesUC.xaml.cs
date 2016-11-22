@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lama.Logic.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -61,6 +62,12 @@ namespace Lama.UI.UC.TournoiControls.GrilleControls
         private static bool IsTextAllowed(string text)
         {
             return !regex.IsMatch(text);
+        }
+
+        private void RadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            Tournoi tournoi = ((MainWindow)Application.Current.MainWindow.DataContext).TournoiEnCours as Tournoi;
+            tournoi.GenerationTourValide();
         }
     }
 }

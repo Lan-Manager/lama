@@ -49,11 +49,17 @@
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Utilisateur.EstConnecte}" Value="True">
                     <Setter Property="Visibility" Value="Visible" />
                 </DataTrigger>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.TournoiEnCours.GenerationTourPossible}" Value="True">
+                    <Setter Property="IsEnabled" Value="True" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.TournoiEnCours.GenerationTourPossible}" Value="False">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
             </Style.Triggers>
         </Style>
 
         <Style x:Key="lblGenerationImpossible" TargetType="Label" BasedOn="{StaticResource lblhelper}">
-            <Setter Property="Visibility" Value="Hidden" />
+            <Setter Property="Visibility" Value="Collapsed" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.Utilisateur.EstConnecte}" Value="False">
                     <Setter Property="Visibility" Value="Collapsed" />
@@ -71,6 +77,7 @@
         <StackPanel Style="{StaticResource spgrille}">
             <local:ToursUC Height="430" />
             <WrapPanel Orientation="Horizontal">
+                <!--TODO Emphase sur le gagnant (icones de trophy)-->
                 <Label Style="{StaticResource vainqueur}" Content="{Binding TournoiEnCours.Vainqueur.Nom}" />
             </WrapPanel>
         </StackPanel>

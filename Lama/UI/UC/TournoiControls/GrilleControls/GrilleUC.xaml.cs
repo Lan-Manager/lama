@@ -26,12 +26,11 @@ namespace Lama.UI.UC.TournoiControls.GrilleControls
             InitializeComponent();
         }
 
-        private void GenererTour(object sender, RoutedEventArgs e)
-        {            
+        public void GenererTour(object sender, RoutedEventArgs e)
+        {           
+            var tournoi = ((Button)sender).DataContext as Tournoi;
 
-            var a = ((Button)sender).DataContext as Tournoi;
-
-            if (a != null && a.GenererTour())
+            if (tournoi != null && tournoi.GenererTour())
             {
                 lblGenerationImpossible.Visibility = Visibility.Collapsed;
             }

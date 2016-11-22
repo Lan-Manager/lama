@@ -44,6 +44,20 @@ namespace Lama.Logic.Model
         public ObservableCollection<Prix> LstPrix { get; set; }
         public Tour TourActif { get; set; }
 
+        private bool _generationTourPossible;
+        public bool GenerationTourPossible
+        {
+            get { return _generationTourPossible; }
+            set
+            {
+                if (value != _generationTourPossible)
+                {
+                    _generationTourPossible = value;
+                    NotifyPropertyChanged("GenerationTourPossible");
+                }
+            }
+        }
+
         private string _nom;
         public string Nom
         {
@@ -91,6 +105,8 @@ namespace Lama.Logic.Model
             LstEquipes = new ObservableCollection<Equipe>();
             LstPrix = new ObservableCollection<Prix>();
             LstTours = new ObservableCollection<Tour>();
+
+            GenerationTourPossible = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -103,8 +119,6 @@ namespace Lama.Logic.Model
         #region Méthodes
         public bool GenererTour()
         {
-            EliminerLesPerdants();
-
             if (GenerationTourValide())
             {
                 TourActif = new Tour(NbTour);
@@ -136,9 +150,10 @@ namespace Lama.Logic.Model
                     Vainqueur = lstEquipesNonEliminees.ElementAt(0).Equipe;
                 }
 
+                GenerationTourValide();
                 return true;
             }
-
+            
             return false;
         }
 
@@ -165,12 +180,19 @@ namespace Lama.Logic.Model
                     }
         }
 
-        private bool GenerationTourValide()
+        public bool GenerationTourValide()
         {
+            EliminerLesPerdants();
+
             foreach (var tour in LstTours)
                 foreach (var partie in tour.LstParties)
                     if (partie.Gagnant == null)
+                    {
+                        GenerationTourPossible = false;
                         return false;
+                    }
+
+            GenerationTourPossible = true;
             return true;
         }
 
