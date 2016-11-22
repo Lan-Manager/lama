@@ -20,26 +20,6 @@ namespace Lama.UI.UC.Creation
         public EquipesView()
         {
             InitializeComponent();
-
-            #region setter de rowstyle
-            Style rowStyle = new Style(typeof(DataGridRow));
-            rowStyle.Setters.Add(new EventSetter(DataGridRow.MouseDoubleClickEvent,
-                                     new MouseButtonEventHandler(Row_DoubleClick)));
-            dgEquipes.RowStyle = rowStyle;
-            #endregion         
-        }
-
-        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            dgEquipes.CancelEdit();
-
-            DataGridRow dgc = sender as DataGridRow;
-
-            Equipe equipe = dgc.Item as Equipe;
-
-            AssocierJoueursEquipe aje = new AssocierJoueursEquipe(equipe, new ObservableCollection<Joueur>(((Tournoi)DataContext).LstJoueurs.Where(x => x.EquipeJoueur == null || x.EquipeJoueur == equipe)));
-
-            aje.ShowDialog();
         }
 
         private void btnAddEquipe_Click(object sender, RoutedEventArgs e)
@@ -61,7 +41,21 @@ namespace Lama.UI.UC.Creation
 
         private void miAssocier_Click(object sender, RoutedEventArgs e)
         {
+            // Le sender est le menu item
+            MenuItem mi = sender as MenuItem;
 
+            // On va chercher le parent du menu item (c'est donc un ContextMenu)
+            ContextMenu cm = mi.Parent as ContextMenu;
+
+            // Avec le context menu, on peut trouver la datagrid qui a "fabriqué" le context menu
+            DataGrid dg = cm.PlacementTarget as DataGrid;
+
+            // Trouver l'équipe sélectionnée
+            Equipe equipe = dg.SelectedItem as Equipe;
+
+            AssocierJoueursEquipe aje = new AssocierJoueursEquipe(equipe, new ObservableCollection<Joueur>(((Tournoi)DataContext).LstJoueurs.Where(x => x.EquipeJoueur == null || x.EquipeJoueur == equipe)));
+
+            aje.ShowDialog();
         }
 
         private void miSupprimer_Click(object sender, RoutedEventArgs e)
