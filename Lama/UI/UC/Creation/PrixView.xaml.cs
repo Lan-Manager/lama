@@ -44,11 +44,6 @@ namespace Lama.UI.UC.Creation
             }
         }
 
-        private void miModifier_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void miSupprimer_Click(object sender, RoutedEventArgs e)
         {
             // Le sender est le menu item
