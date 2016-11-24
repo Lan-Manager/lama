@@ -1,7 +1,9 @@
 ﻿using Lama.Logic.Model;
+using Lama.UI.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,28 +24,20 @@ namespace Lama.UI.UC.LocauxControls
     /// </summary>
     public partial class SommairesLocauxUC : UserControl
     {
-        public ObservableCollection<Local> LstLocaux{ get; set; }
-        public Local SommaireGlobal { get; set; }
+
+
+        public ObservableCollection<Local> LstLocaux { get; set; }
+        
         public SommairesLocauxUC()
         {
-            LstLocaux = new ObservableCollection<Local>();
+            LstLocaux = new TrulyObservableCollection<Local>();
             MainWindow ParentWindow = (MainWindow)Application.Current.MainWindow;
             LstLocaux = ParentWindow.TournoiEnCours.LstLocaux;
 
-            SommaireGlobal = new Local("Global");
-
-            foreach(var l in LstLocaux)
-            {
-                SommaireGlobal.NbPoste += l.NbPoste;
-                SommaireGlobal.NbPoste_Pret += l.NbPoste_Pret;
-                SommaireGlobal.NbPoste_Probleme += l.NbPoste_Probleme;
-                SommaireGlobal.NbPoste_Attente += l.NbPoste_Attente;
-                SommaireGlobal.NbPoste_Restant += l.NbPoste_Restant;
-            }
-            LstLocaux.Insert(0, SommaireGlobal);
-            
+        
             InitializeComponent();
         }
 
+        
     }
 }
