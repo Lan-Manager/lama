@@ -23,18 +23,15 @@ namespace Lama.UI.UC.LocauxControls
     public partial class ContenantLocauxUC : UserControl
     {
 
-
         public ContenantLocauxUC()
         {
             InitializeComponent();
-
-            
-            
         }
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.Source is TabControl) //if this event fired from TabControl then enter
             {
+
                 TabControl tabControl = sender as TabControl;
                 if (tabControl != null)
                 {
