@@ -17,7 +17,13 @@
         <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,180,0,0" Content="Date :" />
         <Controls:DateTimePicker Name="dtpDateTournoi" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="55,205,0,0" SelectedDate="{Binding Date}" SelectedTime="{Binding Heure}"/>
 
-        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,240,0,0" Content="Description : (optionnelle)" />
-        <TextBox Name="txtDescription" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="55,265,0,0" Width="400" Height="200" TextWrapping="Wrap" AcceptsReturn="True" MaxLength="255" Text="{Binding Description}" />
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,240,0,0" Content="Type de tournoi :" />
+        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="55,265, 0, 0" Width="182" SelectedIndex="0">
+            <ComboBoxItem>Simple élimination</ComboBoxItem>
+            <ComboBoxItem>Double élimination</ComboBoxItem>            
+        </ComboBox>
+
+        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,300,0,0" Content="Description : (optionnelle)" />
+        <TextBox Name="txtDescription" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="55,325,0,0" Width="400" Height="145" TextWrapping="Wrap" AcceptsReturn="True" MaxLength="255" Text="{Binding Description}" />
     </Grid>
 </UserControl>
