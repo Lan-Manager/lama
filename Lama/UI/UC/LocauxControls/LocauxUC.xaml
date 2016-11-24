@@ -76,7 +76,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
-            <Separator Padding="0 15 0 0"></Separator>
+            <Separator Margin="5"></Separator>
             <Label Style="{StaticResource lblSommaire}" HorizontalAlignment="Center">Informations sur les postes</Label>
             <Label Style="{StaticResource lblSommaire}" HorizontalAlignment="Center" Content="{Binding LocalSelectionne.Numero}"></Label>
         </StackPanel>
