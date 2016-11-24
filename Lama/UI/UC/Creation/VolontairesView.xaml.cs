@@ -103,10 +103,20 @@ namespace Lama.UI.UC.Creation
                 // Trouver l'index de v
                 int index = LstVolontaires.IndexOf(v);
 
-                // Modifier le volontaire à cet index
-                LstVolontaires[index] = av.LeVolontaire;
+                if (index != -1)
+                {
+                    // Modifier le volontaire à cet index
+                    LstVolontaires[index] = av.LeVolontaire;
+                }
 
-                //TODO: modifier dans la BD
+                index = (DataContext as Tournoi).LstVolontaires.IndexOf(v);
+
+                if (index != -1)
+                {
+                    (DataContext as Tournoi).LstVolontaires[index] = av.LeVolontaire;
+                }
+
+                //TODO: update dans la bd
             }
         }
 
