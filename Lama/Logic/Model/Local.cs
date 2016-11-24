@@ -249,6 +249,10 @@ namespace Lama.Logic.Model
         /// </summary>
         public void CalculerEtatDepart()
         {
+            NbPoste_Attente = 0;
+            NbPoste_NonRequis = 0;
+            NbPoste_Pret = 0;
+            NbPoste_Probleme = 0;
             foreach (Poste unPoste in LstPoste)
             {
                 if (unPoste.Etat == "Prêt")
@@ -267,7 +271,10 @@ namespace Lama.Logic.Model
                 {
                     NbPoste_NonRequis++;
                 }
+                
             }
+            NbPoste = NbPoste_Depart - NbPoste_NonRequis;
+            NbPoste_Restant = NbPoste - NbPoste_Pret;
         }
 
         #region Interface INotifyPropertyChanged
