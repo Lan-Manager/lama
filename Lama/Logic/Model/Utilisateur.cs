@@ -28,23 +28,7 @@ namespace Lama.Logic.Model
                 }
             }
         }
-        // Propriété du nom complet de l'utilisateur.
-        private string _nomComplet;
-        public string NomComplet
-        {
-            get
-            {
-                return _nomComplet;
-            }
-            set
-            {
-                if (_nomComplet != value)
-                {
-                    _nomComplet = value;
-                    NotifyPropertyChanged("NomComplet");
-                }
-            }
-        }
+    
         /// <summary>
         /// Constructeur d'utilisateur avec les valeurs qui doivent être chargés par défaut.
         /// </summary>

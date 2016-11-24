@@ -10,7 +10,13 @@ namespace Lama.Logic.Model
         public string NomUtilisateur { get; set; }
         public string Matricule { get; set; }
         public string Courriel { get; set; }
-
+        public string NomComplet
+        {
+            get
+            {
+                return $"{Prenom} {Nom}";
+            }
+        }
 
         // Constructeur vide pour volontaire
         public Volontaire()
@@ -20,24 +26,18 @@ namespace Lama.Logic.Model
         // Constructeur sans matricule pour administrateur.
         public Volontaire(string nom, string prenom, string courriel, string nomUtilisateur)
         {
-            StringBuilder sb = new StringBuilder();
             Prenom = prenom;
             Nom = nom;
             Courriel = courriel;
-            sb.Append(Prenom).Append(" ").Append(Nom);
-            NomComplet = sb.ToString();
             NomUtilisateur = nomUtilisateur;
 
         }
         public Volontaire(string nom, string prenom, string matricule, string courriel, string nomUtilisateur)
         {
-            StringBuilder sb = new StringBuilder();
             Prenom = prenom;
             Nom = nom;
             Matricule = matricule;
             Courriel = courriel;
-            sb.Append(Prenom).Append(" ").Append(Nom);
-            NomComplet = sb.ToString();
             NomUtilisateur = nomUtilisateur;
         }
     }
