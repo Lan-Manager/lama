@@ -141,13 +141,23 @@ namespace Lama.UI.UC.LocauxControls
             LstVolontaires_DernierModificateur = ParentWindow.TournoiEnCours.LstVolontaires;
             LstVolontaires_Assignable = ParentWindow.TournoiEnCours.LstVolontaires;
 
-            CalculerEtat();
+            if (ParentWindow.TournoiEnCours.LstJoueurs != null)
+            {
+                int nbJoueur = ParentWindow.TournoiEnCours.LstJoueurs.Count;
+                DistributionJoueurLocaux(nbJoueur);
+            }
+
+
+            
 
             // On subscribe les events de propriétés changeantes et on calcul les états de départ.
             foreach (Local l in LstLocaux)
             {
                 l.PropertyChanged += Local_PropertyChanged;
+                l.CalculerEtatDepart(); // À la fin du chargement on calcule les états initiaux.
+
             }
+            CalculerEtat();
 
             LocalSelectionne = new Local();
             InitializeComponent();
@@ -162,11 +172,6 @@ namespace Lama.UI.UC.LocauxControls
             Task task = new Task(new Action(ChargementDonnes));
             task.ContinueWith(wat =>
             {
-                foreach (var l in LstLocaux)
-                {
-                    l.CalculerEtatDepart(); // À la fin du chargement on calcule les états initiaux.
-                }
-                CalculerEtat(); // On calcule les états lors de l'initialisation de la page.
                 Completed();
 
             }, TaskScheduler.FromCurrentSynchronizationContext());
@@ -176,6 +181,50 @@ namespace Lama.UI.UC.LocauxControls
 
         }
 
+        private void DistributionJoueurLocaux(int nbJoueur)
+        {
+            double nb = LstLocaux.Count;
+
+            if (LstLocaux.Count % 2 != 0)
+            {
+                nb -= 1;
+            }
+
+            double nbJoueurParLocal = nbJoueur / nb;
+            int nbEquipe = nbJoueur / 5;
+
+            if (LstLocaux.Count != nbEquipe) // Il n'y a pas de local pour chaque équipe
+            {
+                for (int i = 0; i < nb; i++)
+                {
+                    for (int j = 0; j < nbJoueurParLocal;) // Un maximum de 20 postes peut être utilisé.
+                    {
+                        LstLocaux[i].LstPoste[j].Etat = "En attente";
+                        if (j < 20)
+                            j++;
+                        else
+                            return;
+                    }
+                }
+            }
+            else // Il y a un local pour chaque équipe
+            {
+                foreach (var l in LstLocaux)
+                {
+                    for (int i = 0; i < 5;) // Une équipe par local donc 5 postes requis par local.
+                    {
+                        l.LstPoste[i].Etat = "En attente";
+                        if (i < 20)
+                            i++;
+                        else
+                            break;
+                    }
+                }
+            }
+        }
+
+        
+
         private void Completed()
         {
             //Todo
@@ -184,8 +233,6 @@ namespace Lama.UI.UC.LocauxControls
 
         private void ChargementDonnes()
         {
-            ////ChargerVolontaires();
-
             ChargerVolontairesAssigne();
             ChargerDernierModificateur();
         }
