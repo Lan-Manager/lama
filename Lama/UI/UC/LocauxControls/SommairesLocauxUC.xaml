@@ -8,7 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>
-        <Style TargetType="DataGridCell">
+        <Style TargetType="DataGridCell" x:Name="styleColumn">
             <Style.Setters>
                 <Setter Property="TextBlock.TextAlignment" Value="Center" />
             </Style.Setters>
@@ -19,16 +19,41 @@
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label FontSize="18" FontWeight="Bold" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Sommaires" Foreground="{StaticResource AccentColorBrush}"></Label>
 
+        <Label FontSize="18" FontWeight="Bold" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Sommaires" Foreground="{StaticResource AccentColorBrush}"></Label>
         <DataGrid Grid.Row="1" ItemsSource="{Binding LstLocaux, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" ColumnWidth="1*" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Numéro du local" Binding="{Binding Numero}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Nb. Poste prêts" Binding="{Binding NbPoste_Pret}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Nb. Poste restants" Binding="{Binding NbPoste_Restant}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Nb. Poste problématiques" Binding="{Binding NbPoste_Probleme}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Nb. Poste en attente" Binding="{Binding NbPoste_Attente}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Nb. Poste requis" Binding="{Binding NbPoste}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Numéro du local" Binding="{Binding Numero, UpdateSourceTrigger=PropertyChanged}">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Nb. Poste prêts" Binding="{Binding NbPoste_Pret, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" Value="#21ef9d"></Setter>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Nb. Poste restants" Binding="{Binding NbPoste_Restant, UpdateSourceTrigger=PropertyChanged}">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Nb. Poste problématiques" Binding="{Binding NbPoste_Probleme, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" Value="#d6223a"></Setter>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Nb. Poste en attente" Binding="{Binding NbPoste_Attente, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" Value="#8e8686"></Setter>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Nb. Poste requis" Binding="{Binding NbPoste, UpdateSourceTrigger=PropertyChanged}">
+                  
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
