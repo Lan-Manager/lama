@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Lama.Logic.Model
 {
@@ -76,5 +77,11 @@ namespace Lama.Logic.Model
             else
                 return false;
         }
+
+        public bool Delete()
+        {
+            return LamaBD.helper.CompteHelper.Delete(this.NomUtilisateur);
+        }
+
     }
 }

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -161,9 +163,50 @@ namespace LamaBD.helper
             }
         }
 
-        public static async Task<bool> DeleteAsync(string nomUtilisateur)
+        public static bool Delete(string nomUtilisateur)
         {
+            using (var ctx = new Connexion420())
+            {
 
+                var userAccountParameter = new MySqlParameter("@account", nomUtilisateur);
+                var errorCodeParameter = new MySqlParameter("@errorCode", "@errorCode");
+                errorCodeParameter.Direction = System.Data.ParameterDirection.Output;
+
+                var details = ctx.Database.ExecuteSqlCommand("CALL DELETE_COMPTE(@account, @errorCode)", userAccountParameter, errorCodeParameter);
+                ctx.Database.ExecuteSqlCommand("SELECT @errorCode");
+
+                /*
+                                if (!success)
+                                    throw new Exception("Retour incorrect du résultat de la procédure");
+
+                                if (data == 0)
+                                    return true;
+                                else if (data == 1)
+                                {
+                                    throw new CompteCreateurTournoiException("Le compte est le créateur d'un tournoi.");
+                                }
+                                else
+                                    return false;
+                                    */
+                return true;
+            }
+        }
+
+        public class CompteCreateurTournoiException : Exception
+        {
+            public CompteCreateurTournoiException() { }
+
+            public CompteCreateurTournoiException(string message)
+                : base(message)
+            {
+
+            }
+
+            public CompteCreateurTournoiException(string message, Exception innerException)
+                : base(message, innerException)
+            {
+
+            }
         }
     }
 }
