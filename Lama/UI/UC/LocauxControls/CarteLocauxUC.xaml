@@ -5,8 +5,65 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Lama.UI.UC.LocauxControls"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <UserControl.Resources>
+        <Style x:Key="icPoste" BasedOn="{StaticResource SquareButtonStyle}">
+
+        </Style>
+    </UserControl.Resources>
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <Label Name="lblTitre" FontWeight="DemiBold" FontSize="18" Foreground="{StaticResource AccentColorBrush}">Changer de local</Label>
+            <ComboBox Margin="6 0 0 0" HorizontalAlignment="Left" Name="cboLocal" Width="140" Height="12" ItemsSource="{Binding LstLocaux}" DisplayMemberPath="Numero" SelectedValuePath="Numero" SelectedItem="{Binding LocalSelectionne}"/>
+        </StackPanel>
+        <Separator></Separator>
+        <ItemsControl ItemsSource="{Binding LocalSelectionne.LstPoste}" Grid.Row="1">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ContextMenu>
+                            <ContextMenu DataContext="{Binding RelativeSource={RelativeSource Self}, Path=PlacementTarget.DataContext}">
+                                <ComboBox Name="cboEtat" ItemsSource="{Binding LstEtatPossible}" SelectedValue="{Binding Etat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                                <ComboBox Name="cboVolontaire" ItemsSource="{Binding LstVolontaires_DernierModificateur, RelativeSource={RelativeSource Self}}" SelectedValue="{Binding DernierModificateur, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="NomComplet"></ComboBox>
+                            </ContextMenu>
+                        </Grid.ContextMenu>
+                        <Label Content="{Binding Numero}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 10"></Label>
+                        <Rectangle Width="50" Height="50" Margin="20">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Visual="{StaticResource appbar_monitor}" Stretch="Fill" />
+                            </Rectangle.OpacityMask>
+                            <Rectangle.Style>
+                                <Style TargetType="Rectangle">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Etat}" Value="Prêt">
+                                            <Setter Property="Fill" Value="#21ef9d"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Etat}" Value="Problème">
+                                            <Setter Property="Fill" Value="#d6223a"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Etat}" Value="En attente">
+                                            <Setter Property="Fill" Value="#efe039"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Etat}" Value="Non requis">
+                                            <Setter Property="Fill" Value="#b2b1ab"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Rectangle.Style>
+                        </Rectangle>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </UserControl>

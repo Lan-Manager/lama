@@ -121,7 +121,8 @@
                                     <Setter Property="Background" Value="#d6223a"></Setter>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Etat}" Value="En attente">
-                                    <Setter Property="Background" Value="#8e8686"></Setter>
+                                    <Setter Property="Background" Value="#efe039"></Setter>
+                
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -129,7 +130,18 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <WrapPanel Orientation="Horizontal" Name="spPoste" HorizontalAlignment="Stretch">
-                                <Label Name="lblNumeroPoste" FontSize="14" FontWeight="Bold" Content="{Binding Numero}" HorizontalAlignment="Right"></Label>
+                                <Label Name="lblNumeroPoste" FontSize="14" FontWeight="Bold" Content="{Binding Numero}" HorizontalAlignment="Right">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Etat}" Value="En attente">
+                                                    <Setter Property="Foreground" Value="Black"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
+                                
                                 <Button Name="btnAjoutCommentaire" HorizontalAlignment="Right" Visibility="Hidden" IsEnabled="False" Click="btnAjoutCommentaire_Click">
                                     <Button.Style>
                                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource SquareButtonStyle}">
@@ -170,9 +182,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-            <DataGrid.Triggers>
-
-            </DataGrid.Triggers>
+            
         </DataGrid>
     </Grid>
 </UserControl>

@@ -14,8 +14,6 @@ namespace Lama.Logic.Model
         public int Numero { get; set; }
         public ObservableCollection<string> LstEtatPossible { get; set; }
         
-        public enum Etats { Prêt, EnAttente, NonRequis, Problème};
-
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private string _commentaire;
         public string Commentaire

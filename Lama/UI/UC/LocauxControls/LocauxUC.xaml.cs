@@ -134,12 +134,16 @@ namespace Lama.UI.UC.LocauxControls
         {
             LstLocaux = new ObservableCollection<Local>();
             LstVolontaires_Assignable = new ObservableCollection<Volontaire>();
+            LstVolontaires_Assignable.Add(new Volontaire());
             LstVolontaires_DernierModificateur = new ObservableCollection<Volontaire>();
 
             MainWindow ParentWindow = (MainWindow)Application.Current.MainWindow;
             LstLocaux = ParentWindow.TournoiEnCours.LstLocaux;
             LstVolontaires_DernierModificateur = ParentWindow.TournoiEnCours.LstVolontaires;
-            LstVolontaires_Assignable = ParentWindow.TournoiEnCours.LstVolontaires;
+            foreach(var v in ParentWindow.TournoiEnCours.LstVolontaires)
+            {
+                LstVolontaires_Assignable.Add(v);
+            }
 
             if (ParentWindow.TournoiEnCours.LstJoueurs != null)
             {

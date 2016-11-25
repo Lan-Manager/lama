@@ -47,7 +47,7 @@ namespace Lama.UI.UC.LocauxControls
                                 LocauxTous.Content = new SommairesLocauxUC();
                                 break;
                             case 2:
-                                LocauxVisuel.Content = new LocauxUC();
+                                LocauxVisuel.Content = new CarteLocauxUC();
                                 break;
                             default:
                                 break;
