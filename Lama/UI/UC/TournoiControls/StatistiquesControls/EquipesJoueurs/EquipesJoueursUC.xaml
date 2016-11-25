@@ -38,7 +38,7 @@
                     <ItemsControl.ItemTemplate>
 
                         <DataTemplate>
-                            <Label Content="{Binding Nom}" />
+                            <Label Content="{Binding Nom}" MouseDown="lvEquipes_MouseDown" />
                         </DataTemplate>
 
                     </ItemsControl.ItemTemplate>
@@ -51,7 +51,7 @@
                     <ItemsControl.ItemTemplate>
 
                         <DataTemplate>
-                            <Label Content="{Binding Nom}" />
+                            <Label Content="{Binding Nom}" MouseDown="lvJoueur_MouseDown"/>
                         </DataTemplate>
 
                     </ItemsControl.ItemTemplate>
@@ -64,8 +64,8 @@
         <ScrollViewer Grid.Column="1">
             <StackPanel>
 
-                <local:StatistiquesEquipeUC DataContext="{Binding ElementName=lvEquipes, Path=SelectedItem}" />
-                <local:StatistiquesEquipeUC DataContext="{Binding ElementName=lvJoueurs, Path=SelectedItem}" />
+                <local:StatistiquesEquipeUC x:Name="ucStatistiquesEquipe" DataContext="{Binding ElementName=lvEquipes, Path=SelectedItem}" />
+                <local:StatistiquesEquipeUC x:Name="ucStatistiquesJoueur" DataContext="{Binding ElementName=lvJoueurs, Path=SelectedItem}" />
 
             </StackPanel>
         </ScrollViewer>
