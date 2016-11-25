@@ -167,27 +167,19 @@ namespace LamaBD.helper
         {
             using (var ctx = new Connexion420())
             {
-
                 var userAccountParameter = new MySqlParameter("@account", nomUtilisateur);
-                var errorCodeParameter = new MySqlParameter("@errorCode", "@errorCode");
-                errorCodeParameter.Direction = System.Data.ParameterDirection.Output;
+                try
+                {
+                    var details = ctx.Database.ExecuteSqlCommand("CALL DELETE_COMPTE(@account)", userAccountParameter);
+                }
+                catch (MySql.Data.MySqlClient.MySqlException ex)
+                {
+                    if (ex.Number == 1451)
+                        throw new CompteCreateurTournoiException("Vous essayez de supprimer un compte propriétaire d'un tournoi.");
+                    else
+                        return false;
+                }
 
-                var details = ctx.Database.ExecuteSqlCommand("CALL DELETE_COMPTE(@account, @errorCode)", userAccountParameter, errorCodeParameter);
-                ctx.Database.ExecuteSqlCommand("SELECT @errorCode");
-
-                /*
-                                if (!success)
-                                    throw new Exception("Retour incorrect du résultat de la procédure");
-
-                                if (data == 0)
-                                    return true;
-                                else if (data == 1)
-                                {
-                                    throw new CompteCreateurTournoiException("Le compte est le créateur d'un tournoi.");
-                                }
-                                else
-                                    return false;
-                                    */
                 return true;
             }
         }
