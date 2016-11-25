@@ -26,8 +26,8 @@
         <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22.5,225,0,0" Content="Nom d'utilisateur:"/>
         <TextBox Name="txtNomUtilisateur" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,225,0,0" Width="250" MaxLength="20" Text="{Binding NomUtilisateur}"/>
         
-        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22.5,275,0,0" Content="Mot de passe:"/>
-        <TextBox Name="txtMotDePasse" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,275,0,0" Width="250" MaxLength="255"/>
+        <Label Name="lblMotDePasse" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22.5,275,0,0" Content="Mot de passe:"/>
+        <TextBox Name="txtMotDePasse" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,275,0,0" Width="250" MaxLength="255" Text="{Binding MotDePasse}"/>
         
         <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22.5,325,0,0" Content="E-mail:"/>
         <TextBox Name="txtEmail" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,325,0,0" Width="250" MaxLength="255" Text="{Binding Courriel}"/>

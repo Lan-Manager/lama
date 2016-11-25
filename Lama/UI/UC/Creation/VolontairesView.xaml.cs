@@ -116,7 +116,7 @@ namespace Lama.UI.UC.Creation
                     (DataContext as Tournoi).LstVolontaires[index] = av.LeVolontaire;
                 }
 
-                //TODO: update dans la bd
+                av.LeVolontaire.Update();
             }
         }
 
@@ -147,7 +147,7 @@ namespace Lama.UI.UC.Creation
                 // Supprimer le volontaire
                 LstVolontaires.Remove(v);
 
-                //TODO: supprimer dans la BD
+                v.Delete();
             }
         }
 
@@ -159,7 +159,7 @@ namespace Lama.UI.UC.Creation
             if (av.LeVolontaire != null)
             {
                 LstVolontaires.Add(av.LeVolontaire);
-                //TODO: ajout dans la BD
+                av.LeVolontaire.Insert();
             }
         }
     }

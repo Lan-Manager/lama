@@ -39,6 +39,9 @@ namespace Lama.UI.Win
         {
             InitializeComponent();
 
+            lblMotDePasse.Visibility = Visibility.Collapsed;
+            txtMotDePasse.Visibility = Visibility.Collapsed;
+
             lblTitre.Content = "Modifier un volontaire";
 
             VolontaireTemp = new Volontaire(v.Nom, v.Prenom, v.Matricule, v.Courriel, v.NomUtilisateur);
