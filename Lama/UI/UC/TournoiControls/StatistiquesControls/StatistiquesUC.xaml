@@ -10,13 +10,24 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
+
     <StackPanel>
 
         <Controls:MetroAnimatedTabControl x:Name="tabControl">
+            <TabControl.Resources>
+                <Style TargetType="TabItem" BasedOn="{StaticResource {x:Type TabItem}}">
+                    <Setter Property="OverridesDefaultStyle" Value="True" />
+                    <Setter Property="FontSize" Value="10" />
+                    <Setter Property="Foreground" Value="Red" />
+                </Style>
+            </TabControl.Resources>
 
-            <Controls:MetroTabItem Header="Tours / Parties">
+            <TabItem Header="Tours / Parties">
                 <ToursParties:ToursPartiesUC />
-            </Controls:MetroTabItem>
+            </TabItem>
 
             <Controls:MetroTabItem Header="Équipes / Joueurs">
                 <EquipesJoueurs:EquipesJoueursUC />
