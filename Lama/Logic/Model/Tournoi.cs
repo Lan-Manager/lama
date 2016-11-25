@@ -297,6 +297,7 @@ namespace Lama.Logic.Model
 
                 var task = LamaBD.helper.TournoiHelper.CreationTournoi(entity);
                 task.Wait();
+
                 if (!task.Result)
                 {
                     throw new Exception("Échec Insertion du tournois");
@@ -313,6 +314,11 @@ namespace Lama.Logic.Model
             }
 
             return true;
+        }
+
+        public static void FinTournoi()
+        {
+            LamaBD.helper.TournoiHelper.FinTournoi();
         }
 
 

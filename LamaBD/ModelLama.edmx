@@ -570,6 +570,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="DELETE_Compte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="420.5a5.a16_lanman">
+          <Parameter Name="account" Type="varchar" Mode="In" />
+          <Parameter Name="status" Type="int" Mode="Out" />
+        </Function>
+        <Function Name="FIN_TOURNOI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="420.5a5.a16_lanman" />
         <EntityContainer Name="bd_lamaStoreContainer">
           <EntitySet Name="comptes" EntityType="Self.comptes" Schema="420.5a5.a16_lanman" store:Type="Tables" />
           <EntitySet Name="comptestournois" EntityType="Self.comptestournois" Schema="420.5a5.a16_lanman" store:Type="Tables" />
@@ -853,6 +858,11 @@
             <End Role="locaux" EntitySet="locaux" />
             <End Role="postes" EntitySet="postes" />
           </AssociationSet>
+          <FunctionImport Name="FIN_TOURNOI" />
+          <FunctionImport Name="DELETE_Compte">
+            <Parameter Name="account" Mode="In" Type="String" />
+            <Parameter Name="status" Mode="Out" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="comptes">
           <Key>
@@ -1722,6 +1732,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="FIN_TOURNOI" FunctionName="bd_lama.Store.FIN_TOURNOI" />
+          <FunctionImportMapping FunctionImportName="DELETE_Compte" FunctionName="bd_lama.Store.DELETE_Compte" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

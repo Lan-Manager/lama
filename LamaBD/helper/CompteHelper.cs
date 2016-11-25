@@ -1,6 +1,8 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -126,30 +128,77 @@ namespace LamaBD.helper
             using (var ctx = new Connexion420())
             {
                 ctx.comptes.Add(obj);
-                await ctx.SaveChangesAsync();
+
+                try
+                {
+                    await ctx.SaveChangesAsync();
+                }
+                catch (Exception exct)
+                {
+                    Console.WriteLine(exct.Message);
+                    return false;
+                }
+
                 return true;
             }
-            //Erreur possible
-            return false;
         }
 
         public static async Task<bool> UpdateAsync(comptes obj)
         {
             using (var ctx = new Connexion420())
             {
-                comptes courant = await ctx.comptes.FindAsync(obj.idCompte);
-                courant.courriel = obj.courriel;
-                courant.estAdmin = obj.estAdmin;
-                courant.matricule = obj.matricule;
-                courant.motDePasse = obj.motDePasse;
-                courant.nom = obj.nom;
-                //courant.nomUtilisateur = courant.nomUtilisateur;
-                courant.prenom = obj.prenom;
-                await ctx.SaveChangesAsync();
+                ctx.comptes.Attach(obj);
+                ctx.Entry(obj).State = EntityState.Modified;
+                try
+                {
+                    await ctx.SaveChangesAsync();
+                }
+                catch (Exception exct)
+                {
+                    Console.WriteLine(exct.Message);
+                    return false;
+                }
+
                 return true;
             }
-            //Erreur possible
-            return false;
+        }
+
+        public static bool Delete(string nomUtilisateur)
+        {
+            using (var ctx = new Connexion420())
+            {
+                var userAccountParameter = new MySqlParameter("@account", nomUtilisateur);
+                try
+                {
+                    var details = ctx.Database.ExecuteSqlCommand("CALL DELETE_COMPTE(@account)", userAccountParameter);
+                }
+                catch (MySql.Data.MySqlClient.MySqlException ex)
+                {
+                    if (ex.Number == 1451)
+                        throw new CompteCreateurTournoiException("Vous essayez de supprimer un compte propriétaire d'un tournoi.");
+                    else
+                        return false;
+                }
+
+                return true;
+            }
+        }
+
+        public class CompteCreateurTournoiException : Exception
+        {
+            public CompteCreateurTournoiException() { }
+
+            public CompteCreateurTournoiException(string message)
+                : base(message)
+            {
+
+            }
+
+            public CompteCreateurTournoiException(string message, Exception innerException)
+                : base(message, innerException)
+            {
+
+            }
         }
     }
 }

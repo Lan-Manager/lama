@@ -106,5 +106,13 @@ namespace LamaBD.helper
 
             }
         }
+
+        public static void FinTournoi()
+        {
+            using (var ctx = new Connexion420())
+            {
+                var details = ctx.Database.ExecuteSqlCommand("CALL FIN_TOURNOI()");
+            }
+        }
     }
 }
