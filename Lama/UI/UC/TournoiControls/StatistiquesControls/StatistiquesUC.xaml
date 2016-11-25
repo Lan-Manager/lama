@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Lama.UI.UC.TournoiControls.StatistiquesControls"
              xmlns:ToursParties="clr-namespace:Lama.UI.UC.TournoiControls.StatistiquesControls.ToursParties"
              xmlns:EquipesJoueurs="clr-namespace:Lama.UI.UC.TournoiControls.StatistiquesControls.EquipesJoueurs"
+             xmlns:Tournoi="clr-namespace:Lama.UI.UC.TournoiControls"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -35,7 +36,7 @@
 
         </Controls:MetroAnimatedTabControl>
 
-        <local:StatistiquesModelesUC />
+        <Tournoi:StatistiquesModelesUC />
 
     </StackPanel>
 </UserControl>

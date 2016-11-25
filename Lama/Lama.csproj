@@ -139,7 +139,7 @@
     <Compile Include="UI\UC\TournoiControls\StatistiquesControls\EquipesJoueurs\StatistiquesEquipeUC.xaml.cs">
       <DependentUpon>StatistiquesEquipeUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesModelesUC.xaml.cs">
+    <Compile Include="UI\UC\TournoiControls\StatistiquesModelesUC.xaml.cs">
       <DependentUpon>StatistiquesModelesUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesUC.xaml.cs">
@@ -291,7 +291,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesModelesUC.xaml">
+    <Page Include="UI\UC\TournoiControls\StatistiquesModelesUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
