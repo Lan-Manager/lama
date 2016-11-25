@@ -86,6 +86,7 @@
     <Compile Include="helper\ParticipantHelper.cs" />
     <Compile Include="helper\PartieHelper.cs" />
     <Compile Include="helper\PosteHelper.cs" />
+    <Compile Include="helper\PrixHelper.cs" />
     <Compile Include="helper\templateHelper.cs" />
     <Compile Include="helper\TourHelper.cs" />
     <Compile Include="helper\TournoiHelper.cs" />
