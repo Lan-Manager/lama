@@ -4,13 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Lama.UI.UC.LocauxControls"
+             xmlns:j="clr-namespace:Lama.Logic.Tools"
+             xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
              mc:Ignorable="d" 
+             Name="CarteLocaux"
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>
-        <Style x:Key="icPoste" BasedOn="{StaticResource SquareButtonStyle}">
-
-        </Style>
+        <Style x:Key="icPoste" BasedOn="{StaticResource SquareButtonStyle}"></Style>
+        <j:BindingProxy x:Key="proxy" Data="{Binding}" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -22,7 +24,7 @@
             <ComboBox Margin="6 0 0 0" HorizontalAlignment="Left" Name="cboLocal" Width="140" Height="12" ItemsSource="{Binding LstLocaux}" DisplayMemberPath="Numero" SelectedValuePath="Numero" SelectedItem="{Binding LocalSelectionne}"/>
         </StackPanel>
         <Separator></Separator>
-        <ItemsControl ItemsSource="{Binding LocalSelectionne.LstPoste}" Grid.Row="1">
+        <ItemsControl ItemsSource="{Binding LocalSelectionne.LstPoste}" Grid.Row="1" Name="icPoste">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch"/>
@@ -30,11 +32,15 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Name="gPoste">
                         <Grid.ContextMenu>
-                            <ContextMenu DataContext="{Binding RelativeSource={RelativeSource Self}, Path=PlacementTarget.DataContext}">
-                                <ComboBox Name="cboEtat" ItemsSource="{Binding LstEtatPossible}" SelectedValue="{Binding Etat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-                                <ComboBox Name="cboVolontaire" ItemsSource="{Binding LstVolontaires_DernierModificateur, RelativeSource={RelativeSource Self}}" SelectedValue="{Binding DernierModificateur, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="NomComplet"></ComboBox>
+                            <ContextMenu Name="cmPoste">
+                                <MenuItem Header="État">
+                                    <ComboBox Name="cboEtat" ItemsSource="{Binding LstEtatPossible}" SelectedValue="{Binding Etat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MouseDown="cboEtat_MouseDown"></ComboBox>
+                                </MenuItem>
+                                <MenuItem Header="Modificateur">
+                                    <ComboBox Name="cboVolontaire" ItemsSource="{Binding Data.LstVolontaires, Source={StaticResource proxy}}" SelectedValue="{Binding DernierModificateur, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="NomComplet"></ComboBox>
+                                </MenuItem>
                             </ContextMenu>
                         </Grid.ContextMenu>
                         <Label Content="{Binding Numero}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 10"></Label>

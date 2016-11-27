@@ -15,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Lama.Logic.Tools;
 namespace Lama.UI.UC.LocauxControls
 {
     /// <summary>
@@ -24,7 +24,7 @@ namespace Lama.UI.UC.LocauxControls
     public partial class CarteLocauxUC : UserControl, INotifyPropertyChanged
     {
         public ObservableCollection<Local> LstLocaux { get; set; }
-        public ObservableCollection<Volontaire> LstVolontaires_DernierModificateur { get; set; }
+        public ObservableCollection<Volontaire> LstVolontaires { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -56,12 +56,17 @@ namespace Lama.UI.UC.LocauxControls
             // On va chercher la liste de locaux du tournoi.
             MainWindow ParentWindow = (MainWindow)Application.Current.MainWindow;
             LstLocaux = ParentWindow.TournoiEnCours.LstLocaux;
-            
+
             // On va chercher la liste de volontaires du tournoi.
-            LstVolontaires_DernierModificateur = ParentWindow.TournoiEnCours.LstVolontaires;
+            LstVolontaires = ParentWindow.TournoiEnCours.LstVolontaires;
             
             InitializeComponent();
             cboLocal.SelectedIndex = 0;
+        }
+
+        private void cboEtat_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            
         }
     }
 }

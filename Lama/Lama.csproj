@@ -86,6 +86,7 @@
     </ApplicationDefinition>
     <Compile Include="Logic\Model\PartieEquipe.cs" />
     <Compile Include="Logic\Model\PropertyChangedExtendedEventArgs.cs" />
+    <Compile Include="Logic\Tools\BindingProxy.cs" />
     <Compile Include="Logic\Tools\PasswordHelper.cs" />
     <Compile Include="UI\UC\Creation\EquipesView.xaml.cs">
       <DependentUpon>EquipesView.xaml</DependentUpon>
