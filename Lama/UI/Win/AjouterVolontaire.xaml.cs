@@ -130,21 +130,24 @@ namespace Lama.UI.Win
             }
             
             // Test d'unicité - NomUtilisateur
-            if (volontaires.Any(x => x.NomUtilisateur.ToLowerInvariant() == VolontaireTemp.NomUtilisateur.ToLowerInvariant()))
+            if (VolontaireTemp.NomUtilisateur != null && volontaires.Any(x => x.NomUtilisateur.ToLowerInvariant() == VolontaireTemp.NomUtilisateur.ToLowerInvariant()))
             {
                 invalide = true;
                 Erreurs.AppendLine("- Le nom d'utilisateur doit être unique");
             }
 
             // Tester l'email
-            try
+            if (!string.IsNullOrWhiteSpace(txtEmail.Text))
             {
-                MailAddress ma = new MailAddress(txtEmail.Text);
-            }
-            catch (Exception)
-            {
-                invalide = true;
-                Erreurs.AppendLine("- L'adresse email est invalide");
+                try
+                {
+                    MailAddress ma = new MailAddress(txtEmail.Text);
+                }
+                catch (Exception)
+                {
+                    invalide = true;
+                    Erreurs.AppendLine("- L'adresse email est invalide");
+                }
             }
 
             return invalide;
