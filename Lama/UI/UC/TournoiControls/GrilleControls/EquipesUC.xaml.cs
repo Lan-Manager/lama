@@ -67,7 +67,7 @@ namespace Lama.UI.UC.TournoiControls.GrilleControls
         private void RadioButton_Click(object sender, RoutedEventArgs e)
         {
             Tournoi tournoi = ((MainWindow)Application.Current.MainWindow.DataContext).TournoiEnCours as Tournoi;
-            tournoi.GenerationTourValide();
+            tournoi.GenerationTourValide();            
         }
     }
 }

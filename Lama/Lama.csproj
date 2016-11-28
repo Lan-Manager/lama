@@ -84,6 +84,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Logic\Model\Classement.cs" />
     <Compile Include="Logic\Model\PartieEquipe.cs" />
     <Compile Include="Logic\Tools\PasswordHelper.cs" />
     <Compile Include="UI\UC\Creation\EquipesView.xaml.cs">
@@ -121,9 +122,6 @@
     </Compile>
     <Compile Include="UI\UC\TournoiControls\GrilleControls\ToursUC.xaml.cs">
       <DependentUpon>ToursUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\UC\TournoiControls\MenuUC.xaml.cs">
-      <DependentUpon>MenuUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\UC\TournoiControls\PrixControls\PrixUC.xaml.cs">
       <DependentUpon>PrixUC.xaml</DependentUpon>
@@ -242,10 +240,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\UC\TournoiControls\MenuUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="UI\UC\TournoiControls\PrixControls\PrixUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -312,6 +306,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

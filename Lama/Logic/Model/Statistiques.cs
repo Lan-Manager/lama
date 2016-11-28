@@ -12,8 +12,8 @@ namespace Lama.Logic.Model
     public class Statistiques : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private TrulyObservableCollection<Statistique> _stats;
 
+        private TrulyObservableCollection<Statistique> _stats;
         public TrulyObservableCollection<Statistique> Stats
         {
             get
@@ -59,11 +59,13 @@ namespace Lama.Logic.Model
 
         public Statistiques()
         {
+            int nbStats = 0;
+
             Stats = new TrulyObservableCollection<Statistique>();
-            Stats.Add(new Statistique("Élimination(s)"));
-            Stats.Add(new Statistique("Mort(s)"));
-            Stats.Add(new Statistique("Assistance(s)"));
-            Stats.Add(new Statistique("Batiment(s) détruit(s)"));
+            Stats.Add(new Statistique("Élimination(s)", nbStats++));
+            Stats.Add(new Statistique("Mort(s)", nbStats++));
+            Stats.Add(new Statistique("Assistance(s)", nbStats++));
+            Stats.Add(new Statistique("Batiment(s) détruit(s)", nbStats++));
 
             Stats.ItemPropertyChanged += PropertyChanged;
         }
