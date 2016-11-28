@@ -122,9 +122,6 @@
     <Compile Include="UI\UC\TournoiControls\GrilleControls\ToursUC.xaml.cs">
       <DependentUpon>ToursUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\UC\TournoiControls\MenuUC.xaml.cs">
-      <DependentUpon>MenuUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\UC\TournoiControls\PrixControls\PrixUC.xaml.cs">
       <DependentUpon>PrixUC.xaml</DependentUpon>
     </Compile>
@@ -239,10 +236,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\UC\TournoiControls\GrilleControls\ToursUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\UC\TournoiControls\MenuUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -10,7 +10,8 @@ namespace Lama.Logic.Model
     public class Statistique : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        
+
+        public int Index { get; set; }
         public string Key { get; set; }
 
         private int? _value;
@@ -35,12 +36,14 @@ namespace Lama.Logic.Model
         {
             Key = "n/a";
             Value = -1;
+            Index = -1;
         }
 
-        public Statistique(string key)
+        public Statistique(string key, int index)
         {
             Key = key;
             Value = 0;
+            Index = index;
         }
 
         public void NotifyPropertyChanged(string nomProp)
