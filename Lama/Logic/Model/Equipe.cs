@@ -62,6 +62,11 @@ namespace Lama.Logic.Model
             return this.Nom;
         }
 
+        public override int GetHashCode()
+        {
+            return this.Nom.GetHashCode();
+        }
+
         public static bool Insert(List<Equipe> equipes, int idTournois)
         {
             List<equipes> listEntities = new List<equipes>(equipes.Count());
