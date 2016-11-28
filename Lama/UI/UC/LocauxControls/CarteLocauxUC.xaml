@@ -9,21 +9,74 @@
              mc:Ignorable="d" 
              Name="CarteLocaux"
              d:DesignHeight="300" d:DesignWidth="300"
-             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             >
+
     <UserControl.Resources>
         <Style x:Key="icPoste" BasedOn="{StaticResource SquareButtonStyle}"></Style>
+        <Style x:Key="titrePoste" TargetType="Label">
+            <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+        </Style>
+        <Style x:Key="valeurPoste" TargetType="Label">
+            <Setter Property="FontWeight" Value="Bold"></Setter>
+        </Style>
     </UserControl.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
+        <StackPanel Grid.Row="0" Grid.Column="0">
             <Label Name="lblTitre" FontWeight="DemiBold" FontSize="18" Foreground="{StaticResource AccentColorBrush}">Changer de local</Label>
             <ComboBox Margin="6 0 0 0" HorizontalAlignment="Left" Name="cboLocal" Width="140" Height="12" ItemsSource="{Binding LstLocaux}" DisplayMemberPath="Numero" SelectedValuePath="Numero" SelectedItem="{Binding LocalSelectionne}"/>
         </StackPanel>
-        <Separator></Separator>
-        <ItemsControl ItemsSource="{Binding LocalSelectionne.LstPoste}" Grid.Row="1" Name="icPoste">
+
+
+        <DockPanel HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1" Height="60" VerticalAlignment="Top">
+            <Border CornerRadius="1" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" DockPanel.Dock="Top">
+                <StackPanel Orientation="Horizontal">
+                    <Separator ></Separator>
+                    <StackPanel>
+                        <Label Style="{StaticResource titrePoste}"># Poste :</Label>
+                        <Label HorizontalAlignment="Center" Content="{Binding PosteCourant.Numero}" Style="{StaticResource valeurPoste}"></Label>
+                    </StackPanel>
+                    <StackPanel >
+                        <Label Style="{StaticResource titrePoste}">État :</Label>
+                        <ComboBox  HorizontalAlignment="Left" ItemsSource="{Binding PosteCourant.LstEtatPossible}" SelectedValue="{Binding PosteCourant.Etat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
+                    </StackPanel>
+                    <StackPanel>
+                        <Label Style="{StaticResource titrePoste}">Dernier modificateur :</Label>
+                        <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding LstVolontaires}" SelectedValue="{Binding PosteCourant.DernierModificateur, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="NomComplet"></ComboBox>
+                    </StackPanel>
+                    <StackPanel Name="ajoutCommentaire">
+                        
+                        <Label Style="{StaticResource titrePoste}" Name="lblAjout">Ajouter un commentaire :</Label>
+                        <Button Name="btnAjoutCommentiare" Click="btnAjoutCommentaire_Click">Commentaire</Button>
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="IsEnabled" Value="False"></Setter>
+                                <Setter Property="Visibility" Value="Hidden"></Setter>
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding PosteCourant.Etat}" Value="Problème">
+                                        <Setter Property="IsEnabled" Value="True"></Setter>
+                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+                    </StackPanel>
+
+                </StackPanel>
+            </Border>
+        </DockPanel>
+
+        <ItemsControl ItemsSource="{Binding LocalSelectionne.LstPoste}" Grid.Row="1" Name="icPoste" Grid.ColumnSpan="2" VerticalAlignment="Top">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Stretch"/>
@@ -40,6 +93,14 @@
                             <Rectangle.Style>
                                 <Style TargetType="Rectangle">
                                     <Style.Triggers>
+                                        <Trigger Property="Rectangle.IsMouseOver" Value="True">
+                                            <Setter Property="Cursor" Value="Hand"></Setter>
+                                            <Setter Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect ShadowDepth="0" Color="Cyan" Opacity="1" BlurRadius="20"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
                                         <DataTrigger Binding="{Binding Etat}" Value="Prêt">
                                             <Setter Property="Fill" Value="#21ef9d"></Setter>
                                         </DataTrigger>
@@ -60,5 +121,6 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+
     </Grid>
 </UserControl>
