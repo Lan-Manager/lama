@@ -152,7 +152,7 @@ namespace Lama.Logic.TypeTournoi
 
 
         //https://stackoverflow.com/questions/600293/how-to-check-if-a-number-is-a-power-of-2
-        bool IsPowerOfTwo(ulong x)
+        private bool IsPowerOfTwo(ulong x)
         {
             return (x != 0) && ((x & (x - 1)) == 0);
         }
@@ -161,52 +161,18 @@ namespace Lama.Logic.TypeTournoi
         public Tour GenererTourElimination(List<Equipe> equipesPerdantes)
         {
             numTour++;
-            Tour tour = new Tour(numTour);
+            Tour tour;
             if (equipesPerdantes == null)
             {
                 listBye = equipesCompetiteurs.ToList(); ;
                 int nbrEquipePremierTour = equipesParticipantes.Count - numberOfBye;
-                int index = 0;
-                for (int i = 0; i < equipesCompetiteurs.Count() / 2; i++)
-                {
-                    if (nbrEquipePremierTour == 0)
-                        break;
-                    PartieEquipe pe1 = new PartieEquipe(equipesCompetiteurs[index]);
-                    PartieEquipe pe2 = new PartieEquipe(equipesCompetiteurs[index + 1]);
-                    listBye.Remove(pe1.Equipe);
-                    listBye.Remove(pe2.Equipe);
-                    Partie partie = new Partie(pe1, pe2, ++numPartie);
-                    nbrEquipePremierTour -= 2;
-                    index += 2;
-                    tour.LstParties.Add(partie);
-                }
+                tour = CreerTour(equipesCompetiteurs, numTour, nbrEquipePremierTour);
             }
             else
             {
-                List<Equipe> equipesGagnante = equipesCompetiteurs.Where(x => !equipesPerdantes.Any(y => x == y)).ToList(); 
-                foreach(Equipe e in equipesGagnante)
-                {
-                    scoreboard[e] += 1;
-                }
-                equipesCompetiteurs = equipesGagnante;
-                foreach (Equipe e in equipesPerdantes)
-                {
-                    equipesEliminees.Add(e);
-                }
-
-                int index = 0;
-                for (int i = 0; i < equipesCompetiteurs.Count() / 2; i++)
-                {
-                    PartieEquipe pe1 = new PartieEquipe(equipesCompetiteurs[index]);
-                    PartieEquipe pe2 = new PartieEquipe(equipesCompetiteurs[index + 1]);
-                    listBye.Remove(pe1.Equipe);
-                    listBye.Remove(pe2.Equipe);
-                    Partie partie = new Partie(pe1, pe2, ++numPartie);
-                    index += 2;
-                    tour.LstParties.Add(partie);
-                }
+                AjustementEquipe(equipesPerdantes);
+                tour = CreerTour(equipesCompetiteurs, numTour);
             }
-
             listTours.Add(tour);
             return tour;
         }
@@ -242,16 +208,56 @@ namespace Lama.Logic.TypeTournoi
             return (int)(x + 1);
         }
 
-        private Tour CreerTour(List<Partie> listParties, int numTour)
+        private Tour CreerTour(List<Equipe> equipes, int numtour, int nbrEquipePremierTour)
         {
-            Tour leTour = new Tour(numTour);
-            foreach (Partie partie in listParties)
+            Tour tour = new Tour(numTour);
+            int index = 0;
+            for (int i = 0; i < equipes.Count() / 2; i++)
             {
-                leTour.LstParties.Add(partie);
-            }
+                if (nbrEquipePremierTour == 0)
+                    break;
+                else
+                    nbrEquipePremierTour -= 2;
+                PartieEquipe pe1 = new PartieEquipe(equipes[index]);
+                PartieEquipe pe2 = new PartieEquipe(equipes[index + 1]);
+                listBye.Remove(pe1.Equipe);
+                listBye.Remove(pe2.Equipe);
+                Partie partie = new Partie(pe1, pe2, ++numPartie);
 
-            return leTour;
+                index += 2;
+                tour.LstParties.Add(partie);
+            }
+            return tour;
         }
 
+        private Tour CreerTour(List<Equipe> equipes, int numtour)
+        {
+            Tour tour = new Tour(numTour);
+            int index = 0;
+            for (int i = 0; i < equipes.Count() / 2; i++)
+            {
+                PartieEquipe pe1 = new PartieEquipe(equipes[index]);
+                PartieEquipe pe2 = new PartieEquipe(equipes[index + 1]);
+                Partie partie = new Partie(pe1, pe2, ++numPartie);
+
+                index += 2;
+                tour.LstParties.Add(partie);
+            }
+            return tour;
+        }
+
+        private void AjustementEquipe(List<Equipe> equipesPerdantes)
+        {
+            List<Equipe> equipesGagnante = equipesCompetiteurs.Where(x => !equipesPerdantes.Any(y => x == y)).ToList();
+            foreach (Equipe e in equipesGagnante)
+            {
+                scoreboard[e] += 1;
+            }
+            equipesCompetiteurs = equipesGagnante;
+            foreach (Equipe e in equipesPerdantes)
+            {
+                equipesEliminees.Add(e);
+            }
+        }
     }
 }
