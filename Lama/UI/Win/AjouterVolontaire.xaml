@@ -1,4 +1,4 @@
-﻿<Controls:MetroWindow x:Class="Lama.UI.Win.AjouterVolontaire"
+﻿<Controls:MetroWindow Name="win" x:Class="Lama.UI.Win.AjouterVolontaire"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -29,7 +29,7 @@
         <Label Name="lblMotDePasse" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22.5,275,0,0" Content="Mot de passe:"/>
         <TextBox Name="txtMotDePasse" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,275,0,0" Width="250" MaxLength="255" Text="{Binding MotDePasse}"/>
         
-        <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22.5,325,0,0" Content="E-mail:"/>
+        <Label Name="lblEmail" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22.5,325,0,0" Content="E-mail:"/>
         <TextBox Name="txtEmail" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,325,0,0" Width="250" MaxLength="255" Text="{Binding Courriel}"/>
 
         <Button Name="btnEnregistrer" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,400,0,0" Content="Enregistrer" FontSize="18" Click="btnEnregistrer_Click"/>

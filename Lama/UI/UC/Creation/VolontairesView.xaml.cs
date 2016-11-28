@@ -94,7 +94,7 @@ namespace Lama.UI.UC.Creation
             // On va chercher le volontaire
             Volontaire v = dg.SelectedItem as Volontaire;
 
-            AjouterVolontaire av = new AjouterVolontaire(v);
+            AjouterVolontaire av = new AjouterVolontaire(v, LstVolontaires.Where(x => x != v).ToList());
 
             av.ShowDialog();
 
@@ -153,7 +153,7 @@ namespace Lama.UI.UC.Creation
 
         private void btnAddVolontaire_Click(object sender, RoutedEventArgs e)
         {
-            AjouterVolontaire av = new AjouterVolontaire();
+            AjouterVolontaire av = new AjouterVolontaire(LstVolontaires.ToList());
             av.ShowDialog();
 
             if (av.LeVolontaire != null)
