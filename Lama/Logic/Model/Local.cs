@@ -39,7 +39,7 @@ namespace Lama.Logic.Model
                 }
             }
         }
-        #region Propriétés concernant le numerobre de postes.
+        #region Propriétés concernant le numero de postes.
         private int _nbPosteDepart;
         public int NbPoste_Depart
         {
@@ -58,10 +58,10 @@ namespace Lama.Logic.Model
                 NotifyPropertyChanged("NbPoste_Depart");
 
             }
-        } // Le numerobre de poste ayant été prévu lors de la création du tournoi.
+        } // Le numero de poste ayant été prévu lors de la création du tournoi.
 
         private int _nbPoste;
-        public int NbPoste // Le numerobre de poste présentement utilisé pour le tournoi.
+        public int NbPoste // Le numero de poste présentement utilisé pour le tournoi.
         {
             get
             {
@@ -80,7 +80,7 @@ namespace Lama.Logic.Model
             }
         }
         int _nbPostePret;
-        public int NbPoste_Pret // Le numerobre de poste présentement prêt à être utilisé pour le tournoi.
+        public int NbPoste_Pret // Le numero de poste présentement prêt à être utilisé pour le tournoi.
         {
             get
             {
@@ -98,7 +98,7 @@ namespace Lama.Logic.Model
             }
         }
         int _nbPosteAttente;
-        public int NbPoste_Attente // Le numerobre de poste qui n'ont pas été visité par un volontaire.
+        public int NbPoste_Attente // Le numero de poste qui n'ont pas été visité par un volontaire.
         {
             get
             {
@@ -115,7 +115,7 @@ namespace Lama.Logic.Model
             }
         }
         int _nbPosteProbleme;
-        public int NbPoste_Probleme // Le numerobre de poste ayant rencontré un problème lors de la tournée des volontaires.
+        public int NbPoste_Probleme // Le numero de poste ayant rencontré un problème lors de la tournée des volontaires.
         {
             get
             {
@@ -132,7 +132,7 @@ namespace Lama.Logic.Model
             }
         }
         int _nbPosteNonRequis;
-        public int NbPoste_NonRequis // Le numerobre de poste qui ne sont plus requis pour le tournoi.
+        public int NbPoste_NonRequis // Le numero de poste qui ne sont plus requis pour le tournoi.
         {
             get
             {
@@ -148,7 +148,7 @@ namespace Lama.Logic.Model
             }
         }
         int _nbPosteRestant;
-        public int NbPoste_Restant // Le numerobre de poste dont l'état n'est pas encore prêt.
+        public int NbPoste_Restant // Le numero de poste dont l'état n'est pas encore prêt.
         {
             get
             {
@@ -172,36 +172,23 @@ namespace Lama.Logic.Model
         {
             LstPoste = new TrulyObservableCollection<Poste>();
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
-            LstPoste.CollectionChanged += LstPoste_CollectionChanged;
         }
         /// <summary>
         /// Constructeur de local contenant le numéro du local.
         /// </summary>
-        /// <param name="numero"></param>
+        /// <param name="numero">Numero du local Ex: "D125"</param>
         public Local(string numero)
         {
             Numero = numero;
             LstPoste = new TrulyObservableCollection<Poste>();
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
-            LstPoste.CollectionChanged += LstPoste_CollectionChanged;
         }
-        private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
-        {
-            PosteCourant = (Poste)sender;
-            if (e.PropertyName == "Etat")
-            {
-                NotifyPropertyChanged("Etat");
-            }
-            if (e.PropertyName == "DernierModificateur")
-            {
-                NotifyPropertyChanged("DernierModificateur");
-            }
-        }
+
         /// <summary>
         /// Constructeur avec paramètre.
         /// </summary>
         /// <param name="numero">Numero du local Ex: "D125"</param>
-        /// <param name="nbPoste">Numerobre de postes dans le local</param>
+        /// <param name="nbPoste">numero de postes dans le local</param>
         public Local(string numero, int nbPoste)
         {
             NbPoste = nbPoste;
@@ -215,61 +202,128 @@ namespace Lama.Logic.Model
             }
 
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
-            LstPoste.CollectionChanged += LstPoste_CollectionChanged;
         }
-
-        // Si un changement est détecté dans la collection, on calcule les états.
-        private void LstPoste_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            CalculerEtat();
-        }
-
+        
         /// <summary>
-        /// Méthode qui calcule l'état actuel des postes selon le local.
+        /// Fonction qui calcul les nouveaux états après un changement.
         /// </summary>
-        public void CalculerEtat()
+        /// <param name="ancienneValeur">L'ancien état du poste.</param>
+        /// <param name="nouvelleValeur">Le nouvel état du poste.</param>
+        private void CalculerEtat(string ancienneValeur, string nouvelleValeur)
         {
-            int nbPoste_Pret = 0;
-            int nbPoste_Probleme = 0;
-            int nbPoste_Attente = 0;
-            int nbPoste_NonRequis = 0;
+            switch (ancienneValeur)
+            {
+                case "Prêt":
+                    NbPoste_Pret--;
+                    break;
+                case "Problème":
+                    NbPoste_Probleme--;
+                    break;
+                case "En attente":
+                    NbPoste_Attente--;
+                    break;
+                case "Non requis":
+                    NbPoste_NonRequis--;
+                    break;
+            }
+            switch (nouvelleValeur)
+            {
+                case "Prêt":
+                    NbPoste_Pret++;
+                    break;
+                case "Problème":
+                    NbPoste_Probleme++;
+                    break;
+                case "En attente":
+                    NbPoste_Attente++;
+                    break;
+                case "Non requis":
+                    NbPoste_NonRequis++;
+                    break;
+            }
+            NbPoste_Restant = NbPoste - NbPoste_Pret;
+
+        }
+        /// <summary>
+        /// Fonction qui calcul l'état de tout les postes d'un local. Elle est appelé après le chargement des données de la bd.
+        /// </summary>
+        public void CalculerEtatDepart()
+        {
+            NbPoste_Attente = 0;
+            NbPoste_NonRequis = 0;
+            NbPoste_Pret = 0;
+            NbPoste_Probleme = 0;
             foreach (Poste unPoste in LstPoste)
             {
                 if (unPoste.Etat == "Prêt")
                 {
-                    nbPoste_Pret++;
+                    NbPoste_Pret++;
                 }
                 if (unPoste.Etat == "Problème")
                 {
-                    nbPoste_Probleme++;
+                    NbPoste_Probleme++;
                 }
                 if (unPoste.Etat == "En attente")
                 {
-                    nbPoste_Attente++;
+                    NbPoste_Attente++;
                 }
                 if (unPoste.Etat == "Non requis")
                 {
-                    nbPoste_NonRequis++;
+                    NbPoste_NonRequis++;
                 }
+                
             }
-            NbPoste_NonRequis = nbPoste_NonRequis;
-            NbPoste_Pret = nbPoste_Pret;
-            NbPoste = NbPoste_Depart - NbPoste_NonRequis; // Le numerobre de poste est maintenant égal au numerobre de poste du départ moins ceux non requis.
-            NbPoste_Probleme = nbPoste_Probleme;
-            NbPoste_Attente = nbPoste_Attente;
+            NbPoste = NbPoste_Depart - NbPoste_NonRequis;
             NbPoste_Restant = NbPoste - NbPoste_Pret;
-
         }
 
+        #region Interface INotifyPropertyChanged
+        /// <summary>
+        /// Handler spécifique à la liste de poste.
+        /// </summary>
+        /// <param name="sender">L'objet qui a provoqué la notification</param>
+        /// <param name="e">La propriété qui a changée.</param>
+        private void PropertyChangedHandler(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is Poste)
+            {
+                PosteCourant = (Poste)sender;
+            }
+            if (e.PropertyName == "Etat")
+            {
+                NotifyPropertyChanged("Etat", PosteCourant.AncienEtat, PosteCourant.Etat);
+            }
+            if (e.PropertyName == "DernierModificateur")
+            {
+                NotifyPropertyChanged("DernierModificateur");
+            }
+            if (e.PropertyName == "Commentaire")
+            {
+                NotifyPropertyChanged("Commentaire");
+            }
+        }
+        /// <summary>
+        /// Cette fonction est appelé par les setter pour l'état des postes, elle avertie qu'un changement c'est produit.
+        /// On garde une trace de l'ancienne valeur de la propriété pour optimiser certains calculs.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="nomProp">Le nom de la propriété qui a changée</param>
+        /// <param name="ancienneValeur">L'ancienne valeur de la propriété.</param>
+        /// <param name="nouvelleValeur">La nouvelle valeur de la propriété</param>
+        protected void NotifyPropertyChanged<T>(string nomProp, T ancienneValeur, T nouvelleValeur)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedExtendedEventArgs<T>(nomProp, ancienneValeur, nouvelleValeur));
+            if (nomProp == "Etat") // Si la propriété changé est l'état du poste.
+            {
+                // On appel la fonction calculer état en passant en paramètre l'ancienne valeur et la nouvelle.
+                CalculerEtat(ancienneValeur.ToString(), nouvelleValeur.ToString()); // Il faut convertir en string puisque template à la base.
+            }
+        }
         protected void NotifyPropertyChanged(string nomProp)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
-            // Si l'état d'un poste change, on effectu le calcul des états pour le local.
-            if (nomProp == "Etat")
-            {
-                CalculerEtat();
-            }
         }
+        #endregion
     }
 }
 

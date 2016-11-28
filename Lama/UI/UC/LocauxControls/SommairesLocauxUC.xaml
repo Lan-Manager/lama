@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="Lama.UI.UC.LocauxControls.SommairesLocauxUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lama.UI.UC.LocauxControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <UserControl.Resources>
+        <Style TargetType="DataGridCell" x:Name="styleColumn">
+            <Style.Setters>
+                <Setter Property="TextBlock.TextAlignment" Value="Center" />
+            </Style.Setters>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label FontSize="18" FontWeight="Bold" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Content="Sommaires" Foreground="{StaticResource AccentColorBrush}"></Label>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding LstLocaux, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" ColumnWidth="1*" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Numéro du local" Binding="{Binding Numero, UpdateSourceTrigger=PropertyChanged}">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Nb. Poste prêts" Binding="{Binding NbPoste_Pret, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" Value="#21ef9d"></Setter>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Nb. Poste restants" Binding="{Binding NbPoste_Restant, UpdateSourceTrigger=PropertyChanged}">
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Nb. Poste problématiques" Binding="{Binding NbPoste_Probleme, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" Value="#d6223a"></Setter>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Nb. Poste en attente" Binding="{Binding NbPoste_Attente, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" Value="#8e8686"></Setter>
+                            <Setter Property="TextBlock.TextAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Nb. Poste requis" Binding="{Binding NbPoste, UpdateSourceTrigger=PropertyChanged}">
+                  
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

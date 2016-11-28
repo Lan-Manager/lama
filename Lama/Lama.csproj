@@ -85,6 +85,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Logic\Model\PartieEquipe.cs" />
+    <Compile Include="Logic\Model\PropertyChangedExtendedEventArgs.cs" />
     <Compile Include="Logic\Tools\PasswordHelper.cs" />
     <Compile Include="UI\UC\Creation\EquipesView.xaml.cs">
       <DependentUpon>EquipesView.xaml</DependentUpon>
@@ -104,8 +105,20 @@
     <Compile Include="UI\UC\Creation\VolontairesView.xaml.cs">
       <DependentUpon>VolontairesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\UC\LocauxUC.xaml.cs">
+    <Compile Include="UI\UC\LocauxControls\CarteLocauxUC.xaml.cs">
+      <DependentUpon>CarteLocauxUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\LocauxControls\ContenantLocauxUC.xaml.cs">
+      <DependentUpon>ContenantLocauxUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\LocauxControls\LocauxUC.xaml.cs">
       <DependentUpon>LocauxUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\LocauxControls\MenuCarte.xaml.cs">
+      <DependentUpon>MenuCarte.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UC\LocauxControls\SommairesLocauxUC.xaml.cs">
+      <DependentUpon>SommairesLocauxUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\UC\TournoiControls\ClassementControls\ClassementUC.xaml.cs">
       <DependentUpon>ClassementUC.xaml</DependentUpon>
@@ -194,6 +207,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\IconsNonShared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UI\UC\Creation\EquipesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -218,9 +239,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\UC\LocauxUC.xaml">
+    <Page Include="UI\UC\LocauxControls\CarteLocauxUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\LocauxControls\ContenantLocauxUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\LocauxControls\LocauxUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\UC\LocauxControls\MenuCarte.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\UC\LocauxControls\SommairesLocauxUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\ClassementControls\ClassementUC.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -319,6 +356,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -342,6 +380,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\lama.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\WindowsIcons-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

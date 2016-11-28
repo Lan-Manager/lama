@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MahApps.Metro.Controls;
-using Lama.UI.UC;
+using Lama.UI.UC.LocauxControls;
 using Lama.UI.Win;
 using Lama.Logic.Model;
 using System.ComponentModel;
-using Lama.UI.UC.TournoiControls;
 using LamaBD.helper;
 using LamaBD;
 using System.Collections.ObjectModel;
@@ -71,10 +60,11 @@ namespace Lama
         protected void NotifyPropertyChanged(string nomProp)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nomProp));
-            if (nomProp == "EstConnecte" || nomProp == "Utilisateur")
+            if (nomProp == "EstConnecte" || nomProp == "Utilisateur" || nomProp == "TournoiEnCours")
             {
                 AfficherElement();
             }
+            
         }
 
         #region code BD
@@ -172,11 +162,11 @@ namespace Lama
         // Fonction qui affiche/cache ou modifie le texte de certain élément selon l'état de l'utilisateur.
         private void AfficherElement()
         {
+
             if (Utilisateur == null || Utilisateur.EstConnecte == false)
             {
                 tabLocaux.Visibility = Visibility.Hidden;
                 tabContenant.SelectedItem = tabTournoi;
-                hplAuthentification.Content = "S'authentifier";
             }
             else
             {
@@ -184,14 +174,21 @@ namespace Lama
                 {
                     btnCreerTournoi.Visibility = Visibility.Visible;
                 }
-                tabLocaux.Content = new LocauxUC();
-                tabLocaux.Visibility = Visibility.Visible;
-                hplAuthentification.Content = "Se désauthentifier";
+                if (TournoiEnCours.LstLocaux.Count() > 0)
+                {
+                    tabLocaux.Content = new ContenantLocauxUC();
+                    tabLocaux.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    tabLocaux.Visibility = Visibility.Hidden;
+                }
             }
         }
 
         public MainWindow()
         {
+
             InitializeComponent();
 
             Utilisateur = new Utilisateur();
@@ -207,9 +204,12 @@ namespace Lama
             // Si l'utilisateur n'est pas identifié, on affiche le formulaire d'authentification.
             if (Utilisateur == null || Utilisateur.EstConnecte == false)
             {
-                AuthentificationWin FenetreAuthentification = new AuthentificationWin();
+                AuthentificationWin FenetreAuthentification = new AuthentificationWin(this);
                 FenetreAuthentification.ShowDialog();
-                Utilisateur = FenetreAuthentification.Utilisateur;
+                if (FenetreAuthentification.Utilisateur != null)
+                {
+                    Utilisateur = FenetreAuthentification.Utilisateur;
+                }
             }
             // Si l'utilisateur est déjà identifié, on le désauthentifie en remettant le statut d'utilisateur.
             else

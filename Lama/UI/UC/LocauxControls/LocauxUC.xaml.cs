@@ -9,16 +9,19 @@ using LamaBD;
 using System.Collections.Generic;
 using Lama.UI.Model;
 using System.Threading.Tasks;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 
-namespace Lama.UI.UC
+namespace Lama.UI.UC.LocauxControls
 {
     /// <summary>
     /// Logique d'interaction pour Locaux.xaml
     /// </summary>
     public partial class LocauxUC : UserControl, INotifyPropertyChanged
     {
-        public ObservableCollection<Local> LstLocal { get; set; }
-        public ObservableCollection<Volontaire> LstVolontaires { get; set; }
+        public ObservableCollection<Local> LstLocaux { get; set; }
+        public ObservableCollection<Volontaire> LstVolontaires_Assignable { get; set; }
+        public ObservableCollection<Volontaire> LstVolontaires_DernierModificateur { get; set; }
 
         #region Propriétés de LocauxUC
         private int _nbPostePret;
@@ -126,26 +129,105 @@ namespace Lama.UI.UC
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
-
+        public MainWindow ParentWindow { get; set; }
         public LocauxUC()
         {
-            LstLocal = new ObservableCollection<Local>();
-            LstVolontaires = new ObservableCollection<Volontaire>();
-            LocalSelectionne = new Local();
+            LstLocaux = new ObservableCollection<Local>();
+            LstVolontaires_Assignable = new ObservableCollection<Volontaire>();
+            LstVolontaires_Assignable.Add(new Volontaire());
+            LstVolontaires_DernierModificateur = new ObservableCollection<Volontaire>();
 
+            MainWindow ParentWindow = (MainWindow)Application.Current.MainWindow;
+            LstLocaux = ParentWindow.TournoiEnCours.LstLocaux;
+            LstVolontaires_DernierModificateur = ParentWindow.TournoiEnCours.LstVolontaires;
+            foreach(var v in ParentWindow.TournoiEnCours.LstVolontaires)
+            {
+                LstVolontaires_Assignable.Add(v);
+            }
+
+            if (ParentWindow.TournoiEnCours.LstJoueurs != null)
+            {
+                int nbJoueur = ParentWindow.TournoiEnCours.LstJoueurs.Count;
+                DistributionJoueurLocaux(nbJoueur);
+            }
+
+
+            
+
+            // On subscribe les events de propriétés changeantes et on calcul les états de départ.
+            foreach (Local l in LstLocaux)
+            {
+                l.PropertyChanged += Local_PropertyChanged;
+                l.CalculerEtatDepart(); // À la fin du chargement on calcule les états initiaux.
+
+            }
+            CalculerEtat();
+
+            LocalSelectionne = new Local();
             InitializeComponent();
             this.IsEnabled = false;
+
+            // On met l'index de l'item que l'on veut afficher par défaut.
+            cboLocal.SelectedIndex = 0;
+
+            LstLocaux = new ObservableCollection<Local>();
 
             #region Chargement des données en bd
             Task task = new Task(new Action(ChargementDonnes));
             task.ContinueWith(wat =>
             {
                 Completed();
+
             }, TaskScheduler.FromCurrentSynchronizationContext());
             task.Start();
             #endregion
 
+
         }
+
+        private void DistributionJoueurLocaux(int nbJoueur)
+        {
+            double nb = LstLocaux.Count;
+
+            if (LstLocaux.Count % 2 != 0)
+            {
+                nb -= 1;
+            }
+
+            double nbJoueurParLocal = nbJoueur / nb;
+            int nbEquipe = nbJoueur / 5;
+
+            if (LstLocaux.Count != nbEquipe) // Il n'y a pas de local pour chaque équipe
+            {
+                for (int i = 0; i < nb; i++)
+                {
+                    for (int j = 0; j < nbJoueurParLocal;) // Un maximum de 20 postes peut être utilisé.
+                    {
+                        LstLocaux[i].LstPoste[j].Etat = "En attente";
+                        if (j < 20)
+                            j++;
+                        else
+                            return;
+                    }
+                }
+            }
+            else // Il y a un local pour chaque équipe
+            {
+                foreach (var l in LstLocaux)
+                {
+                    for (int i = 0; i < 5;) // Une équipe par local donc 5 postes requis par local.
+                    {
+                        l.LstPoste[i].Etat = "En attente";
+                        if (i < 20)
+                            i++;
+                        else
+                            break;
+                    }
+                }
+            }
+        }
+
+        
 
         private void Completed()
         {
@@ -155,37 +237,56 @@ namespace Lama.UI.UC
 
         private void ChargementDonnes()
         {
-            ChargerVolontaires();
-            ChargerLocaux();
             ChargerVolontairesAssigne();
             ChargerDernierModificateur();
-
-            foreach (Local l in LstLocal)
-            {
-                l.PropertyChanged += Local_PropertyChanged;
-            }
-
-            App.Current.Dispatcher.Invoke((Action)delegate
-            {
-                // On met l'index de l'item que l'on veut afficher par défaut.
-                cboLocal.SelectedIndex = 0;
-                CalculerEtat(); // On calcule les états lors de l'initialisation de la page.
-            });
+        }
+        /// <summary>
+        /// Handler pour le click du bouton d'ajout d'un commentaire.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAjoutCommentaire_Click(object sender, RoutedEventArgs e)
+        {
+            Poste p = ((Button)sender).DataContext as Poste;
+            AjouterCommentaire(p);
         }
 
+        /// <summary>
+        /// Méthode affichant le dialogue pour entrer un commentaire.
+        /// </summary>
+        /// <param name="p">Le poste auquel on doit ajouter un commentaire.</param>
+        public async void AjouterCommentaire(Poste p)
+        {
+            // On va chercher la fenêtre parent (MainWindow dans ce cas-ci) avec la référence du contrôle (this).
+            MetroWindow parent = Window.GetWindow(this) as MetroWindow;
+            var metroWindow = parent;
 
+            // On donne le thème général de l'application à la fenêtre de saisi
+            metroWindow.MetroDialogOptions.ColorScheme = MetroDialogColorScheme.Theme;
+
+            // On extrait le résultat.
+            string result = await metroWindow.ShowInputAsync("Commentaire", p.Commentaire, metroWindow.MetroDialogOptions);
+
+            // Si l'utilisateur n'a pas fait cancel.
+            if (result != null)
+            {
+                p.Commentaire = result;
+            }
+        }
+        /// <summary>
+        /// Handler spécifique au locaux.
+        /// </summary>
+        /// <param name="sender">L'objet qui a provoqué la notification</param>
+        /// <param name="e">La propriété qui a changée.</param>
         private void Local_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "NbPoste_Depart" || e.PropertyName == "NbPoste_Pret" || e.PropertyName == "NbPoste_Attente" || e.PropertyName == "NbPoste_Probleme" || e.PropertyName == "NbPoste_NonRequis" || e.PropertyName == "NbPoste_Restant" || e.PropertyName == "NbPoste")
-            {
-                CalculerEtat();
-            }
             if (e.PropertyName == "VolontaireAssigne")
             {
                 SauvegarderVolontaireAssigne();
             }
-            if (e.PropertyName == "Etat")
+            if (e.PropertyName == "Etat" || e.PropertyName == "Commentaire")
             {
+                CalculerEtatChangement(LocalSelectionne.PosteCourant.AncienEtat, LocalSelectionne.PosteCourant.Etat);
                 SauvegarderEtatPoste(LocalSelectionne.PosteCourant);
             }
             if (e.PropertyName == "DernierModificateur")
@@ -201,29 +302,51 @@ namespace Lama.UI.UC
         }
 
         /// <summary>
-        /// Fonction qui calcule les états et met a jour les propriétés pour l'affichage du sommaire global.
+        /// Fonction qui calcul les nouveaux états après un changement.
+        /// </summary>
+        /// <param name="ancienEtat">L'ancien état du poste.</param>
+        /// <param name="nouvelEtat">Le nouvel état du poste.</param>
+        private void CalculerEtatChangement(string ancienEtat, string nouvelEtat)
+        {
+            switch (ancienEtat)
+            {
+                case "Prêt":
+                    NbPoste_Pret--;
+                    break;
+                case "Problème":
+                    NbPoste_Probleme--;
+                    break;
+                case "En attente":
+                    NbPoste_EnAttente--;
+                    break;
+            }
+            switch (nouvelEtat)
+            {
+                case "Prêt":
+                    NbPoste_Pret++;
+                    break;
+                case "Problème":
+                    NbPoste_Probleme++;
+                    break;
+                case "En attente":
+                    NbPoste_EnAttente++;
+                    break;
+            }
+            NbPoste_Restant = NbPoste_Requis - NbPoste_Pret;
+        }
+        /// <summary>
+        /// Fonction qui calcule les états de départ et met a jour les propriétés pour l'affichage du sommaire global.
         /// </summary>
         private void CalculerEtat()
         {
-            int nbPoste_Pret = 0;
-            int nbPoste_Probleme = 0;
-            int nbPoste_Attente = 0;
-            int nbPoste_Restant = 0;
-            int nbPoste_Requis = 0;
-
-            foreach (Local l in LstLocal)
+            foreach (Local l in LstLocaux)
             {
-                nbPoste_Pret += l.NbPoste_Pret;
-                nbPoste_Probleme += l.NbPoste_Probleme;
-                nbPoste_Attente += l.NbPoste_Attente;
-                nbPoste_Restant += l.NbPoste_Restant;
-                nbPoste_Requis += l.NbPoste;
+                NbPoste_Pret += l.NbPoste_Pret;
+                NbPoste_Probleme += l.NbPoste_Probleme;
+                NbPoste_EnAttente += l.NbPoste_Attente;
+                NbPoste_Restant += l.NbPoste_Restant;
+                NbPoste_Requis += l.NbPoste;
             }
-            NbPoste_Pret = nbPoste_Pret;
-            NbPoste_Probleme = nbPoste_Probleme;
-            NbPoste_EnAttente = nbPoste_Attente;
-            NbPoste_Restant = nbPoste_Restant;
-            NbPoste_Requis = nbPoste_Requis;
 
             // Si le nombre de poste restant est a 0 tout les locaux sont prêts a recevoir les joueurs.
             if (NbPoste_Pret == NbPoste_Requis)
@@ -232,36 +355,32 @@ namespace Lama.UI.UC
             }
         }
 
+        #region Action lié à la base de données.
+        #region Chargement des données
         // Fonction qui charge les postes lié à la liste de locaux lié au tournoi.
         private void ChargerPostes(Local local, ICollection<postes> postes)
         {
             foreach (postes p in postes)
             {
                 // On va chercher le volontaire ayant fait la modification.
-                //TODO
-
-                local.LstPoste.Add(new Poste(p.numeroPoste, p.etatspostes.nom)); // On ajoute le poste à la liste de poste.
+                local.LstPoste.Add(new Poste(p.numeroPoste, p.etatspostes.nom, p.commentaire)); // On ajoute le poste à la liste de poste.
             }
             local.NbPoste_Depart = postes.Count;
-            local.CalculerEtat();
         }
 
         // Fonction qui charge les locaux lié au tournoi.
         private void ChargerLocaux()
         {
-            var taskLocaux = LocalHelper.SelectLocauxTournoiAsync(); // On va chercher la liste des locaux associer à ce tournoi.
-            taskLocaux.Wait();
-            List<locaux> lLocaux = taskLocaux.Result;
-            foreach (locaux l in lLocaux)
+            foreach (Local l in LstLocaux)
             {
-                Local modelLocal = new Local(l.numero);
-
-                App.Current.Dispatcher.Invoke((Action)delegate
-                {
-                    LstLocal.Add(modelLocal); // On ajoute les locaux chercher en BD au tournoi.
-                });
-                ChargerPostes(modelLocal, l.postes);
+                l.PropertyChanged += Local_PropertyChanged;
             }
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                // On met l'index de l'item que l'on veut afficher par défaut.
+                cboLocal.SelectedIndex = 0;
+            });
+
         }
 
         // Fonction qui charge les volontaires liés au tournois.
@@ -271,11 +390,17 @@ namespace Lama.UI.UC
             taskVolontaire.Wait();
             List<comptes> lComptes = taskVolontaire.Result;
 
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {
+                LstVolontaires_Assignable.Add(new Volontaire()); // On ajoute les locaux chercher en BD au tournoi.
+            });
+
             foreach (comptes c in lComptes)
             {
                 App.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    LstVolontaires.Add(new Volontaire(c.nom, c.prenom, c.matricule, c.courriel, c.nomUtilisateur)); // Ajout des volontaires à la liste.
+                    LstVolontaires_Assignable.Add(new Volontaire(c.nom, c.prenom, c.matricule, c.courriel, c.nomUtilisateur)); // Ajout des volontaires à la liste.
+                    LstVolontaires_DernierModificateur.Add(new Volontaire(c.nom, c.prenom, c.matricule, c.courriel, c.nomUtilisateur)); // Ajout des volontaires à la liste.
                 });
 
             }
@@ -285,12 +410,12 @@ namespace Lama.UI.UC
         /// </summary>
         private void ChargerVolontairesAssigne()
         {
-            foreach (var l in LstLocal)
+            foreach (var l in LstLocaux)
             {
                 var taskVolAss = CompteHelper.SelectByLocalAssigne(l.Numero);
                 taskVolAss.Wait();
                 string c = taskVolAss.Result;
-                foreach (var v in LstVolontaires)
+                foreach (var v in LstVolontaires_Assignable)
                 {
                     if (v.NomUtilisateur == c)
                     {
@@ -304,14 +429,14 @@ namespace Lama.UI.UC
         /// </summary>
         private void ChargerDernierModificateur()
         {
-            foreach (var l in LstLocal)
+            foreach (var l in LstLocaux)
             {
                 foreach (var p in l.LstPoste)
                 {
                     var taskVolMod = CompteHelper.SelectByModificationEtat(p.Numero, l.Numero);
                     taskVolMod.Wait();
                     string c = taskVolMod.Result;
-                    foreach (var v in LstVolontaires)
+                    foreach (var v in LstVolontaires_DernierModificateur)
                     {
                         if (v.NomUtilisateur == c)
                         {
@@ -321,6 +446,8 @@ namespace Lama.UI.UC
                 }
             }
         }
+        #endregion
+        #region Sauvegarde des données
         /// <summary>
         /// Fonction appelé pour sauvegarder le nom du volontaire qui a fait la modification de l'état du poste.
         /// </summary>
@@ -336,7 +463,7 @@ namespace Lama.UI.UC
         /// <param name="p">Le poste qu'y doit être modifié en BD.</param>
         private void SauvegarderEtatPoste(Poste p)
         {
-            var taskSave = PosteHelper.UpdateEtatAsync(p.Numero, LocalSelectionne.Numero, p.Etat);
+            var taskSave = PosteHelper.UpdateEtatAsync(p.Numero, LocalSelectionne.Numero, p.Etat, p.Commentaire);
         }
         /// <summary>
         /// Méthode pour sauvegarder le volontaire assigné à un  local en BD.
@@ -345,6 +472,10 @@ namespace Lama.UI.UC
         {
             var task = LocalHelper.UpdateAsync(LocalSelectionne.Numero, LocalSelectionne.VolontaireAssigne.NomUtilisateur);
         }
+        #endregion
+
+        #endregion
+
 
     }
 }
