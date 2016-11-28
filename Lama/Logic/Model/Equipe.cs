@@ -45,13 +45,6 @@ namespace Lama.Logic.Model
 
             EstElimine = false;
             LstStats = new Statistiques();
-
-            // TODO: SELEUMENT POUR MONTRER EN DÉMO
-            LstJoueurs.Add(new Joueur("123123", "12312", "123123", "123", "maxeber"));
-            LstJoueurs.Add(new Joueur("123123", "12312", "123123", "123", "savariiia"));
-            LstJoueurs.Add(new Joueur("123123", "12312", "123123", "123", "antonee"));
-            LstJoueurs.Add(new Joueur("123123", "12312", "123123", "123", "franciska"));
-            LstJoueurs.Add(new Joueur("123123", "12312", "123123", "123", "l'autre dude3"));
         }
         #endregion
 
