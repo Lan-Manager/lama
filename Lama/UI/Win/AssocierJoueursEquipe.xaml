@@ -26,8 +26,10 @@
 
         <DataGrid Name="dgEquipes" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="450" Height="300" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False">
             <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Matricule}" Width="*" Header="Matricule" IsReadOnly="True" />
                 <DataGridTextColumn Binding="{Binding Prenom}" Width="*" Header="Prénom" IsReadOnly="True" />
                 <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Nom" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Usager}" Width="*" Header="Summoner" IsReadOnly="True" />
                 <DataGridTemplateColumn Width="*" Header="Actif">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
