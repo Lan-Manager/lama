@@ -79,7 +79,7 @@ namespace Lama
 
             if (t == null)
             {
-                return T;
+                return null;
             }
 
 
