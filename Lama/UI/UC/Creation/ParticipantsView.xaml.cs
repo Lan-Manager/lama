@@ -64,7 +64,7 @@ namespace Lama.UI.UC.Creation
             // On peut ainsi aller chercher le joueur à modifier à partir de la datagrid (le SelectedItem)
             Joueur j = dg.SelectedItem as Joueur;
 
-            AjouterParticipant ap = new AjouterParticipant(j);
+            AjouterParticipant ap = new AjouterParticipant(j, (DataContext as Tournoi).LstJoueurs.Where(x => x != j).ToList());
 
             ap.ShowDialog();
 
@@ -101,7 +101,7 @@ namespace Lama.UI.UC.Creation
 
         private void btnAddParticipant_Click(object sender, RoutedEventArgs e)
         {
-            AjouterParticipant ap = new AjouterParticipant();
+            AjouterParticipant ap = new AjouterParticipant((DataContext as Tournoi).LstJoueurs.ToList());
             ap.ShowDialog();
 
             if (ap.LeJoueur != null)

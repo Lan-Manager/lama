@@ -23,10 +23,13 @@ namespace Lama.UI.Win
     {
         public Joueur LeJoueur { get; set; }
         private Joueur JoueurTemp { get; set; }
-        
+        private StringBuilder Erreurs { get; set; }
+        private readonly List<Joueur> joueurs;
+
         // Ajouter un participant
-        public AjouterParticipant()
+        public AjouterParticipant(List<Joueur> joueurs)
         {
+            this.joueurs = joueurs;
             InitializeComponent();
 
             lblTitre.Content = "Nouveau participant";
@@ -37,8 +40,9 @@ namespace Lama.UI.Win
         }
 
         // Modifier un participant
-        public AjouterParticipant(Joueur j)
+        public AjouterParticipant(Joueur j, List<Joueur> joueurs)
         {
+            this.joueurs = joueurs;
             InitializeComponent();
 
             lblTitre.Content = "Modifier un participant";
@@ -50,21 +54,67 @@ namespace Lama.UI.Win
 
         private void btnEnregistrer_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult mbr = MessageBox.Show("Voulez-vous enregistrer?",
+            // Effectuer les validations
+            if (ValiderChamps())
+            {
+                MessageBox.Show(Erreurs.ToString(),
+                   "Erreurs",
+                   MessageBoxButton.OK,
+                   MessageBoxImage.Error);
+            }
+
+            // Si tout est correct...
+            else
+            {
+                MessageBoxResult mbr = MessageBox.Show("Voulez-vous enregistrer?",
                                                    "Enregistrer",
                                                    MessageBoxButton.YesNoCancel,
                                                    MessageBoxImage.Question,
                                                    MessageBoxResult.Cancel);
 
-            if (mbr != MessageBoxResult.Cancel)
-            {
-                if (mbr == MessageBoxResult.Yes)
+                // Selon le choix...
+                if (mbr != MessageBoxResult.Cancel)
                 {
-                    LeJoueur = JoueurTemp;
-                }
+                    if (mbr == MessageBoxResult.Yes)
+                    {
+                        LeJoueur = JoueurTemp;
+                    }
 
-                Close();
+                    Close();
+                }
             }
+        }
+
+        private bool ValiderChamps()
+        {
+            Erreurs = new StringBuilder();
+            bool invalide = false;
+
+            // Champs vides
+            if (string.IsNullOrWhiteSpace(txtMatricule.Text)
+                || string.IsNullOrWhiteSpace(txtNom.Text)
+                || string.IsNullOrWhiteSpace(txtPrenom.Text)
+                || string.IsNullOrWhiteSpace(txtSummoner.Text))
+            {
+                invalide = true;
+                Erreurs.AppendLine("- Un ou plusieurs champs sont vides");
+            }
+
+            // Matricule unique
+            if (joueurs.Any(x => x.Matricule == JoueurTemp.Matricule))
+            {
+                invalide = true;
+                Erreurs.AppendLine("- Le matricule doit être unique");
+            }
+
+            // Summoner unique
+            if (JoueurTemp.Usager != null && joueurs.Any(x => x.Usager.ToLowerInvariant() == JoueurTemp.Usager.ToLowerInvariant()))
+            {
+                invalide = true;
+                Erreurs.AppendLine("- Le summoner doit être unique");
+            }
+
+            return invalide;
         }
     }
 }
