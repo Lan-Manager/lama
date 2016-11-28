@@ -12,7 +12,6 @@
              DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>
         <Style x:Key="icPoste" BasedOn="{StaticResource SquareButtonStyle}"></Style>
-        <j:BindingProxy x:Key="proxy" Data="{Binding}" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>

@@ -86,7 +86,6 @@
     </ApplicationDefinition>
     <Compile Include="Logic\Model\PartieEquipe.cs" />
     <Compile Include="Logic\Model\PropertyChangedExtendedEventArgs.cs" />
-    <Compile Include="Logic\Tools\BindingProxy.cs" />
     <Compile Include="Logic\Tools\PasswordHelper.cs" />
     <Compile Include="UI\UC\Creation\EquipesView.xaml.cs">
       <DependentUpon>EquipesView.xaml</DependentUpon>
@@ -213,10 +212,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\IconsNonShared.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
