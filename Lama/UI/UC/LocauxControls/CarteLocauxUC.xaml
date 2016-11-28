@@ -32,17 +32,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid Name="gPoste">
-                        <Grid.ContextMenu>
-                            <ContextMenu Name="cmPoste">
-                                <MenuItem Header="État">
-                                    <ComboBox Name="cboEtat" ItemsSource="{Binding LstEtatPossible}" SelectedValue="{Binding Etat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MouseDown="cboEtat_MouseDown"></ComboBox>
-                                </MenuItem>
-                                <MenuItem Header="Modificateur">
-                                    <ComboBox Name="cboVolontaire" ItemsSource="{Binding Data.LstVolontaires, Source={StaticResource proxy}}" SelectedValue="{Binding DernierModificateur, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="NomComplet"></ComboBox>
-                                </MenuItem>
-                            </ContextMenu>
-                        </Grid.ContextMenu>
+                    <Grid Name="gPoste" MouseDown="gPoste_MouseDown">
                         <Label Content="{Binding Numero}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 10"></Label>
                         <Rectangle Width="50" Height="50" Margin="20">
                             <Rectangle.OpacityMask>

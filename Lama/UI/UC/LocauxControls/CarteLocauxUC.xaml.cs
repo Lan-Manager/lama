@@ -16,6 +16,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Lama.Logic.Tools;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+
 namespace Lama.UI.UC.LocauxControls
 {
     /// <summary>
@@ -64,9 +67,34 @@ namespace Lama.UI.UC.LocauxControls
             cboLocal.SelectedIndex = 0;
         }
 
-        private void cboEtat_MouseDown(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Méthode affichant le dialogue pour entrer un commentaire.
+        /// </summary>
+        /// <param name="p">Le poste auquel on doit ajouter un commentaire.</param>
+        public async void Afficher_Menu(Poste p)
         {
-            
+            // On va chercher la fenêtre parent (MainWindow dans ce cas-ci) avec la référence du contrôle (this).
+            MetroWindow parent = Window.GetWindow(this) as MetroWindow;
+            var metroWindow = parent;
+
+            // On donne le thème général de l'application à la fenêtre de saisi
+            metroWindow.MetroDialogOptions.ColorScheme = MetroDialogColorScheme.Theme;
+
+            // On extrait le résultat.
+            string result = await metroWindow.ShowInputAsync("Commentaire", p.Commentaire, metroWindow.MetroDialogOptions);
+
+            // Si l'utilisateur n'a pas fait cancel.
+            if (result != null)
+            {
+                p.Commentaire = result;
+            }
+        }
+
+        private void gPoste_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Poste p = ((Grid)sender).DataContext as Poste;
+            CustomDialog cm = new MenuCarte();
+            cm.ShowModalDialogExternally();
         }
     }
 }
