@@ -27,7 +27,7 @@ namespace Lama.Logic.TypeTournoi
         /// </summary>
         /// <param name="equipesPerdantes">Liste d'équipe ayant été éliminées au tour précédent. Envoyez une liste vide pour le premier tour.</param>
         /// <returns>Retourne une liste des parties pour le tour actuel.</returns>
-        List<Partie> GenererTour(List<Equipe> equipesPerdantes);
+        Tour GenererTour(List<Equipe> equipesPerdantes);
         /// <summary>
         /// Méthode permettant d'obtenir une liste des équipes ayant été éliminé au cours du tournoi.
         /// </summary>
@@ -47,11 +47,25 @@ namespace Lama.Logic.TypeTournoi
         /// Méthode permettant d'obtenir le numéro du tour actuel du tournoi.
         /// </summary>
         /// <returns>Retourne le numéro du tour auquel le tournoi est rendu.</returns>
-        uint ObtenirNumTourCourant();
+        int ObtenirNumTourCourant();
+        /// <summary>
+        /// Méthode permettant d'obtenir le numéro de la dernière partie générée depuis le début du tournoi.
+        /// </summary>
+        /// <returns>Retourne le numéro de la dernière partie du tournoi générée.</returns>
+        int ObtenirNumDernierePartie();
         /// <summary>
         /// Méthode pour obtenir l'équipe ayant reçut un bye au tour actuel.
         /// </summary>
-        /// <returns>Retourne l'équipe ayant reçut un bye au tour actuel ou null si aucun bye.</returns>
-        Equipe ObtenirBye();
+        /// <returns>Retourne l'équipe ayant reçut un bye.</returns>
+        List<Equipe> ObtenirBye();
+        /// <summary>
+        /// Méthode pour obtenir la liste des tours du tournoi.
+        /// </summary>
+        /// <returns>Liste de tours de tout le tournoi.</returns>
+        List<Tour> ObtenirTours();
+
+
+
+
     }
 }

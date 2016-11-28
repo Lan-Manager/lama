@@ -9,15 +9,21 @@ namespace Lama.Logic.TypeTournoi
 {
     public class Elimination : ITypeTournoi
     {
+        public List<Tour> listTours;
 
         private bool estInitialiser = false;
-        private uint numTour = 0;
-        private bool estSimpleElimination = false;
+        private int numTour = 0;
+        private int numPartie = 0;
+        private bool estSimpleElimination = true;
+        private int maxNumberGames;
+        private int numberOfBye;
+        private static Random rng = new Random(Guid.NewGuid().GetHashCode());
 
         private List<Equipe> equipesParticipantes;
         private List<Equipe> equipesEliminees;
         private List<Equipe> equipesCompetiteurs;
-        private Equipe equipeBye;
+        private List<Equipe> listBye;
+        private Dictionary<Equipe, int> scoreboard;
 
 
         public bool Initialiser(List<Equipe> equipes, string configString = "elimination=simple")
@@ -46,23 +52,38 @@ namespace Lama.Logic.TypeTournoi
             }
 
 
+            if (estSimpleElimination)
+                maxNumberGames = equipes.Count();
+            else
+                maxNumberGames = (equipes.Count() * 2) - 1;
+            listTours = new List<Tour>();
+            scoreboard = new Dictionary<Equipe, int>();
             equipesParticipantes = new List<Equipe>(equipes.Count);
             equipesEliminees = new List<Equipe>(equipes.Count);
             equipesCompetiteurs = new List<Equipe>(equipes.Count);
 
+            Elimination.Shuffle(equipes);
+
             foreach (Equipe equipe in equipes)
             {
+                scoreboard.Add(equipe, 0);
                 equipesCompetiteurs.Add(equipe);
                 equipesParticipantes.Add(equipe);
             }
+            numberOfBye = nlpo2(UInt32.Parse(equipes.Count.ToString())) - equipes.Count();
+            listBye = new List<Equipe>(numberOfBye);
             estInitialiser = true;
             return EstInitialiser();
         }
 
-        public List<Partie> GenererTour(List<Equipe> equipesPerdantes)
+        public Tour GenererTour(List<Equipe> equipesPerdantes)
         {
             VerificationInitialisation();
-            throw new NotImplementedException();
+
+            if (estSimpleElimination)
+                return GenererTourElimination(equipesPerdantes);
+            else
+                return GenererTourDoubleElimination(equipesPerdantes);
         }
 
         public bool EstInitialiser()
@@ -88,22 +109,35 @@ namespace Lama.Logic.TypeTournoi
             return equipesParticipantes;
         }
 
-        public uint ObtenirNumTourCourant()
+        public int ObtenirNumTourCourant()
         {
             VerificationInitialisation();
             return numTour;
         }
 
-        public Equipe ObtenirBye()
+        public int ObtenirNumDernierePartie()
         {
             VerificationInitialisation();
-            return equipeBye;
+            return numPartie;
+        }
+
+        public List<Equipe> ObtenirBye()
+        {
+            VerificationInitialisation();
+            return listBye;
         }
 
         private void VerificationInitialisation()
         {
             if (!estInitialiser)
-                throw new InvalidOperationException("SimpleElimination n'est pas initialisé.");
+                throw new InvalidOperationException("Objet Elimination n'est pas initialisé.");
+        }
+
+
+        public List<Tour> ObtenirTours()
+        {
+            VerificationInitialisation();
+            return listTours;
         }
 
         private Dictionary<string, string> ParseConfig(string configurationString)
@@ -115,5 +149,109 @@ namespace Lama.Logic.TypeTournoi
                     .ToDictionary(y => y[0], y => y[1]);
             return dict;
         }
+
+
+        //https://stackoverflow.com/questions/600293/how-to-check-if-a-number-is-a-power-of-2
+        bool IsPowerOfTwo(ulong x)
+        {
+            return (x != 0) && ((x & (x - 1)) == 0);
+        }
+
+
+        public Tour GenererTourElimination(List<Equipe> equipesPerdantes)
+        {
+            numTour++;
+            Tour tour = new Tour(numTour);
+            if (equipesPerdantes == null)
+            {
+                listBye = equipesCompetiteurs.ToList(); ;
+                int nbrEquipePremierTour = equipesParticipantes.Count - numberOfBye;
+                int index = 0;
+                for (int i = 0; i < equipesCompetiteurs.Count() / 2; i++)
+                {
+                    if (nbrEquipePremierTour == 0)
+                        break;
+                    PartieEquipe pe1 = new PartieEquipe(equipesCompetiteurs[index]);
+                    PartieEquipe pe2 = new PartieEquipe(equipesCompetiteurs[index + 1]);
+                    listBye.Remove(pe1.Equipe);
+                    listBye.Remove(pe2.Equipe);
+                    Partie partie = new Partie(pe1, pe2, ++numPartie);
+                    nbrEquipePremierTour -= 2;
+                    index += 2;
+                    tour.LstParties.Add(partie);
+                }
+            }
+            else
+            {
+                List<Equipe> equipesGagnante = equipesCompetiteurs.Where(x => !equipesPerdantes.Any(y => x == y)).ToList(); 
+                foreach(Equipe e in equipesGagnante)
+                {
+                    scoreboard[e] += 1;
+                }
+                equipesCompetiteurs = equipesGagnante;
+                foreach (Equipe e in equipesPerdantes)
+                {
+                    equipesEliminees.Add(e);
+                }
+
+                int index = 0;
+                for (int i = 0; i < equipesCompetiteurs.Count() / 2; i++)
+                {
+                    PartieEquipe pe1 = new PartieEquipe(equipesCompetiteurs[index]);
+                    PartieEquipe pe2 = new PartieEquipe(equipesCompetiteurs[index + 1]);
+                    listBye.Remove(pe1.Equipe);
+                    listBye.Remove(pe2.Equipe);
+                    Partie partie = new Partie(pe1, pe2, ++numPartie);
+                    index += 2;
+                    tour.LstParties.Add(partie);
+                }
+            }
+
+            listTours.Add(tour);
+            return tour;
+        }
+
+        public Tour GenererTourDoubleElimination(List<Equipe> equipesPerdantes)
+        {
+            return null;
+        }
+
+        //https://stackoverflow.com/questions/273313/randomize-a-listt
+        private static void Shuffle<T>(IList<T> list)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
+
+        //https://stackoverflow.com/questions/5525122/c-sharp-math-question-smallest-power-of-2-bigger-than-x
+        private int nlpo2(uint x)
+        {
+            x--; // comment out to always take the next biggest power of two, even if x is already a power of two
+            x |= (x >> 1);
+            x |= (x >> 2);
+            x |= (x >> 4);
+            x |= (x >> 8);
+            x |= (x >> 16);
+            return (int)(x + 1);
+        }
+
+        private Tour CreerTour(List<Partie> listParties, int numTour)
+        {
+            Tour leTour = new Tour(numTour);
+            foreach (Partie partie in listParties)
+            {
+                leTour.LstParties.Add(partie);
+            }
+
+            return leTour;
+        }
+
     }
 }

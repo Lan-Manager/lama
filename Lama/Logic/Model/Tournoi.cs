@@ -1,4 +1,5 @@
-﻿using LamaBD;
+﻿using Lama.Logic.TypeTournoi;
+using LamaBD;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,6 +33,7 @@ namespace Lama.Logic.Model
             }
         }
 
+        public ITypeTournoi GenerateurTour { get; set; }
         public string Etat { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan Heure { get; set; }
@@ -107,6 +109,7 @@ namespace Lama.Logic.Model
             LstTours = new ObservableCollection<Tour>();
 
             GenerationTourPossible = true;
+            GenerateurTour = new Elimination();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -121,16 +124,44 @@ namespace Lama.Logic.Model
         {
             if (GenerationTourValide())
             {
-                TourActif = new Tour(NbTour);
-
-                List<Equipe> eq = new List<Equipe>(LstEquipes.Where(e => e.EstElimine != true));
+                if (!GenerateurTour.EstInitialiser())
+                {
+                    GenerateurTour.Initialiser(LstEquipes.ToList(), "elimination = simple");
+                    TourActif = GenerateurTour.GenererTour(null);
+                }
+                else
+                {
+                    //TODO GenererTour avec perdant
+                    List<Equipe> equipesPerdantes = new List<Equipe>();
+                    if (TourActif != null)
+                    {
+                        foreach (var partie in TourActif.LstParties)
+                        {
+                            foreach (PartieEquipe partieEquipe in partie.LstEquipes)
+                            {
+                                if (partieEquipe.EstGagnant == false)
+                                {
+                                    equipesPerdantes.Add(partieEquipe.Equipe);
+                                }
+                            }
+                        }
+                    }
+                    TourActif = GenerateurTour.GenererTour(equipesPerdantes);
+                }
+                //TourActif = new Tour(NbTour);
+                //List<Equipe> eq = new List<Equipe>(LstEquipes.Where(e => e.EstElimine != true));
 
                 ObservableCollection<PartieEquipe> lstEquipesNonEliminees = new ObservableCollection<PartieEquipe>();
-
-                foreach (var e in eq)
+                foreach (Equipe e in GenerateurTour.ObtenirCompetiteurs())
+                {
+                    lstEquipesNonEliminees.Add(new PartieEquipe(e));
+                }
+                LstTours.Add(TourActif);
+                /*foreach (var e in eq)
                     if (!e.EstElimine)
                         lstEquipesNonEliminees.Add(new PartieEquipe(e));
-
+                        */
+                /*
                 if (lstEquipesNonEliminees.Count() >= 2)
                 {
                     int index = 0;
@@ -144,8 +175,10 @@ namespace Lama.Logic.Model
 
                     LstTours.Add(TourActif);
                 }
-
-                else if (lstEquipesNonEliminees.Count == 1)
+                
+                else
+                */
+                if (lstEquipesNonEliminees.Count == 1)
                 {
                     Vainqueur = lstEquipesNonEliminees.ElementAt(0).Equipe;
                 }
@@ -153,7 +186,7 @@ namespace Lama.Logic.Model
                 GenerationTourValide();
                 return true;
             }
-            
+
             return false;
         }
 
@@ -173,6 +206,7 @@ namespace Lama.Logic.Model
                         }
                         else
                         {
+                            equipe.EstGagnant = false;
                             foreach (var e in partie.LstEquipes)
                                 if (!equipe.Equals(e))
                                     e.Equipe.EstElimine = false;
