@@ -66,7 +66,7 @@ namespace Lama.UI.Win
             lblTitre.Content = "Modifier un volontaire";
 
             VolontaireTemp = new Volontaire(v.Nom, v.Prenom, v.Matricule, v.Courriel, v.NomUtilisateur);
-            VolontaireTemp.MotDePasse = "test";
+            VolontaireTemp.MotDePasse = "test"; // il faut mettre du texte dans le champs motdepasse ou cela nous retourne l'erreur disant que le champ est vide
 
             DataContext = VolontaireTemp;
         }
@@ -128,9 +128,9 @@ namespace Lama.UI.Win
                 invalide = true;
                 Erreurs.AppendLine("- Le matricule doit être unique");
             }
-
+            
             // Test d'unicité - NomUtilisateur
-            if (volontaires.Any(x => x.NomUtilisateur == VolontaireTemp.NomUtilisateur))
+            if (volontaires.Any(x => x.NomUtilisateur.ToLowerInvariant() == VolontaireTemp.NomUtilisateur.ToLowerInvariant()))
             {
                 invalide = true;
                 Erreurs.AppendLine("- Le nom d'utilisateur doit être unique");
