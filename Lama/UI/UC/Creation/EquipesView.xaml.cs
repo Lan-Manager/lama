@@ -73,6 +73,10 @@ namespace Lama.UI.UC.Creation
             Equipe eq = dg.SelectedItem as Equipe;
 
             // Supprimer l'objet Equipe
+            foreach (Joueur j in ((Tournoi)DataContext).LstJoueurs.Where(x => x.EquipeJoueur == eq))
+            {
+                j.EquipeJoueur = null;
+            }
             ((Tournoi)DataContext).LstEquipes.Remove(eq);
         }
 
