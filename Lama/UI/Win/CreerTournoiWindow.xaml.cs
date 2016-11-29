@@ -125,7 +125,7 @@ namespace Lama.UI.Win
             {
                 LeTournoi = temp;
                 bool success = LeTournoi.Insert();
-
+                Closing -= MetroWindow_Closing;
                 Close();
             }
         }
