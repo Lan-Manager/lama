@@ -62,6 +62,6 @@ namespace Lama.UI.UC.TournoiControls.ClassementControls
             }
 
             lvClassement.ItemsSource = LstClassement;
-        }
+        }        
     }
 }
