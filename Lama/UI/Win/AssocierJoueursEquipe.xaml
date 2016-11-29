@@ -46,6 +46,9 @@
             </DataGrid.Columns>
         </DataGrid>
 
+        <Label Name="lblNbJoueurs" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,400,60,0"/>
+        <Label HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,400,0,0" Content="/5 joueur(s)"/>
+
         <Button Name="btnEnregistrer" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="125,400,0,0" Content="Enregistrer" Click="btnSave_Click"/>
         <Button Name="btnAnnuler" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,400,125,0" Content="Annuler" Click="btnCancel_Click"/>
     </Grid>
