@@ -20,12 +20,13 @@ namespace LamaBD
             this.comptestournois = new HashSet<comptestournois>();
             this.equipes = new HashSet<equipes>();
             this.prixtournois = new HashSet<prixtournois>();
-            this.tours = new HashSet<tours>();
             this.tournoislocaux = new HashSet<tournoislocaux>();
+            this.tours = new HashSet<tours>();
         }
     
         public int idTournoi { get; set; }
         public int idJeu { get; set; }
+        public int idTypeTournoi { get; set; }
         public int idCompte { get; set; }
         public int idEtatTournoi { get; set; }
         public Nullable<int> idEquipe_gagnante { get; set; }
@@ -49,9 +50,10 @@ namespace LamaBD
         public virtual jeux jeux { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<prixtournois> prixtournois { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tours> tours { get; set; }
+        public virtual typestournois typestournois { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tournoislocaux> tournoislocaux { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tours> tours { get; set; }
     }
 }

@@ -88,6 +88,7 @@ namespace Lama
             T.Date = t.dateEvenement.Date;
             T.Heure = t.dateEvenement.TimeOfDay;
             T.Description = t.description;
+            T.TypeTournoi = t.typestournois.nom;
 
             // Locaux
             T.LstLocaux = ChargerLocaux();

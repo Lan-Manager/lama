@@ -33,6 +33,7 @@ namespace Lama.Logic.Model
             }
         }
 
+        public string TypeTournoi { get; set; }
         public ITypeTournoi GenerateurTour { get; set; }
         public string Etat { get; set; }
         public DateTime Date { get; set; }
@@ -276,6 +277,12 @@ namespace Lama.Logic.Model
                 var jeu = ctx.jeux
                     .Where(x => x.nom == "League of Legends")
                     .SingleOrDefault();
+
+                var typeTournoi = ctx.typestournois
+                    .Where(x => x.nom == "Simple élimination")
+                    .SingleOrDefault();
+
+                entity.idTypeTournoi = typeTournoi.idTypeTournoi;
 
                 entity.idJeu = jeu.idJeu;
 

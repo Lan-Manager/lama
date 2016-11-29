@@ -152,6 +152,9 @@
     <Compile Include="tours.cs">
       <DependentUpon>ModelLama.tt</DependentUpon>
     </Compile>
+    <Compile Include="typestournois.cs">
+      <DependentUpon>ModelLama.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

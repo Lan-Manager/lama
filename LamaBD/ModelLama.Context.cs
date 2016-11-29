@@ -45,10 +45,11 @@ namespace LamaBD
         public virtual DbSet<statistiques> statistiques { get; set; }
         public virtual DbSet<statistiquesjeux> statistiquesjeux { get; set; }
         public virtual DbSet<tours> tours { get; set; }
-        public virtual DbSet<tournois> tournois { get; set; }
         public virtual DbSet<tournoislocaux> tournoislocaux { get; set; }
         public virtual DbSet<postes> postes { get; set; }
         public virtual DbSet<parties> parties { get; set; }
+        public virtual DbSet<tournois> tournois { get; set; }
+        public virtual DbSet<typestournois> typestournois { get; set; }
     
         public virtual int FIN_TOURNOI()
         {
