@@ -30,7 +30,7 @@ namespace Lama.Logic.Model
 
             LamaBD.tours entity = new LamaBD.tours();
             entity.idTournoi = tournois.idTournoi;
-            entity.dateDebut = DateTime.Now;
+            entity.dateDebut = DateTime.UtcNow;
             entity.numTour = NumeroTour;
             entity.dateFin = null;
             foreach (Partie partie in LstParties)

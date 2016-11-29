@@ -127,7 +127,7 @@
           <Property Name="estTermine" Type="bool" Nullable="false" />
           <Property Name="dureeJeu" Type="time" Precision="0" />
           <Property Name="dateFin" Type="datetime" Precision="0" />
-          <Property Name="lastUpdated" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="lastUpdated" Type="timestamp" Precision="0" Nullable="false" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="postes">
           <Key>
@@ -1455,7 +1455,7 @@
           <Property Name="estTermine" Type="Boolean" Nullable="false" />
           <Property Name="dureeJeu" Type="Time" />
           <Property Name="dateFin" Type="DateTime" />
-          <Property Name="lastUpdated" Type="DateTime" Nullable="false" />
+          <Property Name="lastUpdated" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="equipesparties" Relationship="bd_lama.EquipesParties_Parties_FK" FromRole="parties" ToRole="equipesparties" />
           <NavigationProperty Name="tours" Relationship="bd_lama.Parties_Tours_FK" FromRole="parties" ToRole="tours" />
         </EntityType>
