@@ -17,7 +17,6 @@
         <EntityTypeShape EntityType="bd_lama.locaux" Width="1.5" PointX="0.75" PointY="17.125" />
         <EntityTypeShape EntityType="bd_lama.messages" Width="1.5" PointX="3" PointY="26.75" />
         <EntityTypeShape EntityType="bd_lama.participants" Width="1.5" PointX="8.25" PointY="4.875" />
-        <EntityTypeShape EntityType="bd_lama.parties" Width="1.5" PointX="10.5" PointY="18.625" />
         <EntityTypeShape EntityType="bd_lama.prix" Width="1.5" PointX="10.5" PointY="14.875" />
         <EntityTypeShape EntityType="bd_lama.prixtournois" Width="1.5" PointX="12.75" PointY="10.125" />
         <EntityTypeShape EntityType="bd_lama.scoresequipesparties" Width="1.5" PointX="15" PointY="13.875" />
@@ -30,16 +29,25 @@
         <AssociationConnector Association="bd_lama.EquipesParties_Equipes_FK" />
         <AssociationConnector Association="bd_lama.Prix_Equipes_FK" />
         <AssociationConnector Association="bd_lama.EquipesParticipants_Participants_FK" />
-        <AssociationConnector Association="bd_lama.EquipesParties_Parties_FK" />
         <AssociationConnector Association="bd_lama.ScoresEquipesParties_EquipesParties_FK" />
         <AssociationConnector Association="bd_lama.JeuxComptes_Jeux_FK" />
         <AssociationConnector Association="bd_lama.StatistiquesJeux_Jeux_FK" />
         <AssociationConnector Association="bd_lama.JeuxComptes_Participants_FK" />
-        <AssociationConnector Association="bd_lama.Parties_Tours_FK" />
         <AssociationConnector Association="bd_lama.PrixTournois_Prix_FK" />
         <AssociationConnector Association="bd_lama.ScoresEquipesParties_StatistiquesJeux_FK" />
         <AssociationConnector Association="bd_lama.StatistiquesJeux_Satistiques_FK" />
-        <EntityTypeShape EntityType="bd_lama.tournois" Width="1.5" PointX="15.5" PointY="7.625" />
+        <EntityTypeShape EntityType="bd_lama.tournoislocaux" Width="1.5" PointX="17.75" PointY="12.125" />
+        <AssociationConnector Association="bd_lama.TournoixLocaux_Comptes_FK" />
+        <AssociationConnector Association="bd_lama.TournoixLocaux_Locaux_FK" />
+        <EntityTypeShape EntityType="bd_lama.postes" Width="1.5" PointX="6" PointY="12.375" />
+        <AssociationConnector Association="bd_lama.Postes_Comptes_FK" />
+        <AssociationConnector Association="bd_lama.Postes_EtatsPostes_FK" />
+        <AssociationConnector Association="bd_lama.Postes_Locaux_FK" />
+        <EntityTypeShape EntityType="bd_lama.parties" Width="1.5" PointX="10.5" PointY="18.625" />
+        <AssociationConnector Association="bd_lama.EquipesParties_Parties_FK" />
+        <AssociationConnector Association="bd_lama.Parties_Tours_FK" />
+        <EntityTypeShape EntityType="bd_lama.tournois" Width="1.5" PointX="15.5" PointY="6.5" />
+        <EntityTypeShape EntityType="bd_lama.typestournois" Width="1.5" PointX="13.25" PointY="2.625" />
         <AssociationConnector Association="bd_lama.Tournois_Comptes_FK" />
         <AssociationConnector Association="bd_lama.ComptesTournois_Tournois_FK" />
         <AssociationConnector Association="bd_lama.Equipes_Tournois_FK" />
@@ -47,15 +55,9 @@
         <AssociationConnector Association="bd_lama.Tournois_EtatsTournois_FK" />
         <AssociationConnector Association="bd_lama.Tournois_Jeux_FK" />
         <AssociationConnector Association="bd_lama.PrixTournois_Tournois_FK" />
-        <AssociationConnector Association="bd_lama.Tours_Tournois_FK" />
-        <EntityTypeShape EntityType="bd_lama.tournoislocaux" Width="1.5" PointX="17.75" PointY="12.125" />
-        <AssociationConnector Association="bd_lama.TournoixLocaux_Comptes_FK" />
-        <AssociationConnector Association="bd_lama.TournoixLocaux_Locaux_FK" />
+        <AssociationConnector Association="bd_lama.Tournois_TypesTournois_FK" />
         <AssociationConnector Association="bd_lama.TournoixLocaux_Tournois_FK" />
-        <EntityTypeShape EntityType="bd_lama.postes" Width="1.5" PointX="6" PointY="12.375" />
-        <AssociationConnector Association="bd_lama.Postes_Comptes_FK" />
-        <AssociationConnector Association="bd_lama.Postes_EtatsPostes_FK" />
-        <AssociationConnector Association="bd_lama.Postes_Locaux_FK" />
+        <AssociationConnector Association="bd_lama.Tours_Tournois_FK" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

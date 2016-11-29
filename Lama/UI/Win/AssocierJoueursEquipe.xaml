@@ -24,22 +24,12 @@
     <Grid>
         <Label Name="lblEquipe" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" />
 
-        <DataGrid Name="dgEquipes" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="450" Height="450" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+        <DataGrid Name="dgEquipes" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="450" Height="300" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserDeleteRows="False" CanUserAddRows="False">
             <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Matricule}" Width="*" Header="Matricule" IsReadOnly="True" />
                 <DataGridTextColumn Binding="{Binding Prenom}" Width="*" Header="Prénom" IsReadOnly="True" />
                 <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Nom" IsReadOnly="True" />
-                
-                <!--
-                <DataGridCheckBoxColumn Width="*" Header="Actif">
-                    <DataGridCheckBoxColumn.CellStyle>
-                        <Style>
-                            <EventSetter Event="CheckBox.Checked" Handler="OnChecked"/>
-                            <EventSetter Event="CheckBox.Unchecked" Handler="OnUnchecked"/>
-                        </Style>
-                    </DataGridCheckBoxColumn.CellStyle>
-                </DataGridCheckBoxColumn>
-                -->
-
+                <DataGridTextColumn Binding="{Binding Usager}" Width="*" Header="Summoner" IsReadOnly="True" />
                 <DataGridTemplateColumn Width="*" Header="Actif">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -55,5 +45,11 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+
+        <Label Name="lblNbJoueurs" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,400,60,0"/>
+        <Label HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,400,0,0" Content="/5 joueur(s)"/>
+
+        <Button Name="btnEnregistrer" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="125,400,0,0" Content="Enregistrer" Click="btnSave_Click"/>
+        <Button Name="btnAnnuler" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,400,125,0" Content="Annuler" Click="btnCancel_Click"/>
     </Grid>
 </Controls:MetroWindow>

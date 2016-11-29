@@ -95,7 +95,7 @@
         </StackPanel>
 
         <StackPanel>
-            <Label Style="{StaticResource lblaucuntour}" Content="En attente de génératio d'un tour." />
+            <Label Style="{StaticResource lblaucuntour}" Content="En attente de génération d'un tour." />
             <Button Style="{StaticResource generertour}" Name="btnGenererTour" Content="Générer un tour" Click="GenererTour" />
         </StackPanel>
 

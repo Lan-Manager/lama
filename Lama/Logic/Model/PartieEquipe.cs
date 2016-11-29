@@ -10,6 +10,7 @@ namespace Lama.Logic.Model
     public class PartieEquipe : INotifyPropertyChanged
     {
         public Equipe Equipe { get; set; }
+
         private Statistiques _lstStats;
         public Statistiques LstStats
         {

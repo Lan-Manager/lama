@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Lama.Logic.Tools;
 
 namespace Lama.Logic.Model
 {
@@ -12,15 +13,15 @@ namespace Lama.Logic.Model
         public string NomUtilisateur { get; set; }
         public string Matricule { get; set; }
         public string Courriel { get; set; }
+        public string MotDePasse { get; set; }
+
         public string NomComplet
         {
             get
             {
                 return $"{Prenom} {Nom}";
             }
-        }
-
-        // Constructeur vide pour volontaire
+        }        // Constructeur vide pour volontaire
         public Volontaire()
         {
 
@@ -54,7 +55,7 @@ namespace Lama.Logic.Model
             entity.nom = this.Nom;
             entity.prenom = this.Prenom;
             entity.nomUtilisateur = this.NomUtilisateur;
-            //TODO mot de passe
+            entity.motDePasse = PasswordHelper.HashPassword(this.MotDePasse);
 
             var task = LamaBD.helper.CompteHelper.InsertAsync(entity);
             task.Wait();
@@ -68,11 +69,16 @@ namespace Lama.Logic.Model
 
         public bool Update()
         {
-            var task = LamaBD.helper.CompteHelper.SelectByIDAsync(this.NomUtilisateur);
+            var task = LamaBD.helper.CompteHelper.SelectAsyncMatriculeCompte(this.Matricule);
             task.Wait();
 
             if (task.Result != null)
             {
+                task.Result.nom = this.Nom;
+                task.Result.prenom = this.Prenom;
+                task.Result.courriel = this.Courriel;
+                task.Result.nomUtilisateur = this.NomUtilisateur;
+
                 var taskUpdate = LamaBD.helper.CompteHelper.UpdateAsync(task.Result);
                 if (!taskUpdate.Result)
                 {

@@ -87,6 +87,7 @@
     <Compile Include="helper\PartieHelper.cs" />
     <Compile Include="helper\PosteHelper.cs" />
     <Compile Include="helper\PrixHelper.cs" />
+    <Compile Include="helper\StatsHelper.cs" />
     <Compile Include="helper\templateHelper.cs" />
     <Compile Include="helper\TourHelper.cs" />
     <Compile Include="helper\TournoiHelper.cs" />
@@ -149,6 +150,9 @@
       <DependentUpon>ModelLama.tt</DependentUpon>
     </Compile>
     <Compile Include="tours.cs">
+      <DependentUpon>ModelLama.tt</DependentUpon>
+    </Compile>
+    <Compile Include="typestournois.cs">
       <DependentUpon>ModelLama.tt</DependentUpon>
     </Compile>
   </ItemGroup>

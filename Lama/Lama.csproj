@@ -84,11 +84,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Logic\Model\PartieEquipe.cs" />
-    <Compile Include="Logic\Model\PropertyChangedExtendedEventArgs.cs" />
-    <Compile Include="Logic\Tools\PasswordHelper.cs" />
-    <Compile Include="Logic\TypeTournoi\ITypeTournoi.cs" />
-    <Compile Include="Logic\TypeTournoi\Elimination.cs" />
     <Compile Include="UI\UC\Creation\EquipesView.xaml.cs">
       <DependentUpon>EquipesView.xaml</DependentUpon>
     </Compile>
@@ -134,9 +129,6 @@
     <Compile Include="UI\UC\TournoiControls\GrilleControls\ToursUC.xaml.cs">
       <DependentUpon>ToursUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\UC\TournoiControls\MenuUC.xaml.cs">
-      <DependentUpon>MenuUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\UC\TournoiControls\PrixControls\PrixUC.xaml.cs">
       <DependentUpon>PrixUC.xaml</DependentUpon>
     </Compile>
@@ -164,6 +156,12 @@
     <Compile Include="UI\UC\TournoiControls\TournoiUC.xaml.cs">
       <DependentUpon>TournoiUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Win\AjouterParticipant.xaml.cs">
+      <DependentUpon>AjouterParticipant.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Win\AjouterVolontaire.xaml.cs">
+      <DependentUpon>AjouterVolontaire.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Win\AssocierJoueursEquipe.xaml.cs">
       <DependentUpon>AssocierJoueursEquipe.xaml</DependentUpon>
     </Compile>
@@ -174,8 +172,8 @@
       <DependentUpon>CreerTournoiWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="example\UtilisationEntity.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -189,12 +187,15 @@
       <DependentUpon>UtilisationEntity.xaml</DependentUpon>
     </Compile>
     <Compile Include="Logic\Model\Administrateur.cs" />
+    <Compile Include="Logic\Model\Classement.cs" />
     <Compile Include="Logic\Model\Equipe.cs" />
     <Compile Include="Logic\Model\Joueur.cs" />
     <Compile Include="Logic\Model\Local.cs" />
     <Compile Include="Logic\Model\Partie.cs" />
+    <Compile Include="Logic\Model\PartieEquipe.cs" />
     <Compile Include="Logic\Model\Poste.cs" />
     <Compile Include="Logic\Model\Prix.cs" />
+    <Compile Include="Logic\Model\PropertyChangedExtendedEventArgs.cs" />
     <Compile Include="Logic\Model\Statistique.cs" />
     <Compile Include="Logic\Model\Statistiques.cs" />
     <Compile Include="Logic\Model\Tour.cs" />
@@ -202,6 +203,9 @@
     <Compile Include="Logic\Model\TrulyObservableCollection.cs" />
     <Compile Include="Logic\Model\Utilisateur.cs" />
     <Compile Include="Logic\Model\Volontaire.cs" />
+    <Compile Include="Logic\Tools\PasswordHelper.cs" />
+    <Compile Include="Logic\TypeTournoi\Elimination.cs" />
+    <Compile Include="Logic\TypeTournoi\ITypeTournoi.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -215,116 +219,120 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\UC\Creation\EquipesView.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\Creation\InformationsGeneralesView.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\Creation\LocauxView.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\Creation\ParticipantsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\Creation\PrixView.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\Creation\VolontairesView.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\LocauxControls\CarteLocauxUC.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\UC\LocauxControls\ContenantLocauxUC.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\UC\LocauxControls\LocauxUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\UC\LocauxControls\SommairesLocauxUC.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\UC\TournoiControls\ClassementControls\ClassementUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\GrilleControls\EquipesUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\GrilleControls\GrilleUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\GrilleControls\PartiesUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\GrilleControls\ToursUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\UC\TournoiControls\MenuUC.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\UC\TournoiControls\PrixControls\PrixUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\StatistiquesControls\EquipesJoueurs\EquipesJoueursUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\StatistiquesControls\EquipesJoueurs\StatistiquesEquipeUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesModelesUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\StatistiquesControls\StatistiquesUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\StatistiquesControls\ToursParties\StatistiquesPartieUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\StatistiquesControls\ToursParties\StatistiquesTourUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\StatistiquesControls\ToursParties\ToursPartiesUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\UC\TournoiControls\TournoiUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Win\AjouterParticipant.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Win\AjouterVolontaire.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Win\AssocierJoueursEquipe.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Win\AuthentificationWin.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Win\CreerTournoiWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -344,6 +352,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -365,22 +374,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\bgtexture.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="lama.ico" />
-  </ItemGroup>
-  <ItemGroup>
+    <Resource Include="Resources\bgtexture.jpg" />
+    <Resource Include="Resources\lama.ico" />
     <Resource Include="Resources\lama.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\lama.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\WindowsIcons-license.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
+    <Resource Include="Resources\WindowsIcons-license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

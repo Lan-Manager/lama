@@ -82,7 +82,7 @@ namespace Lama
 
             if (t == null)
             {
-                return T;
+                return null;
             }
 
 
@@ -91,6 +91,7 @@ namespace Lama
             T.Date = t.dateEvenement.Date;
             T.Heure = t.dateEvenement.TimeOfDay;
             T.Description = t.description;
+            T.TypeTournoi = t.typestournois.nom;
 
             // Locaux
             T.LstLocaux = ChargerLocaux();
@@ -231,7 +232,10 @@ namespace Lama
             CreerTournoiWindow creerTournoiWindow = new CreerTournoiWindow();
             creerTournoiWindow.ShowDialog();
 
-            TournoiEnCours = creerTournoiWindow.temp;
+            if (creerTournoiWindow.LeTournoi != null)
+            {
+                TournoiEnCours = creerTournoiWindow.LeTournoi;
+            }
         }
 
         private void MetroWindow_MouseDown(object sender, MouseButtonEventArgs e)

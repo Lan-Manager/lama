@@ -62,6 +62,18 @@ namespace LamaBD.helper
             }
         }
 
+        public async static Task<comptes> SelectAsyncMatriculeCompte(string matricule)
+        {
+            using (var ctx = new Connexion420())
+            {
+                var query = from c in ctx.comptes
+                            where c.matricule == matricule
+                            select c;
+                comptes obj = await query.SingleOrDefaultAsync();
+                return obj;
+            }
+        }
+
         public async static Task<comptes> SelectCompte(string nomUtilisateur)
         {
             using (var ctx = new Connexion420())

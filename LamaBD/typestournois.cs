@@ -12,13 +12,18 @@ namespace LamaBD
     using System;
     using System.Collections.Generic;
     
-    public partial class messages
+    public partial class typestournois
     {
-        public int idMessage { get; set; }
-        public int idCompte { get; set; }
-        public string contenu { get; set; }
-        public System.DateTime dateEnvoie { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public typestournois()
+        {
+            this.tournois = new HashSet<tournois>();
+        }
     
-        public virtual comptes comptes { get; set; }
+        public int idTypeTournoi { get; set; }
+        public string nom { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tournois> tournois { get; set; }
     }
 }

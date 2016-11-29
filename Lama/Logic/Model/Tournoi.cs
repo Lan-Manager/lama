@@ -33,6 +33,7 @@ namespace Lama.Logic.Model
             }
         }
 
+        public string TypeTournoi { get; set; }
         public ITypeTournoi GenerateurTour { get; set; }
         public string Etat { get; set; }
         public DateTime Date { get; set; }
@@ -94,6 +95,7 @@ namespace Lama.Logic.Model
         {
             // Infos de base du tournoi
             Nom = "Le tournoi";
+            TypeTournoi = "Simple élimination";
             Date = DateTime.Now.Date;
             Heure = DateTime.Now.TimeOfDay;
             Description = null;
@@ -148,6 +150,8 @@ namespace Lama.Logic.Model
                     }
                     TourActif = GenerateurTour.GenererTour(equipesPerdantes);
                 }
+                var task = LamaBD.helper.TournoiHelper.SelectLast();
+                TourActif.Insert(task.Result);
                 //TourActif = new Tour(NbTour);
                 //List<Equipe> eq = new List<Equipe>(LstEquipes.Where(e => e.EstElimine != true));
 
@@ -250,7 +254,7 @@ namespace Lama.Logic.Model
         public bool Insert()
         {
             LamaBD.tournois entity = new LamaBD.tournois();
-
+            Tournoi.FinTournoi();
             using (var ctx = new Connexion420())
             {
                 DateTime dateEvenement = this.Date.Add(this.Heure);
@@ -274,6 +278,12 @@ namespace Lama.Logic.Model
                 var jeu = ctx.jeux
                     .Where(x => x.nom == "League of Legends")
                     .SingleOrDefault();
+
+                var typeTournoi = ctx.typestournois
+                    .Where(x => x.nom == "Simple élimination")
+                    .SingleOrDefault();
+
+                entity.idTypeTournoi = typeTournoi.idTypeTournoi;
 
                 entity.idJeu = jeu.idJeu;
 

@@ -28,6 +28,9 @@ namespace Lama.UI.Win
     public partial class CreerTournoiWindow : MetroWindow
     {
         #region Propriétés
+        const int NB_EQUIPES_REQUIS = 2;
+        const int NB_JOUEURS_REQUIS = 5;
+        private StringBuilder Erreurs { get; set; }
         private int Index { get; set; }
         private List<UserControl> Views { get; set; }
         public Tournoi LeTournoi { get; set; }
@@ -44,6 +47,7 @@ namespace Lama.UI.Win
 
             // Initialiser le tournoi
             temp = new Tournoi();
+            LeTournoi = null;
 
             // Mettre le datacontext au tournoi
             DataContext = temp;
@@ -113,22 +117,68 @@ namespace Lama.UI.Win
 
         private void btnEnregistrer_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult mbr = MessageBox.Show("Êtes-vous certain de vouloir enregistrer ce tournoi?", 
-                                                   "Enregistrer", 
-                                                   MessageBoxButton.YesNoCancel, 
-                                                   MessageBoxImage.Question, 
-                                                   MessageBoxResult.No);
-
-            // Si on veut enregistrer le tournoi
-            if (mbr == MessageBoxResult.Yes)
+            if (!ValiderChamps())
             {
-                temp.LstEquipes = ((EquipesView)Views[4]).LstEquipes;
-                LeTournoi = temp;
-                //bool success = LeTournoi.Insert();
+                MessageBox.Show(Erreurs.ToString(),
+                    "Erreur!",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
 
-                Close();
+            else
+            {
+                MessageBoxResult mbr = MessageBox.Show("Êtes-vous certain de vouloir enregistrer ce tournoi?",
+                                                   "Enregistrer",
+                                                   MessageBoxButton.OKCancel,
+                                                   MessageBoxImage.Question,
+                                                   MessageBoxResult.Cancel);
+
+                // Si on veut enregistrer le tournoi
+                if (mbr == MessageBoxResult.OK)
+                {
+                    LeTournoi = temp;
+                    bool success = LeTournoi.Insert();
+                    Closing -= MetroWindow_Closing;
+                    Close();
+                }
+            }
+        }
+
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult mbr = MessageBox.Show("Êtes-vous certain de vouloir quitter la création de tournoi? Vous perdrez les informations concernant le nouveau tournoi!", 
+                                                   "Attention!", 
+                                                   MessageBoxButton.YesNo, 
+                                                   MessageBoxImage.Warning, 
+                                                   MessageBoxResult.No);
+            if (mbr == MessageBoxResult.No)
+            {
+                e.Cancel = true;
             }
         }
         #endregion
+
+        private bool ValiderChamps()
+        {
+            Erreurs = new StringBuilder();
+            bool valide = true;
+
+            if (temp.LstEquipes.Count < NB_EQUIPES_REQUIS)
+            {
+                valide = false;
+                Erreurs.AppendLine($"- Vous devez avoir un minimum de {NB_EQUIPES_REQUIS} équipes.");
+            }
+
+            foreach (Equipe e in temp.LstEquipes)
+            {
+                if (e.LstJoueurs.Count < NB_JOUEURS_REQUIS)
+                {
+                    valide = false;
+                    Erreurs.AppendLine($"- L'équipe {e.Nom} a moins de {NB_JOUEURS_REQUIS} joueurs.");
+                }
+            }
+
+            return valide;
+        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Lama.Logic.Model;
+using Lama.UI.Win;
 using LamaBD;
 using LamaBD.helper;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -66,6 +68,99 @@ namespace Lama.UI.UC.Creation
             }
 
             return lstTemp;
+        }
+
+        private void dgVolontaires_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            DataGrid dg = sender as DataGrid;
+
+            if (dg.SelectedIndex == -1)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void miModifier_Click(object sender, RoutedEventArgs e)
+        {
+            // Le sender est le menu item
+            MenuItem mi = sender as MenuItem;
+
+            // On va chercher le parent du menu item (c'est donc le ContextMenu)
+            ContextMenu cm = mi.Parent as ContextMenu;
+
+            // Avec le ContextMenu, on peut aller chercher la datagrid
+            DataGrid dg = cm.PlacementTarget as DataGrid;
+
+            // On va chercher le volontaire
+            Volontaire v = dg.SelectedItem as Volontaire;
+
+            AjouterVolontaire av = new AjouterVolontaire(v, LstVolontaires.Where(x => x != v).ToList());
+
+            av.ShowDialog();
+
+            if (av.LeVolontaire != null)
+            {
+                // Trouver l'index de v
+                int index = LstVolontaires.IndexOf(v);
+
+                if (index != -1)
+                {
+                    // Modifier le volontaire à cet index
+                    LstVolontaires[index] = av.LeVolontaire;
+                }
+
+                index = (DataContext as Tournoi).LstVolontaires.IndexOf(v);
+
+                if (index != -1)
+                {
+                    (DataContext as Tournoi).LstVolontaires[index] = av.LeVolontaire;
+                }
+
+                av.LeVolontaire.Update();
+            }
+        }
+
+        private void miSupprimer_Click(object sender, RoutedEventArgs e)
+        {
+            // Le sender est le menu item
+            MenuItem mi = sender as MenuItem;
+
+            // On va chercher le parent du menu item (c'est donc le ContextMenu)
+            ContextMenu cm = mi.Parent as ContextMenu;
+
+            // Avec le ContextMenu, on peut aller chercher la datagrid
+            DataGrid dg = cm.PlacementTarget as DataGrid;
+
+            // On va chercher le volontaire
+            Volontaire v = dg.SelectedItem as Volontaire;
+
+            MessageBoxResult mbr = MessageBox.Show("Êtes-vous certain de vouloir supprimer le volontaire? Ceci entraînera des changements irréversibles dans la base de données.",
+                                                   "Supprimer",
+                                                   MessageBoxButton.YesNo,
+                                                   MessageBoxImage.Question,
+                                                   MessageBoxResult.No);
+
+            if (mbr == MessageBoxResult.Yes)
+            {
+                ((Tournoi)DataContext).LstVolontaires.Remove(v);
+
+                // Supprimer le volontaire
+                LstVolontaires.Remove(v);
+
+                v.Delete();
+            }
+        }
+
+        private void btnAddVolontaire_Click(object sender, RoutedEventArgs e)
+        {
+            AjouterVolontaire av = new AjouterVolontaire(LstVolontaires.ToList());
+            av.ShowDialog();
+
+            if (av.LeVolontaire != null)
+            {
+                LstVolontaires.Add(av.LeVolontaire);
+                av.LeVolontaire.Insert();
+            }
         }
     }
 }

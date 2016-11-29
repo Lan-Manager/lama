@@ -10,7 +10,22 @@ namespace Lama.Logic.Model
     public class Prix
     {
         #region Propriétés
-        public string Nom { get; set; }
+        private string _nom;
+        public string Nom
+        {
+            get
+            {
+                return _nom;
+            }
+
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    _nom = value;
+                }
+            }
+        }
         #endregion
 
         #region Constructeurs
