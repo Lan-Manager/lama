@@ -126,8 +126,8 @@
           <Property Name="numPartie" Type="int" Nullable="false" />
           <Property Name="estTermine" Type="bool" Nullable="false" />
           <Property Name="dureeJeu" Type="time" Precision="0" />
-          <Property Name="dateFin" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="lastUpdated" Type="timestamp" Precision="0" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="dateFin" Type="datetime" Precision="0" />
+          <Property Name="lastUpdated" Type="timestamp" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="postes">
           <Key>
@@ -570,10 +570,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="DELETE_Compte" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="420.5a5.a16_lanman">
-          <Parameter Name="account" Type="varchar" Mode="In" />
-          <Parameter Name="status" Type="int" Mode="Out" />
-        </Function>
         <Function Name="FIN_TOURNOI" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="420.5a5.a16_lanman" />
         <EntityContainer Name="bd_lamaStoreContainer">
           <EntitySet Name="comptes" EntityType="Self.comptes" Schema="420.5a5.a16_lanman" store:Type="Tables" />
@@ -732,7 +728,6 @@
           <EntitySet Name="locaux" EntityType="bd_lama.locaux" />
           <EntitySet Name="messages" EntityType="bd_lama.messages" />
           <EntitySet Name="participants" EntityType="bd_lama.participants" />
-          <EntitySet Name="parties" EntityType="bd_lama.parties" />
           <EntitySet Name="prix" EntityType="bd_lama.prix" />
           <EntitySet Name="prixtournois" EntityType="bd_lama.prixtournois" />
           <EntitySet Name="scoresequipesparties" EntityType="bd_lama.scoresequipesparties" />
@@ -763,10 +758,6 @@
             <End Role="participants" EntitySet="participants" />
             <End Role="equipesparticipants" EntitySet="equipesparticipants" />
           </AssociationSet>
-          <AssociationSet Name="EquipesParties_Parties_FK" Association="bd_lama.EquipesParties_Parties_FK">
-            <End Role="parties" EntitySet="parties" />
-            <End Role="equipesparties" EntitySet="equipesparties" />
-          </AssociationSet>
           <AssociationSet Name="ScoresEquipesParties_EquipesParties_FK" Association="bd_lama.ScoresEquipesParties_EquipesParties_FK">
             <End Role="equipesparties" EntitySet="equipesparties" />
             <End Role="scoresequipesparties" EntitySet="scoresequipesparties" />
@@ -782,10 +773,6 @@
           <AssociationSet Name="JeuxComptes_Participants_FK" Association="bd_lama.JeuxComptes_Participants_FK">
             <End Role="participants" EntitySet="participants" />
             <End Role="jeuxcomptes" EntitySet="jeuxcomptes" />
-          </AssociationSet>
-          <AssociationSet Name="Parties_Tours_FK" Association="bd_lama.Parties_Tours_FK">
-            <End Role="tours" EntitySet="tours" />
-            <End Role="parties" EntitySet="parties" />
           </AssociationSet>
           <AssociationSet Name="PrixTournois_Prix_FK" Association="bd_lama.PrixTournois_Prix_FK">
             <End Role="prix" EntitySet="prix" />
@@ -863,6 +850,15 @@
             <Parameter Name="account" Mode="In" Type="String" />
             <Parameter Name="status" Mode="Out" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="parties" EntityType="bd_lama.parties" />
+          <AssociationSet Name="EquipesParties_Parties_FK" Association="bd_lama.EquipesParties_Parties_FK">
+            <End Role="parties" EntitySet="parties" />
+            <End Role="equipesparties" EntitySet="equipesparties" />
+          </AssociationSet>
+          <AssociationSet Name="Parties_Tours_FK" Association="bd_lama.Parties_Tours_FK">
+            <End Role="tours" EntitySet="tours" />
+            <End Role="parties" EntitySet="parties" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="comptes">
           <Key>
@@ -930,8 +926,8 @@
           <Property Name="idEquipe" Type="Int32" Nullable="false" />
           <Property Name="estGagnante" Type="Boolean" />
           <NavigationProperty Name="equipes" Relationship="bd_lama.EquipesParties_Equipes_FK" FromRole="equipesparties" ToRole="equipes" />
-          <NavigationProperty Name="parties" Relationship="bd_lama.EquipesParties_Parties_FK" FromRole="equipesparties" ToRole="parties" />
           <NavigationProperty Name="scoresequipesparties" Relationship="bd_lama.ScoresEquipesParties_EquipesParties_FK" FromRole="equipesparties" ToRole="scoresequipesparties" />
+          <NavigationProperty Name="parties" Relationship="bd_lama.EquipesParties_Parties_FK" FromRole="equipesparties" ToRole="parties" />
         </EntityType>
         <EntityType Name="etatspostes">
           <Key>
@@ -1005,20 +1001,6 @@
           <NavigationProperty Name="equipesparticipants" Relationship="bd_lama.EquipesParticipants_Participants_FK" FromRole="participants" ToRole="equipesparticipants" />
           <NavigationProperty Name="jeuxcomptes" Relationship="bd_lama.JeuxComptes_Participants_FK" FromRole="participants" ToRole="jeuxcomptes" />
         </EntityType>
-        <EntityType Name="parties">
-          <Key>
-            <PropertyRef Name="idPartie" />
-          </Key>
-          <Property Name="idPartie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idTour" Type="Int32" Nullable="false" />
-          <Property Name="numPartie" Type="Int32" Nullable="false" />
-          <Property Name="estTermine" Type="Boolean" Nullable="false" />
-          <Property Name="dureeJeu" Type="Time" />
-          <Property Name="dateFin" Type="DateTime" Nullable="false" />
-          <Property Name="lastUpdated" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="equipesparties" Relationship="bd_lama.EquipesParties_Parties_FK" FromRole="parties" ToRole="equipesparties" />
-          <NavigationProperty Name="tours" Relationship="bd_lama.Parties_Tours_FK" FromRole="parties" ToRole="tours" />
-        </EntityType>
         <EntityType Name="prix">
           <Key>
             <PropertyRef Name="idPrix" />
@@ -1081,8 +1063,8 @@
           <Property Name="dateDebut" Type="DateTime" Nullable="false" />
           <Property Name="dateFin" Type="DateTime" />
           <Property Name="lastUpdated" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="parties" Relationship="bd_lama.Parties_Tours_FK" FromRole="tours" ToRole="parties" />
           <NavigationProperty Name="tournois" Relationship="bd_lama.Tours_Tournois_FK" FromRole="tours" ToRole="tournois" />
+          <NavigationProperty Name="parties" Relationship="bd_lama.Parties_Tours_FK" FromRole="tours" ToRole="parties" />
         </EntityType>
         <Association Name="ComptesTournois_Comptes_FK">
           <End Type="bd_lama.comptes" Role="comptes" Multiplicity="1" />
@@ -1156,18 +1138,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="EquipesParties_Parties_FK">
-          <End Type="bd_lama.parties" Role="parties" Multiplicity="1" />
-          <End Type="bd_lama.equipesparties" Role="equipesparties" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="parties">
-              <PropertyRef Name="idPartie" />
-            </Principal>
-            <Dependent Role="equipesparties">
-              <PropertyRef Name="idPartie" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="ScoresEquipesParties_EquipesParties_FK">
           <End Type="bd_lama.equipesparties" Role="equipesparties" Multiplicity="1" />
           <End Type="bd_lama.scoresequipesparties" Role="scoresequipesparties" Multiplicity="*" />
@@ -1213,18 +1183,6 @@
             </Principal>
             <Dependent Role="jeuxcomptes">
               <PropertyRef Name="idParticipant" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Parties_Tours_FK">
-          <End Type="bd_lama.tours" Role="tours" Multiplicity="1" />
-          <End Type="bd_lama.parties" Role="parties" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tours">
-              <PropertyRef Name="idTour" />
-            </Principal>
-            <Dependent Role="parties">
-              <PropertyRef Name="idTour" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1487,6 +1445,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="parties">
+          <Key>
+            <PropertyRef Name="idPartie" />
+          </Key>
+          <Property Name="idPartie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idTour" Type="Int32" Nullable="false" />
+          <Property Name="numPartie" Type="Int32" Nullable="false" />
+          <Property Name="estTermine" Type="Boolean" Nullable="false" />
+          <Property Name="dureeJeu" Type="Time" />
+          <Property Name="dateFin" Type="DateTime" />
+          <Property Name="lastUpdated" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="equipesparties" Relationship="bd_lama.EquipesParties_Parties_FK" FromRole="parties" ToRole="equipesparties" />
+          <NavigationProperty Name="tours" Relationship="bd_lama.Parties_Tours_FK" FromRole="parties" ToRole="tours" />
+        </EntityType>
+        <Association Name="EquipesParties_Parties_FK">
+          <End Type="bd_lama.parties" Role="parties" Multiplicity="1" />
+          <End Type="bd_lama.equipesparties" Role="equipesparties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="parties">
+              <PropertyRef Name="idPartie" />
+            </Principal>
+            <Dependent Role="equipesparties">
+              <PropertyRef Name="idPartie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Parties_Tours_FK">
+          <End Type="bd_lama.tours" Role="tours" Multiplicity="1" />
+          <End Type="bd_lama.parties" Role="parties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tours">
+              <PropertyRef Name="idTour" />
+            </Principal>
+            <Dependent Role="parties">
+              <PropertyRef Name="idTour" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1617,19 +1613,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="parties">
-            <EntityTypeMapping TypeName="bd_lama.parties">
-              <MappingFragment StoreEntitySet="parties">
-                <ScalarProperty Name="lastUpdated" ColumnName="lastUpdated" />
-                <ScalarProperty Name="dateFin" ColumnName="dateFin" />
-                <ScalarProperty Name="dureeJeu" ColumnName="dureeJeu" />
-                <ScalarProperty Name="estTermine" ColumnName="estTermine" />
-                <ScalarProperty Name="numPartie" ColumnName="numPartie" />
-                <ScalarProperty Name="idTour" ColumnName="idTour" />
-                <ScalarProperty Name="idPartie" ColumnName="idPartie" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="prix">
             <EntityTypeMapping TypeName="bd_lama.prix">
               <MappingFragment StoreEntitySet="prix">
@@ -1733,7 +1716,19 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="FIN_TOURNOI" FunctionName="bd_lama.Store.FIN_TOURNOI" />
-          <FunctionImportMapping FunctionImportName="DELETE_Compte" FunctionName="bd_lama.Store.DELETE_Compte" />
+          <EntitySetMapping Name="parties">
+            <EntityTypeMapping TypeName="bd_lama.parties">
+              <MappingFragment StoreEntitySet="parties">
+                <ScalarProperty Name="lastUpdated" ColumnName="lastUpdated" />
+                <ScalarProperty Name="dateFin" ColumnName="dateFin" />
+                <ScalarProperty Name="dureeJeu" ColumnName="dureeJeu" />
+                <ScalarProperty Name="estTermine" ColumnName="estTermine" />
+                <ScalarProperty Name="numPartie" ColumnName="numPartie" />
+                <ScalarProperty Name="idTour" ColumnName="idTour" />
+                <ScalarProperty Name="idPartie" ColumnName="idPartie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

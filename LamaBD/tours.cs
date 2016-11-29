@@ -28,8 +28,8 @@ namespace LamaBD
         public Nullable<System.DateTime> dateFin { get; set; }
         public System.DateTime lastUpdated { get; set; }
     
+        public virtual tournois tournois { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<parties> parties { get; set; }
-        public virtual tournois tournois { get; set; }
     }
 }

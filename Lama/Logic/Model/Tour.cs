@@ -25,6 +25,9 @@ namespace Lama.Logic.Model
 
         public bool Insert(LamaBD.tournois tournois)
         {
+            var taskEquipes = LamaBD.helper.EquipeHelper.SelectAll();
+            taskEquipes.Wait();
+
             LamaBD.tours entity = new LamaBD.tours();
             entity.idTournoi = tournois.idTournoi;
             entity.dateDebut = DateTime.Now;
@@ -40,10 +43,21 @@ namespace Lama.Logic.Model
                     LamaBD.equipesparties entityPartieEquipe = new LamaBD.equipesparties();
                     entityPartieEquipe.parties = pEntity;
                     entityPartieEquipe.estGagnante = null;
-                    var taskEquipe = LamaBD.helper.EquipeHelper.Select(pE.Equipe.Nom);
-                    taskEquipe.Wait();
-                    int idEquipe = taskEquipe.Result.idEquipe;
+
+
+                    int idEquipe = taskEquipes.Result.Find(x => x.nom == pE.Equipe.Nom).idEquipe;
                     entityPartieEquipe.idEquipe = idEquipe;
+
+                    //Danger exception lazy loading.
+                    foreach (LamaBD.statistiquesjeux statsJeu in tournois.jeux.statistiquesjeux)
+                    {
+                        LamaBD.scoresequipesparties scores = new LamaBD.scoresequipesparties();
+                        scores.idStatistiqueJeu = statsJeu.idStatistiqueJeu;
+                        scores.idEquipePartie = entityPartieEquipe.idEquipePartie;
+                        scores.valeur = 0;
+
+                        entityPartieEquipe.scoresequipesparties.Add(scores);
+                    }
 
                     pEntity.equipesparties.Add(entityPartieEquipe);
                 }

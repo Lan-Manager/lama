@@ -26,8 +26,8 @@ namespace LamaBD
         public Nullable<bool> estGagnante { get; set; }
     
         public virtual equipes equipes { get; set; }
-        public virtual parties parties { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<scoresequipesparties> scoresequipesparties { get; set; }
+        public virtual parties parties { get; set; }
     }
 }

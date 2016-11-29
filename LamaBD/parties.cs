@@ -25,7 +25,7 @@ namespace LamaBD
         public int numPartie { get; set; }
         public bool estTermine { get; set; }
         public Nullable<System.TimeSpan> dureeJeu { get; set; }
-        public System.DateTime dateFin { get; set; }
+        public Nullable<System.DateTime> dateFin { get; set; }
         public System.DateTime lastUpdated { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
