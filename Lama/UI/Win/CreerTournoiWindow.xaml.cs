@@ -28,6 +28,9 @@ namespace Lama.UI.Win
     public partial class CreerTournoiWindow : MetroWindow
     {
         #region Propriétés
+        const int NB_EQUIPES_REQUIS = 2;
+        const int NB_JOUEURS_REQUIS = 5;
+        private StringBuilder Erreurs { get; set; }
         private int Index { get; set; }
         private List<UserControl> Views { get; set; }
         public Tournoi LeTournoi { get; set; }
@@ -114,19 +117,30 @@ namespace Lama.UI.Win
 
         private void btnEnregistrer_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult mbr = MessageBox.Show("Êtes-vous certain de vouloir enregistrer ce tournoi?", 
-                                                   "Enregistrer", 
-                                                   MessageBoxButton.OKCancel, 
-                                                   MessageBoxImage.Question, 
+            if (!ValiderChamps())
+            {
+                MessageBox.Show(Erreurs.ToString(),
+                    "Erreur!",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+
+            else
+            {
+                MessageBoxResult mbr = MessageBox.Show("Êtes-vous certain de vouloir enregistrer ce tournoi?",
+                                                   "Enregistrer",
+                                                   MessageBoxButton.OKCancel,
+                                                   MessageBoxImage.Question,
                                                    MessageBoxResult.Cancel);
 
-            // Si on veut enregistrer le tournoi
-            if (mbr == MessageBoxResult.OK)
-            {
-                LeTournoi = temp;
-                bool success = LeTournoi.Insert();
-                Closing -= MetroWindow_Closing;
-                Close();
+                // Si on veut enregistrer le tournoi
+                if (mbr == MessageBoxResult.OK)
+                {
+                    LeTournoi = temp;
+                    bool success = LeTournoi.Insert();
+                    Closing -= MetroWindow_Closing;
+                    Close();
+                }
             }
         }
 
@@ -143,5 +157,28 @@ namespace Lama.UI.Win
             }
         }
         #endregion
+
+        private bool ValiderChamps()
+        {
+            Erreurs = new StringBuilder();
+            bool valide = true;
+
+            if (temp.LstEquipes.Count < NB_EQUIPES_REQUIS)
+            {
+                valide = false;
+                Erreurs.AppendLine($"- Vous devez avoir un minimum de {NB_EQUIPES_REQUIS} équipes.");
+            }
+
+            foreach (Equipe e in temp.LstEquipes)
+            {
+                if (e.LstJoueurs.Count < NB_JOUEURS_REQUIS)
+                {
+                    valide = false;
+                    Erreurs.AppendLine($"- L'équipe {e.Nom} a moins de {NB_JOUEURS_REQUIS} joueurs.");
+                }
+            }
+
+            return valide;
+        }
     }
 }
