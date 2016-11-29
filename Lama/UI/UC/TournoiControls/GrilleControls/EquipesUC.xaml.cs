@@ -67,7 +67,26 @@ namespace Lama.UI.UC.TournoiControls.GrilleControls
         private void RadioButton_Click(object sender, RoutedEventArgs e)
         {
             Tournoi tournoi = ((MainWindow)Application.Current.MainWindow.DataContext).TournoiEnCours as Tournoi;
+            if (sender is RadioButton)
+            {
+                RadioButton rb = sender as RadioButton;
+                int numPartie = ExtraitNombre(rb.GroupName);
+                string nomEquipe;
+                if (rb.DataContext is PartieEquipe)
+                {
+                    PartieEquipe pe = rb.DataContext as PartieEquipe;
+                    nomEquipe = pe.Equipe.Nom;
+
+                    LamaBD.helper.PartieHelper.EnregistreGagnant(numPartie, nomEquipe);
+                }
+            }
+
             tournoi.GenerationTourValide();
+        }
+
+        private int ExtraitNombre(string text)
+        {
+            return Int32.Parse(Regex.Match(text, @"\d+").Value);
         }
     }
 }

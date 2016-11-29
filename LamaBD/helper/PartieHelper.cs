@@ -49,5 +49,45 @@ namespace LamaBD.helper
                 return await query.ToListAsync();
             }
         }
+
+        public static async Task<bool> EnregistreGagnant(int numPartie, string nomEquipeGagnante)
+        {
+            using (var ctx = new Connexion420())
+            {
+                var queryPartie = ctx.parties
+                    .Where(x => x.numPartie == numPartie)
+                    .FirstOrDefault();
+
+                if (queryPartie != null)
+                {
+                    queryPartie.dateFin = DateTime.UtcNow;
+                    queryPartie.estTermine = true;
+                }
+
+
+                var queryEquipePartie = ctx.equipesparties
+                    .Where(x => x.idPartie == queryPartie.idPartie)
+                    .Include(x => x.equipes).ToList();
+
+                foreach (equipesparties ep in queryEquipePartie)
+                {
+                    if (ep.equipes.nom == nomEquipeGagnante)
+                        ep.estGagnante = true;
+                    else
+                        ep.estGagnante = false;
+                }
+
+                try
+                {
+                    await ctx.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
     }
 }

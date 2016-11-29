@@ -37,8 +37,6 @@ namespace LamaBD.helper
                     .Where(x => (ctx.tournois.Max(y => y.dateCreation) == x.dateCreation) && (x.enCours == true))
                     .Include(x => x.jeux.statistiquesjeux.Select(y => y.statistiques));
 
-                //var queryPostes = ctx.postes
-
                 return await query.FirstOrDefaultAsync();
                /* var query = from t in ctx.tournois
                             where t.dateCreation == (ctx.tournois.Select(x => x.dateCreation).Max())

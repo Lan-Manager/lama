@@ -42,5 +42,26 @@ namespace LamaBD.helper
                 return await query.ToListAsync();
             }
         }
+
+        public static async Task<bool> InsertAsync(tours obj)
+        {
+            using (var ctx = new Connexion420())
+            {
+                ctx.tours.Add(obj);
+
+                try
+                {
+                    await ctx.SaveChangesAsync();
+                }
+                catch (Exception exct)
+                {
+                    Console.WriteLine(exct.Message);
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
     }
 }

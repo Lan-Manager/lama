@@ -148,6 +148,8 @@ namespace Lama.Logic.Model
                     }
                     TourActif = GenerateurTour.GenererTour(equipesPerdantes);
                 }
+                var task = LamaBD.helper.TournoiHelper.SelectLast();
+                TourActif.Insert(task.Result);
                 //TourActif = new Tour(NbTour);
                 //List<Equipe> eq = new List<Equipe>(LstEquipes.Where(e => e.EstElimine != true));
 
