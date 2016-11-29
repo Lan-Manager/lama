@@ -111,6 +111,7 @@ namespace Lama.UI.UC.LocauxControls
         }
         #endregion
 
+        // Le local sélectionné dans la liste.
         private Local _localSelectionne;
         public Local LocalSelectionne
         {
@@ -129,22 +130,25 @@ namespace Lama.UI.UC.LocauxControls
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
+        // La fenêtre parent (MainWindow)
         public MainWindow ParentWindow { get; set; }
         public LocauxUC()
         {
             LstLocaux = new ObservableCollection<Local>();
             LstVolontaires_Assignable = new ObservableCollection<Volontaire>();
-            LstVolontaires_Assignable.Add(new Volontaire());
+            LstVolontaires_Assignable.Add(new Volontaire()); // On ajoute une entrée vide à la liste.
             LstVolontaires_DernierModificateur = new ObservableCollection<Volontaire>();
 
             MainWindow ParentWindow = (MainWindow)Application.Current.MainWindow;
             LstLocaux = ParentWindow.TournoiEnCours.LstLocaux;
             LstVolontaires_DernierModificateur = ParentWindow.TournoiEnCours.LstVolontaires;
+            // On ajoute la liste de volontaire à la liste contenant une entrée vide.
             foreach(var v in ParentWindow.TournoiEnCours.LstVolontaires)
             {
                 LstVolontaires_Assignable.Add(v);
             }
 
+            // S'il y a une liste de joueurs associés au tournoi.
             if (ParentWindow.TournoiEnCours.LstJoueurs != null)
             {
                 int nbJoueur = ParentWindow.TournoiEnCours.LstJoueurs.Count;
@@ -170,7 +174,6 @@ namespace Lama.UI.UC.LocauxControls
             // On met l'index de l'item que l'on veut afficher par défaut.
             cboLocal.SelectedIndex = 0;
 
-            LstLocaux = new ObservableCollection<Local>();
 
             #region Chargement des données en bd
             Task task = new Task(new Action(ChargementDonnes));
@@ -185,11 +188,15 @@ namespace Lama.UI.UC.LocauxControls
 
         }
 
+        /// <summary>
+        /// Méthode qui distribue le nombre de joueurs entre les locaux disponibles.
+        /// </summary>
+        /// <param name="nbJoueur">Le nombre de joueurs participant au tournoi.</param>
         private void DistributionJoueurLocaux(int nbJoueur)
         {
             double nb = LstLocaux.Count;
 
-            if (LstLocaux.Count % 2 != 0)
+            if (LstLocaux.Count % 2 != 0 && LstLocaux.Count > 1)
             {
                 nb -= 1;
             }
@@ -203,7 +210,10 @@ namespace Lama.UI.UC.LocauxControls
                 {
                     for (int j = 0; j < nbJoueurParLocal;) // Un maximum de 20 postes peut être utilisé.
                     {
-                        LstLocaux[i].LstPoste[j].Etat = "En attente";
+                        if (LstLocaux[i].LstPoste[j].Etat == "Non requis")
+                        {
+                            LstLocaux[i].LstPoste[j].Etat = "En attente";
+                        }
                         if (j < 20)
                             j++;
                         else
@@ -217,7 +227,10 @@ namespace Lama.UI.UC.LocauxControls
                 {
                     for (int i = 0; i < 5;) // Une équipe par local donc 5 postes requis par local.
                     {
-                        l.LstPoste[i].Etat = "En attente";
+                        if (l.LstPoste[i].Etat == "Non requis")
+                        {
+                            l.LstPoste[i].Etat = "En attente";
+                        }
                         if (i < 20)
                             i++;
                         else
@@ -352,54 +365,54 @@ namespace Lama.UI.UC.LocauxControls
 
         #region Action lié à la base de données.
         #region Chargement des données
-        // Fonction qui charge les postes lié à la liste de locaux lié au tournoi.
-        private void ChargerPostes(Local local, ICollection<postes> postes)
-        {
-            foreach (postes p in postes)
-            {
-                // On va chercher le volontaire ayant fait la modification.
-                local.LstPoste.Add(new Poste(p.numeroPoste, p.etatspostes.nom, p.commentaire)); // On ajoute le poste à la liste de poste.
-            }
-            local.NbPoste_Depart = postes.Count;
-        }
+        //// Fonction qui charge les postes lié à la liste de locaux lié au tournoi.
+        //private void ChargerPostes(Local local, ICollection<postes> postes)
+        //{
+        //    foreach (postes p in postes)
+        //    {
+        //        // On va chercher le volontaire ayant fait la modification.
+        //        local.LstPoste.Add(new Poste(p.numeroPoste, p.etatspostes.nom, p.commentaire)); // On ajoute le poste à la liste de poste.
+        //    }
+        //    local.NbPoste_Depart = postes.Count;
+        //}
 
-        // Fonction qui charge les locaux lié au tournoi.
-        private void ChargerLocaux()
-        {
-            foreach (Local l in LstLocaux)
-            {
-                l.PropertyChanged += Local_PropertyChanged;
-            }
-            App.Current.Dispatcher.Invoke((Action)delegate
-            {
-                // On met l'index de l'item que l'on veut afficher par défaut.
-                cboLocal.SelectedIndex = 0;
-            });
+        //// Fonction qui charge les locaux lié au tournoi.
+        //private void ChargerLocaux()
+        //{
+        //    foreach (Local l in LstLocaux)
+        //    {
+        //        l.PropertyChanged += Local_PropertyChanged;
+        //    }
+        //    App.Current.Dispatcher.Invoke((Action)delegate
+        //    {
+        //        // On met l'index de l'item que l'on veut afficher par défaut.
+        //        cboLocal.SelectedIndex = 0;
+        //    });
 
-        }
+        //}
 
-        // Fonction qui charge les volontaires liés au tournois.
-        private void ChargerVolontaires()
-        {
-            var taskVolontaire = CompteHelper.SelectAllComptesTournoi(false); // On veut la liste des volontaires donc on doit indiquer false pour estAdmin.
-            taskVolontaire.Wait();
-            List<comptes> lComptes = taskVolontaire.Result;
+        //// Fonction qui charge les volontaires liés au tournois.
+        //private void ChargerVolontaires()
+        //{
+        //    var taskVolontaire = CompteHelper.SelectAllComptesTournoi(false); // On veut la liste des volontaires donc on doit indiquer false pour estAdmin.
+        //    taskVolontaire.Wait();
+        //    List<comptes> lComptes = taskVolontaire.Result;
 
-            App.Current.Dispatcher.Invoke((Action)delegate
-            {
-                LstVolontaires_Assignable.Add(new Volontaire()); // On ajoute les locaux chercher en BD au tournoi.
-            });
+        //    App.Current.Dispatcher.Invoke((Action)delegate
+        //    {
+        //        LstVolontaires_Assignable.Add(new Volontaire()); // On ajoute les locaux chercher en BD au tournoi.
+        //    });
 
-            foreach (comptes c in lComptes)
-            {
-                App.Current.Dispatcher.Invoke((Action)delegate
-                {
-                    LstVolontaires_Assignable.Add(new Volontaire(c.nom, c.prenom, c.matricule, c.courriel, c.nomUtilisateur)); // Ajout des volontaires à la liste.
-                    LstVolontaires_DernierModificateur.Add(new Volontaire(c.nom, c.prenom, c.matricule, c.courriel, c.nomUtilisateur)); // Ajout des volontaires à la liste.
-                });
+        //    foreach (comptes c in lComptes)
+        //    {
+        //        App.Current.Dispatcher.Invoke((Action)delegate
+        //        {
+        //            LstVolontaires_Assignable.Add(new Volontaire(c.nom, c.prenom, c.matricule, c.courriel, c.nomUtilisateur)); // Ajout des volontaires à la liste.
+        //            LstVolontaires_DernierModificateur.Add(new Volontaire(c.nom, c.prenom, c.matricule, c.courriel, c.nomUtilisateur)); // Ajout des volontaires à la liste.
+        //        });
 
-            }
-        }
+        //    }
+        //}
         /// <summary>
         /// Fonction qui assigne un volontaire au local à partir des données de la bd.
         /// </summary>

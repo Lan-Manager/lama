@@ -152,6 +152,10 @@ namespace Lama.Logic.Model
         {
             get
             {
+                if (_nbPosteRestant < 1)
+                {
+                    return 0;
+                }
                 return _nbPosteRestant;
             }
             set

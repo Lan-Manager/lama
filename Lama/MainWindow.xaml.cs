@@ -249,8 +249,12 @@ namespace Lama
                     i++;
             }
             
-            lblLocalPret.Content = i.ToString() + " locaux prêt sur " + TournoiEnCours.LstLocaux.Count.ToString();
-
+            
+            lblLocalPret.Content = i.ToString() + " locaux prêts sur " + TournoiEnCours.LstLocaux.Count.ToString();
+            if (i == TournoiEnCours.LstLocaux.Count)
+            {
+                lblLocalPret.Content += "\n Tous les locaux sont prêts, le tournoi peut démarrer.";
+            }
             Button b = sender as Button;
             ContextMenu cm = b.ContextMenu;
             cm.PlacementTarget = b;
