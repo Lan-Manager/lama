@@ -194,17 +194,24 @@ namespace Lama.Logic.Model
         /// Constructeur avec paramètre.
         /// </summary>
         /// <param name="numero">Numero du local Ex: "D125"</param>
-        /// <param name="nbPoste">numero de postes dans le local</param>
+        /// <param name="nbPoste">nombre de postes dans le local</param>
         public Local(string numero, int nbPoste)
         {
+            var task = LamaBD.helper.PosteHelper.SelectAllByNumeroLocalAsync(numero);
+            task.Wait();
+
             NbPoste = nbPoste;
             NbPoste_Depart = nbPoste;
             Numero = numero;
             LstPoste = new TrulyObservableCollection<Poste>();
             VolontaireAssigne = new Volontaire();
-            for (int i = 0; i < nbPoste; i++)
+
+            var listPostes = task.Result;
+
+            for (int i = 1; i <= nbPoste; i++)
             {
-                LstPoste.Add(new Poste(i + 1, "Non requis"));
+                var poste = listPostes.FirstOrDefault(x => x.numeroPoste == i);
+                LstPoste.Add(new Poste(i, poste.etatspostes.nom, poste.commentaire));
             }
 
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
