@@ -10,6 +10,8 @@ using System.ComponentModel;
 using LamaBD.helper;
 using LamaBD;
 using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Windows.Controls;
 
 namespace Lama
 {
@@ -41,6 +43,7 @@ namespace Lama
         }
 
         private Utilisateur _utilisateur;
+
         public Utilisateur Utilisateur
         {
             get
@@ -167,6 +170,8 @@ namespace Lama
             {
                 tabLocaux.Visibility = Visibility.Hidden;
                 tabContenant.SelectedItem = tabTournoi;
+                btnNotification.IsEnabled = false;
+                btnNotification.Visibility = Visibility.Hidden;
             }
             else
             {
@@ -178,6 +183,8 @@ namespace Lama
                 {
                     tabLocaux.Content = new ContenantLocauxUC();
                     tabLocaux.Visibility = Visibility.Visible;
+                    btnNotification.IsEnabled = true;
+                    btnNotification.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -231,6 +238,24 @@ namespace Lama
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
+        }
+
+        private void btnNotification_Click(object sender, RoutedEventArgs e)
+        {
+            int i = 0;
+            foreach (var l in TournoiEnCours.LstLocaux)
+            {
+                if (l.EstPret == true)
+                    i++;
+            }
+            
+            lblLocalPret.Content = i.ToString() + " locaux prêt sur " + TournoiEnCours.LstLocaux.Count.ToString();
+
+            Button b = sender as Button;
+            ContextMenu cm = b.ContextMenu;
+            cm.PlacementTarget = b;
+            cm.IsOpen = true;
+            e.Handled = true;
         }
     }
 }

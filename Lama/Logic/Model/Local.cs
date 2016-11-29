@@ -21,7 +21,7 @@ namespace Lama.Logic.Model
         public string Numero { get; set; }
 
         public TrulyObservableCollection<Poste> LstPoste { get; set; }
-
+        public bool EstPret { get; set; }
         // Le volontaire assigné au local.
         private Volontaire _volontaireAssigne;
         public Volontaire VolontaireAssigne
@@ -241,6 +241,10 @@ namespace Lama.Logic.Model
                     NbPoste_NonRequis++;
                     break;
             }
+            if (NbPoste_Pret == NbPoste)
+                EstPret = true;
+            else
+                EstPret = false;
             NbPoste_Restant = NbPoste - NbPoste_Pret;
 
         }

@@ -332,6 +332,7 @@ namespace Lama.UI.UC.LocauxControls
                     NbPoste_EnAttente++;
                     break;
             }
+            
             NbPoste_Restant = NbPoste_Requis - NbPoste_Pret;
         }
         /// <summary>
@@ -346,12 +347,6 @@ namespace Lama.UI.UC.LocauxControls
                 NbPoste_EnAttente += l.NbPoste_Attente;
                 NbPoste_Restant += l.NbPoste_Restant;
                 NbPoste_Requis += l.NbPoste;
-            }
-
-            // Si le nombre de poste restant est a 0 tout les locaux sont prêts a recevoir les joueurs.
-            if (NbPoste_Pret == NbPoste_Requis)
-            {
-                // TODO : Modifier l'état du tournoi pour indiquer que les postes sont prêts. [Si Merge Conflict, cette ligne est la plus a jour]
             }
         }
 
