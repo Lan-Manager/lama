@@ -95,6 +95,7 @@ namespace Lama.Logic.Model
         {
             // Infos de base du tournoi
             Nom = "Le tournoi";
+            TypeTournoi = "Simple élimination";
             Date = DateTime.Now.Date;
             Heure = DateTime.Now.TimeOfDay;
             Description = null;

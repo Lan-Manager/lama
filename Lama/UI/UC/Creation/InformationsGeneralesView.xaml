@@ -18,7 +18,7 @@
         <Controls:DateTimePicker Name="dtpDateTournoi" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="55,205,0,0" SelectedDate="{Binding Date}" SelectedTime="{Binding Heure}"/>
 
         <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,240,0,0" Content="Type de tournoi :" />
-        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="55,265, 0, 0" Width="182" SelectedIndex="0">
+        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="55,265, 0, 0" Width="182" SelectedValue="{Binding TypeTournoi}" SelectedValuePath="Content">
             <ComboBoxItem>Simple élimination</ComboBoxItem>
             <ComboBoxItem>Double élimination</ComboBoxItem>            
         </ComboBox>
