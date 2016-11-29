@@ -1,4 +1,5 @@
 ﻿using Lama.Logic.Model;
+using Lama.UI.UC.TournoiControls.ClassementControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,9 +30,11 @@ namespace Lama.UI.UC.TournoiControls
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            TabControl tabControl = sender as TabControl;
+            Tournoi tournoi = ((MainWindow)Application.Current.MainWindow.DataContext).TournoiEnCours as Tournoi;
+
             if (e.Source is TabControl) //if this event fired from TabControl then enter
             {
-                TabControl tabControl = sender as TabControl;
                 if (tabControl != null)
                 {
                     TabItem tab = tabControl.SelectedItem as TabItem;
@@ -55,14 +58,15 @@ namespace Lama.UI.UC.TournoiControls
                                 break;
                         }
                     }
-                    
+
+
                 }
-                var a = ((TabControl)sender).DataContext;
 
-                a = ((MainWindow)a).TournoiEnCours;
+                if (tournoi != null)
+                    tournoi.MiseAJourStatistiques();
 
-                if (a != null)
-                    ((Tournoi)a).MiseAJourStatistiques();
+                if (tabControl.SelectedIndex == 2)
+                    ((ClassementUC)tabClassement.Content).MiseAjourClassement();
             }
         }
     }
