@@ -33,12 +33,19 @@ namespace LamaBD.helper
         {
             using (var ctx = new Connexion420())
             {
-                var query = from t in ctx.tournois
+                var query = ctx.tournois
+                    .Where(x => (ctx.tournois.Max(y => y.dateCreation) == x.dateCreation) && (x.enCours == true))
+                    .Include(x => x.jeux.statistiquesjeux.Select(y => y.statistiques));
+
+                //var queryPostes = ctx.postes
+
+                return await query.FirstOrDefaultAsync();
+               /* var query = from t in ctx.tournois
                             where t.dateCreation == (ctx.tournois.Select(x => x.dateCreation).Max())
                             && t.enCours == true
                             select t;
                 tournois obj = await query.SingleOrDefaultAsync();
-                return obj;
+                */
             }
         }
 

@@ -109,7 +109,7 @@ namespace Lama
 
         private ObservableCollection<Local> ChargerLocaux()
         {
-            var task = LocalHelper.SelectAllAsync();
+            var task = LocalHelper.SelectLocauxTournoiAsync();
             task.Wait();
 
             List<locaux> data = task.Result;
