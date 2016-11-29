@@ -71,7 +71,7 @@ namespace Lama
         }
 
         #region code BD
-        private Tournoi ChargerTournoi()
+        public Tournoi ChargerTournoi()
         {
             var task = TournoiHelper.SelectLast();
             task.Wait();

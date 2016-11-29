@@ -255,6 +255,7 @@ namespace Lama.Logic.Model
         {
             LamaBD.tournois entity = new LamaBD.tournois();
             Tournoi.FinTournoi();
+            ((MainWindow)Application.Current.MainWindow).ChargerTournoi();
             using (var ctx = new Connexion420())
             {
                 DateTime dateEvenement = this.Date.Add(this.Heure);
