@@ -176,6 +176,7 @@ namespace Lama.Logic.Model
         {
             LstPoste = new TrulyObservableCollection<Poste>();
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
+            VolontaireAssigne = new Volontaire();
         }
         /// <summary>
         /// Constructeur de local contenant le numéro du local.
@@ -186,6 +187,7 @@ namespace Lama.Logic.Model
             Numero = numero;
             LstPoste = new TrulyObservableCollection<Poste>();
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
+            VolontaireAssigne = new Volontaire();
         }
 
         /// <summary>
@@ -199,7 +201,7 @@ namespace Lama.Logic.Model
             NbPoste_Depart = nbPoste;
             Numero = numero;
             LstPoste = new TrulyObservableCollection<Poste>();
-
+            VolontaireAssigne = new Volontaire();
             for (int i = 0; i < nbPoste; i++)
             {
                 LstPoste.Add(new Poste(i + 1, "Non requis"));

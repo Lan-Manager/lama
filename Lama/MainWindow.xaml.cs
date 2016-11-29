@@ -138,7 +138,7 @@ namespace Lama
 
             foreach (var volontaire in data)
             {
-                lstTemp.Add(new Volontaire(volontaire.nom, volontaire.prenom, volontaire.matricule, volontaire.courriel));
+                lstTemp.Add(new Volontaire(volontaire.nom, volontaire.prenom, volontaire.matricule, volontaire.courriel, volontaire.nomUtilisateur));
             }
 
             return lstTemp;

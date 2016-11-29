@@ -167,12 +167,12 @@ namespace Lama.UI.UC.LocauxControls
             }
             CalculerEtat();
 
-            LocalSelectionne = new Local();
+            LocalSelectionne = ParentWindow.TournoiEnCours.LstLocaux[0];
             InitializeComponent();
             this.IsEnabled = false;
 
             // On met l'index de l'item que l'on veut afficher par défaut.
-            cboLocal.SelectedIndex = 0;
+            //cboLocal.SelectedIndex = 0;
 
 
             #region Chargement des données en bd
