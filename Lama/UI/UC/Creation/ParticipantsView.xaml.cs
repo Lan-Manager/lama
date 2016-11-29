@@ -95,7 +95,10 @@ namespace Lama.UI.UC.Creation
             // Supprimer l'objet Joueur
             foreach (Joueur j in LstJ)
             {
-                j.EquipeJoueur.LstJoueurs.Remove(j);
+                if (j.EquipeJoueur != null)
+                {
+                    j.EquipeJoueur.LstJoueurs.Remove(j);
+                }
                 ((Tournoi)DataContext).LstJoueurs.Remove(j);
             }
         }
