@@ -1,21 +1,9 @@
 ﻿using Lama.Logic.Model;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Lama.Logic.Tools;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 
@@ -28,6 +16,23 @@ namespace Lama.UI.UC.LocauxControls
     {
         public ObservableCollection<Local> LstLocaux { get; set; }
         public ObservableCollection<Volontaire> LstVolontaires { get; set; }
+
+        private Poste _posteCourant;
+        public Poste PosteCourant
+        {
+            get
+            {
+                return _posteCourant;
+            }
+            set
+            {
+                if (value != _posteCourant)
+                {
+                    _posteCourant = value;
+                    NotifyPropertyChanged("PosteCourant");
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -59,19 +64,38 @@ namespace Lama.UI.UC.LocauxControls
             // On va chercher la liste de locaux du tournoi.
             MainWindow ParentWindow = (MainWindow)Application.Current.MainWindow;
             LstLocaux = ParentWindow.TournoiEnCours.LstLocaux;
-
+            LocalSelectionne = LstLocaux[0];
             // On va chercher la liste de volontaires du tournoi.
             LstVolontaires = ParentWindow.TournoiEnCours.LstVolontaires;
-            
+
+            PosteCourant = ParentWindow.TournoiEnCours.LstLocaux[0].LstPoste[0];
             InitializeComponent();
-            cboLocal.SelectedIndex = 0;
+        }
+        /// <summary>
+        /// Handler pour le click sur un des postes.
+        /// </summary>
+        /// <param name="sender">L'objet cliqué</param>
+        /// <param name="e"></param>
+        private void gPoste_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            PosteCourant = ((Grid)sender).DataContext as Poste;
+        }
+
+        /// <summary>
+        /// Handler pour le click du bouton d'ajout d'un commentaire.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAjoutCommentaire_Click(object sender, RoutedEventArgs e)
+        {
+            AjouterCommentaire(PosteCourant);
         }
 
         /// <summary>
         /// Méthode affichant le dialogue pour entrer un commentaire.
         /// </summary>
         /// <param name="p">Le poste auquel on doit ajouter un commentaire.</param>
-        public async void Afficher_Menu(Poste p)
+        public async void AjouterCommentaire(Poste p)
         {
             // On va chercher la fenêtre parent (MainWindow dans ce cas-ci) avec la référence du contrôle (this).
             MetroWindow parent = Window.GetWindow(this) as MetroWindow;
@@ -88,13 +112,6 @@ namespace Lama.UI.UC.LocauxControls
             {
                 p.Commentaire = result;
             }
-        }
-
-        private void gPoste_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Poste p = ((Grid)sender).DataContext as Poste;
-            CustomDialog cm = new MenuCarte();
-            cm.ShowModalDialogExternally();
         }
     }
 }

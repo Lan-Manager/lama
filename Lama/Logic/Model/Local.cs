@@ -292,6 +292,10 @@ namespace Lama.Logic.Model
             if (e.PropertyName == "Etat")
             {
                 NotifyPropertyChanged("Etat", PosteCourant.AncienEtat, PosteCourant.Etat);
+                if (PosteCourant.AncienEtat == "Problème")
+                {
+                    PosteCourant.Commentaire = null;
+                }
             }
             if (e.PropertyName == "DernierModificateur")
             {
