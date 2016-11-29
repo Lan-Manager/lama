@@ -254,7 +254,7 @@ namespace Lama.Logic.Model
         public bool Insert()
         {
             LamaBD.tournois entity = new LamaBD.tournois();
-
+            Tournoi.FinTournoi();
             using (var ctx = new Connexion420())
             {
                 DateTime dateEvenement = this.Date.Add(this.Heure);
