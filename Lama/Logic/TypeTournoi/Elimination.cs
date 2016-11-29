@@ -23,7 +23,10 @@ namespace Lama.Logic.TypeTournoi
         private List<Equipe> equipesEliminees;
         private List<Equipe> equipesCompetiteurs;
         private List<Equipe> listBye;
-        private Dictionary<Equipe, int> scoreboard;
+        private Dictionary<Equipe, int> equipesVies;
+
+        private List<Equipe> loserBracket;
+        private List<Equipe> winnerBracket;
 
 
         public bool Initialiser(List<Equipe> equipes, string configString = "elimination=simple")
@@ -47,8 +50,12 @@ namespace Lama.Logic.TypeTournoi
                 }
                 else if (typeElimination.Equals("double"))
                 {
+                    loserBracket = new List<Equipe>();
+                    winnerBracket = new List<Equipe>();
                     estSimpleElimination = false;
                 }
+                else
+                    estSimpleElimination = true;
             }
 
 
@@ -57,7 +64,7 @@ namespace Lama.Logic.TypeTournoi
             else
                 maxNumberGames = (equipes.Count() * 2) - 1;
             listTours = new List<Tour>();
-            scoreboard = new Dictionary<Equipe, int>();
+            equipesVies = new Dictionary<Equipe, int>();
             equipesParticipantes = new List<Equipe>(equipes.Count);
             equipesEliminees = new List<Equipe>(equipes.Count);
             equipesCompetiteurs = new List<Equipe>(equipes.Count);
@@ -66,7 +73,10 @@ namespace Lama.Logic.TypeTournoi
 
             foreach (Equipe equipe in equipes)
             {
-                scoreboard.Add(equipe, 0);
+                if (estSimpleElimination)
+                    equipesVies.Add(equipe, 1);
+                else
+                    equipesVies.Add(equipe, 2);
                 equipesCompetiteurs.Add(equipe);
                 equipesParticipantes.Add(equipe);
             }
@@ -80,10 +90,27 @@ namespace Lama.Logic.TypeTournoi
         {
             VerificationInitialisation();
 
-            if (estSimpleElimination)
-                return GenererTourElimination(equipesPerdantes);
+            numTour++;
+            Tour tour;
+            if (equipesPerdantes == null)
+            {
+                listBye = equipesCompetiteurs.ToList(); ;
+                int nbrEquipePremierTour = equipesParticipantes.Count - numberOfBye;
+                if (estSimpleElimination)
+                    tour = CreerTour(equipesCompetiteurs, numTour, nbrEquipePremierTour);
+                else
+                    tour = CreerTourDoubleElimination(equipesCompetiteurs, numTour, nbrEquipePremierTour);
+            }
             else
-                return GenererTourDoubleElimination(equipesPerdantes);
+            {
+                AjustementEquipe(equipesPerdantes);
+                if (estSimpleElimination)
+                    tour = CreerTour(equipesCompetiteurs, numTour);
+                else
+                    tour = CreerTourDoubleElimination(equipesCompetiteurs, numTour);
+            }
+            listTours.Add(tour);
+            return tour;
         }
 
         public bool EstInitialiser()
@@ -158,30 +185,6 @@ namespace Lama.Logic.TypeTournoi
         }
 
 
-        public Tour GenererTourElimination(List<Equipe> equipesPerdantes)
-        {
-            numTour++;
-            Tour tour;
-            if (equipesPerdantes == null)
-            {
-                listBye = equipesCompetiteurs.ToList(); ;
-                int nbrEquipePremierTour = equipesParticipantes.Count - numberOfBye;
-                tour = CreerTour(equipesCompetiteurs, numTour, nbrEquipePremierTour);
-            }
-            else
-            {
-                AjustementEquipe(equipesPerdantes);
-                tour = CreerTour(equipesCompetiteurs, numTour);
-            }
-            listTours.Add(tour);
-            return tour;
-        }
-
-        public Tour GenererTourDoubleElimination(List<Equipe> equipesPerdantes)
-        {
-            return null;
-        }
-
         //https://stackoverflow.com/questions/273313/randomize-a-listt
         private static void Shuffle<T>(IList<T> list)
         {
@@ -246,17 +249,42 @@ namespace Lama.Logic.TypeTournoi
             return tour;
         }
 
+
+        private Tour CreerTourDoubleElimination(List<Equipe> equipes, int numtour, int nbrEquipePremierTour)
+        {
+            winnerBracket = equipes.ToList();
+            Tour tour = this.CreerTour(equipes, numtour, nbrEquipePremierTour);
+            return tour;
+        }
+
+        private Tour CreerTourDoubleElimination(List<Equipe> equipes, int numtour)
+        {
+            Tour tour = new Tour(numTour);
+            int index = 0;
+            for (int i = 0; i < equipes.Count() / 2; i++)
+            {
+                PartieEquipe pe1 = new PartieEquipe(equipes[index]);
+                PartieEquipe pe2 = new PartieEquipe(equipes[index + 1]);
+                Partie partie = new Partie(pe1, pe2, ++numPartie);
+
+                index += 2;
+                tour.LstParties.Add(partie);
+            }
+            return tour;
+        }
+
         private void AjustementEquipe(List<Equipe> equipesPerdantes)
         {
-            List<Equipe> equipesGagnante = equipesCompetiteurs.Where(x => !equipesPerdantes.Any(y => x == y)).ToList();
-            foreach (Equipe e in equipesGagnante)
-            {
-                scoreboard[e] += 1;
-            }
-            equipesCompetiteurs = equipesGagnante;
+            //List<Equipe> equipesGagnante = equipesCompetiteurs.Where(x => !equipesPerdantes.Any(y => x == y)).ToList();
+            equipesCompetiteurs.Clear();
+
             foreach (Equipe e in equipesPerdantes)
             {
-                equipesEliminees.Add(e);
+                equipesVies[e] -= 1;
+                if (equipesVies[e] == 0)
+                    equipesEliminees.Add(e);
+                else
+                    equipesCompetiteurs.Add(e);
             }
         }
     }
