@@ -9,7 +9,7 @@
     <Grid>
         <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Participants" />
 
-        <DataGrid Name="dgJoueurs" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="350" AutoGenerateColumns="False" SelectionMode="Extended" CanUserAddRows="False" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserDeleteRows="False" EnableRowVirtualization="False" ItemsSource="{Binding LstJoueurs}" IsReadOnly="True" ContextMenuOpening="dgJoueurs_ContextMenuOpening">
+        <DataGrid Name="dgJoueurs" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="350" AutoGenerateColumns="False" SelectionMode="Extended" CanUserAddRows="False" CanUserSortColumns="True" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserDeleteRows="False" EnableRowVirtualization="False" ItemsSource="{Binding LstJoueurs}" IsReadOnly="True" ContextMenuOpening="dgJoueurs_ContextMenuOpening">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Matricule}" Width="*" Header="Matricule"/>
                 <DataGridTextColumn Binding="{Binding Prenom}" Width="*" Header="Prénom"/>
