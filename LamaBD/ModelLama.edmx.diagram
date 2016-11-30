@@ -22,7 +22,6 @@
         <EntityTypeShape EntityType="bd_lama.scoresequipesparties" Width="1.5" PointX="15" PointY="13.875" />
         <EntityTypeShape EntityType="bd_lama.statistiques" Width="1.5" PointX="10.5" PointY="6.125" />
         <EntityTypeShape EntityType="bd_lama.statistiquesjeux" Width="1.5" PointX="12.75" PointY="5.875" />
-        <EntityTypeShape EntityType="bd_lama.tours" Width="1.5" PointX="8.25" PointY="18.625" />
         <AssociationConnector Association="bd_lama.ComptesTournois_Comptes_FK" />
         <AssociationConnector Association="bd_lama.Messages_Comptes_FK" />
         <AssociationConnector Association="bd_lama.EquipesParticipants_Equipes_FK" />
@@ -45,7 +44,6 @@
         <AssociationConnector Association="bd_lama.Postes_Locaux_FK" />
         <EntityTypeShape EntityType="bd_lama.parties" Width="1.5" PointX="10.5" PointY="18.625" />
         <AssociationConnector Association="bd_lama.EquipesParties_Parties_FK" />
-        <AssociationConnector Association="bd_lama.Parties_Tours_FK" />
         <EntityTypeShape EntityType="bd_lama.tournois" Width="1.5" PointX="15.5" PointY="6.5" />
         <EntityTypeShape EntityType="bd_lama.typestournois" Width="1.5" PointX="13.25" PointY="2.625" />
         <AssociationConnector Association="bd_lama.Tournois_Comptes_FK" />
@@ -57,6 +55,8 @@
         <AssociationConnector Association="bd_lama.PrixTournois_Tournois_FK" />
         <AssociationConnector Association="bd_lama.Tournois_TypesTournois_FK" />
         <AssociationConnector Association="bd_lama.TournoixLocaux_Tournois_FK" />
+        <EntityTypeShape EntityType="bd_lama.tours" Width="1.5" PointX="17.75" PointY="8" />
+        <AssociationConnector Association="bd_lama.Parties_Tours_FK" />
         <AssociationConnector Association="bd_lama.Tours_Tournois_FK" />
         </Diagram>
     </edmx:Diagrams>
