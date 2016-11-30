@@ -9,21 +9,34 @@
     <Grid>
         <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Volontaires" />
 
-        <DataGrid Name="dgVolontaires" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="475" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserAddRows="False">
+        <DataGrid Name="dgVolontaires" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="400" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserAddRows="False" CanUserDeleteRows="False" ContextMenuOpening="dgVolontaires_ContextMenuOpening">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Matricule}" Width="*" Header="Matricule" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Prenom}" Width="*" Header="Prénom" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Nom" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Courriel}" Width="*" Header="Courriel" IsReadOnly="True"/>
-                <DataGridCheckBoxColumn Width="*" Header="Actif">
-                    <DataGridCheckBoxColumn.CellStyle>
+                <DataGridTemplateColumn Width="*" Header="Actif" IsReadOnly="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellStyle>
                         <Style>
                             <EventSetter Event="CheckBox.Checked" Handler="OnChecked"/>
                             <EventSetter Event="CheckBox.Unchecked" Handler="OnUnchecked"/>
                         </Style>
-                    </DataGridCheckBoxColumn.CellStyle>
-                </DataGridCheckBoxColumn>
+                    </DataGridTemplateColumn.CellStyle>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Name="miModifier" Header="Modifier le volontaire" Click="miModifier_Click"/>
+                    <MenuItem Name="miSupprimer" Header="Supprimer le volontaire" Click="miSupprimer_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
+
+        <Button Name="btnAddVolontaire" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,500,22.5,0" Content="Ajouter un volontaire" Click="btnAddVolontaire_Click"/>
     </Grid>
 </UserControl>

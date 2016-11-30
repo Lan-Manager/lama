@@ -6,8 +6,11 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:Lama.UI.Win"
         mc:Ignorable="d"
+        BorderThickness="1"
+        BorderBrush="{DynamicResource AccentColorBrush}"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
-        Title="Création de tournoi" Height="625" Width="550">
+        Title="Création de tournoi" Height="625" Width="550"
+        Closing="MetroWindow_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height=".9*" />

@@ -95,6 +95,7 @@ namespace Lama.Logic.Model
         {
             // Infos de base du tournoi
             Nom = "Le tournoi";
+            TypeTournoi = "Simple élimination";
             Date = DateTime.Now.Date;
             Heure = DateTime.Now.TimeOfDay;
             Description = null;
@@ -253,7 +254,7 @@ namespace Lama.Logic.Model
         public bool Insert()
         {
             LamaBD.tournois entity = new LamaBD.tournois();
-
+            Tournoi.FinTournoi();
             using (var ctx = new Connexion420())
             {
                 DateTime dateEvenement = this.Date.Add(this.Heure);

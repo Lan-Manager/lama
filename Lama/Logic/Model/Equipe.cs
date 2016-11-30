@@ -6,13 +6,31 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Lama.Logic.Model
 {
     public class Equipe : IEquatable<Equipe>
     {
         #region Propriétés
-        public string Nom { get; set; }
+        #region Nom
+        private string _nom;
+        public string Nom
+        {
+            get
+            {
+                return _nom;
+            }
+
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    _nom = value;
+                }
+            }
+        }
+        #endregion
         public ObservableCollection<Joueur> LstJoueurs { get; set; }
         public bool EstElimine { get; set; }
         public Statistiques LstStats { get; set; }
@@ -27,13 +45,6 @@ namespace Lama.Logic.Model
 
             EstElimine = false;
             LstStats = new Statistiques();
-
-            // TODO: SELEUMENT POUR MONTRER EN DÉMO
-            LstJoueurs.Add(new Joueur("123123", "12312", "123123", "123", "maxeber"));
-            LstJoueurs.Add(new Joueur("123123", "12312", "123123", "123", "savariiia"));
-            LstJoueurs.Add(new Joueur("123123", "12312", "123123", "123", "antonee"));
-            LstJoueurs.Add(new Joueur("123123", "12312", "123123", "123", "franciska"));
-            LstJoueurs.Add(new Joueur("123123", "12312", "123123", "123", "l'autre dude3"));
         }
         #endregion
 

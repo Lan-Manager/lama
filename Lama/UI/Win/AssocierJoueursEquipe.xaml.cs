@@ -22,31 +22,39 @@ namespace Lama.UI.Win
     /// </summary>
     public partial class AssocierJoueursEquipe : MetroWindow
     {
+        const int NB_JOUEURS = 5;
         public Equipe LEquipe { get; set; }
         public ObservableCollection<Joueur> LstJoueursRestant { get; set; }
+        private ObservableCollection<Joueur> LstTemp { get; set; }
 
         public AssocierJoueursEquipe(Equipe e, ObservableCollection<Joueur> lj)
         {
-            InitializeComponent();
-
-            LEquipe = e;
             LstJoueursRestant = lj;
 
-            lblEquipe.Content = LEquipe.Nom;
+            LEquipe = e;
+            LstTemp = new ObservableCollection<Joueur>();
+            
+            InitializeComponent();
 
+            lblNbJoueurs.Content = LstTemp.Count.ToString();
+
+            lblEquipe.Content = LEquipe.Nom;
             dgEquipes.ItemsSource = LstJoueursRestant;
         }
 
+        #region Events
         // ajouter le participant à l'équipe
         void OnChecked(object sender, RoutedEventArgs e)
         {
             DataGridCell dgc = sender as DataGridCell;
 
-            // le OnChecked sera triggered a cause du DataTrigger, donc on doit vérifier si cet objet n'existe pas déjà pour pas l'ajouter une 2e fois. (se retrigger lorsque l'on réouvre la Window)
-            if (!LEquipe.LstJoueurs.Contains(dgc.DataContext as Joueur))
+            LstTemp.Add(dgc.DataContext as Joueur);
+            (dgc.DataContext as Joueur).EquipeJoueur = LEquipe;
+            lblNbJoueurs.Content = LstTemp.Count.ToString();
+
+            if (LstTemp.Count > NB_JOUEURS)
             {
-                LEquipe.LstJoueurs.Add(dgc.DataContext as Joueur);
-                (dgc.DataContext as Joueur).EquipeJoueur = LEquipe;
+                (e.OriginalSource as CheckBox).IsChecked = false;
             }
         }
 
@@ -55,8 +63,43 @@ namespace Lama.UI.Win
         {
             DataGridCell dgc = sender as DataGridCell;
 
-            LEquipe.LstJoueurs.Remove(dgc.DataContext as Joueur);
+            LstTemp.Remove(dgc.DataContext as Joueur);
             (dgc.DataContext as Joueur).EquipeJoueur = null;
+
+            lblNbJoueurs.Content = LstTemp.Count.ToString();
         }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult mbr = MessageBox.Show("Êtes-vous certain de vouloir enregistrer les changements?",
+                                                   "Enregistrer",
+                                                   MessageBoxButton.YesNo,
+                                                   MessageBoxImage.Question,
+                                                   MessageBoxResult.No);
+
+            if (mbr == MessageBoxResult.Yes)
+            {
+                LEquipe.LstJoueurs = LstTemp;
+                Close();
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (Joueur j in LstJoueursRestant)
+            {
+                if (LEquipe.LstJoueurs.Contains(j))
+                {
+                    j.EquipeJoueur = LEquipe;
+                }
+
+                else
+                {
+                    j.EquipeJoueur = null;
+                }
+            }
+            Close();
+        }
+        #endregion
     }
 }

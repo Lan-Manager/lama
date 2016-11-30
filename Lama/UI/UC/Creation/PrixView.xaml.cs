@@ -43,5 +43,31 @@ namespace Lama.UI.UC.Creation
                 txtNewPrix.Clear();
             }
         }
+
+        private void dgPrix_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            if ((sender as DataGrid).SelectedIndex == -1)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void miSupprimer_Click(object sender, RoutedEventArgs e)
+        {
+            // Le sender est le menu item
+            MenuItem mi = sender as MenuItem;
+
+            // On va chercher le parent du menu item (c'est donc un ContextMenu)
+            ContextMenu cm = mi.Parent as ContextMenu;
+
+            // Avec le context menu, on peut trouver la datagrid qui a "fabriqué" le context menu
+            DataGrid dg = cm.PlacementTarget as DataGrid;
+
+            // On peut ainsi aller chercher le prix à supprimer à partir de la datagrid (le SelectedItem)
+            Prix p = dg.SelectedItem as Prix;
+
+            // Supprimer l'objet Prix
+            ((Tournoi)DataContext).LstPrix.Remove(p);
+        }
     }
 }

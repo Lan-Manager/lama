@@ -9,22 +9,22 @@
     <Grid>
         <Label HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Content="Participants" />
 
-        <DataGrid Name="dgJoueurs" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="475" AutoGenerateColumns="False" SelectionMode="Single" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" EnableRowVirtualization="False">
+        <DataGrid Name="dgJoueurs" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="350" AutoGenerateColumns="False" SelectionMode="Extended" CanUserAddRows="False" CanUserSortColumns="True" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserDeleteRows="False" EnableRowVirtualization="False" ItemsSource="{Binding LstJoueurs}" IsReadOnly="True" ContextMenuOpening="dgJoueurs_ContextMenuOpening">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Matricule}" Width="*" Header="Matricule" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Prenom}" Width="*" Header="Prénom" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Nom" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Rang}" Width="*" Header="Rang" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Usager}" Width="*" Header="Summoner" IsReadOnly="True"/>
-                <DataGridCheckBoxColumn Width="*" Header="Actif">
-                    <DataGridCheckBoxColumn.CellStyle>
-                        <Style>
-                            <EventSetter Event="CheckBox.Checked" Handler="OnChecked"/>
-                            <EventSetter Event="CheckBox.Unchecked" Handler="OnUnchecked"/>
-                        </Style>
-                    </DataGridCheckBoxColumn.CellStyle>
-                </DataGridCheckBoxColumn>
+                <DataGridTextColumn Binding="{Binding Matricule}" Width="*" Header="Matricule"/>
+                <DataGridTextColumn Binding="{Binding Prenom}" Width="*" Header="Prénom"/>
+                <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Nom"/>
+                <DataGridTextColumn Binding="{Binding Usager}" Width="*" Header="Summoner"/>
             </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Name="miModifier" Header="Modifier le participant" Click="miModifier_Click"/>
+                    <MenuItem Name="miSupprimer" Click="miSupprimer_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
+
+        <Button Name="btnAddParticipant" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,465,22.5,0" Content="Ajouter un participant" Click="btnAddParticipant_Click"/>
+        <Button Name="btnImportParticipants" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,500,22.5,0" Content="Importer une liste de participants" Click="btnImportParticipants_Click"/>
     </Grid>
 </UserControl>
