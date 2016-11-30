@@ -22,5 +22,39 @@ namespace LamaBD.helper
                 return await stats.ToListAsync();
             }
         }
+
+        public static async Task<bool> MiseAjourStats(int numeroPartie, decimal valeur, string nomEquipe, string nomStat)
+        {
+            using (var ctx = new Connexion420())
+            {
+                var queryPartie = ctx.equipesparties
+                    .Include(x => x.parties)
+                    .Include(x => x.equipes)
+                    .Where(x => x.parties.numPartie == numeroPartie && x.equipes.nom == nomEquipe)
+                    .FirstOrDefault();
+
+                var queryStats = ctx.statistiquesjeux
+                    .Include(x => x.statistiques)
+                    .Where(x => x.statistiques.nom == nomStat)
+                    .FirstOrDefault();
+
+                var query = ctx.scoresequipesparties
+                    .Where(x => x.idEquipePartie == queryPartie.idEquipePartie && x.idStatistiqueJeu == queryStats.idStatistiqueJeu)
+                    .FirstOrDefault();
+
+                query.valeur = valeur;
+
+                try
+                {
+                    await ctx.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
     }
 }
