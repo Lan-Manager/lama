@@ -67,7 +67,7 @@ namespace Lama
             {
                 AfficherElement();
             }
-            
+
         }
 
         #region code BD
@@ -180,7 +180,7 @@ namespace Lama
                 {
                     btnCreerTournoi.Visibility = Visibility.Visible;
                 }
-                if (TournoiEnCours.LstLocaux.Count() > 0)
+                if (TournoiEnCours != null && TournoiEnCours.LstLocaux.Count() > 0)
                 {
                     tabLocaux.Content = new ContenantLocauxUC();
                     tabLocaux.Visibility = Visibility.Visible;
@@ -252,8 +252,8 @@ namespace Lama
                 if (l.EstPret == true)
                     i++;
             }
-            
-            
+
+
             lblLocalPret.Content = i.ToString() + " locaux prêts sur " + TournoiEnCours.LstLocaux.Count.ToString();
             if (i == TournoiEnCours.LstLocaux.Count)
             {

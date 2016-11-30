@@ -148,22 +148,18 @@ namespace Lama.UI.UC.LocauxControls
                 LstVolontaires_Assignable.Add(v);
             }
 
-            // S'il y a une liste de joueurs associés au tournoi.
-            if (ParentWindow.TournoiEnCours.LstJoueurs != null)
-            {
-                int nbJoueur = ParentWindow.TournoiEnCours.LstJoueurs.Count;
-                DistributionJoueurLocaux(nbJoueur);
-            }
-
-
-            
-
             // On subscribe les events de propriétés changeantes et on calcul les états de départ.
             foreach (Local l in LstLocaux)
             {
                 l.PropertyChanged += Local_PropertyChanged;
                 l.CalculerEtatDepart(); // À la fin du chargement on calcule les états initiaux.
 
+            }
+            // S'il y a une liste de joueurs associés au tournoi.
+            if (ParentWindow.TournoiEnCours.LstJoueurs != null)
+            {
+                int nbJoueur = ParentWindow.TournoiEnCours.LstJoueurs.Count;
+                DistributionJoueurLocaux(nbJoueur);
             }
             CalculerEtat();
 
@@ -201,11 +197,12 @@ namespace Lama.UI.UC.LocauxControls
             {
                 for (int i = 0; i < nb; i++)
                 {
+                    LocalSelectionne = LstLocaux[i];
                     for (int j = 0; j < nbJoueurParLocal;) // Un maximum de 20 postes peut être utilisé.
                     {
                         if (LstLocaux[i].LstPoste[j].Etat == "Non requis")
                         {
-                            LstLocaux[i].LstPoste[j].Etat = "En attente";
+                            LocalSelectionne.LstPoste[j].Etat = "En attente";
                         }
                         if (j < 20)
                             j++;
@@ -218,11 +215,12 @@ namespace Lama.UI.UC.LocauxControls
             {
                 foreach (var l in LstLocaux)
                 {
+                    LocalSelectionne = l ;
                     for (int i = 0; i < 5;) // Une équipe par local donc 5 postes requis par local.
                     {
-                        if (l.LstPoste[i].Etat == "Non requis")
+                        if (LocalSelectionne.LstPoste[i].Etat == "Non requis")
                         {
-                            l.LstPoste[i].Etat = "En attente";
+                            LocalSelectionne.LstPoste[i].Etat = "En attente";
                         }
                         if (i < 20)
                             i++;
