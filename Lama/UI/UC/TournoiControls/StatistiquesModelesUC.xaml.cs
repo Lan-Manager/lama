@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Lama.UI.UC.TournoiControls.StatistiquesControls
+namespace Lama.UI.UC.TournoiControls
 {
     /// <summary>
     /// Interaction logic for StatistiquesModelesUC.xaml

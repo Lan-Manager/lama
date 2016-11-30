@@ -38,7 +38,7 @@
 
         <Style TargetType="StackPanel" x:Key="sp">
             <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="35 0 35 0" />
+            <Setter Property="Margin" Value="10 0 10 0" />
         </Style>
 
         <ItemsPanelTemplate x:Key="wp">

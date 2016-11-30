@@ -24,5 +24,17 @@ namespace Lama.UI.UC.TournoiControls.StatistiquesControls.ToursParties
         {
             InitializeComponent();
         }
+
+        private void lvParties_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ucStatistiquesTour.Visibility = Visibility.Collapsed;
+            ucStatistiquesPartie.Visibility = Visibility.Visible;
+        }
+
+        private void lvTours_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ucStatistiquesPartie.Visibility = Visibility.Collapsed;
+            ucStatistiquesTour.Visibility = Visibility.Visible;
+        }
     }
 }
