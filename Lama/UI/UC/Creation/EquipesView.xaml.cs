@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Linq;
 using System;
+using System.Text;
 
 namespace Lama.UI.UC.Creation
 {
@@ -56,6 +57,24 @@ namespace Lama.UI.UC.Creation
             AssocierJoueursEquipe aje = new AssocierJoueursEquipe(equipe, new ObservableCollection<Joueur>(((Tournoi)DataContext).LstJoueurs.Where(x => x.EquipeJoueur == null || x.EquipeJoueur == equipe)));
 
             aje.ShowDialog();
+
+            if (equipe.LstJoueurs.Count != 0)
+            {
+                StringBuilder sb = new StringBuilder().AppendLine("Liste des joueurs :");
+
+                foreach (Joueur j in equipe.LstJoueurs)
+                {
+                    sb.AppendLine($"{j.Matricule}, {j.Prenom}, {j.Nom}, {j.Usager}");
+                }
+
+                (dg.SelectedItem as Equipe).Infos = sb.ToString();
+            }
+
+            else
+            {
+                (dg.SelectedItem as Equipe).Infos = "Aucun joueur";
+            }
+            dgEquipes.Items.Refresh();
         }
 
         private void miSupprimer_Click(object sender, RoutedEventArgs e)
