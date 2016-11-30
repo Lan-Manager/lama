@@ -2,8 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Lama.UI.UC.TournoiControls.PrixControls"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
@@ -25,28 +26,28 @@
 
         <Label Style="{StaticResource prix}" Content="Liste des prix du tournoi" />
 
-        <StackPanel Orientation="Horizontal">
-            <Label Style="{StaticResource prix}" Content="Prix" />
-            <Label Style="{StaticResource prix}" Content="Équipe gagnante" />
-        </StackPanel>
-        <ItemsControl ItemsSource="{Binding TournoiEnCours.LstPrix}" Margin="10">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="{Binding Nom}" />
-                        <Label Content=" => " />
-                        <ComboBox ItemsSource="{Binding Path=TournoiEnCours.LstEquipes, Mode=OneWay}"
-                                  DisplayMemberPath="Nom"
-                                  SelectedItem="{Binding Nom}"/>
-                        <Label Content="{Binding Gagnant.Nom}" />
-                    </StackPanel>
-                </DataTemplate>
+        <StackPanel Width="600" HorizontalAlignment="Center">
+            <UniformGrid Columns="2">
+                <Label Style="{StaticResource prix}" Content="Prix" Margin="10" />
+                <Label Style="{StaticResource prix}" Content="Équipe gagnante" Margin="10" />
+            </UniformGrid>
 
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+            <ItemsControl ItemsSource="{Binding TournoiEnCours.LstPrix}" Margin="5">
+                <ItemsControl.ItemTemplate>
+
+                    <DataTemplate>
+                        <UniformGrid Columns="2" HorizontalAlignment="Center">
+                            <Label Content="{Binding Nom}" Margin="10" HorizontalAlignment="Right"/>
+                            <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Controls:MetroWindow}}, Path=TournoiEnCours.LstEquipes}" Margin="10" Width="200" />
+                            <!--<Label Content="{Binding Gagnant.Nom}" Margin="10" />-->
+                        </UniformGrid>
+                    </DataTemplate>
+
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
 
         <!--<Label Style="{StaticResource prix}" Content="Liste des prix de participation" />
-
         <ItemsControl ItemsSource="{Binding lstPrix}" Margin="10">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
