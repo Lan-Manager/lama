@@ -30,6 +30,7 @@ namespace Lama.UI.Win
         #region Propriétés
         const int NB_EQUIPES_REQUIS = 2;
         const int NB_JOUEURS_REQUIS = 5;
+
         private StringBuilder Erreurs { get; set; }
         private int Index { get; set; }
         private List<UserControl> Views { get; set; }
@@ -70,6 +71,37 @@ namespace Lama.UI.Win
 
             // Disable le bouton précédent
             btnPrecedent.IsEnabled = false;            
+        }
+
+        public CreerTournoiWindow(Tournoi tournoiEnCours)
+        {
+            InitializeComponent();
+
+            // Initialiser le tournoi
+            temp = new Tournoi(tournoiEnCours);
+            LeTournoi = null;
+
+            // Mettre le datacontext au tournoi
+            DataContext = temp;
+
+            // Initialiser la liste
+            Views = new List<UserControl>() {
+                                                new InformationsGeneralesView(),
+                                                new LocauxView(),
+                                                new VolontairesView(),
+                                                new ParticipantsView(),
+                                                new EquipesView(),
+                                                new PrixView()
+                                            };
+
+            // Initialiser l'index
+            Index = 0;
+
+            // Afficher la première page
+            content.Content = Views.First();
+
+            // Disable le bouton précédent
+            btnPrecedent.IsEnabled = false;
         }
         #endregion
 

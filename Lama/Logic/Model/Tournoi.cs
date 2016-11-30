@@ -76,6 +76,7 @@ namespace Lama.Logic.Model
         }
 
         private Equipe _vainqueur;
+
         public Equipe Vainqueur
         {
             get { return _vainqueur; }
@@ -109,6 +110,28 @@ namespace Lama.Logic.Model
             LstEquipes = new ObservableCollection<Equipe>();
             LstPrix = new ObservableCollection<Prix>();
             LstTours = new ObservableCollection<Tour>();
+
+            GenerationTourPossible = true;
+            GenerateurTour = new Elimination();
+        }
+
+        public Tournoi(Tournoi tournoiEnCours)
+        {
+            Nom = tournoiEnCours.Nom;
+            TypeTournoi = tournoiEnCours.TypeTournoi;
+            Date = tournoiEnCours.Date;
+            Heure = tournoiEnCours.Heure;
+            Description = tournoiEnCours.Description;
+
+            _nbTour = 0;
+            _nbPartie = 0;
+
+            LstLocaux = tournoiEnCours.LstLocaux;
+            LstVolontaires = tournoiEnCours.LstVolontaires;
+            LstJoueurs = tournoiEnCours.LstJoueurs;
+            LstEquipes = tournoiEnCours.LstEquipes;
+            LstPrix = tournoiEnCours.LstPrix;
+            LstTours = tournoiEnCours.LstTours;
 
             GenerationTourPossible = true;
             GenerateurTour = new Elimination();
@@ -255,6 +278,7 @@ namespace Lama.Logic.Model
         {
             LamaBD.tournois entity = new LamaBD.tournois();
             Tournoi.FinTournoi();
+            ((MainWindow)Application.Current.MainWindow).ChargerTournoi();
             using (var ctx = new Connexion420())
             {
                 DateTime dateEvenement = this.Date.Add(this.Heure);

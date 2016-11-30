@@ -13,6 +13,11 @@
         <DataGrid Name="dgEquipes" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,75,0,0" Width="500" Height="375" AutoGenerateColumns="False" CanUserAddRows="True" CanUserSortColumns="True" CanUserReorderColumns="False" CanUserDeleteRows="False" ItemsSource="{Binding LstEquipes}" SelectionMode="Single" ContextMenuOpening="dgEquipes_ContextMenuOpening">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Nom}" Width="*" Header="Équipe">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="ToolTip" Value="{Binding Infos}"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
                     <DataGridTextColumn.EditingElementStyle>
                         <Style TargetType="TextBox">
                             <Setter Property="MaxLength" Value="30" />

@@ -10,6 +10,8 @@ using System.ComponentModel;
 using LamaBD.helper;
 using LamaBD;
 using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Windows.Controls;
 
 namespace Lama
 {
@@ -41,6 +43,7 @@ namespace Lama
         }
 
         private Utilisateur _utilisateur;
+
         public Utilisateur Utilisateur
         {
             get
@@ -64,11 +67,11 @@ namespace Lama
             {
                 AfficherElement();
             }
-            
+
         }
 
         #region code BD
-        private Tournoi ChargerTournoi()
+        public Tournoi ChargerTournoi()
         {
             var task = TournoiHelper.SelectLast();
             task.Wait();
@@ -81,8 +84,28 @@ namespace Lama
             {
                 return null;
             }
+            else
+            {
+                var prix = PrixHelper.SelectAllPrixTournoiAsync();
+                prix.Wait();
 
+                if (prix.Result != null)
+                {
+                    foreach (prix unPrix in prix.Result)
+                    {
+                        Prix obj;
+                        if (unPrix.equipes == null)
+                        {
+                            obj = new Prix(unPrix.nom);
+                        }
+                        else
+                            obj = new Prix(unPrix.nom, unPrix.equipes.nom);
+                        T.LstPrix.Add(obj);
+                    }
+                }
+            }
 
+            
             // Tournoi
             T.Nom = t.nom;
             T.Date = t.dateEvenement.Date;
@@ -96,14 +119,19 @@ namespace Lama
             // Volontaires
             T.LstVolontaires = ChargerVolontaires();
 
-            // Participants
-            T.LstJoueurs = null; // ils sont dans Equipes
-
             // Équipes
             T.LstEquipes = ChargerEquipes();
 
-            // Prix
-            T.LstPrix = null;
+            // Participants
+            T.LstJoueurs = new ObservableCollection<Joueur>();
+            foreach (Equipe e in T.LstEquipes)
+            {
+                foreach (Joueur j in e.LstJoueurs)
+                {
+                    T.LstJoueurs.Add(j);
+                }
+            }
+
 
             return T;
         }
@@ -136,7 +164,7 @@ namespace Lama
 
             foreach (var volontaire in data)
             {
-                lstTemp.Add(new Volontaire(volontaire.nom, volontaire.prenom, volontaire.matricule, volontaire.courriel));
+                lstTemp.Add(new Volontaire(volontaire.nom, volontaire.prenom, volontaire.matricule, volontaire.courriel, volontaire.nomUtilisateur));
             }
 
             return lstTemp;
@@ -168,17 +196,22 @@ namespace Lama
             {
                 tabLocaux.Visibility = Visibility.Hidden;
                 tabContenant.SelectedItem = tabTournoi;
+                btnNotification.IsEnabled = false;
+                btnNotification.Visibility = Visibility.Hidden;
             }
             else
             {
                 if (Utilisateur.EstAdmin)
                 {
                     btnCreerTournoi.Visibility = Visibility.Visible;
+                    btnModifierTournoi.Visibility = Visibility.Visible;
                 }
-                if (TournoiEnCours.LstLocaux.Count() > 0)
+                if (TournoiEnCours != null && TournoiEnCours.LstLocaux.Count() > 0)
                 {
                     tabLocaux.Content = new ContenantLocauxUC();
                     tabLocaux.Visibility = Visibility.Visible;
+                    btnNotification.IsEnabled = true;
+                    btnNotification.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -217,6 +250,7 @@ namespace Lama
             {
                 Utilisateur = new Utilisateur();
                 btnCreerTournoi.Visibility = Visibility.Hidden;
+                btnModifierTournoi.Visibility = Visibility.Hidden;
             }
         }
 
@@ -231,10 +265,43 @@ namespace Lama
             }
         }
 
+        private void btnModifierTournoi_Click(object sender, RoutedEventArgs e)
+        {
+            CreerTournoiWindow creerTournoiWindow = new CreerTournoiWindow(TournoiEnCours);
+            creerTournoiWindow.ShowDialog();
+
+            if (creerTournoiWindow.LeTournoi != null)
+            {
+                TournoiEnCours = creerTournoiWindow.LeTournoi;
+            }
+        }
+
         private void MetroWindow_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
+        }
+
+        private void btnNotification_Click(object sender, RoutedEventArgs e)
+        {
+            int i = 0;
+            foreach (var l in TournoiEnCours.LstLocaux)
+            {
+                if (l.EstPret == true)
+                    i++;
+            }
+
+
+            lblLocalPret.Content = i.ToString() + " locaux prêts sur " + TournoiEnCours.LstLocaux.Count.ToString();
+            if (i == TournoiEnCours.LstLocaux.Count)
+            {
+                lblLocalPret.Content += "\n Tous les locaux sont prêts, le tournoi peut démarrer.";
+            }
+            Button b = sender as Button;
+            ContextMenu cm = b.ContextMenu;
+            cm.PlacementTarget = b;
+            cm.IsOpen = true;
+            e.Handled = true;
         }
     }
 }

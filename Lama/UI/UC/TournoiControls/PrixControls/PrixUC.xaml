@@ -23,14 +23,20 @@
 
     <StackPanel>
 
-        <Label Style="{StaticResource prix}" Content="Liste des prix remis à l'équipe gagnante" />
+        <Label Style="{StaticResource prix}" Content="Liste des prix du tournoi" />
 
+        <StackPanel Orientation="Horizontal">
+            <Label Style="{StaticResource prix}" Content="Prix" />
+            <Label Style="{StaticResource prix}" Content="Équipe gagnante" />
+        </StackPanel>
         <ItemsControl ItemsSource="{Binding TournoiEnCours.LstPrix}" Margin="10">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-
-                    <Label Content="{Binding Nom}" />
-
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding Nom}" />
+                        <Label Content=" => " />
+                        <Label Content="{Binding Gagnant.Nom}" />
+                    </StackPanel>
                 </DataTemplate>
 
             </ItemsControl.ItemTemplate>

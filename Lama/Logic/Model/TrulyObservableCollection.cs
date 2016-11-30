@@ -13,7 +13,7 @@ namespace Lama.UI.Model
     public class TrulyObservableCollection<T> : ObservableCollection<T>
         where T : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler ItemPropertyChanged;
+        public event PropertyChangedEventHandler ItemPropertyChanged = delegate { };
 
         public TrulyObservableCollection()
             : base()

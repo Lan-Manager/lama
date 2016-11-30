@@ -14,14 +14,14 @@ namespace Lama.Logic.Model
 
     public class Local : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
         // Le poste sur lequel une modificateur fut apporté.
         public Poste PosteCourant { get; set; }
         // Le numéro du poste.
         public string Numero { get; set; }
 
         public TrulyObservableCollection<Poste> LstPoste { get; set; }
-
+        public bool EstPret { get; set; }
         // Le volontaire assigné au local.
         private Volontaire _volontaireAssigne;
         public Volontaire VolontaireAssigne
@@ -152,6 +152,10 @@ namespace Lama.Logic.Model
         {
             get
             {
+                if (_nbPosteRestant < 1)
+                {
+                    return 0;
+                }
                 return _nbPosteRestant;
             }
             set
@@ -172,6 +176,7 @@ namespace Lama.Logic.Model
         {
             LstPoste = new TrulyObservableCollection<Poste>();
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
+            VolontaireAssigne = new Volontaire();
         }
         /// <summary>
         /// Constructeur de local contenant le numéro du local.
@@ -182,23 +187,31 @@ namespace Lama.Logic.Model
             Numero = numero;
             LstPoste = new TrulyObservableCollection<Poste>();
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
+            VolontaireAssigne = new Volontaire();
         }
 
         /// <summary>
         /// Constructeur avec paramètre.
         /// </summary>
         /// <param name="numero">Numero du local Ex: "D125"</param>
-        /// <param name="nbPoste">numero de postes dans le local</param>
+        /// <param name="nbPoste">nombre de postes dans le local</param>
         public Local(string numero, int nbPoste)
         {
+            var task = LamaBD.helper.PosteHelper.SelectAllByNumeroLocalAsync(numero);
+            task.Wait();
+
             NbPoste = nbPoste;
             NbPoste_Depart = nbPoste;
             Numero = numero;
             LstPoste = new TrulyObservableCollection<Poste>();
+            VolontaireAssigne = new Volontaire();
 
-            for (int i = 0; i < nbPoste; i++)
+            var listPostes = task.Result;
+
+            for (int i = 1; i <= nbPoste; i++)
             {
-                LstPoste.Add(new Poste(i + 1, "Non requis"));
+                var poste = listPostes.FirstOrDefault(x => x.numeroPoste == i);
+                LstPoste.Add(new Poste(i, poste.etatspostes.nom, poste.commentaire));
             }
 
             LstPoste.ItemPropertyChanged += PropertyChangedHandler;
@@ -241,6 +254,10 @@ namespace Lama.Logic.Model
                     NbPoste_NonRequis++;
                     break;
             }
+            if (NbPoste_Pret == NbPoste)
+                EstPret = true;
+            else
+                EstPret = false;
             NbPoste_Restant = NbPoste - NbPoste_Pret;
 
         }
