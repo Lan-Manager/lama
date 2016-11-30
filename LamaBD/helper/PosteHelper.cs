@@ -13,11 +13,13 @@ namespace LamaBD.helper
         {
             using (var ctx = new Connexion420())
             {
-                var query = from p in ctx.postes
-                            orderby p.numeroPoste ascending
-                            join l in ctx.locaux on p.idLocal equals l.idLocal
-                            where l.numero == numLocal
-                            select p;
+                var query = ctx.postes
+                    .Include(x => x.locaux)
+                    .Where(x => x.locaux.numero == numLocal)
+                    .Include(x => x.etatspostes)
+                    .Include(x => x.comptes)
+                    .OrderBy(x => x.numeroPoste);
+
                 return await query.ToListAsync();
             }
         }

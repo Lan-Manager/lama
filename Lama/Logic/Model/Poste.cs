@@ -75,6 +75,7 @@ namespace Lama.Logic.Model
         /// <param name="etat">Son état initial au lancement de l'application.</param>
         public Poste(int numero, string etat)
         {
+            DernierModificateur = new Volontaire();
             LstEtatPossible = new ObservableCollection<string>();
             LstEtatPossible.Add("En attente");
             LstEtatPossible.Add("Problème");
@@ -91,6 +92,7 @@ namespace Lama.Logic.Model
         /// <param name="etat">Son état initial au lancement de l'application.</param>
         public Poste(int numero, string etat, string commentaire)
         {
+            DernierModificateur = new Volontaire();
             LstEtatPossible = new ObservableCollection<string>();
             LstEtatPossible.Add("En attente");
             LstEtatPossible.Add("Problème");

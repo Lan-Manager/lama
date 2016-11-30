@@ -106,7 +106,7 @@
        
         <DataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  HorizontalAlignment="Stretch" Name="dgLocaux" AutoGenerateColumns="False" ItemsSource="{Binding LocalSelectionne.LstPoste}" ColumnWidth="*" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" GridLinesVisibility="All">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Poste" IsReadOnly="True" SortMemberPath="Numero">
+                <DataGridTemplateColumn Header="Poste" IsReadOnly="True" SortMemberPath="Numero"> 
                     <DataGridTemplateColumn.CellStyle>
                         <Style TargetType="DataGridCell">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>

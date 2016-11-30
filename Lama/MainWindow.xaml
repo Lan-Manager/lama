@@ -51,10 +51,50 @@
         <Grid.Background>
             <ImageBrush Opacity="0.03" Stretch="None" ImageSource="Resources/lama.png"/>
         </Grid.Background>
+
+        <Button Name="btnNotification" VerticalAlignment="Top"  HorizontalAlignment="Right" Margin="0 50 100 0 " Click="btnNotification_Click" Width="65" Height="65" IsEnabled="False" Visibility="Hidden">
+            <Button.ContextMenu>
+                <ContextMenu>
+                    <Label Name="lblLocalPret"></Label>
+                </ContextMenu>
+            </Button.ContextMenu>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MetroCircleButtonStyle}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <Rectangle Name="rcNotification" Width="30" Height="30">
+                                <Rectangle.Style>
+                                    <Style TargetType="Rectangle">
+                                        <Setter Property="Fill">
+                                            <Setter.Value>
+                                                <VisualBrush Visual="{StaticResource appbar_app_favorite}"></VisualBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="Rectangle.IsMouseOver" Value="True">
+                                                <Setter Property="Cursor" Value="Hand"></Setter>
+                                                <Setter Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect ShadowDepth="0" Color="Cyan" Opacity="1" BlurRadius="20"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Rectangle.Style>
+                            </Rectangle>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
         <Label Name="lblNom" FontFamily="Robot" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 25 30 0 " Content="{Binding Utilisateur.NomUtilisateur, UpdateSourceTrigger=PropertyChanged}"></Label>
         <Button Name="btnConnexion" VerticalAlignment="Top"  HorizontalAlignment="Right" Margin="0 50 30 0 " Click="Authentification_Click" Width="65" Height="65">
             <Button.Style>
                 <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MetroCircleButtonStyle}">
+                    <Setter Property="BorderThickness" Value="0" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Utilisateur.EstConnecte, UpdateSourceTrigger=PropertyChanged}" Value="True">
                             <Setter Property="ToolTip" Value="Se déconnecter"></Setter>
@@ -83,7 +123,7 @@
                     </Style.Triggers>
                 </Style>
             </Button.Style>
-            
+
         </Button>
 
         <Controls:MetroAnimatedTabControl Margin="50" Name="tabContenant">
