@@ -129,7 +129,7 @@ namespace Lama.UI.UC.LocauxControls
                 }
             }
         }
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
         // La fenêtre parent (MainWindow)
         public MainWindow ParentWindow { get; set; }
         public LocauxUC()
@@ -143,7 +143,7 @@ namespace Lama.UI.UC.LocauxControls
             LstLocaux = ParentWindow.TournoiEnCours.LstLocaux;
             LstVolontaires_DernierModificateur = ParentWindow.TournoiEnCours.LstVolontaires;
             // On ajoute la liste de volontaire à la liste contenant une entrée vide.
-            foreach(var v in ParentWindow.TournoiEnCours.LstVolontaires)
+            foreach (var v in ParentWindow.TournoiEnCours.LstVolontaires)
             {
                 LstVolontaires_Assignable.Add(v);
             }
@@ -163,7 +163,6 @@ namespace Lama.UI.UC.LocauxControls
             }
             CalculerEtat();
 
-            //LocalSelectionne = ParentWindow.TournoiEnCours.LstLocaux[0];
             InitializeComponent();
             this.IsEnabled = false;
 
@@ -171,8 +170,16 @@ namespace Lama.UI.UC.LocauxControls
             cboLocal.SelectedIndex = 0;
 
 
-            ChargementDonnes();
-            Completed();
+            #region Chargement des données en bd
+            Task task = new Task(new Action(ChargementDonnes));
+            task.ContinueWith(wat =>
+            {
+                Completed();
+
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+            task.Start();
+
+            #endregion
 
 
         }
@@ -215,7 +222,7 @@ namespace Lama.UI.UC.LocauxControls
             {
                 foreach (var l in LstLocaux)
                 {
-                    LocalSelectionne = l ;
+                    LocalSelectionne = l;
                     for (int i = 0; i < 5;) // Une équipe par local donc 5 postes requis par local.
                     {
                         if (LocalSelectionne.LstPoste[i].Etat == "Non requis")
@@ -231,7 +238,7 @@ namespace Lama.UI.UC.LocauxControls
             }
         }
 
-        
+
 
         private void Completed()
         {
@@ -243,6 +250,7 @@ namespace Lama.UI.UC.LocauxControls
         {
             ChargerVolontairesAssigne();
             ChargerDernierModificateur();
+
         }
         /// <summary>
         /// Handler pour le click du bouton d'ajout d'un commentaire.
@@ -336,7 +344,7 @@ namespace Lama.UI.UC.LocauxControls
                     NbPoste_EnAttente++;
                     break;
             }
-            
+
             NbPoste_Restant = NbPoste_Requis - NbPoste_Pret;
         }
         /// <summary>
@@ -414,13 +422,18 @@ namespace Lama.UI.UC.LocauxControls
                 var taskVolAss = CompteHelper.SelectByLocalAssigne(l.Numero);
                 taskVolAss.Wait();
                 string c = taskVolAss.Result;
-                foreach (var v in LstVolontaires_Assignable)
+                App.Current.Dispatcher.Invoke((Action)delegate
                 {
-                    if (v.NomUtilisateur == c)
+                    foreach (var v in LstVolontaires_Assignable)
                     {
-                        l.VolontaireAssigne = v;
+
+                        if (v.NomUtilisateur == c)
+                        {
+                            l.VolontaireAssigne = v;
+                        }
+
                     }
-                }
+                });
             }
         }
         /// <summary>
@@ -435,13 +448,18 @@ namespace Lama.UI.UC.LocauxControls
                     var taskVolMod = CompteHelper.SelectByModificationEtat(p.Numero, l.Numero);
                     taskVolMod.Wait();
                     string c = taskVolMod.Result;
+
                     foreach (var v in LstVolontaires_DernierModificateur)
                     {
                         if (v.NomUtilisateur == c)
                         {
-                            p.DernierModificateur = v;
+                            App.Current.Dispatcher.Invoke((Action)delegate
+                            {
+                                p.DernierModificateur = v;
+                            });
                         }
                     }
+
                 }
             }
         }
@@ -453,7 +471,10 @@ namespace Lama.UI.UC.LocauxControls
         /// <param name="p">Le poste qui a été ciblé par la modification</param>
         private void SauvegarderVolontaireModification(Poste p)
         {
-            var taskSave = PosteHelper.UpdateModificateurtAsync(p.Numero, LocalSelectionne.Numero, p.DernierModificateur.NomUtilisateur);
+            if (p != null)
+            {
+                var taskSave = PosteHelper.UpdateModificateurtAsync(p.Numero, LocalSelectionne.Numero, p.DernierModificateur.NomUtilisateur);
+            }
         }
 
         /// <summary>

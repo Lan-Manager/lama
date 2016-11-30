@@ -14,7 +14,7 @@ namespace Lama.Logic.Model
 
     public class Local : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
         // Le poste sur lequel une modificateur fut apporté.
         public Poste PosteCourant { get; set; }
         // Le numéro du poste.
