@@ -20,6 +20,15 @@
             <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}" />
         </Style>
 
+        <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}" x:Key="estConnecte">
+            <Setter Property="Visibility" Value="Visible" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Controls:MetroWindow}}, Path=Utilisateur.EstConnecte}" Value="False">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
     </UserControl.Resources>
 
     <StackPanel>
@@ -39,7 +48,7 @@
                         <UniformGrid Columns="2" HorizontalAlignment="Center">
                             <Label Content="{Binding Nom}" Margin="10" HorizontalAlignment="Right"/>
                             <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Controls:MetroWindow}}, Path=TournoiEnCours.LstEquipes}"
-                                      SelectedItem="{Binding Gagnant}" SelectionChanged="ComboBox_SelectionChanged" Margin="10" Width="200" />
+                                      SelectedItem="{Binding Gagnant}" SelectionChanged="ComboBox_SelectionChanged" Margin="10" Width="200" Style="{StaticResource estConnecte}" />
                             <!--<Label Content="{Binding Gagnant.Nom}" Margin="10" />-->
                         </UniformGrid>
                     </DataTemplate>
