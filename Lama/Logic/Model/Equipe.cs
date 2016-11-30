@@ -34,13 +34,33 @@ namespace Lama.Logic.Model
         public ObservableCollection<Joueur> LstJoueurs { get; set; }
         public bool EstElimine { get; set; }
         public Statistiques LstStats { get; set; }
-        public string Infos { get; set; }
+        public string Infos
+        {
+            get
+            {
+                if (LstJoueurs.Count == 0)
+                {
+                    return "Aucun joueur";
+                }
+
+                else
+                {
+                    StringBuilder sb = new StringBuilder().AppendLine("Liste des joueurs :");
+
+                    foreach (Joueur j in LstJoueurs)
+                    {
+                        sb.AppendLine($"{j.Matricule}, {j.Prenom}, {j.Nom}, {j.Usager}");
+                    }
+
+                    return sb.ToString();
+                }
+            }
+        }
         #endregion
 
         #region Constructeurs
         public Equipe(string nom)
         {
-            Infos = "Aucun joueur";
             Nom = nom;
 
             LstJoueurs = new ObservableCollection<Joueur>();
