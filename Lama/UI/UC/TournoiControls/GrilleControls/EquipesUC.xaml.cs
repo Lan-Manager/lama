@@ -88,5 +88,12 @@ namespace Lama.UI.UC.TournoiControls.GrilleControls
         {
             return Int32.Parse(Regex.Match(text, @"\d+").Value);
         }
+
+        private void CustomNumericUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        {
+            string nomPartie = (DataContext as Partie).Nom;
+            string nomStat = ((CustomNumericUpDown)sender).Stat.ToString();
+            string nomEquipe = ((CustomNumericUpDown)sender).Equipe.ToString();
+        }
     }
 }

@@ -120,6 +120,7 @@
     <Compile Include="UI\UC\TournoiControls\ClassementControls\ClassementUC.xaml.cs">
       <DependentUpon>ClassementUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\UC\TournoiControls\GrilleControls\CustomNumericUpDown.cs" />
     <Compile Include="UI\UC\TournoiControls\GrilleControls\EquipesUC.xaml.cs">
       <DependentUpon>EquipesUC.xaml</DependentUpon>
     </Compile>
