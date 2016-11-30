@@ -9,8 +9,7 @@
              mc:Ignorable="d" 
              Name="CarteLocaux"
              d:DesignHeight="300" d:DesignWidth="300"
-             DataContext="{Binding RelativeSource={RelativeSource Self}}"
-             >
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
     <UserControl.Resources>
         <Style x:Key="icPoste" BasedOn="{StaticResource SquareButtonStyle}"></Style>

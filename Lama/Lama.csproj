@@ -111,9 +111,6 @@
     <Compile Include="UI\UC\LocauxControls\LocauxUC.xaml.cs">
       <DependentUpon>LocauxUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\UC\LocauxControls\MenuCarte.xaml.cs">
-      <DependentUpon>MenuCarte.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UI\UC\LocauxControls\SommairesLocauxUC.xaml.cs">
       <DependentUpon>SommairesLocauxUC.xaml</DependentUpon>
     </Compile>
@@ -254,10 +251,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\UC\LocauxControls\LocauxUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\UC\LocauxControls\MenuCarte.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
