@@ -304,7 +304,7 @@ namespace Lama.Logic.Model
                     .SingleOrDefault();
 
                 var typeTournoi = ctx.typestournois
-                    .Where(x => x.nom == "Simple élimination")
+                    .Where(x => x.nom == this.TypeTournoi)
                     .SingleOrDefault();
 
                 entity.idTypeTournoi = typeTournoi.idTypeTournoi;
