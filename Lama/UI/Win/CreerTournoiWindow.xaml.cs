@@ -169,7 +169,7 @@ namespace Lama.UI.Win
                 if (mbr == MessageBoxResult.OK)
                 {
                     LeTournoi = temp;
-                    //bool success = LeTournoi.Insert();
+                    bool success = LeTournoi.Insert();
                     Closing -= MetroWindow_Closing;
                     Close();
                 }
