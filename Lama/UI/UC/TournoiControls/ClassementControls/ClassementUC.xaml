@@ -41,7 +41,7 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel>
-                <Label Style="{StaticResource menu}" Content="Statistique(s)" />
+                <Label Style="{StaticResource menu}" Content="Classement selon la statistique" />
 
                 <ListView Name="lvStats" SelectionChanged="lvStats_SelectionChanged" SelectedIndex="0">
                     <ListView.ItemTemplate>
