@@ -102,7 +102,8 @@
             </Controls:MetroTabItem>
         </Controls:MetroAnimatedTabControl>
 
-        <Button Grid.Row="0" Name="btnCreerTournoi" Content="Créer un tournoi" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,25,125,0" Click="btnCreerTournoi_Click" Visibility="Hidden"/>
+        <Button Grid.Row="0" Name="btnCreerTournoi" Content="Créer un tournoi" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,25,250,0" Click="btnCreerTournoi_Click" Visibility="Hidden"/>
+        <Button Grid.Row="0" Name="btnModifierTournoi" Content="Modifier le tournoi" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,25,125,0" Click="btnModifierTournoi_Click" Visibility="Hidden"/>
 
 
         <Image IsHitTestVisible="False" Opacity="0.05" Stretch="Fill" Width="{Binding SystemParameters.PrimaryScreenWidth}" Height="{Binding SystemParameters.PrimaryScreenHeight}" Source="Resources/bgtexture.jpg" />

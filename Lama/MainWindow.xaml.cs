@@ -81,8 +81,7 @@ namespace Lama
             {
                 return null;
             }
-
-
+            
             // Tournoi
             T.Nom = t.nom;
             T.Date = t.dateEvenement.Date;
@@ -96,11 +95,18 @@ namespace Lama
             // Volontaires
             T.LstVolontaires = ChargerVolontaires();
 
-            // Participants
-            T.LstJoueurs = null; // ils sont dans Equipes
-
             // Équipes
             T.LstEquipes = ChargerEquipes();
+
+            // Participants
+            T.LstJoueurs = new ObservableCollection<Joueur>();
+            foreach (Equipe e in T.LstEquipes)
+            {
+                foreach (Joueur j in e.LstJoueurs)
+                {
+                    T.LstJoueurs.Add(j);
+                }
+            }
 
             // Prix
             T.LstPrix = null;
@@ -174,6 +180,7 @@ namespace Lama
                 if (Utilisateur.EstAdmin)
                 {
                     btnCreerTournoi.Visibility = Visibility.Visible;
+                    btnModifierTournoi.Visibility = Visibility.Visible;
                 }
                 if (TournoiEnCours.LstLocaux.Count() > 0)
                 {
@@ -217,12 +224,24 @@ namespace Lama
             {
                 Utilisateur = new Utilisateur();
                 btnCreerTournoi.Visibility = Visibility.Hidden;
+                btnModifierTournoi.Visibility = Visibility.Hidden;
             }
         }
 
         private void btnCreerTournoi_Click(object sender, RoutedEventArgs e)
         {
             CreerTournoiWindow creerTournoiWindow = new CreerTournoiWindow();
+            creerTournoiWindow.ShowDialog();
+
+            if (creerTournoiWindow.LeTournoi != null)
+            {
+                TournoiEnCours = creerTournoiWindow.LeTournoi;
+            }
+        }
+
+        private void btnModifierTournoi_Click(object sender, RoutedEventArgs e)
+        {
+            CreerTournoiWindow creerTournoiWindow = new CreerTournoiWindow(TournoiEnCours);
             creerTournoiWindow.ShowDialog();
 
             if (creerTournoiWindow.LeTournoi != null)
