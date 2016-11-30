@@ -94,6 +94,10 @@ namespace Lama.UI.UC.TournoiControls.GrilleControls
             string nomPartie = (DataContext as Partie).Nom;
             string nomStat = ((CustomNumericUpDown)sender).Stat.ToString();
             string nomEquipe = ((CustomNumericUpDown)sender).Equipe.ToString();
+
+            int numPartie = ExtraitNombre(nomPartie);
+
+            LamaBD.helper.StatsHelper.MiseAjourStats(numPartie, (decimal)e.NewValue, nomEquipe, nomStat);
         }
     }
 }
