@@ -25,5 +25,32 @@ namespace LamaBD.helper
                 return await query.ToListAsync();
             }
         }
+
+        public static async Task<bool> AssigneGagnant(string nomPrix, string nomEquipe)
+        {
+            using (var ctx = new Connexion420())
+            {
+                var queryEquipe = ctx.equipes
+                    .Where(x => x.nom == nomEquipe)
+                    .FirstOrDefault();
+
+                var query = ctx.prix
+                    .Where(x => x.nom == nomPrix)
+                    .FirstOrDefault();
+
+                query.idEquipe = queryEquipe.idEquipe;
+
+                try
+                {
+                    await ctx.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
     }
 }
