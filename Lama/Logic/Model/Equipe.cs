@@ -34,11 +34,13 @@ namespace Lama.Logic.Model
         public ObservableCollection<Joueur> LstJoueurs { get; set; }
         public bool EstElimine { get; set; }
         public Statistiques LstStats { get; set; }
+        public string Infos { get; set; }
         #endregion
 
         #region Constructeurs
         public Equipe(string nom)
         {
+            Infos = "Aucun joueur";
             Nom = nom;
 
             LstJoueurs = new ObservableCollection<Joueur>();
