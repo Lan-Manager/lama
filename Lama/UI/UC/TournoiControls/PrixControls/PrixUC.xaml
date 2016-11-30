@@ -35,6 +35,9 @@
                     <StackPanel Orientation="Horizontal">
                         <Label Content="{Binding Nom}" />
                         <Label Content=" => " />
+                        <ComboBox ItemsSource="{Binding Path=TournoiEnCours.LstEquipes, Mode=OneWay}"
+                                  DisplayMemberPath="Nom"
+                                  SelectedItem="{Binding Nom}"/>
                         <Label Content="{Binding Gagnant.Nom}" />
                     </StackPanel>
                 </DataTemplate>
