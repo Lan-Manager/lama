@@ -81,6 +81,27 @@ namespace Lama
             {
                 return null;
             }
+            else
+            {
+                var prix = PrixHelper.SelectAllPrixTournoiAsync();
+                prix.Wait();
+
+                if (prix.Result != null)
+                {
+                    foreach (prix unPrix in prix.Result)
+                    {
+                        Prix obj;
+                        if (unPrix.equipes == null)
+                        {
+                            obj = new Prix(unPrix.nom);
+                        }
+                        else
+                            obj = new Prix(unPrix.nom, unPrix.equipes.nom);
+                        T.LstPrix.Add(obj);
+                    }
+                }
+            }
+
             
             // Tournoi
             T.Nom = t.nom;
@@ -108,8 +129,6 @@ namespace Lama
                 }
             }
 
-            // Prix
-            T.LstPrix = null;
 
             return T;
         }

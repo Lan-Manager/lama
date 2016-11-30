@@ -10,6 +10,7 @@ namespace Lama.Logic.Model
     public class Prix
     {
         #region Propriétés
+        public Equipe Gagnant { get; set; }
         private string _nom;
         public string Nom
         {
@@ -32,6 +33,12 @@ namespace Lama.Logic.Model
         public Prix(string nom)
         {
             Nom = nom;
+        }
+
+        public Prix(string nom, string nomEquipeGagnante)
+            :this(nom)
+        {
+            Gagnant = new Equipe(nomEquipeGagnante);
         }
         #endregion
     }
