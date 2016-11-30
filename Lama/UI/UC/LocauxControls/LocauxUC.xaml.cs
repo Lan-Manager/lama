@@ -29,6 +29,10 @@ namespace Lama.UI.UC.LocauxControls
         {
             get
             {
+                if (_nbPostePret < 1)
+                {
+                    return 0;
+                }
                 return _nbPostePret;
             }
             set
@@ -62,6 +66,10 @@ namespace Lama.UI.UC.LocauxControls
         {
             get
             {
+                if (_nbPosteProbleme < 1)
+                {
+                    return 0;
+                }
                 return _nbPosteProbleme;
             }
             set
@@ -98,6 +106,10 @@ namespace Lama.UI.UC.LocauxControls
         {
             get
             {
+                if (_nbRequis < 1)
+                {
+                    return 0;
+                }
                 return _nbRequis;
             }
             set
