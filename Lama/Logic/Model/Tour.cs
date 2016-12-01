@@ -23,6 +23,15 @@ namespace Lama.Logic.Model
         }
 
 
+        public Tour(int numTour, List<Partie> listeParties)
+            :this(numTour)
+        {
+            foreach (Partie partie in listeParties)
+            {
+                LstParties.Add(partie);
+            }
+        }
+
         public bool Insert(LamaBD.tournois tournois)
         {
             var taskEquipes = LamaBD.helper.EquipeHelper.SelectAll();

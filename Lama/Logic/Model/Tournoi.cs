@@ -257,6 +257,18 @@ namespace Lama.Logic.Model
             return true;
         }
 
+        public void VerifieGenerationValide()
+        {
+            foreach (var tour in LstTours)
+                foreach (var partie in tour.LstParties)
+                    if (partie.Gagnant == null)
+                    {
+                        GenerationTourPossible = false;
+                    }
+
+            GenerationTourPossible = true;
+        } 
+
         public void MiseAJourStatistiques()
         {
 

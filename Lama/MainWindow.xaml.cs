@@ -116,6 +116,9 @@ namespace Lama
             // Locaux
             T.LstLocaux = ChargerLocaux();
 
+            //Tours
+            T.LstTours = ChargerTours();
+            T.VerifieGenerationValide();
             // Volontaires
             T.LstVolontaires = ChargerVolontaires();
 
@@ -132,8 +135,53 @@ namespace Lama
                 }
             }
 
-
             return T;
+        }
+
+        private ObservableCollection<Tour> ChargerTours()
+        {
+            var task = TourHelper.SelectToursAsync();
+            task.Wait();
+
+            List<tours> data = task.Result;
+
+            ObservableCollection<Tour> listTours = new ObservableCollection<Tour>();
+
+            foreach (tours entity in data)
+            {
+                Tour tour = new Tour(entity.numTour);
+
+                foreach (parties entityPartie in entity.parties)
+                {
+                    Partie p = new Partie(entityPartie.numPartie);
+                    ObservableCollection<PartieEquipe>  lstPartieEquipe = new ObservableCollection<PartieEquipe>();
+                    foreach (equipesparties ep in entityPartie.equipesparties)
+                    {
+                        //Joueurs et stats TODO dnas l'objet Equipe
+                        //TODO stats dans objet PartieEquipe
+                        Equipe equipe = new Equipe(ep.equipes.nom);
+                        PartieEquipe pe = new PartieEquipe(equipe);
+
+                        if (ep.estGagnante == true)
+                        {
+                            p.Gagnant = equipe;
+                            pe.EstGagnant = true;
+                        }
+                        else if (ep.estGagnante == false)
+                            pe.EstGagnant = false;
+                        else
+                            pe.EstGagnant = null;
+
+                        lstPartieEquipe.Add(pe);
+                    }
+                    p.LstEquipes = lstPartieEquipe;
+                    tour.LstParties.Add(p);
+
+                }
+                listTours.Add(tour);
+            }
+
+            return listTours;
         }
 
         private ObservableCollection<Local> ChargerLocaux()
