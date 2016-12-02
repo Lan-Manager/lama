@@ -35,6 +35,6 @@
 
         <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,475,0,0" Content="Ajouter une équipe :"/>
         <TextBox Name="txtNewEquipe" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,475,0,0" Width="200" MaxLength="30"/>
-        <Button Name="btnAddEquipe" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,475,0,0" Content="Ajouter" Click="btnAddEquipe_Click"/>
+        <Button IsDefault="True" Name="btnAddEquipe" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,475,0,0" Content="Ajouter" Click="btnAddEquipe_Click"/>
     </Grid>
 </UserControl>

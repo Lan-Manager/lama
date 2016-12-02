@@ -28,6 +28,6 @@
 
         <Label HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,475,0,0" Content="Ajouter un nouveau prix :"/>
         <TextBox Name="txtNewPrix" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,475,0,0" Width="200" MaxLength="60"/>
-        <Button Name="btnAddPrix" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,475,0,0" Content="Ajouter" Click="btnAddPrix_Click"/>
+        <Button IsDefault="True" Name="btnAddPrix" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="400,475,0,0" Content="Ajouter" Click="btnAddPrix_Click"/>
     </Grid>
 </UserControl>
