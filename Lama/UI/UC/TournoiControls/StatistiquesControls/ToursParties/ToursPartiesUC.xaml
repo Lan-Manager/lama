@@ -20,7 +20,7 @@
         </Style>
 
         <Style TargetType="StackPanel">
-            <Setter Property="Margin" Value="0 20 0 20" />
+            <Setter Property="Margin" Value="0 10 0 10" />
         </Style>
 
     </UserControl.Resources>
@@ -39,7 +39,7 @@
                     <ItemsControl.ItemTemplate>
 
                         <DataTemplate>
-                            <Label Content="{Binding Nom}" />
+                            <Label Content="{Binding Nom}" MouseDown="lvTours_MouseDown" />
                         </DataTemplate>
 
                     </ItemsControl.ItemTemplate>
@@ -52,7 +52,7 @@
                     <ItemsControl.ItemTemplate>
 
                         <DataTemplate>
-                            <Label Content="{Binding Nom}" />
+                            <Label Content="{Binding Nom}" MouseDown="lvParties_MouseDown" />
                         </DataTemplate>
 
                     </ItemsControl.ItemTemplate>
@@ -62,10 +62,10 @@
         </StackPanel>
 
         <ScrollViewer Grid.Column="1" Height="500">
-            <StackPanel Margin="20 0 0 0">
+            <StackPanel>
 
-                <local:StatistiquesTourUC DataContext="{Binding ElementName=lvTours, Path=SelectedItem}" />
-                <local:StatistiquesPartieUC DataContext="{Binding ElementName=lvParties, Path=SelectedItem}" />
+                <local:StatistiquesTourUC x:Name="ucStatistiquesTour" DataContext="{Binding ElementName=lvTours, Path=SelectedItem}" />
+                <local:StatistiquesPartieUC x:Name="ucStatistiquesPartie" DataContext="{Binding ElementName=lvParties, Path=SelectedItem}" />
 
             </StackPanel>
         </ScrollViewer>

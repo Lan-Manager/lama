@@ -288,11 +288,20 @@ namespace Lama.UI.UC.LocauxControls
             // On donne le thème général de l'application à la fenêtre de saisi
             metroWindow.MetroDialogOptions.ColorScheme = MetroDialogColorScheme.Theme;
 
+            // Si le commentaire n'est pas nul, on l'affiche dans la boîte de texte.
+            if (p.Commentaire != null)
+            {
+                metroWindow.MetroDialogOptions.DefaultText = p.Commentaire;
+            }
             // On extrait le résultat.
-            string result = await metroWindow.ShowInputAsync("Commentaire", p.Commentaire, metroWindow.MetroDialogOptions);
+            string result = await metroWindow.ShowInputAsync("Commentaire", "", metroWindow.MetroDialogOptions);
 
             // Si l'utilisateur n'a pas fait cancel.
-            if (result != null)
+            if (string.IsNullOrWhiteSpace(p.Commentaire))
+            {
+                p.Commentaire = null;
+            }
+            else
             {
                 p.Commentaire = result;
             }

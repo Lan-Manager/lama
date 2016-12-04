@@ -15,11 +15,9 @@ namespace Lama.UI.UC.Creation
         public InformationsGeneralesView()
         {
             InitializeComponent();
-        }
 
-        private void txtDescription_Error(object sender, ValidationErrorEventArgs e)
-        {
-            MessageBox.Show("erreur!");
+            // Fait en sorte que les dates que l'on choisie ne sont pas dans le passé
+            dtpDateTournoi.DisplayDateStart = DateTime.Now;
         }
 
         private void txtNomTournoi_LostFocus(object sender, RoutedEventArgs e)
