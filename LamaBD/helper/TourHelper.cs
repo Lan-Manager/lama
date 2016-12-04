@@ -36,7 +36,9 @@ namespace LamaBD.helper
             {
                 var query = ctx.tours
                     .Include(x => x.parties.Select(y => y.equipesparties.Select(z => z.equipes)))
+                    .Include(x => x.parties.Select(y => y.equipesparties.Select(z => z.scoresequipesparties.Select(q => q.statistiquesjeux))))
                     .OrderBy(x => x.numTour);
+
 
                 return await query.ToListAsync();
             }

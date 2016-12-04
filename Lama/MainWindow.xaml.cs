@@ -105,7 +105,7 @@ namespace Lama
                 }
             }
 
-            
+
             // Tournoi
             T.Nom = t.nom;
             T.Date = t.dateEvenement.Date;
@@ -143,6 +143,10 @@ namespace Lama
             var task = TourHelper.SelectToursAsync();
             task.Wait();
 
+
+            var taskScore = StatsHelper.SelectScoresJeuAsync();
+            taskScore.Wait();
+
             List<tours> data = task.Result;
 
             ObservableCollection<Tour> listTours = new ObservableCollection<Tour>();
@@ -154,7 +158,7 @@ namespace Lama
                 foreach (parties entityPartie in entity.parties)
                 {
                     Partie p = new Partie(entityPartie.numPartie);
-                    ObservableCollection<PartieEquipe>  lstPartieEquipe = new ObservableCollection<PartieEquipe>();
+                    ObservableCollection<PartieEquipe> lstPartieEquipe = new ObservableCollection<PartieEquipe>();
 
                     foreach (equipesparties ep in entityPartie.equipesparties)
                     {
@@ -162,6 +166,12 @@ namespace Lama
                         //TODO stats dans objet PartieEquipe
                         Equipe equipe = new Equipe(ep.equipes.nom);
                         PartieEquipe pe = new PartieEquipe(equipe);
+                        foreach (Statistique stat in pe.LstStats.Stats)
+                        {
+                            var entityStat = taskScore.Result.Where(x => ( (x.statistiquesjeux.statistiques.nom == stat.Key) && x.idEquipePartie == ep.idEquipePartie) ).FirstOrDefault();
+                            if (entityStat != null)
+                                stat.Value = (int)entityStat.valeur;
+                        }
 
                         if (ep.estGagnante == true)
                         {
