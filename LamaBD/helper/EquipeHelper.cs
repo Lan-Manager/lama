@@ -26,6 +26,19 @@ namespace LamaBD.helper
             }
         }
 
+        public static async Task<List<equipes>> SelectNonEliminer()
+        {
+            using (var ctx = new Connexion420())
+            {
+                var query = ctx.equipes
+                    .Where(x => x.estElimine == false)
+                    .Include(x => x.equipesparticipants.Select(y => y.participants))
+                    .OrderBy(x => x.nom);
+
+                return await query.ToListAsync();
+            }
+        }
+
         /// <summary>
         /// Retour async d'une equipe selon son nom.
         /// L'equipe garanti d'avoir sa liste de participants.
@@ -67,6 +80,30 @@ namespace LamaBD.helper
 
                 return true;
 
+            }
+        }
+
+        public static async Task<bool> EliminationEquipes(List<string> listNomEquipe)
+        {
+            if (listNomEquipe.Count == 0)
+                return true;
+            using (var ctx = new Connexion420())
+            {
+                var equipesEntity = ctx.equipes
+                    .Where(x => listNomEquipe.Contains(x.nom));
+
+                try
+                {
+                    await equipesEntity.ForEachAsync(x => x.estElimine = true);
+                    await ctx.SaveChangesAsync();
+                }
+                catch (Exception ext)
+                {
+                    Console.WriteLine(ext.Message);
+                    return false;
+                }
+
+                return true;
             }
         }
 

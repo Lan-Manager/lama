@@ -118,7 +118,7 @@ namespace Lama
 
             //Tours
             T.LstTours = ChargerTours();
-            T.VerifieGenerationValide();
+            //T.VerifieGenerationValide();
             // Volontaires
             T.LstVolontaires = ChargerVolontaires();
 
@@ -155,6 +155,7 @@ namespace Lama
                 {
                     Partie p = new Partie(entityPartie.numPartie);
                     ObservableCollection<PartieEquipe>  lstPartieEquipe = new ObservableCollection<PartieEquipe>();
+
                     foreach (equipesparties ep in entityPartie.equipesparties)
                     {
                         //Joueurs et stats TODO dnas l'objet Equipe
@@ -220,7 +221,7 @@ namespace Lama
 
         private ObservableCollection<Equipe> ChargerEquipes()
         {
-            var task = EquipeHelper.SelectAll();
+            var task = EquipeHelper.SelectNonEliminer();
             task.Wait();
 
             List<equipes> data = task.Result;

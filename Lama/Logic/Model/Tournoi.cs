@@ -172,6 +172,11 @@ namespace Lama.Logic.Model
                         }
                     }
                     TourActif = GenerateurTour.GenererTour(equipesPerdantes);
+                    List<Equipe> listPerdants = this.GenerateurTour.ObtenirEliminer();
+                    if (listPerdants.Count > 0)
+                    {
+                        Equipe.Elimine(listPerdants);
+                    }
                 }
                 var task = LamaBD.helper.TournoiHelper.SelectLast();
                 TourActif.Insert(task.Result);
@@ -267,7 +272,7 @@ namespace Lama.Logic.Model
                     }
 
             GenerationTourPossible = true;
-        } 
+        }
 
         public void MiseAJourStatistiques()
         {

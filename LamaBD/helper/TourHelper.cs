@@ -27,9 +27,8 @@ namespace LamaBD.helper
         }
 
         /// <summary>
-        /// Retour async d'une liste contenant toutes les parties d'un tour.
+        /// Retour async d'une liste contenant toutes les tours du tournoi.
         /// </summary>
-        /// <param name="idTour">id du tour auquel appartient les parties.</param>
         /// <returns></returns>
         public async static Task<List<tours>> SelectToursAsync()
         {
