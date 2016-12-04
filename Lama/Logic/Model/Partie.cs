@@ -23,5 +23,14 @@ namespace Lama.Logic.Model
             Nom = sb.ToString();
             LstEquipes = new ObservableCollection<PartieEquipe>() { e1, e2 };
         }
+
+        public Partie(int numPartie)
+        {
+            NumeroPartie = numPartie;
+            StringBuilder sb = new StringBuilder("Partie ").Append(numPartie);
+
+            Nom = sb.ToString();
+            LstEquipes = new ObservableCollection<PartieEquipe>();
+        }
     }
 }

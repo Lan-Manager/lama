@@ -136,6 +136,18 @@ namespace Lama.Logic.Model
             else
                 return false;
         }
+
+        public static bool Elimine (List<Equipe> equipes)
+        {
+           List<String> nomEquipes =  equipes.Select(x => x.Nom).ToList();
+
+            var task = LamaBD.helper.EquipeHelper.EliminationEquipes(nomEquipes);
+            task.Wait();
+            if (task.Result)
+                return true;
+            else
+                return false;
+        }
         #endregion
     }
 }

@@ -27,18 +27,19 @@ namespace LamaBD.helper
         }
 
         /// <summary>
-        /// Retour async d'une liste contenant toutes les parties d'un tour.
+        /// Retour async d'une liste contenant toutes les tours du tournoi.
         /// </summary>
-        /// <param name="idTour">id du tour auquel appartient les parties.</param>
         /// <returns></returns>
-        public async static Task<List<parties>> SelectAllPartieAsync(int idTour)
+        public async static Task<List<tours>> SelectToursAsync()
         {
             using (var ctx = new Connexion420())
             {
-                var query = from p in ctx.parties
-                            where p.idTour == idTour
-                            orderby p.numPartie ascending
-                            select p;
+                var query = ctx.tours
+                    .Include(x => x.parties.Select(y => y.equipesparties.Select(z => z.equipes)))
+                    .Include(x => x.parties.Select(y => y.equipesparties.Select(z => z.scoresequipesparties.Select(q => q.statistiquesjeux))))
+                    .OrderBy(x => x.numTour);
+
+
                 return await query.ToListAsync();
             }
         }

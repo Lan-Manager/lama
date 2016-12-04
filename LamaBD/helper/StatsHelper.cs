@@ -23,6 +23,17 @@ namespace LamaBD.helper
             }
         }
 
+        public static async Task<List<scoresequipesparties>> SelectScoresJeuAsync()
+        {
+            using (var ctx = new Connexion420())
+            {
+                var scores = ctx.scoresequipesparties
+                    .Include(x => x.statistiquesjeux.statistiques);
+
+                return await scores.ToListAsync();
+            }
+        }
+
         public static async Task<bool> MiseAjourStats(int numeroPartie, decimal valeur, string nomEquipe, string nomStat)
         {
             using (var ctx = new Connexion420())
