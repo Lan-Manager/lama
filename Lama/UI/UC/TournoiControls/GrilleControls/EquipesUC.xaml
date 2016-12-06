@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Lama.UI.UC.TournoiControls.GrilleControls"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 
@@ -12,7 +13,7 @@
 
         <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
             <Setter Property="FontSize" Value="11" />
-        </Style>        
+        </Style>
 
         <Style TargetType="Label" x:Key="equipe" BasedOn="{StaticResource {x:Type Label}}">
             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -36,6 +37,37 @@
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="Background" Value="Transparent" />
             <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Controls:MetroWindow}}, Path=Utilisateur.EstConnecte}" Value="False">
+                    <Setter Property="IsEnabled" Value="False" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="RadioButton">
+                                <Grid x:Name="Grid">
+                                    <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}"/>
+                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsKeyboardFocused" Value="true">
+                                        <Setter Property="BorderBrush" Value="{DynamicResource DefaultedBorderBrush}" TargetName="Border"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" Value="{DynamicResource MouseOverBrush}" TargetName="Border"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="true">
+                                        <Setter Property="Background" Value="{DynamicResource PressedBrush}" TargetName="Border"/>
+                                        <Setter Property="BorderBrush" Value="{DynamicResource PressedBorderBrush}" TargetName="Border"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="true"/>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter Property="Background" Value="{DynamicResource DisabledBackgroundBrush}" TargetName="Border"/>
+                                        <Setter Property="BorderBrush" Value="{DynamicResource DisabledBorderBrush}" TargetName="Border"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource DisabledForegroundBrush}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
                 <Trigger Property="IsChecked" Value="True">
                     <Setter Property="BorderBrush" Value="Transparent" />
                     <Setter Property="Background" Value="Transparent" />
@@ -71,7 +103,7 @@
                 </WrapPanel.Style>
             </WrapPanel>
         </ItemsPanelTemplate>
-        
+
     </UserControl.Resources>
 
     <ItemsControl ItemsSource="{Binding LstEquipes}" ItemsPanel="{StaticResource wp}">
@@ -98,9 +130,9 @@
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        
+
                                         <Label Foreground="{StaticResource IdealForegroundDisabledBrush}" Content="{Binding Value}" ToolTip="{Binding Key}" />
-                                        
+
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -112,12 +144,12 @@
                             <ItemsControl ItemsSource="{Binding LstStats.Stats}" PreviewTextInput="DataGrid_PreviewTextInput" DataObject.Pasting="DataGrid_Pasting" DataContext="{Binding}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        
+
                                         <UniformGrid Columns="2" HorizontalAlignment="Center" Width="160">
                                             <Label Foreground="{StaticResource IdealForegroundDisabledBrush}" FontSize="9" Content="{Binding Key}" />
                                             <local:CustomNumericUpDown BorderThickness="0" Value="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" FontSize="9" Minimum="0" Background="Transparent" Stat="{Binding Key}" Equipe="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}, Path=DataContext.Equipe.Nom}" ValueChanged="CustomNumericUpDown_ValueChanged" />
                                         </UniformGrid>
-                                        
+
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
