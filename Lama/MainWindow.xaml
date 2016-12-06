@@ -46,11 +46,58 @@
             </Style.Triggers>
         </Style>
 
+        <Style x:Key="lblTooltip" TargetType="Label">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding EstElimine}" Value="true">
+                    <Setter Property="Foreground" Value="Red" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
     </Window.Resources>
     <Grid Name="gTournoi">
         <Grid.Background>
             <ImageBrush Opacity="0.03" Stretch="None" ImageSource="Resources/lama.png"/>
         </Grid.Background>
+
+        <Label VerticalAlignment="Top"  HorizontalAlignment="Right" Margin="0 65 150 0 " Width="65" Height="65">
+            <Label.Content>
+                <Rectangle Width="30" Height="30">
+                    <Rectangle.Fill>
+                        <VisualBrush Visual="{StaticResource appbar_group}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Label.Content>
+            <Label.ToolTip>
+                <StackPanel>
+                    <Label Content="Équipes" />
+                    <ItemsControl ItemsSource="{Binding TournoiEnCours.LstEquipes}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+
+                                <StackPanel Margin="10">
+                                    <Label Style="{StaticResource lblTooltip}" Foreground="{StaticResource IdealForegroundDisabledBrush}" Content="{Binding Nom}" />                                    
+                                    <ItemsControl ItemsSource="{Binding TournoiEnCours.LstJoueurs}">
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel />
+                                        </ItemsPanelTemplate>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+
+                                                <Label Style="{StaticResource lblTooltip}" Foreground="{StaticResource IdealForegroundDisabledBrush}" Content="{Binding Nom}" FontSize="9" />
+
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Label.ToolTip>
+
+        </Label>
 
         <Button Name="btnNotification" VerticalAlignment="Top"  HorizontalAlignment="Right" Margin="0 50 100 0 " Click="btnNotification_Click" Width="65" Height="65" IsEnabled="False" Visibility="Hidden">
             <Button.ContextMenu>
