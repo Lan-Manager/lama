@@ -11,6 +11,7 @@ using Lama.UI.Model;
 using System.Threading.Tasks;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using Lama.UI.Win;
 
 namespace Lama.UI.UC.LocauxControls
 {
@@ -279,32 +280,10 @@ namespace Lama.UI.UC.LocauxControls
         /// Méthode affichant le dialogue pour entrer un commentaire.
         /// </summary>
         /// <param name="p">Le poste auquel on doit ajouter un commentaire.</param>
-        public async void AjouterCommentaire(Poste p)
+        public void AjouterCommentaire(Poste p)
         {
-            // On va chercher la fenêtre parent (MainWindow dans ce cas-ci) avec la référence du contrôle (this).
-            MetroWindow parent = Window.GetWindow(this) as MetroWindow;
-            var metroWindow = parent;
-
-            // On donne le thème général de l'application à la fenêtre de saisi
-            metroWindow.MetroDialogOptions.ColorScheme = MetroDialogColorScheme.Theme;
-
-            // Si le commentaire n'est pas nul, on l'affiche dans la boîte de texte.
-            if (p.Commentaire != null)
-            {
-                metroWindow.MetroDialogOptions.DefaultText = p.Commentaire;
-            }
-            // On extrait le résultat.
-            string result = await metroWindow.ShowInputAsync("Commentaire", "", metroWindow.MetroDialogOptions);
-
-            // Si l'utilisateur n'a pas fait cancel.
-            if (string.IsNullOrWhiteSpace(p.Commentaire))
-            {
-                p.Commentaire = null;
-            }
-            else
-            {
-                p.Commentaire = result;
-            }
+            MetroWindow commentaireWin = new CommentaireWin((MainWindow)Application.Current.MainWindow, p);
+            commentaireWin.Show();
         }
         /// <summary>
         /// Handler spécifique au locaux.
