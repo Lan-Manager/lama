@@ -30,6 +30,7 @@ namespace Lama.UI.Win
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
             Poste = p;
+
             txbCommentaire.Text = Poste.Commentaire;
         }
         private void MetroWindow_MouseDown(object sender, MouseButtonEventArgs e)
@@ -55,7 +56,14 @@ namespace Lama.UI.Win
         /// <param name="e"></param>
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            Poste.Commentaire = txbCommentaire.Text;
+            if (string.IsNullOrWhiteSpace(txbCommentaire.Text))
+            {
+                Poste.Commentaire = null;
+            }
+            else
+            {
+                Poste.Commentaire = txbCommentaire.Text;
+            }
             this.Close();
         }
     }
