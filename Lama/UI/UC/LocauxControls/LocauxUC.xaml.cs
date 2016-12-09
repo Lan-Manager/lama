@@ -210,8 +210,9 @@ namespace Lama.UI.UC.LocauxControls
                 nb -= 1;
             }
 
-            double nbJoueurParLocal = nbJoueur / nb;
-            int nbEquipe = nbJoueur / 5;
+            MainWindow parent = (MainWindow)Application.Current.MainWindow;
+            int nbEquipe = parent.TournoiEnCours.LstEquipes.Count;
+            double nbJoueurParLocal = nbEquipe * 5 / nb;
 
             if (LstLocaux.Count != nbEquipe) // Il n'y a pas de local pour chaque équipe
             {

@@ -322,6 +322,7 @@ namespace Lama
             {
                 TournoiEnCours = creerTournoiWindow.LeTournoi;
             }
+            
         }
 
         private void btnModifierTournoi_Click(object sender, RoutedEventArgs e)
