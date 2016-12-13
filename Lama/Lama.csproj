@@ -176,6 +176,9 @@
     <Compile Include="UI\Win\CreerTournoiWindow.xaml.cs">
       <DependentUpon>CreerTournoiWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Win\GuideUtilisateur.xaml.cs">
+      <DependentUpon>GuideUtilisateur.xaml</DependentUpon>
+    </Compile>
     <Page Include="example\UtilisationEntity.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -344,6 +347,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Win\GuideUtilisateur.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -370,6 +377,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <EmbeddedResource Include="Resources\guide_utilisateur.pdf" />
     <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>

@@ -98,7 +98,39 @@
             </Label.ToolTip>
 
         </Label>
-
+        <Button Name="btnGuide" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 50 250 0" Click="btnGuide_Click" Width="65" Height="65">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MetroCircleButtonStyle}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <Rectangle Name="rcNotification" Width="30" Height="30">
+                                <Rectangle.Style>
+                                    <Style TargetType="Rectangle">
+                                        <Setter Property="Fill">
+                                            <Setter.Value>
+                                                <VisualBrush Visual="{StaticResource appbar_question}"></VisualBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="Rectangle.IsMouseOver" Value="True">
+                                                <Setter Property="Cursor" Value="Hand"></Setter>
+                                                <Setter Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect ShadowDepth="0" Color="Cyan" Opacity="1" BlurRadius="20"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Rectangle.Style>
+                            </Rectangle>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
         <Button Name="btnNotification" VerticalAlignment="Top"  HorizontalAlignment="Right" Margin="0 50 100 0 " Click="btnNotification_Click" Width="65" Height="65" IsEnabled="False" Visibility="Hidden">
             <Button.ContextMenu>
                 <ContextMenu>

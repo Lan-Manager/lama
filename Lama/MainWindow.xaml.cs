@@ -363,5 +363,11 @@ namespace Lama
             cm.IsOpen = true;
             e.Handled = true;
         }
+
+        private void btnGuide_Click(object sender, RoutedEventArgs e)
+        {
+            MetroWindow guide = new GuideUtilisateur();
+            guide.Show();
+        }
     }
 }
