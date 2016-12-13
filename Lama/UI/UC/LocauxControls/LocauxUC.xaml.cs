@@ -145,6 +145,7 @@ namespace Lama.UI.UC.LocauxControls
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         // La fenêtre parent (MainWindow)
         public MainWindow ParentWindow { get; set; }
+
         public LocauxUC()
         {
             LstLocaux = new ObservableCollection<Local>();
@@ -152,7 +153,7 @@ namespace Lama.UI.UC.LocauxControls
             LstVolontaires_Assignable.Add(new Volontaire()); // On ajoute une entrée vide à la liste.
             LstVolontaires_DernierModificateur = new ObservableCollection<Volontaire>();
 
-            MainWindow ParentWindow = (MainWindow)Application.Current.MainWindow;
+            ParentWindow = (MainWindow)Application.Current.MainWindow;
             LstLocaux = ParentWindow.TournoiEnCours.LstLocaux;
             LstVolontaires_DernierModificateur = ParentWindow.TournoiEnCours.LstVolontaires;
             // On ajoute la liste de volontaire à la liste contenant une entrée vide.
@@ -161,18 +162,18 @@ namespace Lama.UI.UC.LocauxControls
                 LstVolontaires_Assignable.Add(v);
             }
 
+
+            // S'il y a une liste de joueurs associés au tournoi.
+            if (ParentWindow.TournoiEnCours.LstEquipes != null)
+            {
+                int nbJoueur = ParentWindow.TournoiEnCours.LstJoueurs.Count;
+                DistributionJoueurLocaux();
+            }
             // On subscribe les events de propriétés changeantes et on calcul les états de départ.
             foreach (Local l in LstLocaux)
             {
                 l.PropertyChanged += Local_PropertyChanged;
                 l.CalculerEtatDepart(); // À la fin du chargement on calcule les états initiaux.
-
-            }
-            // S'il y a une liste de joueurs associés au tournoi.
-            if (ParentWindow.TournoiEnCours.LstJoueurs != null)
-            {
-                int nbJoueur = ParentWindow.TournoiEnCours.LstJoueurs.Count;
-                DistributionJoueurLocaux(nbJoueur);
             }
             CalculerEtat();
 
@@ -200,8 +201,7 @@ namespace Lama.UI.UC.LocauxControls
         /// <summary>
         /// Méthode qui distribue le nombre de joueurs entre les locaux disponibles.
         /// </summary>
-        /// <param name="nbJoueur">Le nombre de joueurs participant au tournoi.</param>
-        private void DistributionJoueurLocaux(int nbJoueur)
+        private void DistributionJoueurLocaux()
         {
             double nb = LstLocaux.Count;
 
@@ -210,8 +210,8 @@ namespace Lama.UI.UC.LocauxControls
                 nb -= 1;
             }
 
-            MainWindow parent = (MainWindow)Application.Current.MainWindow;
-            int nbEquipe = parent.TournoiEnCours.LstEquipes.Count;
+            
+            int nbEquipe = ParentWindow.TournoiEnCours.LstEquipes.Count;
             double nbJoueurParLocal = nbEquipe * 5 / nb;
 
             if (LstLocaux.Count != nbEquipe) // Il n'y a pas de local pour chaque équipe

@@ -32,8 +32,19 @@ namespace Lama.UI.UC.Creation
             InitializeComponent();
 
             LstLocaux = ChargerLocaux();
-
+            ReinitialiserEtatPoste();
             dgLocaux.ItemsSource = LstLocaux;
+        }
+
+        void ReinitialiserEtatPoste()
+        {
+            foreach (var l in LstLocaux)
+            {
+                l.EstPret = false;
+                foreach (var p in l.LstPoste)
+                    p.Etat = "Non requis";
+            }
+                
         }
 
         // ajouter le local
