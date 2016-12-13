@@ -170,8 +170,14 @@
     <Compile Include="UI\Win\AuthentificationWin.xaml.cs">
       <DependentUpon>AuthentificationWin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\Win\CommentaireWin.xaml.cs">
+      <DependentUpon>CommentaireWin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Win\CreerTournoiWindow.xaml.cs">
       <DependentUpon>CreerTournoiWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Win\GuideUtilisateur.xaml.cs">
+      <DependentUpon>GuideUtilisateur.xaml</DependentUpon>
     </Compile>
     <Page Include="example\UtilisationEntity.xaml">
       <SubType>Designer</SubType>
@@ -333,7 +339,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UI\Win\CommentaireWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\Win\CreerTournoiWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Win\GuideUtilisateur.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -363,6 +377,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <EmbeddedResource Include="Resources\guide_utilisateur.pdf" />
     <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>

@@ -322,6 +322,7 @@ namespace Lama
             {
                 TournoiEnCours = creerTournoiWindow.LeTournoi;
             }
+            
         }
 
         private void btnModifierTournoi_Click(object sender, RoutedEventArgs e)
@@ -361,6 +362,12 @@ namespace Lama
             cm.PlacementTarget = b;
             cm.IsOpen = true;
             e.Handled = true;
+        }
+
+        private void btnGuide_Click(object sender, RoutedEventArgs e)
+        {
+            MetroWindow guide = new GuideUtilisateur();
+            guide.Show();
         }
     }
 }

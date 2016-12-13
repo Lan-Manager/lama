@@ -11,6 +11,7 @@ using Lama.UI.Model;
 using System.Threading.Tasks;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using Lama.UI.Win;
 
 namespace Lama.UI.UC.LocauxControls
 {
@@ -144,6 +145,7 @@ namespace Lama.UI.UC.LocauxControls
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         // La fenêtre parent (MainWindow)
         public MainWindow ParentWindow { get; set; }
+
         public LocauxUC()
         {
             LstLocaux = new ObservableCollection<Local>();
@@ -151,7 +153,7 @@ namespace Lama.UI.UC.LocauxControls
             LstVolontaires_Assignable.Add(new Volontaire()); // On ajoute une entrée vide à la liste.
             LstVolontaires_DernierModificateur = new ObservableCollection<Volontaire>();
 
-            MainWindow ParentWindow = (MainWindow)Application.Current.MainWindow;
+            ParentWindow = (MainWindow)Application.Current.MainWindow;
             LstLocaux = ParentWindow.TournoiEnCours.LstLocaux;
             LstVolontaires_DernierModificateur = ParentWindow.TournoiEnCours.LstVolontaires;
             // On ajoute la liste de volontaire à la liste contenant une entrée vide.
@@ -160,18 +162,18 @@ namespace Lama.UI.UC.LocauxControls
                 LstVolontaires_Assignable.Add(v);
             }
 
+
+            // S'il y a une liste de joueurs associés au tournoi.
+            if (ParentWindow.TournoiEnCours.LstEquipes != null)
+            {
+                int nbJoueur = ParentWindow.TournoiEnCours.LstJoueurs.Count;
+                DistributionJoueurLocaux();
+            }
             // On subscribe les events de propriétés changeantes et on calcul les états de départ.
             foreach (Local l in LstLocaux)
             {
                 l.PropertyChanged += Local_PropertyChanged;
                 l.CalculerEtatDepart(); // À la fin du chargement on calcule les états initiaux.
-
-            }
-            // S'il y a une liste de joueurs associés au tournoi.
-            if (ParentWindow.TournoiEnCours.LstJoueurs != null)
-            {
-                int nbJoueur = ParentWindow.TournoiEnCours.LstJoueurs.Count;
-                DistributionJoueurLocaux(nbJoueur);
             }
             CalculerEtat();
 
@@ -199,8 +201,7 @@ namespace Lama.UI.UC.LocauxControls
         /// <summary>
         /// Méthode qui distribue le nombre de joueurs entre les locaux disponibles.
         /// </summary>
-        /// <param name="nbJoueur">Le nombre de joueurs participant au tournoi.</param>
-        private void DistributionJoueurLocaux(int nbJoueur)
+        private void DistributionJoueurLocaux()
         {
             double nb = LstLocaux.Count;
 
@@ -209,8 +210,9 @@ namespace Lama.UI.UC.LocauxControls
                 nb -= 1;
             }
 
-            double nbJoueurParLocal = nbJoueur / nb;
-            int nbEquipe = nbJoueur / 5;
+            
+            int nbEquipe = ParentWindow.TournoiEnCours.LstEquipes.Count;
+            double nbJoueurParLocal = nbEquipe * 5 / nb;
 
             if (LstLocaux.Count != nbEquipe) // Il n'y a pas de local pour chaque équipe
             {
@@ -279,32 +281,10 @@ namespace Lama.UI.UC.LocauxControls
         /// Méthode affichant le dialogue pour entrer un commentaire.
         /// </summary>
         /// <param name="p">Le poste auquel on doit ajouter un commentaire.</param>
-        public async void AjouterCommentaire(Poste p)
+        public void AjouterCommentaire(Poste p)
         {
-            // On va chercher la fenêtre parent (MainWindow dans ce cas-ci) avec la référence du contrôle (this).
-            MetroWindow parent = Window.GetWindow(this) as MetroWindow;
-            var metroWindow = parent;
-
-            // On donne le thème général de l'application à la fenêtre de saisi
-            metroWindow.MetroDialogOptions.ColorScheme = MetroDialogColorScheme.Theme;
-
-            // Si le commentaire n'est pas nul, on l'affiche dans la boîte de texte.
-            if (p.Commentaire != null)
-            {
-                metroWindow.MetroDialogOptions.DefaultText = p.Commentaire;
-            }
-            // On extrait le résultat.
-            string result = await metroWindow.ShowInputAsync("Commentaire", "", metroWindow.MetroDialogOptions);
-
-            // Si l'utilisateur n'a pas fait cancel.
-            if (string.IsNullOrWhiteSpace(p.Commentaire))
-            {
-                p.Commentaire = null;
-            }
-            else
-            {
-                p.Commentaire = result;
-            }
+            MetroWindow commentaireWin = new CommentaireWin((MainWindow)Application.Current.MainWindow, p);
+            commentaireWin.Show();
         }
         /// <summary>
         /// Handler spécifique au locaux.
