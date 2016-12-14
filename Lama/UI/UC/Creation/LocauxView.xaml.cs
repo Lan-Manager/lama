@@ -33,9 +33,20 @@ namespace Lama.UI.UC.Creation
 
             // Chargement des locaux
             LstLocaux = ChargerLocaux();
-
+            ReinitialiserEtatPoste();
             // Mettre les locaux dans la datagrid
             dgLocaux.ItemsSource = LstLocaux;
+        }
+
+        private void ReinitialiserEtatPoste()
+        {
+            foreach(var l in LstLocaux)
+            {
+                l.EstPret = false;
+                foreach (var p in l.LstPoste)
+                    p.Etat = "Non requis";
+            }
+
         }
 
         /// <summary>
