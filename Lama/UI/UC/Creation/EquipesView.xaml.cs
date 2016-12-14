@@ -23,6 +23,9 @@ namespace Lama.UI.UC.Creation
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Méthode pour ajouter une équipe lorsque l'on clique sur le bouton
+        /// </summary>
         private void btnAddEquipe_Click(object sender, RoutedEventArgs e)
         {
             // Aucun contenu
@@ -40,6 +43,9 @@ namespace Lama.UI.UC.Creation
             }
         }
 
+        /// <summary>
+        /// Méthode pour ouvrir la fenêtre d'association des joueurs à une équipe
+        /// </summary>
         private void miAssocier_Click(object sender, RoutedEventArgs e)
         {
             // Le sender est le menu item
@@ -54,12 +60,19 @@ namespace Lama.UI.UC.Creation
             // Trouver l'équipe sélectionnée
             Equipe equipe = dg.SelectedItem as Equipe;
 
+            // Construire la fenêtre
+            // On lui passe une liste de joueurs n'ayant pas encore d'équipe OU qui sont dans l'équipe de la fenêtre
             AssocierJoueursEquipe aje = new AssocierJoueursEquipe(equipe, new ObservableCollection<Joueur>(((Tournoi)DataContext).LstJoueurs.Where(x => x.EquipeJoueur == null || x.EquipeJoueur == equipe)));
 
             aje.ShowDialog();
+
+            // On refresh les items de l'équipe
             dgEquipes.Items.Refresh();
         }
 
+        /// <summary>
+        /// Méthode pour supprimer 1 équipe
+        /// </summary>
         private void miSupprimer_Click(object sender, RoutedEventArgs e)
         {
             // Le sender est le menu item
@@ -74,14 +87,19 @@ namespace Lama.UI.UC.Creation
             // On peut ainsi aller chercher l'équipe à supprimer à partir de la datagrid (le SelectedItem)
             Equipe eq = dg.SelectedItem as Equipe;
 
-            // Supprimer l'objet Equipe
+            // Supprimer le lien des joueurs associés à cette équipe
             foreach (Joueur j in ((Tournoi)DataContext).LstJoueurs.Where(x => x.EquipeJoueur == eq))
             {
                 j.EquipeJoueur = null;
             }
+
+            // Supprimer l'équipe
             ((Tournoi)DataContext).LstEquipes.Remove(eq);
         }
 
+        /// <summary>
+        /// Méthode servant à vérifier s'il y a une équipe de sélectionnée. Sinon, on affiche pas le context menu.
+        /// </summary>
         private void dgEquipes_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
             if ((sender as DataGrid).SelectedIndex == -1)

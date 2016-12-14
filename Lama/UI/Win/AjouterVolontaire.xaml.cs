@@ -27,6 +27,10 @@ namespace Lama.UI.Win
         private readonly List<Volontaire> volontaires;
         private StringBuilder Erreurs { get; set; }
 
+        /// <summary>
+        /// Constructeur pour créer un volontaire
+        /// </summary>
+        /// <param name="volontaires">Liste des autres volontaires</param>
         public AjouterVolontaire(List<Volontaire> volontaires)
         {
             // Liste des volontaires (pour tester les champs uniques)
@@ -34,6 +38,7 @@ namespace Lama.UI.Win
 
             InitializeComponent();
 
+            // Modifier le titre
             lblTitre.Content = "Nouveau volontaire";
 
             VolontaireTemp = new Volontaire(null, null, null, null, null);
@@ -41,7 +46,11 @@ namespace Lama.UI.Win
             DataContext = VolontaireTemp;
         }
 
-
+        /// <summary>
+        /// Constructeur pour modifier un volontaire
+        /// </summary>
+        /// <param name="v">Volontaire à modifier</param>
+        /// <param name="volontaires">Liste des autres volontaires</param>
         public AjouterVolontaire(Volontaire v, List<Volontaire> volontaires)
         {
             // Liste des volontaires (pour tester les champs uniques)
@@ -71,6 +80,9 @@ namespace Lama.UI.Win
             DataContext = VolontaireTemp;
         }
 
+        /// <summary>
+        /// Méthode pour enregistrer le volontaire
+        /// </summary>
         private void btnEnregistrer_Click(object sender, RoutedEventArgs e)
         {
             // Effectuer les validations
@@ -105,6 +117,10 @@ namespace Lama.UI.Win
             }
         }
 
+        /// <summary>
+        /// Méthode servant à valider les champs
+        /// </summary>
+        /// <returns>Retourne si oui ou non les champs sont valides</returns>
         private bool ValiderChamps()
         {
             Erreurs = new StringBuilder();

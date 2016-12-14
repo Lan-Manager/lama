@@ -20,6 +20,10 @@ namespace Lama.UI.UC.Creation
             dtpDateTournoi.DisplayDateStart = DateTime.Now;
         }
 
+        /// <summary>
+        /// Méthode servant à vérifier si le nom du tournoi est valide lorsque le champ du nom perd le focus.
+        /// Si le champ n'est pas valide, on remet le focus sur le champ du nom.
+        /// </summary>
         private void txtNomTournoi_LostFocus(object sender, RoutedEventArgs e)
         {
             if (String.IsNullOrWhiteSpace(((TextBox)sender).Text))

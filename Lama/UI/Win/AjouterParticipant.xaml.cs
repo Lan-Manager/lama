@@ -26,12 +26,16 @@ namespace Lama.UI.Win
         private StringBuilder Erreurs { get; set; }
         private readonly List<Joueur> joueurs;
 
-        // Ajouter un participant
+        /// <summary>
+        /// Constructeur pour ajouter un participant
+        /// </summary>
+        /// <param name="joueurs">Liste des autres joueurs</param>
         public AjouterParticipant(List<Joueur> joueurs)
         {
             this.joueurs = joueurs;
             InitializeComponent();
 
+            // Modifier le titre
             lblTitre.Content = "Nouveau participant";
 
             JoueurTemp = new Joueur(null, null, null, null);
@@ -39,12 +43,17 @@ namespace Lama.UI.Win
             DataContext = JoueurTemp;
         }
 
-        // Modifier un participant
+        /// <summary>
+        /// Constructeur pour modifier un participant
+        /// </summary>
+        /// <param name="j">Le joueur à modifier</param>
+        /// <param name="joueurs">Liste des autres joueurs</param>
         public AjouterParticipant(Joueur j, List<Joueur> joueurs)
         {
             this.joueurs = joueurs;
             InitializeComponent();
 
+            // Modifier le titre
             lblTitre.Content = "Modifier un participant";
 
             JoueurTemp = new Joueur(j.Matricule, j.Prenom, j.Nom, j.Usager);
@@ -52,6 +61,9 @@ namespace Lama.UI.Win
             DataContext = JoueurTemp;
         }
 
+        /// <summary>
+        /// Méthode servant à enregistrer le participant
+        /// </summary>
         private void btnEnregistrer_Click(object sender, RoutedEventArgs e)
         {
             // Effectuer les validations
@@ -85,6 +97,10 @@ namespace Lama.UI.Win
             }
         }
 
+        /// <summary>
+        /// Méthode servant à valider les champs
+        /// </summary>
+        /// <returns>Retourne si oui ou non les champs sont valides.</returns>
         private bool ValiderChamps()
         {
             Erreurs = new StringBuilder();

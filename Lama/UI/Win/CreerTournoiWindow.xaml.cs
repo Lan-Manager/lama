@@ -28,8 +28,8 @@ namespace Lama.UI.Win
     public partial class CreerTournoiWindow : MetroWindow
     {
         #region Propriétés
-        const int NB_EQUIPES_REQUIS = 2;
-        const int NB_JOUEURS_REQUIS = 5;
+        const int NB_EQUIPES_REQUIS = 2;    // Nombre d'équipes requis
+        const int NB_JOUEURS_REQUIS = 5;    // Nombre de joueurs requis par équipe
 
         private StringBuilder Erreurs { get; set; }
         private int Index { get; set; }
@@ -73,9 +73,16 @@ namespace Lama.UI.Win
             btnPrecedent.IsEnabled = false;            
         }
 
+        /// <summary>
+        /// Constructeur pour modifier le tournoi
+        /// </summary>
+        /// <param name="tournoiEnCours"></param>
         public CreerTournoiWindow(Tournoi tournoiEnCours)
         {
             InitializeComponent();
+
+            // Modifier le titre
+            Title = "Modification de tournoi";
 
             // Initialiser le tournoi
             temp = new Tournoi(tournoiEnCours);
@@ -190,17 +197,23 @@ namespace Lama.UI.Win
         }
         #endregion
 
+        /// <summary>
+        /// Méthode servant à valider le tournoi
+        /// </summary>
+        /// <returns>Retourne si oui ou non le tournoi est valide</returns>
         private bool ValiderChamps()
         {
             Erreurs = new StringBuilder();
             bool valide = true;
 
+            // Afficher si le tournoi a moins d'équipes que le nombre min requis
             if (temp.LstEquipes.Count < NB_EQUIPES_REQUIS)
             {
                 valide = false;
                 Erreurs.AppendLine($"- Vous devez avoir un minimum de {NB_EQUIPES_REQUIS} équipes.");
             }
 
+            // Afficher les équipes qui ont moins de joueurs que le nb requis de joueurs
             foreach (Equipe e in temp.LstEquipes)
             {
                 if (e.LstJoueurs.Count < NB_JOUEURS_REQUIS)

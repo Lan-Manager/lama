@@ -22,11 +22,16 @@ namespace Lama.UI.Win
     /// </summary>
     public partial class AssocierJoueursEquipe : MetroWindow
     {
-        const int NB_JOUEURS = 5;
+        const int NB_JOUEURS = 5;   // Nombre de joueurs requis dans une équipe
         public Equipe LEquipe { get; set; }
         public ObservableCollection<Joueur> LstJoueursRestant { get; set; }
         private ObservableCollection<Joueur> LstTemp { get; set; }
 
+        /// <summary>
+        /// Constructeur
+        /// </summary>
+        /// <param name="e">Équipe à qui l'on veut associer les joueurs</param>
+        /// <param name="lj">Liste des joueurs que l'on veut associer</param>
         public AssocierJoueursEquipe(Equipe e, ObservableCollection<Joueur> lj)
         {
             LstJoueursRestant = lj;
@@ -43,7 +48,9 @@ namespace Lama.UI.Win
         }
 
         #region Events
-        // ajouter le participant à l'équipe
+        /// <summary>
+        /// Méthode servant à ajouter un joueur à une équipe
+        /// </summary>
         void OnChecked(object sender, RoutedEventArgs e)
         {
             DataGridCell dgc = sender as DataGridCell;
@@ -52,13 +59,16 @@ namespace Lama.UI.Win
             (dgc.DataContext as Joueur).EquipeJoueur = LEquipe;
             lblNbJoueurs.Content = LstTemp.Count.ToString();
 
+            // Empêcher le check s'il y a déjà 5 joueurs dans l'équipe
             if (LstTemp.Count > NB_JOUEURS)
             {
                 (e.OriginalSource as CheckBox).IsChecked = false;
             }
         }
 
-        // enlever le participant à l'équipe
+        /// <summary>
+        /// Méthode servant à enlever un joueur dans une équipe
+        /// </summary>
         void OnUnchecked(object sender, RoutedEventArgs e)
         {
             DataGridCell dgc = sender as DataGridCell;
@@ -69,6 +79,9 @@ namespace Lama.UI.Win
             lblNbJoueurs.Content = LstTemp.Count.ToString();
         }
 
+        /// <summary>
+        /// Méthode servant à enregistrer les modifications
+        /// </summary>
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult mbr = MessageBox.Show("Êtes-vous certain de vouloir enregistrer les changements?",
@@ -77,6 +90,7 @@ namespace Lama.UI.Win
                                                    MessageBoxImage.Question,
                                                    MessageBoxResult.No);
 
+            // Si l'utilisateur répond oui...
             if (mbr == MessageBoxResult.Yes)
             {
                 LEquipe.LstJoueurs = LstTemp;
@@ -84,8 +98,12 @@ namespace Lama.UI.Win
             }
         }
 
+        /// <summary>
+        /// Méthode servant à annuler les modifications
+        /// </summary>
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
+            // On parcourt la liste de joueurs pour enlever leur lien avec l'équipe courante
             foreach (Joueur j in LstJoueursRestant)
             {
                 if (LEquipe.LstJoueurs.Contains(j))
