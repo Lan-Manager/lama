@@ -21,6 +21,8 @@ namespace Lama.UI.UC.Creation
         public ParticipantsView()
         {
             InitializeComponent();
+
+            btnImportParticipants.ToolTip = "Utilisez le format suivant : Matricule;Prénom;Nom;Usager";
         }
 
         private void dgJoueurs_ContextMenuOpening(object sender, ContextMenuEventArgs e)
