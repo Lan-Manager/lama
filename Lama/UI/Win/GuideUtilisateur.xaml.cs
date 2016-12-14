@@ -24,7 +24,7 @@ namespace Lama.UI.Win
         {
 
 
-            string fullpath = System.IO.Path.GetFullPath(@"\lama\Lama\Resources\guide_utilisateur.pdf");
+            string fullpath = System.IO.Path.GetFullPath("guide_utilisateur.pdf");
             
             InitializeComponent();
             System.Windows.Controls.WebBrowser browser = new System.Windows.Controls.WebBrowser();
