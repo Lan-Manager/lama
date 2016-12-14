@@ -32,12 +32,16 @@ namespace Lama.UI.UC.Creation
         {
             InitializeComponent();
 
+            // Méthode servant à charger les volontaires
             LstVolontaires = ChargerVolontaires();
 
+            // Associer les volontaires à la datagrid
             dgVolontaires.ItemsSource = LstVolontaires;
         }
 
-        // ajouter le volontaire
+        /// <summary>
+        /// Méthode servant à ajouter le volontaire à la liste du tournoi
+        /// </summary>
         void OnChecked(object sender, RoutedEventArgs e)
         {
             DataGridCell dgc = sender as DataGridCell;
@@ -45,7 +49,9 @@ namespace Lama.UI.UC.Creation
             ((Tournoi)DataContext).LstVolontaires.Add(dgc.DataContext as Volontaire);
         }
 
-        // enlever le volontaire
+        /// <summary>
+        /// Méthode servant à enlever le volontaire à la liste du tournoi
+        /// </summary>
         void OnUnchecked(object sender, RoutedEventArgs e)
         {
             DataGridCell dgc = sender as DataGridCell;
@@ -53,6 +59,10 @@ namespace Lama.UI.UC.Creation
             ((Tournoi)DataContext).LstVolontaires.Remove(dgc.DataContext as Volontaire);
         }
 
+        /// <summary>
+        /// Méthode servant à charger les volontaires dans la BD
+        /// </summary>
+        /// <returns>Retourne une observable collection contenant les volontaires.</returns>
         private ObservableCollection<Volontaire> ChargerVolontaires()
         {
             var task = CompteHelper.SelectAllAdminAsync(false);
@@ -70,6 +80,9 @@ namespace Lama.UI.UC.Creation
             return lstTemp;
         }
 
+        /// <summary>
+        /// Méthode servant à fermer le context menu s'il n'y a aucune ligne de sélectionné.
+        /// </summary>
         private void dgVolontaires_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
             DataGrid dg = sender as DataGrid;
@@ -80,6 +93,9 @@ namespace Lama.UI.UC.Creation
             }
         }
 
+        /// <summary>
+        /// Méthode servant à ouvrir la fenêtre de modification d'un volontaire
+        /// </summary>
         private void miModifier_Click(object sender, RoutedEventArgs e)
         {
             // Le sender est le menu item
@@ -94,10 +110,12 @@ namespace Lama.UI.UC.Creation
             // On va chercher le volontaire
             Volontaire v = dg.SelectedItem as Volontaire;
 
+            // Le deuxième paramètre sert à passer une liste de volontaire (sauf le volontaire concerné) pour tester l'unicité des champs
             AjouterVolontaire av = new AjouterVolontaire(v, LstVolontaires.Where(x => x != v).ToList());
 
             av.ShowDialog();
 
+            // Si on décide de l'enregistrer...
             if (av.LeVolontaire != null)
             {
                 // Trouver l'index de v
@@ -116,10 +134,14 @@ namespace Lama.UI.UC.Creation
                     (DataContext as Tournoi).LstVolontaires[index] = av.LeVolontaire;
                 }
 
+                // Modifier le volontaire dans la BD
                 av.LeVolontaire.Update();
             }
         }
 
+        /// <summary>
+        /// Méthode servant à supprimer un volontaire dans la BD
+        /// </summary>
         private void miSupprimer_Click(object sender, RoutedEventArgs e)
         {
             // Le sender est le menu item
@@ -147,10 +169,14 @@ namespace Lama.UI.UC.Creation
                 // Supprimer le volontaire
                 LstVolontaires.Remove(v);
 
+                // Supprimer dans la BD
                 v.Delete();
             }
         }
 
+        /// <summary>
+        /// Méthode servant à ajouter un volontaire dans la BD
+        /// </summary>
         private void btnAddVolontaire_Click(object sender, RoutedEventArgs e)
         {
             AjouterVolontaire av = new AjouterVolontaire(LstVolontaires.ToList());

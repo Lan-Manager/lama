@@ -31,29 +31,44 @@ namespace Lama.UI.UC.Creation
         {
             InitializeComponent();
 
+            // Chargement des locaux
             LstLocaux = ChargerLocaux();
 
+            // Mettre les locaux dans la datagrid
             dgLocaux.ItemsSource = LstLocaux;
         }
 
-        // ajouter le local
+        /// <summary>
+        /// Lorsque l'on "check" la checkbox, on ajout le local associé à ce checkbox dans la liste des locaux du tournoi.
+        /// </summary>
         void OnChecked(object sender, RoutedEventArgs e)
         {
+            // On trouve la cell associé à la checkbox
             DataGridCell dgc = sender as DataGridCell;
 
+            // On ajout le local associé à la cell au tournoi
             ((Tournoi)DataContext).LstLocaux.Add(dgc.DataContext as Local);
         }
 
-        // enlever le local
+        /// <summary>
+        /// Lorsque l'on "uncheck" la checkbox, on enlève le local associé à ce checkbox dans la liste des locaux du tournoi.
+        /// </summary>
         void OnUnchecked(object sender, RoutedEventArgs e)
         {
+            // On trouve la cell associé à la checkbox
             DataGridCell dgc = sender as DataGridCell;
 
+            // On enlève le local associé à la cell au tournoi
             ((Tournoi)DataContext).LstLocaux.Remove(dgc.DataContext as Local);
         }
 
+        /// <summary>
+        /// Méthode servant à charger les locaux
+        /// </summary>
+        /// <returns>Retourne une observable collection contenant les locaux.</returns>
         private ObservableCollection<Local> ChargerLocaux()
         {
+            // Task pour charger les locaux
             var task = LocalHelper.SelectAllAsync();
             task.Wait();
 
